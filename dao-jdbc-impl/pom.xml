@@ -9,7 +9,7 @@
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>web</artifactId>
+	<artifactId>dao-jdbc-impl</artifactId>
         
 
 </project>
