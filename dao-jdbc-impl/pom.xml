@@ -10,6 +10,13 @@
 	</parent>
 
 	<artifactId>dao-jdbc-impl</artifactId>
-        
 
+	<dependencies>
+
+		<dependency>
+			<groupId>com.itacademy.jd2.pk.hop</groupId>
+			<artifactId>dao-api</artifactId>
+		</dependency>
+
+	</dependencies>
 </project>
