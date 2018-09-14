@@ -25,3 +25,7 @@ service/.gitignore
 
 
 
+/.metadata/
+dao-api/.settings/
+dao-jdbc-impl/.settings/
+service/.settings/
