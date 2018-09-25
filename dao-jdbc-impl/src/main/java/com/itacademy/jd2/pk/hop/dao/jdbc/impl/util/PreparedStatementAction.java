@@ -3,17 +3,17 @@ package com.itacademy.jd2.pk.hop.dao.jdbc.impl.util;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public abstract class PreparedStatemenAction<RETURN_TYPE> {
+public abstract class PreparedStatementAction<RETURN_TYPE> {
 
     private String sql;
 
     private boolean returnGeneratedKeys;
 
-    public PreparedStatemenAction(final String sql) {
+    public PreparedStatementAction(final String sql) {
         this(sql, false);
     }
 
-    public PreparedStatemenAction(final String sql, final boolean returnGeneratedKeys) {
+    public PreparedStatementAction(final String sql, final boolean returnGeneratedKeys) {
         super();
         this.sql = sql;
         this.returnGeneratedKeys = returnGeneratedKeys;

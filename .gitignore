@@ -29,3 +29,4 @@ service/.gitignore
 dao-api/.settings/
 dao-jdbc-impl/.settings/
 service/.settings/
+dao-api/.checkstyle
