@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 
-
-
 public class CountryServiceTest extends AbstractTestOrient {
 
 	@Test
 	public void testCreated() {
+
 		ICountry entity = saveNewCountry();
+
 		ICountry entityFromDb = countryService.get(entity.getId());
 
 		assertEquals(entity.getName(), entityFromDb.getName());
