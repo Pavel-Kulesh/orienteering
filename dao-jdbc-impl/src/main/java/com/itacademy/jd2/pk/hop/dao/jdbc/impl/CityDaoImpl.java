@@ -8,11 +8,14 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.ICityDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.City;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.SQLExecutionException;
 
+@Repository
 public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICityDao {
 
 	@Override

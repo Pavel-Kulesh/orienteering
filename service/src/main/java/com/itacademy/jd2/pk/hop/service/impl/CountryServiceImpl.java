@@ -3,14 +3,23 @@ package com.itacademy.jd2.pk.hop.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.itacademy.jd2.pk.hop.dao.api.ICountryDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
-import com.itacademy.jd2.pk.hop.dao.jdbc.impl.CountryDaoImpl;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 
+@Service
 public class CountryServiceImpl implements ICountryService {
 
-	private ICountryDao dao = new CountryDaoImpl();
+	private ICountryDao dao;
+
+	@Autowired
+	public CountryServiceImpl(ICountryDao dao) {
+		super();
+		this.dao = dao;
+	}
 
 	@Override
 	public ICountry get(Integer id) {

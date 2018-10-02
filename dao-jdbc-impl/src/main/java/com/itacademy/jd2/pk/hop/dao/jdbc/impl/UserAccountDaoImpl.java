@@ -5,12 +5,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.IUserAccountDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.UserAccount;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
+@Repository
 public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> implements IUserAccountDao {
 	// need override method delete( BY id)
 	// need override method deleteAll
@@ -82,15 +85,14 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 		// check password only or entity.setPassword;
 		entity.setPassword(resultSet.getString("password"));
 
-		String role = resultSet.getString("role");
-		Role[] listRole = Role.values();
+		entity.setRole(Role.valueOf(resultSet.getString("role")));
 
-		for (Role ob : listRole) {
-			if (role.equals(ob.name())) {
-				entity.setRole(ob);
-			}
-		}
-
+		/*
+		 * String role = resultSet.getString("role"); Role[] listRole = Role.values();
+		 * 
+		 * for (Role ob : listRole) { if (role.equals(ob.name())) { entity.setRole(ob);
+		 * } }
+		 */
 		return entity;
 	}
 

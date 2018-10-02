@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 
-public class CountryServiceTest extends AbstractTestOrient {
+public class CountryServiceTest extends AbstractTest {
 
 	@Test
 	public void testCreated() {

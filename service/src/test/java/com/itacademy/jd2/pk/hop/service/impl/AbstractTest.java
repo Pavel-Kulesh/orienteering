@@ -5,15 +5,20 @@ import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 
 import com.itacademy.jd2.pk.hop.service.ICountryService;
+@SpringJUnitConfig(locations="classpath:service-context.xml")
+public class AbstractTest {
+	@Autowired
+	protected ICountryService countryService;
 
-public class AbstractTestOrient {
-	protected ICountryService countryService = new CountryServiceImpl();
 	private static Random RANDOM = new Random();
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTestOrient.class);
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
 
 	@BeforeEach
 	public void setUpMethod() {

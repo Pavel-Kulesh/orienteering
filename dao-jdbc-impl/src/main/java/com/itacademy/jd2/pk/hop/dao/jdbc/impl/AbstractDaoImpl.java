@@ -1,6 +1,5 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,8 +10,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.springframework.beans.factory.annotation.Value;
 
 import com.itacademy.jd2.pk.hop.dao.api.IDao;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
@@ -21,32 +24,31 @@ import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.StatementAction;
 
 public abstract class AbstractDaoImpl<ENTITY, ID> implements IDao<ENTITY, ID> {
 
-	private static String url;
-	private static String user;
-	private static String password;
+	@Value("${jdbc.url}")
+	private String url;
+	@Value("${jdbc.user}")
 
-	static {
-		Properties props = new Properties();
-		try {
-			Class<AbstractDaoImpl> clazz = AbstractDaoImpl.class;
-			props.load(clazz.getClassLoader().getResourceAsStream("jdbc.properties"));
-			url = props.getProperty("url");
-			user = props.getProperty("user");
-			password = props.getProperty("password");
+	private String user;
+	@Value("${jdbc.password}")
+	private String password;
 
-			if (url == null) {
-				throw new IllegalAccessException("[url] cant be null");
-			}
+	@PreDestroy
+	public void beforeDestroy() {
 
-			if (password == null) {
-				throw new IllegalAccessException("[password] cant be null");
-			}
+	}
 
-			if (user == null) {
-				throw new IllegalAccessException("[user] cant be null");
-			}
-		} catch (IllegalAccessException | IOException e) {
-			e.printStackTrace();
+	@PostConstruct
+	private void init() {
+		if (url == null) {
+			throw new IllegalArgumentException("[url] cant be null");
+		}
+
+		if (password == null) {
+			throw new IllegalArgumentException("[password] cant be null");
+		}
+
+		if (user == null) {
+			throw new IllegalArgumentException("[user] cant be null");
 		}
 	}
 
