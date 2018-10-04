@@ -55,7 +55,7 @@ public class AbstractTest {
 	protected ICity saveNewCity() {
 		ICity entity = cityService.createEntity();
 		entity.setName("city-" + getRandomPrefix());
-		entity.setCountryId((Integer) getRandomObjaectCount());
+		// entity.setCountryId((Integer) getRandomObjaectCount());
 
 		cityService.save(entity);
 		return entity;
