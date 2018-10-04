@@ -13,7 +13,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 
-@SpringJUnitConfig(locations = "classpath:service-context.xml")
+@SpringJUnitConfig(locations = "classpath:service-context-test.xml")
 public class AbstractTest {
 	@Autowired
 	protected ICountryService countryService;
