@@ -8,13 +8,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
-
+import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
-@SpringJUnitConfig(locations="classpath:service-context.xml")
+
+@SpringJUnitConfig(locations = "classpath:service-context.xml")
 public class AbstractTest {
 	@Autowired
 	protected ICountryService countryService;
+	@Autowired
+	protected ICityService cityService;
 
 	private static Random RANDOM = new Random();
 
@@ -47,4 +51,14 @@ public class AbstractTest {
 		countryService.save(entity);
 		return entity;
 	}
+
+	protected ICity saveNewCity() {
+		ICity entity = cityService.createEntity();
+		entity.setName("city-" + getRandomPrefix());
+		entity.setCountryId((Integer) getRandomObjaectCount());
+
+		cityService.save(entity);
+		return entity;
+	}
+
 }
