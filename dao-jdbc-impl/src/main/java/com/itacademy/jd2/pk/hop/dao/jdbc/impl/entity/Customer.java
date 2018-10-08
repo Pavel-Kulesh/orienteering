@@ -1,8 +1,8 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.IUser;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 
-public class User extends BaseEntity implements IUser {
+public class Customer extends BaseEntity implements ICustomer {
 	private String name;
 	private String surname;
 	private String phone;

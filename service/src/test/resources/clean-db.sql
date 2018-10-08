@@ -1,0 +1,1 @@
+TRUNCATE point, route, news, event, map, customer, user_account, city, country CASCADE;

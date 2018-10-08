@@ -2,10 +2,13 @@ package com.itacademy.jd2.pk.hop.service.impl;
 
 import java.util.Random;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
@@ -14,6 +17,7 @@ import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 
 @SpringJUnitConfig(locations = "classpath:service-context-test.xml")
+@Sql(scripts = "classpath:clean-db.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 public class AbstractTest {
 	@Autowired
 	protected ICountryService countryService;
@@ -24,12 +28,14 @@ public class AbstractTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
 
-	@BeforeEach
-	public void setUpMethod() {
-		LOGGER.info("setUpMethod:");
-		// clean DB recursive
-		// modelService.deleteAll();
-		countryService.deleteAll();
+	/*
+	 * @BeforeEach public void setUpMethod() { LOGGER.info("setUpMethod:"); // clean
+	 * DB recursive // modelService.deleteAll(); countryService.deleteAll(); }
+	 */
+
+	@AfterAll
+	public static void cleadDB() {
+		LOGGER.info("----------------clean DB---------------------");
 	}
 
 	protected String getRandomPrefix() {
@@ -37,7 +43,7 @@ public class AbstractTest {
 
 	}
 
-	protected int getRandomObjaectCount() {
+	protected int getRandomObjectsCount() {
 		return RANDOM.nextInt(9) + 1;
 	}
 
@@ -53,9 +59,11 @@ public class AbstractTest {
 	}
 
 	protected ICity saveNewCity() {
+
 		ICity entity = cityService.createEntity();
 		entity.setName("city-" + getRandomPrefix());
-		// entity.setCountryId((Integer) getRandomObjaectCount());
+		ICountry entity2 = saveNewCountry();
+		entity.setCountryId(entity2.getId());
 
 		cityService.save(entity);
 		return entity;

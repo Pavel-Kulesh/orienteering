@@ -5,7 +5,17 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 public class Route extends BaseEntity implements IRoute {
 	private String name;
 	private String path;
+	private String file;
 	private Integer userId;
+	
+
+	public String getFile() {
+		return file;
+	}
+
+	public void setFile(String file) {
+		this.file = file;
+	}
 
 	public String getName() {
 		return name;

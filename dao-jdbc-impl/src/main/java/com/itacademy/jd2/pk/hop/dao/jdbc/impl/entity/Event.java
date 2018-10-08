@@ -12,8 +12,24 @@ public class Event extends BaseEntity implements IEvent {
 	private Integer countryId;
 	private Type type;
 	private String info;
-	private Double coordinateX;
-	private Double coordinateY;
+	private Double latitude;
+	private Double longitude;
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
 
 	public String getName() {
 		return name;
@@ -62,21 +78,5 @@ public class Event extends BaseEntity implements IEvent {
 	public void setInfo(String info) {
 		this.info = info;
 	}
-
-	public Double getCoordinateX() {
-		return coordinateX;
-	}
-
-	public void setCoordinateX(Double coordinateX) {
-		this.coordinateX = coordinateX;
-	}
-
-	public Double getCoordinateY() {
-		return coordinateY;
-	}
-
-	public void setCoordinateY(Double coordinateY) {
-		this.coordinateY = coordinateY;
-	}
-
+	
 }

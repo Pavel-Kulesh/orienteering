@@ -27,11 +27,11 @@ public interface IEvent extends IBaseEntity {
 
 	void setInfo(String info);
 
-	Double getCoordinateX();
+	Double getLatitude();
 
-	void setCoordinateX(Double coordinateX);
+	void setLatitude(Double latitude);
 
-	Double getCoordinateY();
+	Double getLongitude();
 
-	void setCoordinateY(Double coordinateY);
+	void setLongitude(Double longitude);
 }

@@ -12,4 +12,8 @@ public interface IRoute extends IBaseEntity {
 	Integer getUserId();
 
 	void setUserId(Integer userId);
+
+	String getFile();
+
+	void setFile(String file);
 }

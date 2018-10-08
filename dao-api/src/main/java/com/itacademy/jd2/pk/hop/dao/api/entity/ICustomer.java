@@ -1,6 +1,6 @@
 package com.itacademy.jd2.pk.hop.dao.api.entity;
 
-public interface IUser extends IBaseEntity {
+public interface ICustomer extends IBaseEntity {
 	String getName();
 
 	void setName(String name);

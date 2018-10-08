@@ -24,7 +24,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 	@Override
 	public void update(IEvent entity) {
 		executeStatement(new PreparedStatementAction<IEvent>(String.format(
-				"update %s set name=?, updated=?, date=?, country_id=?, creator_id=?, type=?, info=?, coordinate_x=?, coordinate_y=? where id=?",
+				"update %s set name=?, updated=?, date=?, country_id=?, creator_id=?, type=?, info=?, latitude=?, longitude=? where id=?",
 				getTableName())) {
 			@Override
 			public IEvent doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
@@ -35,8 +35,8 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 				pStmt.setInt(5, entity.getCreatorId());
 				pStmt.setString(6, entity.getType().name());
 				pStmt.setString(7, entity.getInfo());
-				pStmt.setDouble(8, entity.getCoordinateX());
-				pStmt.setDouble(9, entity.getCoordinateY());
+				pStmt.setDouble(8, entity.getLatitude());
+				pStmt.setDouble(9, entity.getLongitude());
 				pStmt.setInt(10, entity.getId());
 
 				pStmt.executeUpdate();
@@ -49,7 +49,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 	@Override
 	public void insert(IEvent entity) {
 		executeStatement(new PreparedStatementAction<IEvent>(String.format(
-				"insert into %s (name, created, updated, creator_id, country_id, date, type, info, coordinate_x, coordinate_y) values(?,?,?,?,?,?,?,?,?,?)",
+				"insert into %s (name, created, updated, creator_id, country_id, date, type, info, latitude, longitude) values(?,?,?,?,?,?,?,?,?,?)",
 				getTableName()), true) {
 			@Override
 			public IEvent doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
@@ -61,8 +61,8 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 				pStmt.setObject(6, entity.getDate(), Types.TIMESTAMP);
 				pStmt.setString(7, entity.getType().name());
 				pStmt.setString(8, entity.getInfo());
-				pStmt.setDouble(9, entity.getCoordinateX());
-				pStmt.setDouble(10, entity.getCoordinateY());
+				pStmt.setDouble(9, entity.getLatitude());
+				pStmt.setDouble(10, entity.getLongitude());
 
 				pStmt.executeUpdate();
 
@@ -113,17 +113,16 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 		entity.setInfo(resultSet.getString("info"));
 
-		Double coordinateX = (Double) resultSet.getObject("coordinate_x");
-		entity.setCoordinateX(coordinateX);
-		Double coordinateY = (Double) resultSet.getObject("coordinate_y");
-		entity.setCoordinateX(coordinateY);
+		Double latitude = (Double) resultSet.getObject("latitude");
+		entity.setLatitude(latitude);
+		Double longitude = (Double) resultSet.getObject("longitude");
+		entity.setLongitude(longitude);
 
 		return entity;
 	}
 
 	@Override
 	protected IEvent parseRow(ResultSet resultSet, Set<String> columns) throws SQLException {
-		// TODO Auto-generated method stub
 		// need this method?
 		return super.parseRow(resultSet, columns);
 	}

@@ -97,7 +97,6 @@ public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICit
 
 		Integer countryId = (Integer) resultSet.getObject("country_id");
 		entity.setCountryId(countryId);
-		// entity.setCountryId((Integer)resultSet.getTimestamp("country_id"));
 
 		return entity;
 	}

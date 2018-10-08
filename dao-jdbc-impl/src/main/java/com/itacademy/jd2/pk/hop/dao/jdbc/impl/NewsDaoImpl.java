@@ -5,11 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.INewsDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.News;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
+@Repository
 public class NewsDaoImpl extends AbstractDaoImpl<INews, Integer> implements INewsDao {
 
 	@Override

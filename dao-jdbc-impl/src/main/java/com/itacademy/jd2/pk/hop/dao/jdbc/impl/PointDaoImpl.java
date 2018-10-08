@@ -1,16 +1,18 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+
+import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IPointDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Point;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
-
-
+@Repository
 public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IPointDao {
 
 	@Override
@@ -89,6 +91,21 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 		entity.setDiffTime(diffTime);
 
 		return entity;
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// this method delete all point where route_id=id;
+
+		executeStatement(
+				new PreparedStatementAction<Integer>(String.format("delete from %s where route_id=?", getTableName())) {
+					@Override
+					public Integer doWithPreparedStatement(final PreparedStatement prepareStatement)
+							throws SQLException {
+						prepareStatement.setObject(1, id);
+						return prepareStatement.executeUpdate();
+					}
+				});
 	}
 
 }
