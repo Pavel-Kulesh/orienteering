@@ -61,7 +61,7 @@ public class CountryServiceImpl implements ICountryService {
 
 	@Override
 	public void deleteAll() {
-		LOGGER.info("delete all country");
+		LOGGER.info("delete all");
 		dao.deleteAll();
 
 	}
