@@ -7,12 +7,15 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Set;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.IEventDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Event;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
+@Repository
 public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IEventDao {
 
 	@Override

@@ -25,7 +25,10 @@ public class City extends BaseEntity implements ICity {
 
 	@Override
 	public String toString() {
-		return "City [name=" + name + ", getId()=" + getId() + "]";
+		return "City [name=" + name + ", countryId=" + countryId + ", getId()=" + getId() + ", getCreated()="
+				+ getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
+
+	
 
 }

@@ -26,14 +26,14 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 	@Override
 	public void update(IUserAccount entity) {
 		executeStatement(new PreparedStatementAction<IUserAccount>(
-				String.format("update %s set email=?, password=?, updated=?, role=? where id=?", getTableName())) {
+				// email=?, can update?
+				String.format("update %s set password=?, updated=?, role=? where id=?", getTableName())) {
 			@Override
 			public IUserAccount doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
-				pStmt.setString(1, entity.getEmail());
-				pStmt.setString(2, entity.getPassword());
-				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setString(4, entity.getRole().name());
-				pStmt.setInt(5, entity.getId());
+				pStmt.setString(1, entity.getPassword());
+				pStmt.setObject(2, entity.getUpdated(), Types.TIMESTAMP);
+				pStmt.setString(3, entity.getRole().name());
+				pStmt.setInt(4, entity.getId());
 
 				pStmt.executeUpdate();
 				return entity;
@@ -87,12 +87,6 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 
 		entity.setRole(Role.valueOf(resultSet.getString("role")));
 
-		/*
-		 * String role = resultSet.getString("role"); Role[] listRole = Role.values();
-		 * 
-		 * for (Role ob : listRole) { if (role.equals(ob.name())) { entity.setRole(ob);
-		 * } }
-		 */
 		return entity;
 	}
 

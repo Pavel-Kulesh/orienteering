@@ -39,4 +39,12 @@ public class Point extends BaseEntity implements IPoint {
 	public void setDiffTime(Integer diffTime) {
 		this.diffTime = diffTime;
 	}
+
+	@Override
+	public String toString() {
+		return "Point [routeId=" + routeId + ", latitude=" + latitude + ", longitude=" + longitude + ", diffTime="
+				+ diffTime + ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()="
+				+ getUpdated() + "]";
+	}
+
 }

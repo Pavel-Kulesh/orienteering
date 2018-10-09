@@ -39,4 +39,11 @@ public class Customer extends BaseEntity implements ICustomer {
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer [name=" + name + ", surname=" + surname + ", phone=" + phone + ", cityId=" + cityId
+				+ ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+	}
+
 }

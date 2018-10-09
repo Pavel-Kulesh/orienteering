@@ -1,16 +1,18 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import com.itacademy.jd2.pk.hop.dao.api.IUserDao;
+import org.springframework.stereotype.Repository;
+
+import com.itacademy.jd2.pk.hop.dao.api.ICustomerDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
-public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> implements IUserDao {
+@Repository
+public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> implements ICustomerDao {
 
 	// need override method delete( BY id)
 	// need override method deleteAll

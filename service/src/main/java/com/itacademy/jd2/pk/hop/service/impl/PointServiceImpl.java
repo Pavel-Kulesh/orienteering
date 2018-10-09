@@ -3,6 +3,8 @@ package com.itacademy.jd2.pk.hop.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import com.itacademy.jd2.pk.hop.service.IPointService;
 
 @Service
 public class PointServiceImpl implements IPointService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PointServiceImpl.class);
 
 	private IPointDao dao;
 
@@ -40,8 +43,12 @@ public class PointServiceImpl implements IPointService {
 		if (entity.getId() == null) {
 			entity.setCreated(modifedOn);
 			dao.insert(entity);
+			LOGGER.info("new point created: {}", entity);
+
 		} else {
 			dao.update(entity);
+			LOGGER.debug("point updated: {}", entity);
+
 		}
 	}
 
@@ -53,12 +60,16 @@ public class PointServiceImpl implements IPointService {
 	@Override
 	public void delete(Integer id) {
 		dao.delete(id);
+		LOGGER.info("delete all points with route_id=" + id);
+
 	}
 
 	@Override
 	public void deleteAll() {
 		// not support?
 		dao.deleteAll();
+		LOGGER.info("delete all points");
+
 	}
 
 	@Override

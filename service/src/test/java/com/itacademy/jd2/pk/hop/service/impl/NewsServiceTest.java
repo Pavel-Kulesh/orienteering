@@ -1,81 +1,69 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
-import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
+import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
 
-public class CityServiceTest extends AbstractTest {
-
+public class NewsServiceTest extends AbstractTest {
 	@Test
 	public void testCreated() {
-
-		ICity entity = saveNewCity();
-
-		ICity entityFromDb = cityService.get(entity.getId());
+		INews entity = saveNewNews();
+		INews entityFromDb = newsService.get(entity.getId());
 
 		assertNotNull(entityFromDb);
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertNotNull(entityFromDb.getId());
-		assertNotNull(entityFromDb.getCountryId());
-		assertEquals(entity.getCountryId(), entityFromDb.getCountryId());
+		assertNotNull(entityFromDb.getInfo());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
+		assertEquals(entity.getInfo(), entityFromDb.getInfo());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
 
 	@Test
 	public void testUpdate() throws InterruptedException {
-		final ICity entity = saveNewCity();
-
+		INews entity = saveNewNews();
 		String newName = entity.getName() + "_updated";
 		entity.setName(newName);
-		ICountry country = saveNewCountry();
-		entity.setCountryId(country.getId());
-		// -------------------------
-		System.out.println(entity.getCreated());
-		// -------------------------
+		String newInfo = entity.getInfo() + "_updated";
+		entity.setInfo(newInfo);
 		Thread.sleep(1000);
-		cityService.save(entity);
-		// -------------------------
-		System.out.println(entity.getUpdated());
-		// -------------------------
-		final ICity entityFromDb = cityService.get(entity.getId());
-		// -------------------------
-		System.out.println(entityFromDb.getCreated());
-		System.out.println(entityFromDb.getUpdated());
-		// -------------------------
+		newsService.save(entity);
+
+		INews entityFromDb = newsService.get(entity.getId());
+
 		assertNotNull(entityFromDb);
 		assertEquals(newName, entityFromDb.getName());
 		assertNotNull(entityFromDb.getId());
-		assertNotNull(entityFromDb.getCountryId());
-		assertEquals(entityFromDb.getCountryId(), country.getId());
+		assertEquals(entity.getId(), entityFromDb.getId());
+		assertEquals(newInfo, entityFromDb.getInfo());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		// assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		// assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
+
 	}
 
 	@Test
 	public void testGetAll() {
-		int initialCount = cityService.getAll().size();
+		int initialCount = newsService.getAll().size();
 		int randomObjectsCount = getRandomObjectsCount();
 		for (int i = 0; i < randomObjectsCount; i++) {
-			saveNewCity();
+			saveNewNews();
 		}
-		List<ICity> allEntities = cityService.getAll();
-		for (ICity entityFromDb : allEntities) {
+		List<INews> allEntities = newsService.getAll();
+		for (INews entityFromDb : allEntities) {
 			assertNotNull(entityFromDb.getName());
 			assertNotNull(entityFromDb.getId());
-			assertNotNull(entityFromDb.getCountryId());
+			assertNotNull(entityFromDb.getInfo());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
 		}
@@ -85,17 +73,17 @@ public class CityServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeleteById() {
-		ICity entity = saveNewCity();
-		cityService.delete(entity.getId());
-		assertNull(cityService.get(entity.getId()));
+		INews entity = saveNewNews();
+		newsService.delete(entity.getId());
+		assertNull(newsService.get(entity.getId()));
 	}
 
 	@Test
 	public void testDeleteAll() {
-		saveNewCity();
-		cityService.deleteAll();
-		assertEquals(0, cityService.getAll().size());
+		saveNewNews();
+		newsService.deleteAll();
 
+		assertEquals(0, newsService.getAll().size());
 	}
 
 }

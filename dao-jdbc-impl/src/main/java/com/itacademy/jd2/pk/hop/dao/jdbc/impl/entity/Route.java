@@ -7,7 +7,6 @@ public class Route extends BaseEntity implements IRoute {
 	private String path;
 	private String file;
 	private Integer userId;
-	
 
 	public String getFile() {
 		return file;
@@ -39,6 +38,12 @@ public class Route extends BaseEntity implements IRoute {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "Route [name=" + name + ", path=" + path + ", file=" + file + ", userId=" + userId + ", getId()="
+				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
 
 }

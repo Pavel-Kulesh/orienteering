@@ -3,7 +3,6 @@ package com.itacademy.jd2.pk.hop.service.impl;
 import java.util.Random;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,17 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
+import com.itacademy.jd2.pk.hop.service.ICustomerService;
+import com.itacademy.jd2.pk.hop.service.INewsServise;
+import com.itacademy.jd2.pk.hop.service.IPointService;
+import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 
 @SpringJUnitConfig(locations = "classpath:service-context-test.xml")
 @Sql(scripts = "classpath:clean-db.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
@@ -23,15 +31,18 @@ public class AbstractTest {
 	protected ICountryService countryService;
 	@Autowired
 	protected ICityService cityService;
+	@Autowired
+	protected INewsServise newsService;
+	@Autowired
+	protected IPointService pointService;
+	@Autowired
+	protected IUserAccountService userAccountService;
+	@Autowired
+	protected ICustomerService customerService;
 
 	private static Random RANDOM = new Random();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
-
-	/*
-	 * @BeforeEach public void setUpMethod() { LOGGER.info("setUpMethod:"); // clean
-	 * DB recursive // modelService.deleteAll(); countryService.deleteAll(); }
-	 */
 
 	@AfterAll
 	public static void cleadDB() {
@@ -62,10 +73,56 @@ public class AbstractTest {
 
 		ICity entity = cityService.createEntity();
 		entity.setName("city-" + getRandomPrefix());
-		ICountry entity2 = saveNewCountry();
-		entity.setCountryId(entity2.getId());
+		ICountry country = saveNewCountry();
+		entity.setCountryId(country.getId());
 
 		cityService.save(entity);
+		return entity;
+	}
+
+	protected INews saveNewNews() {
+		INews entity = newsService.createEntity();
+		entity.setName("news-" + getRandomPrefix());
+		entity.setInfo("info" + getRandomPrefix());
+
+		newsService.save(entity);
+		return entity;
+	}
+
+	protected IUserAccount saveNewUser() {
+		IUserAccount entity = userAccountService.createEntity();
+		entity.setEmail("email-" + getRandomPrefix());
+		entity.setPassword("password-" + getRandomPrefix());
+
+		Role[] allRoles = Role.values();
+		int randomIndex = Math.max(0, getRANDOM().nextInt(allRoles.length));
+		entity.setRole(allRoles[randomIndex]);
+
+		userAccountService.save(entity);
+
+		return entity;
+
+	}
+
+	protected ICustomer saveNewCustomer() {
+		ICustomer entity = customerService.createEntity();
+
+		IUserAccount user = saveNewUser();
+		ICity city = saveNewCity();
+		entity.setName("name-" + getRandomPrefix());
+		entity.setSurname("surname-" + getRandomPrefix());
+		entity.setPhone("phone-" + getRandomPrefix());
+		entity.setCityId(city.getId());
+		customerService.save(entity);
+		entity.setId(user.getId());
+
+		return entity;
+
+	}
+
+	protected IPoint saveNewPoint() {
+		IPoint entity = pointService.createEntity();
+
 		return entity;
 	}
 

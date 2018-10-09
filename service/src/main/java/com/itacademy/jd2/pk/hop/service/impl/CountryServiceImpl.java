@@ -16,6 +16,7 @@ import com.itacademy.jd2.pk.hop.service.ICountryService;
 public class CountryServiceImpl implements ICountryService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CountryServiceImpl.class);
+
 	private ICountryDao dao;
 
 	@Autowired
@@ -61,9 +62,8 @@ public class CountryServiceImpl implements ICountryService {
 
 	@Override
 	public void deleteAll() {
-		LOGGER.info("delete all");
+		LOGGER.info("delete all countries");
 		dao.deleteAll();
-
 	}
 
 	@Override

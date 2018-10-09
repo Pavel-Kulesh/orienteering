@@ -31,4 +31,13 @@ public class UserAccount extends BaseEntity implements IUserAccount {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+	@Override
+	public String toString() {
+		return "UserAccount [email=" + email + ", password=" + password + ", role=" + role + ", getId()=" + getId()
+				+ ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+	}
+
+	
+
 }
