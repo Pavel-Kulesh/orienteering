@@ -22,18 +22,19 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 
 	@Override
 	public void update(IRoute entity) {
-		// can we update userId?
+		// can we update userId? ex: org use gps-track => them put its customer
+		// ===>>> not update user_id
 
 		executeStatement(new PreparedStatementAction<IRoute>(
-				String.format("update %s set name=?, path=?, updated=?, userId=?, file=? where id=?", getTableName())) {
+				String.format("update %s set name=?, path=?, updated=? where id=?", getTableName())) {
 			@Override
 			public IRoute doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
 				pStmt.setString(2, entity.getPath());
 				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(4, entity.getUserId());
-				pStmt.setString(5, entity.getFile());
-				pStmt.setInt(6, entity.getId());
+
+				// pStmt.setString(5, entity.getFile()); need update?
+				pStmt.setInt(4, entity.getId());
 
 				pStmt.executeUpdate();
 				return entity;
@@ -44,7 +45,7 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 	@Override
 	public void insert(IRoute entity) {
 		executeStatement(new PreparedStatementAction<IRoute>(
-				String.format("insert into %s (name, path, file, userId, created, updated) values(?,?,?,?,?,?)",
+				String.format("insert into %s (name, path, file, user_id, created, updated) values(?,?,?,?,?,?)",
 						getTableName()),
 				true) {
 			@Override

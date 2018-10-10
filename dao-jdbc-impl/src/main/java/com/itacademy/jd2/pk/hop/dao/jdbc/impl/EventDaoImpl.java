@@ -105,14 +105,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 		Integer countryId = (Integer) resultSet.getObject("country_id");
 		entity.setCountryId(countryId);
 
-		String type = resultSet.getString("type");
-		Type[] listType = Type.values();
-
-		for (Type ob : listType) {
-			if (type.equals(ob.name())) {
-				entity.setType(ob);
-			}
-		}
+		entity.setType(Type.valueOf(resultSet.getString("type")));
 
 		entity.setInfo(resultSet.getString("info"));
 

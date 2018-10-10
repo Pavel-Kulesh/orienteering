@@ -11,11 +11,12 @@ public interface IPointService {
 
 	void save(IPoint entity);
 
-	void save(IPoint... entity);
+	void saveList(IPoint... entities);
 
 	void delete(Integer id);
 
 	void deleteAll();
 
 	IPoint createEntity();
+
 }

@@ -23,6 +23,7 @@ public class NewsServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getInfo());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
+		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getInfo(), entityFromDb.getInfo());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
@@ -35,6 +36,7 @@ public class NewsServiceTest extends AbstractTest {
 		entity.setName(newName);
 		String newInfo = entity.getInfo() + "_updated";
 		entity.setInfo(newInfo);
+
 		Thread.sleep(1000);
 		newsService.save(entity);
 
@@ -47,8 +49,8 @@ public class NewsServiceTest extends AbstractTest {
 		assertEquals(newInfo, entityFromDb.getInfo());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
-		// assertEquals(entity.getCreated(), entityFromDb.getCreated());
-		// assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
+		assertEquals(entity.getCreated(), entityFromDb.getCreated());
+		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
 
 	}
 

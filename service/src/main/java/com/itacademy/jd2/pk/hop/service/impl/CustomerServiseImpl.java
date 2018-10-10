@@ -42,18 +42,20 @@ public class CustomerServiseImpl implements ICustomerService {
 	@Override
 	public void save(ICustomer entity) {
 		Date modifedOn = new Date();
+
+		entity.setCreated(modifedOn);
 		entity.setUpdated(modifedOn);
-		if (entity.getId() == null) {
-			entity.setCreated(modifedOn);
+		dao.insert(entity);
+		LOGGER.info("new customer created: {}", entity);
 
-			// IUserAccount entityUserAcoount = userDao.createEntity();
+	}
 
-			dao.insert(entity);
-			LOGGER.info("new customer created: {}", entity);
-		} else {
-			LOGGER.debug("customer updated: {}", entity);
-			dao.update(entity);
-		}
+	@Override
+	public void update(ICustomer entity) {
+		Date modifedOn = new Date();
+		entity.setUpdated(modifedOn);
+		dao.update(entity);
+		LOGGER.debug("customer updated: {}" + entity);
 	}
 
 	@Override

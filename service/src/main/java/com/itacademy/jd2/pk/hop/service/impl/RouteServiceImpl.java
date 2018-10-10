@@ -43,13 +43,16 @@ public class RouteServiceImpl implements IRouteService {
 
 	@Override
 	public void save(IRoute entity) {
+		// after insert route need parse file => get list point_route ==>>
+		// ==>> insertList(point list)
+
 		Date modifedOn = new Date();
 		entity.setUpdated(modifedOn);
 		if (entity.getId() == null) {
 			entity.setCreated(modifedOn);
 			dao.insert(entity);
 			LOGGER.info("new route created: {}", entity);
-
+			// ===>>>
 		} else {
 			dao.update(entity);
 			LOGGER.debug("route updated: {}", entity);

@@ -1,6 +1,5 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -38,22 +37,19 @@ public class PointServiceImpl implements IPointService {
 
 	@Override
 	public void save(IPoint entity) {
-		Date modifedOn = new Date();
-		entity.setUpdated(modifedOn);
-		if (entity.getId() == null) {
-			entity.setCreated(modifedOn);
-			dao.insert(entity);
-			LOGGER.info("new point created: {}", entity);
 
-		} else {
-			dao.update(entity);
-			LOGGER.debug("point updated: {}", entity);
+		dao.insert(entity);
+		LOGGER.info("new point created: {}", entity);
 
-		}
 	}
 
 	@Override
-	public void save(IPoint... entity) {
+	public void saveList(IPoint... entities) {
+
+		dao.insertList(entities);
+		for (IPoint entity : entities) {
+			LOGGER.info("new point created: {}", entity);
+		}
 
 	}
 

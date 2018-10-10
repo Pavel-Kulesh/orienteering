@@ -22,8 +22,11 @@ public class CountryServiceTest extends AbstractTest {
 
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertNotNull(entityFromDb.getId());
+		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
+
+		assertEquals(entity.getId(), entityFromDb.getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
@@ -43,8 +46,8 @@ public class CountryServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
-		// assertEquals(entity.getCreated(), entityFromDb.getCreated());
-		// assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
+		assertEquals(entity.getCreated(), entityFromDb.getCreated());
+		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
 
 	}
 

@@ -22,12 +22,17 @@ public class CityServiceTest extends AbstractTest {
 		ICity entityFromDb = cityService.get(entity.getId());
 
 		assertNotNull(entityFromDb);
-		assertEquals(entity.getName(), entityFromDb.getName());
+
 		assertNotNull(entityFromDb.getId());
+		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getCountryId());
-		assertEquals(entity.getCountryId(), entityFromDb.getCountryId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
+
+		assertEquals(entity.getId(), entityFromDb.getId());
+		assertEquals(entity.getName(), entityFromDb.getName());
+		assertEquals(entity.getCountryId(), entityFromDb.getCountryId());
+		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
@@ -40,19 +45,12 @@ public class CityServiceTest extends AbstractTest {
 		entity.setName(newName);
 		ICountry country = saveNewCountry();
 		entity.setCountryId(country.getId());
-		// -------------------------
-		System.out.println(entity.getCreated());
-		// -------------------------
+
 		Thread.sleep(1000);
 		cityService.save(entity);
-		// -------------------------
-		System.out.println(entity.getUpdated());
-		// -------------------------
+
 		final ICity entityFromDb = cityService.get(entity.getId());
-		// -------------------------
-		System.out.println(entityFromDb.getCreated());
-		System.out.println(entityFromDb.getUpdated());
-		// -------------------------
+
 		assertNotNull(entityFromDb);
 		assertEquals(newName, entityFromDb.getName());
 		assertNotNull(entityFromDb.getId());
@@ -60,8 +58,8 @@ public class CityServiceTest extends AbstractTest {
 		assertEquals(entityFromDb.getCountryId(), country.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
-		// assertEquals(entity.getCreated(), entityFromDb.getCreated());
-		// assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
+		assertEquals(entity.getCreated(), entityFromDb.getCreated());
+		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
 	}
 
 	@Test

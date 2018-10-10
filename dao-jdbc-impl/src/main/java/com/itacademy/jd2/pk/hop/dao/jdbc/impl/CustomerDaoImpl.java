@@ -1,6 +1,7 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
@@ -25,7 +26,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 	@Override
 	public void update(ICustomer entity) {
 		executeStatement(new PreparedStatementAction<ICustomer>(String
-				.format("update %s set name=?, surname=?, phone=?, city_id, updated=? where id=?", getTableName())) {
+				.format("update %s set name=?, surname=?, phone=?, city_id=?, updated=? where id=?", getTableName())) {
 			@Override
 			public ICustomer doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
@@ -44,7 +45,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 	@Override
 	public void insert(ICustomer entity) {
 		executeStatement(new PreparedStatementAction<ICustomer>(String.format(
-				"insert into %s (id, name, surname, phone, city_id, created, updated) values(?,?,?,?,?,?)",
+				"insert into %s (id, name, surname, phone, city_id, created, updated) values(?,?,?,?,?,?,?)",
 				getTableName()), true) {
 			@Override
 			public ICustomer doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
@@ -74,6 +75,22 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 	@Override
 	protected String getTableName() {
 		return "customer";
+	}
+
+	@Override
+	protected ICustomer parseRow(ResultSet resultSet) throws SQLException {
+		ICustomer entity = createEntity();
+
+		entity.setId((Integer) resultSet.getObject("id"));
+		entity.setName(resultSet.getString("name"));
+		entity.setSurname(resultSet.getString("surname"));
+		entity.setPhone(resultSet.getString("phone"));
+		entity.setCityId((Integer) resultSet.getObject("city_id"));
+
+		entity.setCreated(resultSet.getTimestamp("created"));
+		entity.setUpdated(resultSet.getTimestamp("updated"));
+
+		return entity;
 	}
 
 }

@@ -11,6 +11,8 @@ public interface ICustomerService {
 
 	void save(ICustomer entity);
 
+	void update(ICustomer entity);
+
 	void delete(Integer id);
 
 	void deleteAll();

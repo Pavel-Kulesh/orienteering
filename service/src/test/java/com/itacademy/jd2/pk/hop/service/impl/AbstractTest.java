@@ -1,5 +1,6 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
+import java.util.Date;
 import java.util.Random;
 
 import org.junit.jupiter.api.AfterAll;
@@ -15,6 +16,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 import com.itacademy.jd2.pk.hop.service.ICityService;
@@ -22,6 +24,7 @@ import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.INewsServise;
 import com.itacademy.jd2.pk.hop.service.IPointService;
+import com.itacademy.jd2.pk.hop.service.IRouteService;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 
 @SpringJUnitConfig(locations = "classpath:service-context-test.xml")
@@ -39,6 +42,12 @@ public class AbstractTest {
 	protected IUserAccountService userAccountService;
 	@Autowired
 	protected ICustomerService customerService;
+	@Autowired
+	protected IRouteService routeService;
+
+	// +event
+
+	// +map
 
 	private static Random RANDOM = new Random();
 
@@ -109,12 +118,27 @@ public class AbstractTest {
 
 		IUserAccount user = saveNewUser();
 		ICity city = saveNewCity();
+
+		entity.setId(user.getId());
 		entity.setName("name-" + getRandomPrefix());
 		entity.setSurname("surname-" + getRandomPrefix());
 		entity.setPhone("phone-" + getRandomPrefix());
 		entity.setCityId(city.getId());
 		customerService.save(entity);
-		entity.setId(user.getId());
+
+		return entity;
+
+	}
+
+	protected IRoute saveNewRoute() {
+		IRoute entity = routeService.createEntity();
+		ICustomer customer = saveNewCustomer();
+
+		entity.setName("name-" + getRandomPrefix());
+		entity.setPath("path-" + getRandomPrefix());
+		entity.setFile("file-" + getRandomPrefix());
+		entity.setUserId(customer.getId());
+		routeService.save(entity);
 
 		return entity;
 
@@ -122,6 +146,19 @@ public class AbstractTest {
 
 	protected IPoint saveNewPoint() {
 		IPoint entity = pointService.createEntity();
+		IRoute route = saveNewRoute();
+		entity.setRouteId(route.getId());
+		System.out.println("route_id= " + route.getId() + "----   entity.getRouteId()= " + entity.getRouteId());
+		double x = Math.random();
+
+		x = Math.floor(x * 1_000_000_000) / 1_000_000_000;
+		entity.setLatitude(x + getRandomObjectsCount());
+		entity.setLongitude(x + getRandomObjectsCount());
+		entity.setCreated(new Date());
+		entity.setUpdated(new Date());
+		entity.setDiffTime(getRandomObjectsCount());
+
+		pointService.save(entity);
 
 		return entity;
 	}

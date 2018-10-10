@@ -19,6 +19,7 @@ public class UserAccountServiceTest extends AbstractTest {
 		IUserAccount entityFromDb = userAccountService.get(entity.getId());
 
 		assertNotNull(entityFromDb);
+		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getEmail());
 		assertNotNull(entityFromDb.getPassword());
 		assertNotNull(entityFromDb.getCreated());
@@ -56,8 +57,8 @@ public class UserAccountServiceTest extends AbstractTest {
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(newPass, entityFromDb.getPassword());
 		assertEquals(newRole, entityFromDb.getRole());
-		// assertEquals(entity.getCreated(), entityFromDb.getCreated());
-		// assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
+		assertEquals(entity.getCreated(), entityFromDb.getCreated());
+		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
 
 	}
 
