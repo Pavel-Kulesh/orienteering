@@ -11,7 +11,7 @@ public interface IPointService {
 
 	void save(IPoint entity);
 
-	void saveList(IPoint... entities);
+	void saveList(List<IPoint> entities);
 
 	void delete(Integer id);
 

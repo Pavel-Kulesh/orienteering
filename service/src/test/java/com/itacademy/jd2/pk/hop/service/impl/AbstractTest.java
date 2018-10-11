@@ -148,10 +148,10 @@ public class AbstractTest {
 		IPoint entity = pointService.createEntity();
 		IRoute route = saveNewRoute();
 		entity.setRouteId(route.getId());
-		System.out.println("route_id= " + route.getId() + "----   entity.getRouteId()= " + entity.getRouteId());
+
 		double x = Math.random();
 
-		x = Math.floor(x * 1_000_000_000) / 1_000_000_000;
+		x = (Math.floor(x * 1_000_000_000)) / 1_000_000_000;
 		entity.setLatitude(x + getRandomObjectsCount());
 		entity.setLongitude(x + getRandomObjectsCount());
 		entity.setCreated(new Date());

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -118,7 +119,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 	}
 
 	@Override
-	public void insertList(IPoint... entities) {
+	public void insertList(List<IPoint> entities) {
 
 		try (Connection c = getConnection()) {
 			c.setAutoCommit(false);

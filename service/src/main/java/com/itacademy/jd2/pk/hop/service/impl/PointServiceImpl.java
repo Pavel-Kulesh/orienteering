@@ -44,7 +44,7 @@ public class PointServiceImpl implements IPointService {
 	}
 
 	@Override
-	public void saveList(IPoint... entities) {
+	public void saveList(List<IPoint> entities) {
 
 		dao.insertList(entities);
 		for (IPoint entity : entities) {
