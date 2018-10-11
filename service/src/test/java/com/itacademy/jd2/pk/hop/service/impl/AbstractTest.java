@@ -156,7 +156,7 @@ public class AbstractTest {
 		entity.setLongitude(x + getRandomObjectsCount());
 		entity.setCreated(new Date());
 		entity.setUpdated(new Date());
-		entity.setDiffTime(getRandomObjectsCount());
+//		entity.setDiffTime(getRandomObjectsCount());
 
 		pointService.save(entity);
 
