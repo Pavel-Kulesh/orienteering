@@ -56,7 +56,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 				pStmt.setInt(3, entity.getRouteId());
 				pStmt.setDouble(4, entity.getLatitude());
 				pStmt.setDouble(5, entity.getLongitude());
-				pStmt.setInt(6, entity.getDiffTime());
+				pStmt.setObject(6, entity.getDiffTime());
 
 				pStmt.executeUpdate();
 
@@ -89,11 +89,11 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 		entity.setRouteId(routeId);
 
 		// exception BigDecimal to double
-		double latitude = resultSet.getDouble("latitude");
+		Double latitude = resultSet.getDouble("latitude");
 		// Double latitude = (Double) resultSet.getObject("latitude");
 		entity.setLatitude(latitude);
 
-		double longitude = resultSet.getDouble("longitude");
+		Double longitude = resultSet.getDouble("longitude");
 		// Double longitude = (Double) resultSet.getObject("longitude");
 		entity.setLongitude(longitude);
 
@@ -135,7 +135,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 					pStmt.setInt(3, entity.getRouteId());
 					pStmt.setDouble(4, entity.getLatitude());
 					pStmt.setDouble(5, entity.getLongitude());
-					pStmt.setInt(6, entity.getDiffTime());
+					pStmt.setObject(6, entity.getDiffTime());
 
 					pStmt.executeUpdate();
 

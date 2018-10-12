@@ -24,7 +24,7 @@ public class News extends BaseEntity implements INews {
 
 	@Override
 	public String toString() {
-		return "News [name=" + name + ", info=" + info + ", getId()=" + getId() + ", getCreated()=" + getCreated()
-				+ ", getUpdated()=" + getUpdated() + "]";
+		return "News [name=" + name + ", info=" + info + ", Id()=" + getId() + ", Created()=" + getCreated()
+				+ ", Updated()=" + getUpdated() + "]";
 	}
 }

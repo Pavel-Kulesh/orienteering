@@ -14,14 +14,19 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
+import com.itacademy.jd2.pk.hop.service.IEventService;
+import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.service.INewsServise;
 import com.itacademy.jd2.pk.hop.service.IPointService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
@@ -44,6 +49,10 @@ public class AbstractTest {
 	protected ICustomerService customerService;
 	@Autowired
 	protected IRouteService routeService;
+	@Autowired
+	protected IEventService eventService;
+	@Autowired
+	protected IMapService mapService;
 
 	// +event
 
@@ -69,6 +78,13 @@ public class AbstractTest {
 
 	public Random getRANDOM() {
 		return RANDOM;
+	}
+
+	public double getDoubleNumber() {
+		double x = Math.random();
+
+		x = (Math.floor(x * 1_000_000_000)) / 1_000_000_000 + getRandomObjectsCount();
+		return x;
 	}
 
 	protected ICountry saveNewCountry() {
@@ -149,16 +165,50 @@ public class AbstractTest {
 		IRoute route = saveNewRoute();
 		entity.setRouteId(route.getId());
 
-		double x = Math.random();
-
-		x = (Math.floor(x * 1_000_000_000)) / 1_000_000_000;
-		entity.setLatitude(x + getRandomObjectsCount());
-		entity.setLongitude(x + getRandomObjectsCount());
+		entity.setLatitude(getDoubleNumber());
+		entity.setLongitude(getDoubleNumber());
 		entity.setCreated(new Date());
 		entity.setUpdated(new Date());
 //		entity.setDiffTime(getRandomObjectsCount());
 
 		pointService.save(entity);
+
+		return entity;
+	}
+
+	protected IEvent saveNewEvent() {
+		IEvent entity = eventService.createEntity();
+		ICustomer customer = saveNewCustomer();
+		ICountry country = saveNewCountry();
+
+		entity.setName("name-" + getRandomPrefix());
+		entity.setCreatorId(customer.getId());
+		entity.setDate(new Date());
+		entity.setCountryId(country.getId());
+
+		Type[] allTypes = Type.values();
+		int randomIndex = Math.max(0, getRANDOM().nextInt(allTypes.length));
+		entity.setType(allTypes[randomIndex]);
+
+		entity.setInfo("info-" + getRandomPrefix());
+		entity.setLatitude(getDoubleNumber());
+		entity.setLongitude(getDoubleNumber());
+
+		eventService.save(entity);
+
+		return entity;
+	}
+
+	protected IMap saveNewMap() {
+		IMap entity = mapService.createEntity();
+		ICustomer customer = saveNewCustomer();
+
+		entity.setName("name-" + getRandomPrefix());
+		entity.setPath("path-" + getRandomPrefix());
+		entity.setFile("file-" + getRandomPrefix());
+		entity.setUserId(customer.getId());
+
+		mapService.save(entity);
 
 		return entity;
 	}

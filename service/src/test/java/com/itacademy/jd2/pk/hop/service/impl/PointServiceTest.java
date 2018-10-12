@@ -75,11 +75,8 @@ public class PointServiceTest extends AbstractTest {
 			IRoute route = saveNewRoute();
 			entity.setRouteId(route.getId());
 
-			double x = Math.random();
-
-			x = Math.floor(x * 1_000_000_000) / 1_000_000_000;
-			entity.setLatitude(x + getRandomObjectsCount());
-			entity.setLongitude(x + getRandomObjectsCount());
+			entity.setLatitude(getDoubleNumber());
+			entity.setLongitude(getDoubleNumber());
 			entity.setCreated(new Date());
 			entity.setUpdated(new Date());
 			entity.setDiffTime(getRandomObjectsCount());

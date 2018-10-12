@@ -31,7 +31,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 			public ICustomer doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
 				pStmt.setString(2, entity.getSurname());
-				pStmt.setString(3, entity.getPhone());
+				pStmt.setObject(3, entity.getPhone());
 				pStmt.setInt(4, entity.getCityId());
 				pStmt.setObject(5, entity.getUpdated(), Types.TIMESTAMP);
 				pStmt.setInt(6, entity.getId());
@@ -52,7 +52,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 				pStmt.setInt(1, entity.getId());
 				pStmt.setString(2, entity.getName());
 				pStmt.setString(3, entity.getSurname());
-				pStmt.setString(4, entity.getPhone());
+				pStmt.setObject(4, entity.getPhone());
 				pStmt.setInt(5, entity.getCityId());
 				pStmt.setObject(6, entity.getCreated(), Types.TIMESTAMP);
 				pStmt.setObject(7, entity.getUpdated(), Types.TIMESTAMP);
@@ -84,7 +84,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		entity.setId((Integer) resultSet.getObject("id"));
 		entity.setName(resultSet.getString("name"));
 		entity.setSurname(resultSet.getString("surname"));
-		entity.setPhone(resultSet.getString("phone"));
+		entity.setPhone((String) resultSet.getObject("phone"));
 		entity.setCityId((Integer) resultSet.getObject("city_id"));
 
 		entity.setCreated(resultSet.getTimestamp("created"));

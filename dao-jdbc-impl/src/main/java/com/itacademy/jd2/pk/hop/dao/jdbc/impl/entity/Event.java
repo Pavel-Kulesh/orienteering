@@ -83,7 +83,7 @@ public class Event extends BaseEntity implements IEvent {
 	public String toString() {
 		return "Event [name=" + name + ", creatorId=" + creatorId + ", date=" + date + ", countryId=" + countryId
 				+ ", type=" + type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+				+ ", Id()=" + getId() + ", Created()=" + getCreated() + ", Updated()=" + getUpdated() + "]";
 	}
 
 }

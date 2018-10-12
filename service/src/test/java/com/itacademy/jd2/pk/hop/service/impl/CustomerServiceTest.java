@@ -43,7 +43,7 @@ public class CustomerServiceTest extends AbstractTest {
 
 		String newName = entity.getName() + "_updated";
 		String newSurname = entity.getSurname() + "_updated";
-		String newPhone = entity.getPhone() + "_updated";
+		String newPhone = null;
 		entity.setName(newName);
 		entity.setSurname(newSurname);
 		entity.setPhone(newPhone);
