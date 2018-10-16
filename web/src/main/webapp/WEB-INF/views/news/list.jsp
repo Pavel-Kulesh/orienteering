@@ -17,6 +17,7 @@
 			<tr>
 				<td><c:out value="${news.id}" /></td>
 				<td><c:out value="${news.name}" /></td>
+				<td><c:out value="${news.info}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd"
 						value="${news.created}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd"

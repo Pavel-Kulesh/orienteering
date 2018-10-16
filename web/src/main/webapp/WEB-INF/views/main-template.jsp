@@ -20,7 +20,7 @@
 <script src="${contextPath}/resources/js/init-materialize-forms.js"></script>
 <script src="${contextPath}/resources/js/init-menu.js"></script>
 </head>
-<body>
+<body style="background-color: #dfff81">
 	<tiles:insertAttribute name="header" />
 	<main>
 	<div class="container">
