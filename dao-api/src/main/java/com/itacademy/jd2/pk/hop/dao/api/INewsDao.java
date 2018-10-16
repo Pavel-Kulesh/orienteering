@@ -1,7 +1,11 @@
 package com.itacademy.jd2.pk.hop.dao.api;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
+import java.util.List;
 
-public interface INewsDao extends IDao<INews, Integer>{
+import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
+import com.itacademy.jd2.pk.hop.dao.api.filter.NewsFilter;
+
+public interface INewsDao extends IDao<INews, Integer> {
+	List<INews> find(NewsFilter filter);
 
 }

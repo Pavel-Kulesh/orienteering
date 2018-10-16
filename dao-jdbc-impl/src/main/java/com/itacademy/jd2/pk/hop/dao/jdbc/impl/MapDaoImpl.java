@@ -1,5 +1,6 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,10 +93,10 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		entity.setUserId((Integer) resultSet.getObject("user_id"));
 		entity.setPath(resultSet.getString("path"));
 		entity.setFile(resultSet.getString("file"));
-		entity.setLatitude1((Double) resultSet.getObject("latitude1"));
-		entity.setLongitude1((Double) resultSet.getObject("longitude1"));
-		entity.setLatitude2((Double) resultSet.getObject("latitude2"));
-		entity.setLongitude2((Double) resultSet.getObject("longitude2"));
+		entity.setLatitude1((BigDecimal)resultSet.getObject("latitude1"));
+		entity.setLongitude1((BigDecimal)resultSet.getObject("longitude1"));
+		entity.setLatitude2((BigDecimal)resultSet.getObject("latitude2"));
+		entity.setLongitude2((BigDecimal)resultSet.getObject("longitude2"));
 
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));

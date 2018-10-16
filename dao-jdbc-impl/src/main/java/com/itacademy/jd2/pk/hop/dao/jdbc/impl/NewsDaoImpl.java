@@ -4,11 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.INewsDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
+import com.itacademy.jd2.pk.hop.dao.api.filter.NewsFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.News;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
@@ -77,5 +80,13 @@ public class NewsDaoImpl extends AbstractDaoImpl<INews, Integer> implements INew
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
 		return entity;
+	}
+
+	@Override
+	public List<INews> find(NewsFilter filter) {
+		final StringBuilder sqlTile = new StringBuilder("");
+        appendSort(filter, sqlTile);
+        // appendPaging(filter, sqlTile);
+        return executeFindQuery(sqlTile.toString());
 	}
 }

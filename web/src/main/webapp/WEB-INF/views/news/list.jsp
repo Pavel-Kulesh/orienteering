@@ -1,19 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 
 <c:set var="baseUrl" value="${contextPath}/news" />
 <h4 class="header">News</h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th>id</th>
-			<th>name</th>
+			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="id">id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}">info</mytaglib:sort-link></th>
 			<th>created</th>
 			<th>updated</th>
 			<th></th>
 		</tr>
-		<c:forEach var="news" items="${list}" varStatus="loopCounter">
+		<c:forEach var="news" items="${listDTO.list}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${news.id}" /></td>
 				<td><c:out value="${news.name}" /></td>
@@ -25,8 +27,7 @@
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${news.id}"><i class="material-icons">info</i></a>
 					<a class="btn-floating" href="${baseUrl}/${news.id}/edit"><i
-						class="material-icons">edit</i></a> <a
-					class="btn-floating red disabled"
+						class="material-icons">edit</i></a> <a class="btn-floating red"
 					href="${baseUrl}/${news.id}/delete"><i class="material-icons">delete</i></a></td>
 			</tr>
 		</c:forEach>

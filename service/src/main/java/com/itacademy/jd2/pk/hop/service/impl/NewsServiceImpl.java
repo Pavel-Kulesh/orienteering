@@ -1,5 +1,6 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,13 +11,14 @@ import org.springframework.stereotype.Service;
 
 import com.itacademy.jd2.pk.hop.dao.api.INewsDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
+import com.itacademy.jd2.pk.hop.dao.api.filter.NewsFilter;
 import com.itacademy.jd2.pk.hop.service.INewsServise;
 
 @Service
 public class NewsServiceImpl implements INewsServise {
 	private INewsDao dao;
 	private static final Logger LOGGER = LoggerFactory.getLogger(NewsServiceImpl.class);
-	
+
 	@Autowired
 	public NewsServiceImpl(INewsDao dao) {
 		super();
@@ -43,11 +45,11 @@ public class NewsServiceImpl implements INewsServise {
 			entity.setCreated(modifedOn);
 			dao.insert(entity);
 			LOGGER.info("new news created: {}", entity);
-			
+
 		} else {
 			dao.update(entity);
 			LOGGER.debug("news updated: {}", entity);
-			
+
 		}
 	}
 
@@ -61,12 +63,18 @@ public class NewsServiceImpl implements INewsServise {
 	public void deleteAll() {
 		dao.deleteAll();
 		LOGGER.info("delete all news");
-		
+
 	}
 
 	@Override
 	public INews createEntity() {
 		return dao.createEntity();
+	}
+
+	@Override
+	public List<INews> find(NewsFilter filter) {
+
+		return dao.find(filter);
 	}
 
 }

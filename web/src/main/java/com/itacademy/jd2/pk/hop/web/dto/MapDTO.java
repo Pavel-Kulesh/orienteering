@@ -1,5 +1,6 @@
 package com.itacademy.jd2.pk.hop.web.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class MapDTO {
@@ -9,10 +10,10 @@ public class MapDTO {
 	private Integer userId;
 	private String path;
 	private String file;
-	private Double latitude1;
-	private Double longitude1;
-	private Double latitude2;
-	private Double longitude2;
+	private BigDecimal latitude1;
+	private BigDecimal longitude1;
+	private BigDecimal latitude2;
+	private BigDecimal longitude2;
 	private Date created;
 	private Date updated;
 
@@ -56,36 +57,38 @@ public class MapDTO {
 		this.file = file;
 	}
 
-	public Double getLatitude1() {
-		return latitude1;
-	}
+	
 
-	public void setLatitude1(Double latitude1) {
-		this.latitude1 = latitude1;
-	}
-
-	public Double getLongitude1() {
-		return longitude1;
-	}
-
-	public void setLongitude1(Double longitude1) {
-		this.longitude1 = longitude1;
-	}
-
-	public Double getLatitude2() {
-		return latitude2;
-	}
-
-	public void setLatitude2(Double latitude2) {
-		this.latitude2 = latitude2;
-	}
-
-	public Double getLongitude2() {
+	public BigDecimal getLongitude2() {
 		return longitude2;
 	}
 
-	public void setLongitude2(Double longitude2) {
+	public void setLongitude2(BigDecimal longitude2) {
 		this.longitude2 = longitude2;
+	}
+
+	public BigDecimal getLatitude1() {
+		return latitude1;
+	}
+
+	public void setLatitude1(BigDecimal latitude1) {
+		this.latitude1 = latitude1;
+	}
+
+	public BigDecimal getLongitude1() {
+		return longitude1;
+	}
+
+	public void setLongitude1(BigDecimal longitude1) {
+		this.longitude1 = longitude1;
+	}
+
+	public BigDecimal getLatitude2() {
+		return latitude2;
+	}
+
+	public void setLatitude2(BigDecimal latitude2) {
+		this.latitude2 = latitude2;
 	}
 
 	public Date getCreated() {

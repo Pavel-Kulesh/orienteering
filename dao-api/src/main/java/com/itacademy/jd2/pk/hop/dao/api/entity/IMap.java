@@ -1,5 +1,7 @@
 package com.itacademy.jd2.pk.hop.dao.api.entity;
 
+import java.math.BigDecimal;
+
 public interface IMap extends IBaseEntity {
 	String getName();
 
@@ -17,19 +19,19 @@ public interface IMap extends IBaseEntity {
 
 	void setUserId(Integer userId);
 
-	Double getLatitude1();
+	BigDecimal getLatitude1();
 
-	void setLatitude1(Double latitude1);
+	void setLatitude1(BigDecimal latitude1);
 
-	Double getLatitude2();
+	BigDecimal getLatitude2();
 
-	void setLatitude2(Double latitude2);
+	void setLatitude2(BigDecimal latitude2);
 
-	Double getLongitude1();
+	BigDecimal getLongitude1();
 
-	void setLongitude1(Double longitude1);
+	void setLongitude1(BigDecimal longitude1);
 
-	Double getLongitude2();
+	BigDecimal getLongitude2();
 
-	void setLongitude2(Double longitude2);
+	void setLongitude2(BigDecimal longitude2);
 }

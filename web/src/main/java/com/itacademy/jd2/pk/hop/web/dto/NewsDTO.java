@@ -2,12 +2,16 @@ package com.itacademy.jd2.pk.hop.web.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
 public class NewsDTO {
 
 	private Integer id;
 
+	@Size(min = 1, max = 50)
 	private String name;
 
+	@Size(min = 1, max = 100)
 	private String info;
 
 	private Date created;
