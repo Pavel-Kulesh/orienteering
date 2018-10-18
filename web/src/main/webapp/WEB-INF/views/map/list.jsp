@@ -4,6 +4,11 @@
 
 <c:set var="baseUrl" value="${contextPath}/map" />
 <h4 class="header">Map</h4>
+<style>
+table {
+	margin-bottom: 25px;
+}
+</style>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
@@ -22,6 +27,11 @@
 				<td><c:out value="${map.id}" /></td>
 				<td><c:out value="${map.name}" /></td>
 				<td><c:out value="${map.userId}" /></td>
+				<td></td>
+				<td></td>
+				<td></td>
+
+
 
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${map.created}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${map.updated}" /></td>
@@ -35,5 +45,6 @@
 		</c:forEach>
 	</tbody>
 </table>
+
 <a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
 	class="material-icons">add</i></a>
