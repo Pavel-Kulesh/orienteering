@@ -19,4 +19,6 @@ public interface INewsServise {
 	INews createEntity();
 
 	List<INews> find(NewsFilter filter);
+
+	long getCount(NewsFilter filter);
 }
