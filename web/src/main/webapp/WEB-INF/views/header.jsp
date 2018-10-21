@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="baseUrl" value="${pageContext.request.contextPath}" />
 <header>
-	<nav style="background-color: #999900;">
+	<nav>
 		<div class="nav-wrapper container">
 			<ul class="left hide-on-med-and-down">
 				<li><a href="${baseUrl}/">Home</a></li>

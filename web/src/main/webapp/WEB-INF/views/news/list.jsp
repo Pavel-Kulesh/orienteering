@@ -8,7 +8,7 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link pageUrl="${baseUrl}" column="id">id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}">info</mytaglib:sort-link></th>
 			<th>created</th>
