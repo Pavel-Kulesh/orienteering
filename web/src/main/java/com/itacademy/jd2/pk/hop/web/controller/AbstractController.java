@@ -19,6 +19,10 @@ public abstract class AbstractController<DTO> {
 	}
 
 	protected void prepareFilter(ListDTO<DTO> listDTO, AbstractFilter filter) {
+		filter.setLimit(listDTO.getItemsPerPage());
+		int offset = listDTO.getItemsPerPage() * (listDTO.getPage() - 1);
+		filter.setOffset(listDTO.getTotalCount() < offset ? 0 : offset);
+
 		final SortDTO sortModel = listDTO.getSort();
 		if (sortModel != null) {
 			filter.setSortColumn(sortModel.getColumn());

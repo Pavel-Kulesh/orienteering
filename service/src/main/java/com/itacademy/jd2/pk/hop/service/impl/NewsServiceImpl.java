@@ -77,4 +77,9 @@ public class NewsServiceImpl implements INewsServise {
 		return dao.find(filter);
 	}
 
+	@Override
+	public long getCount(NewsFilter filter) {
+		return dao.getCount(filter);
+	}
+
 }

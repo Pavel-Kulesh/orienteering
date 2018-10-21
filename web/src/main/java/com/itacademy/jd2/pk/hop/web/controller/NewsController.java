@@ -40,9 +40,11 @@ public class NewsController extends AbstractController<NewsDTO> {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView index(final HttpServletRequest req,
-			@RequestParam(name = "sort", required = false, defaultValue = "id") final String sortColumn) {
+			@RequestParam(name = "page", required = false) final Integer pageNumber,
+			@RequestParam(name = "sort", required = false) final String sortColumn) {
 
 		final ListDTO<NewsDTO> listDTO = getListDTO(req);
+		listDTO.setPage(pageNumber);
 		listDTO.setSort(sortColumn);
 
 		final NewsFilter filter = new NewsFilter();
@@ -50,6 +52,7 @@ public class NewsController extends AbstractController<NewsDTO> {
 
 		final List<INews> entities = newsService.find(filter);
 		listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
+		listDTO.setTotalCount(newsService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put(ListDTO.LIST_MODEL_ATTRIBUTE, listDTO);

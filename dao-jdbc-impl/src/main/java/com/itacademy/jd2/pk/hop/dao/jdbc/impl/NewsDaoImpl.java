@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -85,8 +84,13 @@ public class NewsDaoImpl extends AbstractDaoImpl<INews, Integer> implements INew
 	@Override
 	public List<INews> find(NewsFilter filter) {
 		final StringBuilder sqlTile = new StringBuilder("");
-        appendSort(filter, sqlTile);
-        // appendPaging(filter, sqlTile);
-        return executeFindQuery(sqlTile.toString());
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
+	}
+
+	@Override
+	public long getCount(NewsFilter filter) {
+		return executeCountQuery("");
 	}
 }

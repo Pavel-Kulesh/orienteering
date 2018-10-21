@@ -35,4 +35,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/map/list.jsp" />
 	</definition>
 
+	<definition name="login" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+	</definition>
+
+
 </tiles-definitions>
