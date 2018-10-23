@@ -18,7 +18,7 @@
 				<th></th>
 			</sec:authorize>
 		</tr>
-		<c:forEach var="news" items="${listDTO.list}" varStatus="loopCounter">
+		<c:forEach var="news" items="${gridItem}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${news.id}" /></td>
 				<td><c:out value="${news.name}" /></td>

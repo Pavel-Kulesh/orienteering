@@ -24,7 +24,7 @@ import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.web.converter.MapFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
-import com.itacademy.jd2.pk.hop.web.dto.list.ListDTO;
+import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
 @RequestMapping(value = "/map")
@@ -49,19 +49,19 @@ public class MapController extends AbstractController<MapDTO> {
 			@RequestParam(name = "page", required = false) final Integer pageNumber,
 			@RequestParam(name = "sort", required = false) final String sortColumn) {
 
-		final ListDTO<MapDTO> listDTO = getListDTO(req);
-		listDTO.setPage(pageNumber);
-		listDTO.setSort(sortColumn);
+		final GridStateDTO gridState = getListDTO(req);
+		gridState.setPage(pageNumber);
+		gridState.setSort(sortColumn, "id");
 
 		final MapFilter filter = new MapFilter();
-		prepareFilter(listDTO, filter);
+		prepareFilter(gridState, filter);
 
 		final List<IMap> entities = mapService.find(filter);
-		listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
-		listDTO.setTotalCount(mapService.getCount(filter));
+		List<MapDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
+		gridState.setTotalCount(mapService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
-		models.put(ListDTO.LIST_MODEL_ATTRIBUTE, listDTO);
+		models.put("gridItem", dtos);
 		return new ModelAndView("map.list", models);
 	}
 

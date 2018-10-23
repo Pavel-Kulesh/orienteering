@@ -7,7 +7,7 @@ import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
-import com.itacademy.jd2.pk.hop.web.dto.list.ListDTO;
+import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.SortDTO;
 
 public class SortLink extends SimpleTagSupport {
@@ -20,10 +20,10 @@ public class SortLink extends SimpleTagSupport {
 	public void doTag() throws JspException, IOException {
 		final JspContext jspContext = getJspContext();
 
-		final ListDTO<?> listDto = (ListDTO<?>) getJspContext().findAttribute(ListDTO.LIST_MODEL_ATTRIBUTE);
+		final GridStateDTO listDto = (GridStateDTO) getJspContext().findAttribute(GridStateDTO.GRID_STATE_SESSION_KEY);
 		if (listDto == null) {
 			throw new IllegalArgumentException(
-					"context should have required attribute in session:" + ListDTO.LIST_MODEL_ATTRIBUTE);
+					"context should have required attribute in session:" + GridStateDTO.GRID_STATE_SESSION_KEY);
 		}
 
 		final SortDTO sort = listDto.getSort();

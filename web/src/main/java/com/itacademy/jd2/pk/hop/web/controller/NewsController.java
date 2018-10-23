@@ -24,7 +24,7 @@ import com.itacademy.jd2.pk.hop.service.INewsServise;
 import com.itacademy.jd2.pk.hop.web.converter.NewsFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.NewsToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.NewsDTO;
-import com.itacademy.jd2.pk.hop.web.dto.list.ListDTO;
+import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
 @RequestMapping(value = "/news")
@@ -50,19 +50,19 @@ public class NewsController extends AbstractController<NewsDTO> {
 			@RequestParam(name = "page", required = false) final Integer pageNumber,
 			@RequestParam(name = "sort", required = false) final String sortColumn) {
 
-		final ListDTO<NewsDTO> listDTO = getListDTO(req);
-		listDTO.setPage(pageNumber);
-		listDTO.setSort(sortColumn);
+		final GridStateDTO gridState = getListDTO(req);
+		gridState.setPage(pageNumber);
+		gridState.setSort(sortColumn, "id");
 
 		final NewsFilter filter = new NewsFilter();
-		prepareFilter(listDTO, filter);
+		prepareFilter(gridState, filter);
 
 		final List<INews> entities = newsService.find(filter);
-		listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
-		listDTO.setTotalCount(newsService.getCount(filter));
+		List<NewsDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
+		gridState.setTotalCount(newsService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
-		models.put(ListDTO.LIST_MODEL_ATTRIBUTE, listDTO);
+		models.put("gridItem", dtos);
 		return new ModelAndView("news.list", models);
 	}
 

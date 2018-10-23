@@ -3,8 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="baseUrl" value="${contextPath}/event" />
 <h4 class="header">Event</h4>
@@ -26,7 +25,7 @@
 				<th></th>
 			</sec:authorize>
 		</tr>
-		<c:forEach var="event" items="${listDTO.list}" varStatus="loopCounter">
+		<c:forEach var="event" items="${gridItem}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${event.id}" /></td>
 				<td><c:out value="${event.name}" /></td>

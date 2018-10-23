@@ -176,7 +176,7 @@
 			</dependency>
 
 
-			
+
 			<!-- Logging libraries -->
 			<dependency>
 				<groupId>org.jboss.logging</groupId>

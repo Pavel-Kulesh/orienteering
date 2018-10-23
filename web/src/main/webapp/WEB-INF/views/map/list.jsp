@@ -17,7 +17,7 @@
 			<th></th>
 		</tr>
 
-		<c:forEach var="map" items="${listDTO.list}" varStatus="loopCounter">
+		<c:forEach var="map" items="${gridItem}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${map.id}" /></td>
 				<td><c:out value="${map.name}" /></td>

@@ -24,7 +24,7 @@ import com.itacademy.jd2.pk.hop.service.IEventService;
 import com.itacademy.jd2.pk.hop.web.converter.EventFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.EventToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
-import com.itacademy.jd2.pk.hop.web.dto.list.ListDTO;
+import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
 @RequestMapping(value = "/event")
@@ -50,19 +50,19 @@ public class EventController extends AbstractController<EventDTO> {
 			@RequestParam(name = "page", required = false) final Integer pageNumber,
 			@RequestParam(name = "sort", required = false) final String sortColumn) {
 
-		final ListDTO<EventDTO> listDTO = getListDTO(req);
-		listDTO.setPage(pageNumber);
-		listDTO.setSort(sortColumn);
+		final GridStateDTO gridState = getListDTO(req);
+		gridState.setPage(pageNumber);
+		gridState.setSort(sortColumn, "id");
 
 		final EventFilter filter = new EventFilter();
-		prepareFilter(listDTO, filter);
+		prepareFilter(gridState, filter);
 
 		final List<IEvent> entities = eventService.find(filter);
-		listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
-		listDTO.setTotalCount(eventService.getCount(filter));
+		List<EventDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
+		gridState.setTotalCount(eventService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
-		models.put(ListDTO.LIST_MODEL_ATTRIBUTE, listDTO);
+		models.put("gridItem", dtos);
 		return new ModelAndView("event.list", models);
 	}
 

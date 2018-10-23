@@ -1,12 +1,8 @@
 package com.itacademy.jd2.pk.hop.web.dto.list;
 
-import java.util.List;
+public class GridStateDTO {
 
-public class ListDTO<T> {
-
-	public static final String LIST_MODEL_ATTRIBUTE = "listDTO";
-
-	private List<T> list;
+	public static final String GRID_STATE_SESSION_KEY = "currentPageGridState";
 
 	private SortDTO sort;
 
@@ -18,21 +14,13 @@ public class ListDTO<T> {
 
 	private long totalCount;
 
-	public ListDTO(final int itemsPerPage) {
+	public GridStateDTO(final int itemsPerPage) {
 		super();
 		this.itemsPerPage = itemsPerPage;
 	}
 
-	public ListDTO() {
+	public GridStateDTO() {
 		this(4);
-	}
-
-	public List<T> getList() {
-		return list;
-	}
-
-	public void setList(final List<T> list) {
-		this.list = list;
 	}
 
 	public SortDTO getSort() {
@@ -49,6 +37,23 @@ public class ListDTO<T> {
 		}
 
 		final String[] sortParams = sort.split(":");
+		// unsafe operation below but assumes that JSP doesn't have bugs
+		if (sortParams.length == 1) {
+			setSort(new SortDTO(sortParams[0]));
+		} else {
+			setSort(new SortDTO(sortParams[0], "asc".equals(sortParams[1])));
+		}
+	}
+
+	public void setSort(final String sortColumn, String defaultSortColumn) {
+		if (sortColumn == null) {
+			if (getSort() == null) {
+				setSort(new SortDTO(defaultSortColumn));
+			}
+			return;
+		}
+
+		final String[] sortParams = sortColumn.split(":");
 		// unsafe operation below but assumes that JSP doesn't have bugs
 		if (sortParams.length == 1) {
 			setSort(new SortDTO(sortParams[0]));

@@ -24,7 +24,7 @@ import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConterter;
 import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
-import com.itacademy.jd2.pk.hop.web.dto.list.ListDTO;
+import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
 @RequestMapping(value = "/participant")
@@ -49,19 +49,19 @@ public class participantController extends AbstractController<CustomerDTO> {
 			@RequestParam(name = "page", required = false) final Integer pageNumber,
 			@RequestParam(name = "sort", required = false) final String sortColumn) {
 
-		final ListDTO<CustomerDTO> listDTO = getListDTO(req);
-		listDTO.setPage(pageNumber);
-		listDTO.setSort(sortColumn);
+		final GridStateDTO gridState = getListDTO(req);
+		gridState.setPage(pageNumber);
+		gridState.setSort(sortColumn, "id");
 
 		final CustomerFilter filter = new CustomerFilter();
-		prepareFilter(listDTO, filter);
+		prepareFilter(gridState, filter);
 
 		final List<ICustomer> entities = customerService.find(filter);
-		listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
-		listDTO.setTotalCount(customerService.getCount(filter));
+		List<CustomerDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
+		gridState.setTotalCount(customerService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
-		models.put(ListDTO.LIST_MODEL_ATTRIBUTE, listDTO);
+		models.put("gridItem", dtos);
 		return new ModelAndView("participant.list", models);
 	}
 
