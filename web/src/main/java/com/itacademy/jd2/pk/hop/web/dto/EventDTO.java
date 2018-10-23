@@ -2,25 +2,34 @@ package com.itacademy.jd2.pk.hop.web.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 
 public class EventDTO {
+
 	private Integer id;
-
+	@NotEmpty
 	private String name;
-
+	@NotEmpty
 	private Integer creatorId;
-
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
-
+	@NotEmpty
 	private Integer countryId;
-
+	@NotEmpty
 	private Type type;
-
+	@NotEmpty
 	private String info;
-
+	@DecimalMin(value = "-90")
+	@DecimalMax(value = "90")
 	private Double latitude;
-
+	@DecimalMin(value = "-180")
+	@DecimalMax(value = "180")
 	private Double longitude;
 
 	private Date created;
@@ -114,5 +123,5 @@ public class EventDTO {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-	
+
 }

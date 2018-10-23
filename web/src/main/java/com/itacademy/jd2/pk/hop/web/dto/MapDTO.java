@@ -3,16 +3,32 @@ package com.itacademy.jd2.pk.hop.web.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class MapDTO {
 
 	private Integer id;
+	@Size(min = 1)
 	private String name;
 	private Integer userId;
+	@Size(min = 1, max = 100)
 	private String path;
+	@Size(min = 1)
 	private String file;
+	@DecimalMin(value = "-90")
+	@DecimalMax(value = "90")
 	private BigDecimal latitude1;
+	@DecimalMin(value = "-180")
+	@DecimalMax(value = "180")
 	private BigDecimal longitude1;
+	@DecimalMin(value = "-90")
+	@DecimalMax(value = "90")
 	private BigDecimal latitude2;
+	@DecimalMin(value = "-180")
+	@DecimalMax(value = "180")
 	private BigDecimal longitude2;
 	private Date created;
 	private Date updated;
@@ -56,8 +72,6 @@ public class MapDTO {
 	public void setFile(String file) {
 		this.file = file;
 	}
-
-	
 
 	public BigDecimal getLongitude2() {
 		return longitude2;

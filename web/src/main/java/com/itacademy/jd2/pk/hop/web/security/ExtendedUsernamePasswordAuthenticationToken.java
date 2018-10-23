@@ -7,20 +7,31 @@ import org.springframework.security.core.GrantedAuthority;
 
 public class ExtendedUsernamePasswordAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
-    private Integer id;
+	private String userName;
 
-    public ExtendedUsernamePasswordAuthenticationToken(final Integer id, final Object principal,
-            final Object credentials, final Collection<? extends GrantedAuthority> authorities) {
-        super(principal, credentials, authorities);
-        setId(id);
-    }
+	private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+	public ExtendedUsernamePasswordAuthenticationToken(final Integer id, final Object principal,
+			final Object credentials, final Collection<? extends GrantedAuthority> authorities) {
+		super(principal, credentials, authorities);
+		setId(id);
+		setUserName((String) principal);
+	}
 
-    public void setId(final Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(final Integer id) {
+		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String principal) {
+		this.userName = principal;
+	}
 
 }

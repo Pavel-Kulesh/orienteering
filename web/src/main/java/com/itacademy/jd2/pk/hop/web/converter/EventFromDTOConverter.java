@@ -12,8 +12,13 @@ import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
 @Component
 public class EventFromDTOConverter implements Function<EventDTO, IEvent> {
 
-	@Autowired
 	private IEventService eventServise;
+
+	@Autowired
+	public EventFromDTOConverter(IEventService eventServise) {
+		super();
+		this.eventServise = eventServise;
+	}
 
 	@Override
 	public IEvent apply(EventDTO dto) {

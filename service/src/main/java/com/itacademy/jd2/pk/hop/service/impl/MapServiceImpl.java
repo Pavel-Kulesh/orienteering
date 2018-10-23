@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 
 @Service
@@ -65,6 +66,16 @@ public class MapServiceImpl implements IMapService {
 	@Override
 	public IMap createEntity() {
 		return dao.createEntity();
+	}
+
+	@Override
+	public List<IMap> find(MapFilter filter) {
+		return dao.find(filter);
+	}
+
+	@Override
+	public long getCount(MapFilter filter) {
+		return dao.getCount(filter);
 	}
 
 }

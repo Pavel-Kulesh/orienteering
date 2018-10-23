@@ -4,39 +4,76 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	<definition name="DefaultTemplate" template="/WEB-INF/views/main-template.jsp">
+	<definition name="DefaultTemplate"
+		template="/WEB-INF/views/main-template.jsp">
 		<put-attribute name="title" value="ППоплаВА" />
-		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+		<put-attribute name="header"
+			value="/WEB-INF/views/header.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/footer.jsp" />
 	</definition>
 
 	<definition name="news.list" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/news/list.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/news/list.jsp" />
 	</definition>
 
 	<definition name="news.edit" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/news/form.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/news/form.jsp" />
 	</definition>
 
 	<definition name="index" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/index.jsp" />
 	</definition>
 
 	<definition name="event.list" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/event/list.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/event/list.jsp" />
 	</definition>
 
-	<definition name="links" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/links.jsp" />
+	<definition name="event.edit" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/event/form.jsp" />
+	</definition>
+
+	<definition name="event.add" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/event/form-add.jsp" />
+	</definition>
+
+	<definition name="link" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/links.jsp" />
 	</definition>
 
 	<definition name="map.list" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/map/list.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/map/list.jsp" />
+	</definition>
+	<definition name="map.edit" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/map/form.jsp" />
 	</definition>
 
+	<definition name="participant.list"
+		extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/participant/list.jsp" />
+	</definition>
+
+	<definition name="participant.edit"
+		extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/participant/form.jsp" />
+	</definition>
+
+
 	<definition name="login" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/login.jsp" />
 	</definition>
 
 

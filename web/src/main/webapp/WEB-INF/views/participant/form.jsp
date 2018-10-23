@@ -1,11 +1,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="baseUrl" value="${contextPath}/news" />
-<h4 class="header">Edit News</h4>
+<c:set var="baseUrl" value="${contextPath}/participant" />
+<h4 class="header">Edit customer</h4>
 <div class="row">
 	<form:form class="col s12" method="POST" action="${baseUrl}"
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
+
 
 		<div class="row">
 			<div class="input-field col s12">
@@ -17,9 +18,9 @@
 
 		<div class="row">
 			<div class="input-field col s12">
-				<form:input path="info" type="text" disabled="${readonly}" />
-				<form:errors path="info" cssClass="red-text" />
-				<label for="info">INfo</label>
+				<form:input path="surname" type="text" disabled="${readonly}" />
+				<form:errors path="surname" cssClass="red-text" />
+				<label for="surname">Surname</label>
 			</div>
 		</div>
 
@@ -36,5 +37,6 @@
 				</a>
 			</div>
 		</div>
+
 	</form:form>
 </div>

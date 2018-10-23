@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.itacademy.jd2.pk.hop.dao.api.IEventDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
+import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.service.IEventService;
 
 @Service
@@ -67,6 +68,16 @@ public class EventServiceImpl implements IEventService {
 	@Override
 	public IEvent createEntity() {
 		return dao.createEntity();
+	}
+
+	@Override
+	public List<IEvent> find(EventFilter filter) {
+		return dao.find(filter);
+	}
+
+	@Override
+	public long getCount(EventFilter filter) {
+		return dao.getCount(filter);
 	}
 
 }

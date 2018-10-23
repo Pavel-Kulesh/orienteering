@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Map;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
@@ -24,19 +26,18 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 	@Override
 	public void update(IMap entity) {
 		executeStatement(new PreparedStatementAction<IMap>(String.format(
-				"update %s set name=?, path=?, file=?, latitude1=?, longitude1=?, latitude2=?, longitude2=?, updated=? where id=?",
+				"update %s set name=?, latitude1=?, longitude1=?, latitude2=?, longitude2=?, updated=? where id=?",
 				getTableName())) {
 			@Override
 			public IMap doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
-				pStmt.setString(2, entity.getPath());
-				pStmt.setString(3, entity.getFile());
-				pStmt.setObject(4, entity.getLatitude1());
-				pStmt.setObject(5, entity.getLongitude1());
-				pStmt.setObject(6, entity.getLatitude2());
-				pStmt.setObject(7, entity.getLatitude2());
-				pStmt.setObject(8, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(9, entity.getId());
+
+				pStmt.setObject(2, entity.getLatitude1());
+				pStmt.setObject(3, entity.getLongitude1());
+				pStmt.setObject(4, entity.getLatitude2());
+				pStmt.setObject(5, entity.getLatitude2());
+				pStmt.setObject(6, entity.getUpdated(), Types.TIMESTAMP);
+				pStmt.setInt(7, entity.getId());
 
 				pStmt.executeUpdate();
 				return entity;
@@ -93,15 +94,28 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		entity.setUserId((Integer) resultSet.getObject("user_id"));
 		entity.setPath(resultSet.getString("path"));
 		entity.setFile(resultSet.getString("file"));
-		entity.setLatitude1((BigDecimal)resultSet.getObject("latitude1"));
-		entity.setLongitude1((BigDecimal)resultSet.getObject("longitude1"));
-		entity.setLatitude2((BigDecimal)resultSet.getObject("latitude2"));
-		entity.setLongitude2((BigDecimal)resultSet.getObject("longitude2"));
+		entity.setLatitude1((BigDecimal) resultSet.getObject("latitude1"));
+		entity.setLongitude1((BigDecimal) resultSet.getObject("longitude1"));
+		entity.setLatitude2((BigDecimal) resultSet.getObject("latitude2"));
+		entity.setLongitude2((BigDecimal) resultSet.getObject("longitude2"));
 
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
 
 		return entity;
+	}
+
+	@Override
+	public List<IMap> find(MapFilter filter) {
+		final StringBuilder sqlTile = new StringBuilder("");
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
+	}
+
+	@Override
+	public long getCount(MapFilter filter) {
+		return executeCountQuery("");
 	}
 
 }

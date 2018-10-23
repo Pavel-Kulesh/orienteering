@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itacademy.jd2.pk.hop.dao.api.ICustomerDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 
 @Service
@@ -74,6 +75,16 @@ public class CustomerServiseImpl implements ICustomerService {
 	@Override
 	public ICustomer createEntity() {
 		return dao.createEntity();
+	}
+
+	@Override
+	public List<ICustomer> find(CustomerFilter filter) {
+		return dao.find(filter);
+	}
+
+	@Override
+	public long getCount(CustomerFilter filter) {
+		return dao.getCount(filter);
 	}
 
 }

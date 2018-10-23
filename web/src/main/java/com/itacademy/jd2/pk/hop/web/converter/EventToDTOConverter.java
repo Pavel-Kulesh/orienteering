@@ -14,6 +14,7 @@ public class EventToDTOConverter implements Function<IEvent, EventDTO> {
 	public EventDTO apply(IEvent entity) {
 		EventDTO dto = new EventDTO();
 		dto.setId(entity.getId());
+		dto.setInfo(entity.getInfo());
 		dto.setName(entity.getName());
 		dto.setCreatorId(entity.getCreatorId());
 		dto.setDate(entity.getDate());

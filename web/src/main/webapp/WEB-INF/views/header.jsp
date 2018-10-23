@@ -8,14 +8,41 @@
 			<ul class="left hide-on-med-and-down">
 				<li><a href="${baseUrl}/">Home</a></li>
 				<li><a href="${baseUrl}/news">News</a></li>
-				<li><a href="${baseUrl}/events">Events</a></li>
-				<li><a href="${baseUrl}/participants">Participants</a></li>
-				<li><a href="${baseUrl}/maps">Maps</a></li>
-				<li><a href="${baseUrl}/links">Links</a></li>
-				<sec:authorize access="!isAnonymous()">
-					<a class="right" href="${baseUrl}/execute_logout" title="logout"><i
-						class="material-icons">arrow_forward</i></a>
+				<li><a href="${baseUrl}/event">Events</a></li>
+				<li><a href="${baseUrl}/participant">Participants</a></li>
+				<li><a href="${baseUrl}/map">Maps</a></li>
+				<li><a href="${baseUrl}/link">Links</a></li>
+
+
+				<sec:authentication var="user" property="principal" />
+
+				<sec:authorize access="isAuthenticated()">
+
+
+					<li><i class="large material-icons">account_circle</i></li>
+
+					<sec:authorize access="isAuthenticated()">
+						<li><sec:authentication property="userName" /></li>
+					</sec:authorize>
+
+
+
+
+
+
+					<li><a class="right" href="${baseUrl}/execute_logout"
+						title="logout"> ${pageContext.request.userPrincipal.name} <i
+							class="material-icons">arrow_forward</i></a></li>
+
 				</sec:authorize>
+
+
+
+				<sec:authorize access="isAnonymous()">
+					<a href="${baseUrl}/login"><i class="large material-icons">account_circle</i></a>
+				</sec:authorize>
+
+
 			</ul>
 		</div>
 	</nav>

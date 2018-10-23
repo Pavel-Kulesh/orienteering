@@ -1,7 +1,13 @@
 package com.itacademy.jd2.pk.hop.dao.api;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import java.util.List;
 
-public interface IMapDao extends IDao<IMap, Integer>{
+import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
+
+public interface IMapDao extends IDao<IMap, Integer> {
+	List<IMap> find(MapFilter filter);
+
+	long getCount(MapFilter filter);
 
 }

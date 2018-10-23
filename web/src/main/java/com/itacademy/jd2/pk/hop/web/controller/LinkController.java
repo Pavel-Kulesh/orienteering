@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "/links")
+@RequestMapping(value = "/link")
 public class LinkController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getLinks() {
-		return "links";
+		return "link";
 	}
 
 }

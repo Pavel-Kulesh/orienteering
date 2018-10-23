@@ -3,8 +3,8 @@ package com.itacademy.jd2.pk.hop.dao.jdbc.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.sql.Types;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Repository;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IEventDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Event;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
@@ -147,6 +148,19 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 				return executeUpdate;
 			}
 		});
+	}
+
+	@Override
+	public List<IEvent> find(EventFilter filter) {
+		final StringBuilder sqlTile = new StringBuilder("");
+		appendSort(filter, sqlTile);
+		appendPaging(filter, sqlTile);
+		return executeFindQuery(sqlTile.toString());
+	}
+
+	@Override
+	public long getCount(EventFilter filter) {
+		return executeCountQuery("");
 	}
 
 }

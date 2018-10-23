@@ -18,29 +18,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
-import com.itacademy.jd2.pk.hop.dao.api.filter.NewsFilter;
-import com.itacademy.jd2.pk.hop.service.INewsServise;
-import com.itacademy.jd2.pk.hop.web.converter.NewsFromDTOConverter;
-import com.itacademy.jd2.pk.hop.web.converter.NewsToDTOConverter;
-import com.itacademy.jd2.pk.hop.web.dto.NewsDTO;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
+import com.itacademy.jd2.pk.hop.service.ICustomerService;
+import com.itacademy.jd2.pk.hop.web.converter.CustomerFromDTOConverter;
+import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConterter;
+import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.ListDTO;
 
 @Controller
-@RequestMapping(value = "/news")
-public class NewsController extends AbstractController<NewsDTO> {
+@RequestMapping(value = "/participant")
+public class participantController extends AbstractController<CustomerDTO> {
 
-	private INewsServise newsService;
+	private ICustomerService customerService;
 
-	private NewsToDTOConverter toDTOConverter;
-
-	private NewsFromDTOConverter fromDTOConverter;
+	private CustomerToDTOConterter toDTOConverter;
+	private CustomerFromDTOConverter fromDTOConverter;
 
 	@Autowired
-	public NewsController(INewsServise newsService, NewsToDTOConverter toDTOConverter,
-			NewsFromDTOConverter fromDTOConverter) {
+	public participantController(ICustomerService customerService, CustomerToDTOConterter toDTOConverter,
+			CustomerFromDTOConverter fromDTOConverter) {
 		super();
-		this.newsService = newsService;
+		this.customerService = customerService;
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
 	}
@@ -50,68 +49,68 @@ public class NewsController extends AbstractController<NewsDTO> {
 			@RequestParam(name = "page", required = false) final Integer pageNumber,
 			@RequestParam(name = "sort", required = false) final String sortColumn) {
 
-		final ListDTO<NewsDTO> listDTO = getListDTO(req);
+		final ListDTO<CustomerDTO> listDTO = getListDTO(req);
 		listDTO.setPage(pageNumber);
 		listDTO.setSort(sortColumn);
 
-		final NewsFilter filter = new NewsFilter();
+		final CustomerFilter filter = new CustomerFilter();
 		prepareFilter(listDTO, filter);
 
-		final List<INews> entities = newsService.find(filter);
+		final List<ICustomer> entities = customerService.find(filter);
 		listDTO.setList(entities.stream().map(toDTOConverter).collect(Collectors.toList()));
-		listDTO.setTotalCount(newsService.getCount(filter));
+		listDTO.setTotalCount(customerService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put(ListDTO.LIST_MODEL_ATTRIBUTE, listDTO);
-		return new ModelAndView("news.list", models);
+		return new ModelAndView("participant.list", models);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
-		final INews newEntity = newsService.createEntity();
-		NewsDTO dto = toDTOConverter.apply(newEntity);
+		final ICustomer newEntity = customerService.createEntity();
+		CustomerDTO dto = toDTOConverter.apply(newEntity);
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("news.edit", hashMap);
+		return new ModelAndView("participant.edit", hashMap);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final NewsDTO formModel, final BindingResult result) {
+	public String save(@Valid @ModelAttribute("formModel") final CustomerDTO formModel, final BindingResult result) {
 		if (result.hasErrors()) {
-			return "news.edit";
+			return "participant.edit";
 		} else {
-			final INews entity = fromDTOConverter.apply(formModel);
-			newsService.save(entity);
-			return "redirect:/news";
+			final ICustomer entity = fromDTOConverter.apply(formModel);
+			customerService.save(entity);
+			return "redirect:/participant";
 		}
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
-		newsService.delete(id);
-		return "redirect:/news";
+		customerService.delete(id);
+		return "redirect:/participant";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final INews dbModel = newsService.get(id);
-		final NewsDTO dto = toDTOConverter.apply(dbModel);
+		final ICustomer dbModel = customerService.get(id);
+		final CustomerDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
-		return new ModelAndView("news.edit", hashMap);
+		return new ModelAndView("participant.edit", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
-		final NewsDTO dto = toDTOConverter.apply(newsService.get(id));
+		final CustomerDTO dto = toDTOConverter.apply(customerService.get(id));
 
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("news.edit", hashMap);
+		return new ModelAndView("participant.edit", hashMap);
 	}
 
 }
