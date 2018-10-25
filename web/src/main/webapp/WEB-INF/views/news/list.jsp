@@ -9,12 +9,12 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}"><i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}"><i class="material-icons">assignment_ind</i>name</mytaglib:sort-link></th>
 			<sec:authorize access="!isAnonymous()">
-				<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}">info</mytaglib:sort-link></th>
-				<th>created</th>
-				<th>updated</th>
+				<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}"><i class="material-icons">description</i>info</mytaglib:sort-link></th>
+				<th><i class="material-icons">access_time</i>created</th>
+				<th><i class="material-icons">access_time</i>updated</th>
 				<th></th>
 			</sec:authorize>
 		</tr>

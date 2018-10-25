@@ -34,6 +34,7 @@ public class UserAccountService implements IUserAccountService {
 	@Override
 	public List<IUserAccount> getAll() {
 		List<IUserAccount> all = dao.selectAll();
+
 		return all;
 	}
 
@@ -68,6 +69,13 @@ public class UserAccountService implements IUserAccountService {
 	@Override
 	public IUserAccount createEntity() {
 		return dao.createEntity();
+	}
+
+	@Override
+	public IUserAccount getByEmail(String email) {
+
+		IUserAccount entity = dao.getByEmail(email);
+		return entity;
 	}
 
 }

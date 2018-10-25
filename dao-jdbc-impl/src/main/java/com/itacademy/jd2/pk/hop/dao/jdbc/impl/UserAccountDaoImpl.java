@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -86,6 +87,22 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 		entity.setPassword(resultSet.getString("password"));
 
 		entity.setRole(Role.valueOf(resultSet.getString("role")));
+
+		return entity;
+	}
+
+	@Override
+	public IUserAccount getByEmail(String email) {
+
+		IUserAccount entity;
+		String sqlFragment = "where user_account.email=" + "'" + email + "'";
+
+		List<IUserAccount> list = executeFindQuery(sqlFragment);
+		if (list.isEmpty()) {
+			return null;
+
+		}
+		entity = list.get(0);
 
 		return entity;
 	}

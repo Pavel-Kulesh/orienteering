@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,17 +14,17 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 public class EventDTO {
 
 	private Integer id;
-	@NotEmpty
+
 	private String name;
-	@NotEmpty
+
 	private Integer creatorId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
-	@NotEmpty
+
 	private Integer countryId;
-	@NotEmpty
+//	@NotNull
 	private Type type;
-	@NotEmpty
+
 	private String info;
 	@DecimalMin(value = "-90")
 	@DecimalMax(value = "90")

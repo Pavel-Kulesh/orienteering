@@ -3,25 +3,29 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="baseUrl" value="${contextPath}/event" />
 <h4 class="header">Event</h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">
+					<i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
 
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
+					<i class="material-icons">assignment_ind</i>name</mytaglib:sort-link></th>
 
+			<th>type</th>
+
+			<th><i class="material-icons">description</i>info</th>
 			<sec:authorize access="!isAnonymous()">
-				<th>info</th>
-				<th>date</th>
-
+				<th><i class="material-icons">access_time</i>date</th>
 				<th>creator_id</th>
-				<th>country_id</th>
-				<th>created</th>
-				<th>updated</th>
+				<th><i class="material-icons">public</i>country_id</th>
+				<th><i class="material-icons">query_builder</i>created</th>
+				<th><i class="material-icons">access_time</i>updated</th>
 				<th></th>
 			</sec:authorize>
 		</tr>
@@ -29,8 +33,11 @@
 			<tr>
 				<td><c:out value="${event.id}" /></td>
 				<td><c:out value="${event.name}" /></td>
+
+				<td><c:out value="${event.type }" /></td>
+				<td><c:out value="${event.info}" /></td>
 				<sec:authorize access="!isAnonymous()">
-					<td><c:out value="${event.info}" /></td>
+
 
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.date}" /></td>
 
@@ -54,6 +61,8 @@
 		</c:forEach>
 	</tbody>
 </table>
+
+<jspFragments:paging />
 <sec:authorize access="hasAnyRole('ADMIN')">
 
 	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i

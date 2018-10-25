@@ -7,7 +7,9 @@
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 
+		
 		<div class="row">
+		<i class="material-icons">assignment</i>
 			<div class="input-field col s12">
 				<form:input path="name" type="text" disabled="${readonly}" />
 				<form:errors path="name" cssClass="red-text" />
@@ -16,6 +18,7 @@
 		</div>
 
 		<div class="row">
+		<i class="material-icons">announcement</i>
 			<div class="input-field col s12">
 				<form:input path="info" type="text" disabled="${readonly}" />
 				<form:errors path="info" cssClass="red-text" />

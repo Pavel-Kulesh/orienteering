@@ -1,8 +1,10 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.service.IEventService;
 import com.itacademy.jd2.pk.hop.web.converter.EventFromDTOConverter;
@@ -72,7 +75,6 @@ public class EventController extends AbstractController<EventDTO> {
 		final IEvent newEntity = eventService.createEntity();
 		EventDTO dto = toDTOConverter.apply(newEntity);
 		hashMap.put("formModel", dto);
-
 		return new ModelAndView("event.add", hashMap);
 	}
 
@@ -110,8 +112,18 @@ public class EventController extends AbstractController<EventDTO> {
 
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-
+		loadComboboxesModels(hashMap);
 		return new ModelAndView("event.edit", hashMap);
+	}
+
+	private void loadComboboxesModels(final Map<String, Object> hashMap) {
+
+		final List<Type> eventTypesList = Arrays.asList(Type.values());
+		final Map<String, String> eventTypesMap = eventTypesList.stream()
+				.collect(Collectors.toMap(Type::name, Type::name));
+
+		hashMap.put("typeChoices", eventTypesMap);
+
 	}
 
 }

@@ -11,12 +11,12 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="surname" pageUrl="${baseUrl}">surname</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}"><i class="material-icons">bubble_chart</i>id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}"><i class="material-icons">directions_run</i>name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="surname" pageUrl="${baseUrl}"><i class="material-icons">child_care</i>surname</mytaglib:sort-link></th>
 			<sec:authorize access="!isAnonymous()">
-				<th>phone</th>
-				<th>city_id</th>
+				<th><i class="material-icons">contact_phone</i>phone</th>
+				<th><i class="material-icons">location_city</i>city_id</th>
 				<th>created</th>
 				<th>updated</th>
 			</sec:authorize>

@@ -6,7 +6,8 @@
 	<nav>
 		<div class="nav-wrapper container">
 			<ul class="left hide-on-med-and-down">
-				<li><a href="${baseUrl}/">Home</a></li>
+				<li><a href="${baseUrl}/" title="Home"><i
+						class="large material-icons">home</i></a></li>
 				<li><a href="${baseUrl}/news">News</a></li>
 				<li><a href="${baseUrl}/event">Events</a></li>
 				<li><a href="${baseUrl}/participant">Participants</a></li>
@@ -23,6 +24,8 @@
 
 					<sec:authorize access="isAuthenticated()">
 						<li><sec:authentication property="userName" /></li>
+						<li>-</li>
+						<li><sec:authentication property="authorities" /></li>
 					</sec:authorize>
 
 
@@ -39,7 +42,11 @@
 
 
 				<sec:authorize access="isAnonymous()">
-					<a href="${baseUrl}/login"><i class="large material-icons">account_circle</i></a>
+					<li><a href="${baseUrl}/login" title="login"><i
+							class="large material-icons">account_circle</i></a></li>
+
+					<li><a href="${baseUrl}/registration" title="registration"><i
+							class="large material-icons">person_add</i></a></li>
 				</sec:authorize>
 
 

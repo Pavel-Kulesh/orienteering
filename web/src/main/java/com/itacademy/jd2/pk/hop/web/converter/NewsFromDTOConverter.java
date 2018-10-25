@@ -12,8 +12,12 @@ import com.itacademy.jd2.pk.hop.web.dto.NewsDTO;
 @Component
 public class NewsFromDTOConverter implements Function<NewsDTO, INews> {
 
-	@Autowired
 	private INewsServise newsService;
+	@Autowired
+	public NewsFromDTOConverter(INewsServise newsService) {
+		super();
+		this.newsService = newsService;
+	}
 
 	@Override
 	public INews apply(final NewsDTO dto) {

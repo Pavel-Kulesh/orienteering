@@ -12,8 +12,12 @@ import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
 @Component
 public class MapFromDTOConverter implements Function<MapDTO, IMap> {
 
-	@Autowired
 	private IMapService mapService;
+	@Autowired
+	public MapFromDTOConverter(IMapService mapService) {
+		super();
+		this.mapService = mapService;
+	}
 
 	@Override
 	public IMap apply(MapDTO dto) {
