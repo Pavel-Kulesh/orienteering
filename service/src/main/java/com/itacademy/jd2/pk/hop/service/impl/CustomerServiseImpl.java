@@ -87,4 +87,10 @@ public class CustomerServiseImpl implements ICustomerService {
 		return dao.getCount(filter);
 	}
 
+	@Override
+	public List<ICustomer> showParticipant(Integer id) {
+
+		return dao.showParticipant(id);
+	}
+
 }

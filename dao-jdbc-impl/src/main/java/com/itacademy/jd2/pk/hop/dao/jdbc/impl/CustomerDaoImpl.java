@@ -108,4 +108,11 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		return executeCountQuery("");
 	}
 
+	@Override
+	public List<ICustomer> showParticipant(Integer id) {
+		String text = String
+				.format("select * from customer a1 join item_event b1 on a1.id=b1.user_id where event_id=%s;", id);
+		return executeFindQueryWithCustomSelect(text);
+	}
+
 }

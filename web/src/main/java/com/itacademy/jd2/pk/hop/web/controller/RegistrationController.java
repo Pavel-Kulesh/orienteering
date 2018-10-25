@@ -2,6 +2,7 @@ package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,7 @@ import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 import com.itacademy.jd2.pk.hop.web.converter.AccountConverterFormDTO;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerConverterFormDTO;
+import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
 import com.itacademy.jd2.pk.hop.web.dto.RegFormDTO;
 
@@ -46,7 +48,15 @@ public class RegistrationController {
 		this.customerConverterFormDTO = customerConverterFormDTO;
 	}
 
-	
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView showForm() {
+		final Map<String, Object> hashMap = new HashMap<>();
+
+		hashMap.put("formModel", new RegFormDTO());
+
+		return new ModelAndView("registration", hashMap);
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("formModel") final RegFormDTO formModel, final BindingResult result) {
 		if (result.hasErrors()) {
@@ -56,15 +66,10 @@ public class RegistrationController {
 			final IUserAccount userAccount = accountConverterFormDTO.apply(formModel);
 			userAccountService.save(userAccount);
 
-			try {
 				final ICustomer customer = customerConverterFormDTO.apply(formModel);
 
 				customer.setId(userAccount.getId());
 				customerService.save(customer);
-			} catch (RuntimeException e) {
-				LOGGER.error("Cannot create account + customer");
-				userAccountService.delete(userAccount.getId());
-			}
 			LOGGER.info("create userAccont + customer sucsess");
 			return "redirect:/login";
 		}

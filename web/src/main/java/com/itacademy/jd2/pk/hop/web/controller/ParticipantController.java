@@ -28,7 +28,7 @@ import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
 @RequestMapping(value = "/participant")
-public class participantController extends AbstractController<CustomerDTO> {
+public class ParticipantController extends AbstractController<CustomerDTO> {
 
 	private ICustomerService customerService;
 
@@ -36,7 +36,7 @@ public class participantController extends AbstractController<CustomerDTO> {
 	private CustomerFromDTOConverter fromDTOConverter;
 
 	@Autowired
-	public participantController(ICustomerService customerService, CustomerToDTOConterter toDTOConverter,
+	public ParticipantController(ICustomerService customerService, CustomerToDTOConterter toDTOConverter,
 			CustomerFromDTOConverter fromDTOConverter) {
 		super();
 		this.customerService = customerService;
@@ -113,4 +113,16 @@ public class participantController extends AbstractController<CustomerDTO> {
 		return new ModelAndView("participant.edit", hashMap);
 	}
 
+	@RequestMapping(value = "/eventusers/{id}", method = RequestMethod.GET)
+	public ModelAndView showParticipant(@PathVariable(name = "id", required = true) final Integer id) {
+
+		final List<ICustomer> entities = customerService.showParticipant(id);
+
+		List<CustomerDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
+
+		final HashMap<String, Object> models = new HashMap<>();
+		models.put("gridItem", dtos);
+		return new ModelAndView("participant.list", models);
+
+	}
 }
