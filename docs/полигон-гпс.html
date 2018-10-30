@@ -32,7 +32,7 @@ function init() {
     map.controls.get('zoomControl').options.set({size: 'small'});
 
 var myPolygon = new ymaps.Polygon([
-            // Указываем координаты вершин многоугольника.
+            // .
             [
                 [53.683742, 23.997510], 
 			[53.697090, 23.997510],
@@ -41,22 +41,22 @@ var myPolygon = new ymaps.Polygon([
               	             
             ]
         ],
-        // Описываем свойства геообъекта.
+        // property.
         {
-            // Содержимое балуна.
+            // balun.
             balloonContent: "my map"
         }, {
-            // Описываем опции геообъекта.
-            // Фоновое изображение.
+            // write option geoObject.
+            // background image.
             fillImageHref: 'D:/java_train/images/vert.png',
-            // Тип заливки фоном.
+            // 
             fillMethod: 'stretch',
-            // Убираем видимость обводки.
+            // delete contour.
             stroke: false
         }
     );
 
-    // Добавляем многоугольник на карту.
+    // add poligon on map.
     map.geoObjects.add(myPolygon);
 
 
