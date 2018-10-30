@@ -1,15 +1,16 @@
 package com.itacademy.jd2.pk.hop.web.dto;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 
 public class RegFormDTO {
-	
+	@Size(min = 1, max = 50)
 	private String email;
-	
+	@Size(min = 1, max = 50)
 	private String password;
-	
+	@NotNull
 	private Role role;
 	@Size(min = 1, max = 50)
 	private String name;
@@ -17,7 +18,7 @@ public class RegFormDTO {
 	private String surname;
 
 	private String phone;
-	
+	@NotNull
 	private Integer cityId;
 
 	public String getEmail() {

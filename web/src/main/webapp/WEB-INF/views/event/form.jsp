@@ -4,15 +4,17 @@
 <h4 class="header">Edit Event</h4>
 
 
-<form:form class="col s12" method="GET" action="${baseUrl}/participant/eventusers/id"
-	modelAttribute="formModel">
-	
-	<a href="${contextPath}/participant/eventusers/${formModel.id}" class="btn waves-effect waves-light right" type="submit"><i class="large material-icons">home</i></a>
+<form:form class="col s12" method="GET"
+	action="${baseUrl}/list/event/id" modelAttribute="formModel" title="list of registered participants " >
+
+	<a href="${contextPath}/list/event/${formModel.id}"
+		class="btn waves-effect waves-light right" type="submit"><i
+		class="large material-icons">home</i></a>
 
 </form:form>
 
 <ul>
-		<li>
+	<li>
 		<div class="row">
 			<form:form class="col s12" method="POST" action="${baseUrl}"
 				modelAttribute="formModel">
@@ -43,6 +45,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<form:select path="type" disabled="${readonly}">
+							<option style="display: none;">Select type</option>
 							<form:options items="${typeChoices}" />
 						</form:select>
 						<form:errors path="type" cssClass="red-text" />

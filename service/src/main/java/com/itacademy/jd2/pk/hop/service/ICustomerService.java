@@ -24,6 +24,6 @@ public interface ICustomerService {
 
 	long getCount(CustomerFilter filter);
 
-	List<ICustomer> showParticipant(Integer id);
+	List<ICustomer> getCustomersByEvent(Integer id);
 
 }

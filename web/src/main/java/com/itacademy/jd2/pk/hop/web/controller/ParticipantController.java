@@ -113,16 +113,4 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 		return new ModelAndView("participant.edit", hashMap);
 	}
 
-	@RequestMapping(value = "/eventusers/{id}", method = RequestMethod.GET)
-	public ModelAndView showParticipant(@PathVariable(name = "id", required = true) final Integer id) {
-
-		final List<ICustomer> entities = customerService.showParticipant(id);
-
-		List<CustomerDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
-
-		final HashMap<String, Object> models = new HashMap<>();
-		models.put("gridItem", dtos);
-		return new ModelAndView("participant.list", models);
-
-	}
 }

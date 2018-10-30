@@ -21,5 +21,6 @@ public interface IEventService {
 	List<IEvent> find(EventFilter filter);
 
 	long getCount(EventFilter filter);
+	List<IEvent> getEventsByCustomer(Integer id);
 
 }

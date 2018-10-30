@@ -9,4 +9,7 @@ public interface IEventDao extends IDao<IEvent, Integer> {
 	List<IEvent> find(EventFilter filter);
 
 	long getCount(EventFilter filter);
+
+	List<IEvent> getEventsByCustomer(Integer id);
+
 }

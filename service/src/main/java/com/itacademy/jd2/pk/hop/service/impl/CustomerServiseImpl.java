@@ -88,9 +88,9 @@ public class CustomerServiseImpl implements ICustomerService {
 	}
 
 	@Override
-	public List<ICustomer> showParticipant(Integer id) {
+	public List<ICustomer> getCustomersByEvent(Integer id) {
 
-		return dao.showParticipant(id);
+		return dao.getCustomersByEvent(id);
 	}
 
 }

@@ -57,6 +57,10 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/map/form.jsp" />
 	</definition>
+	<definition name="map.add" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/map/form-add.jsp" />
+	</definition>
 
 	<definition name="participant.list"
 		extends="DefaultTemplate">
@@ -75,10 +79,19 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/login.jsp" />
 	</definition>
-	
+
 	<definition name="registration" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/registration.jsp" />
+	</definition>
+
+	<definition name="user2event" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/list/participant.jsp" />
+	</definition>
+	<definition name="event2user" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/list/event.jsp" />
 	</definition>
 
 

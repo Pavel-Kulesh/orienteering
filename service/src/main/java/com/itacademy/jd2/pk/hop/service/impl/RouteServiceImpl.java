@@ -17,14 +17,14 @@ import com.itacademy.jd2.pk.hop.service.IRouteService;
 public class RouteServiceImpl implements IRouteService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RouteServiceImpl.class);
 
-	@Autowired
 	private IPointDao pointDao;
 
 	private IRouteDao dao;
 
 	@Autowired
-	public RouteServiceImpl(IRouteDao dao) {
+	public RouteServiceImpl(IPointDao pointDao, IRouteDao dao) {
 		super();
+		this.pointDao = pointDao;
 		this.dao = dao;
 	}
 

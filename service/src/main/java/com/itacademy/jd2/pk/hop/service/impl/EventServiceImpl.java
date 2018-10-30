@@ -80,4 +80,10 @@ public class EventServiceImpl implements IEventService {
 		return dao.getCount(filter);
 	}
 
+	@Override
+	public List<IEvent> getEventsByCustomer(Integer id) {
+		
+		return dao.getEventsByCustomer(id);
+	}
+
 }

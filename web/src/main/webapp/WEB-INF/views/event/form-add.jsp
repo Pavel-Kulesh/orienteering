@@ -7,7 +7,7 @@
 		modelAttribute="formModel">
 
 		<div class="row">
-		<i class="material-icons">note</i>
+			<i class="material-icons">note</i>
 			<div class="input-field col s12">
 				<form:input path="name" type="text" disabled="${readonly}" />
 				<form:errors path="name" cssClass="red-text" />
@@ -16,9 +16,9 @@
 		</div>
 
 		<div class="row">
-		<i class="material-icons">description</i>
+			<i class="material-icons">description</i>
 			<div class="input-field col s12">
-			
+
 				<form:input path="info" type="text" disabled="${readonly}" />
 				<form:errors path="info" cssClass="red-text" />
 				<label for="info">Info</label>
@@ -27,7 +27,7 @@
 
 
 		<div class="row">
-		<i class="material-icons">query_builder</i>
+			<i class="material-icons">query_builder</i>
 			<div class="input-field col s12">
 				<form:input path="date" type="text" disabled="${readonly}"
 					cssClass="datepicker" />
@@ -39,11 +39,10 @@
 
 
 		<div class="row">
-		
+
 			<div class="input-field col s12">
-				<form:input path="creatorId" type="text" disabled="${readonly}" />
-				<form:errors path="creatorId" cssClass="red-text" />
-				<label for="creatorId">creatorId - current customer</label>
+				<form:input path="creatorId" value="${userId}" type="hidden" />
+
 			</div>
 
 
@@ -51,45 +50,47 @@
 
 
 		<div class="row">
-		<i class="material-icons">public</i>
+			<i class="material-icons">filter</i>
 			<div class="input-field col s12">
-				<form:input path="countryId" type="text" disabled="${readonly}" />
+				<form:select path="countryId" disabled="${readonly}">
+					<option style="display: none;">Select country</option>
+					<form:options items="${countryChoices}" />
+				</form:select>
 				<form:errors path="countryId" cssClass="red-text" />
-				<label for="countryId">country list</label>
+				<label for="countryId">country</label>
 			</div>
-
-
 		</div>
 
-		
+
+
+
+
 		<div class="row">
-				<i class="material-icons">filter</i>
-				<form:select path="type" disabled="${readonly}">
-						<form:options items="${typeChoices}" />
-					</form:select> <form:errors path="type" cssClass="red-text" /> <label for="type">type
-						list</label>
-		
+			<i class="material-icons">filter</i>
+			<form:select path="type" disabled="${readonly}">
+				<option style="display: none;">Select type</option>
+				<form:options items="${typeChoices}" />
+			</form:select>
+			<form:errors path="type" cssClass="red-text" />
+			<label for="type">type list</label>
+
 
 		</div>
 
 		<table>
 			<tr>
-				<td>
-				<i class="material-icons">search</i>
-				<div class="input-field col s12">
+				<td><i class="material-icons">search</i>
+					<div class="input-field col s12">
 						<form:input path="latitude" type="text" disabled="${readonly}" />
 						<form:errors path="latitude" cssClass="red-text" />
 						<label for="latitude">latitude</label>
 					</div></td>
-				<td>
-				<i class="material-icons">search</i>
+				<td><i class="material-icons">search</i>
 					<div class="input-field col s12">
 						<form:input path="longitude" type="text" disabled="${readonly}" />
 						<form:errors path="longitude" cssClass="red-text" />
 						<label for="longitude">longitude</label>
-					</div>
-
-				</td>
+					</div></td>
 			</tr>
 
 		</table>

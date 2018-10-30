@@ -25,6 +25,7 @@ import com.itacademy.jd2.pk.hop.web.converter.MapFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
+import com.itacademy.jd2.pk.hop.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/map")
@@ -71,14 +72,15 @@ public class MapController extends AbstractController<MapDTO> {
 		final IMap newEntity = mapService.createEntity();
 		MapDTO dto = toDTOConverter.apply(newEntity);
 		hashMap.put("formModel", dto);
-
-		return new ModelAndView("map.edit", hashMap);
+		Integer userId = AuthHelper.getLoggedUserId();
+		hashMap.put("userId", userId);
+		return new ModelAndView("map.add", hashMap);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("formModel") final MapDTO formModel, final BindingResult result) {
 		if (result.hasErrors()) {
-			return "map.edit";
+			return "map.add";
 		} else {
 			final IMap entity = fromDTOConverter.apply(formModel);
 			mapService.save(entity);

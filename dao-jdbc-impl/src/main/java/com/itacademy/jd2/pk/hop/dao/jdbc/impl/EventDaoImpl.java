@@ -163,4 +163,11 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 		return executeCountQuery("");
 	}
 
+	@Override
+	public List<IEvent> getEventsByCustomer(Integer id) {
+		String text = String
+				.format("select * from event a1 join user_2_event b1 on a1.id=b1.event_id where user_id=%s;", id);
+		return executeFindQueryWithCustomSelect(text);
+	}
+
 }

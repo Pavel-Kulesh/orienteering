@@ -2,6 +2,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="baseUrl" value="${contextPath}/participant" />
 <h4 class="header">Edit customer</h4>
+
+<div>
+	<form:form class="col s12" method="GET"
+		action="${baseUrl}/list/user/id" modelAttribute="formModel">
+
+		<a href="${contextPath}/list/user/${formModel.id}"
+			class="btn waves-effect waves-light right" type="submit" title="list of registered events "><i
+			class="large material-icons">home</i></a>
+
+	</form:form>
+
+</div>
+
+
 <div class="row">
 	<form:form class="col s12" method="POST" action="${baseUrl}"
 		modelAttribute="formModel">

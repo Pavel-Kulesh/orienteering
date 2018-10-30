@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <title>Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    
+    <style>
+        html, body, #map {
+            width: 80%;
+            height: 80%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+</head><body>
+<div id="map">
+<script>
+
+ymaps.ready(init);
+
+function init() {
+    var map = new ymaps.Map('map', {
+        center: [53.7, 24],
+        zoom: 3,
+        type: 'yandex#hybrid',
+        controls: ['zoomControl']
+    }, {
+               restrictMapArea: [[53.65, 23.7], [53.72, 24.3]]
+    });
+    map.controls.get('zoomControl').options.set({size: 'small'});
+
+var myPolygon = new ymaps.Polygon([
+            // Указываем координаты вершин многоугольника.
+            [
+                [53.683742, 23.997510], 
+			[53.697090, 23.997510],
+                 [53.697090, 24.028666], 
+			[53.683742, 24.028666],
+              	             
+            ]
+        ],
+        // Описываем свойства геообъекта.
+        {
+            // Содержимое балуна.
+            balloonContent: "my map"
+        }, {
+            // Описываем опции геообъекта.
+            // Фоновое изображение.
+            fillImageHref: 'D:/java_train/images/vert.png',
+            // Тип заливки фоном.
+            fillMethod: 'stretch',
+            // Убираем видимость обводки.
+            stroke: false
+        }
+    );
+
+    // Добавляем многоугольник на карту.
+    map.geoObjects.add(myPolygon);
+
+
+
+
+var data = ymaps.geoXml.load('https://drive.google.com/uc?export=download&id=1OEGk5BpFE5ULSxrcGR7nePA0W4rEsDUg').then(function(res) {
+    map.geoObjects.add(res.geoObjects);
+});
+
+
+
+}
+
+</script>
+</div>
+</body></html>

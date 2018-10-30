@@ -55,14 +55,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			throw new BadCredentialsException("1000");
 		}
 
-		if (!user.getEmail().equals(username)) {
-			throw new BadCredentialsException("1000");
-		}
-
-		if (!user.getPassword().equals(password)) {
-			throw new BadCredentialsException("1000");
-		}
-
 		final int userId = user.getId();
 
 		List<String> userRoles = new ArrayList<>();

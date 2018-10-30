@@ -8,6 +8,7 @@
 		<form:input path="id" type="hidden" />
 
 		<div class="row">
+		<i class="material-icons">note</i>
 			<div class="input-field col s12">
 				<form:input path="name" type="text" disabled="${readonly}" />
 				<form:errors path="name" cssClass="red-text" />
@@ -17,13 +18,17 @@
 
 		<table>
 			<tr>
-				<td><div class="input-field col s12">
-						<form:input path="latitude1" type="text" disabled="${readonly}" />
-						<form:errors path="latitude1" cssClass="red-text" />
-						<label for="latitude1">latitude1</label>
+				<td><div class="row">
+				<i class="material-icons">search</i>
+						<div class="input-field col s12">
+							<form:input path="latitude1" type="text" disabled="${readonly}" />
+							<form:errors path="latitude1" cssClass="red-text" />
+							<label for="latitude1">latitude1</label>
+						</div>
 					</div></td>
 				<td>
 					<div class="row">
+					<i class="material-icons">search</i>
 						<div class="input-field col s12">
 							<form:input path="latitude2" type="text" disabled="${readonly}" />
 							<form:errors path="latitude2" cssClass="red-text" />
@@ -36,6 +41,7 @@
 
 			<tr>
 				<td><div class="row">
+				<i class="material-icons">search</i>
 						<div class="input-field col s12">
 							<form:input path="longitude1" type="text" disabled="${readonly}" />
 							<form:errors path="longitude1" cssClass="red-text" />
@@ -44,6 +50,7 @@
 					</div></td>
 				<td>
 					<div class="row">
+					<i class="material-icons">search</i>
 						<div class="input-field col s12">
 							<form:input path="longitude2" type="text" disabled="${readonly}" />
 							<form:errors path="longitude2" cssClass="red-text" />

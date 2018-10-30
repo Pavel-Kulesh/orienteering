@@ -10,5 +10,5 @@ public interface ICustomerDao extends IDao<ICustomer, Integer> {
 
 	long getCount(CustomerFilter filter);
 
-	List<ICustomer> showParticipant(Integer id);
+	List<ICustomer> getCustomersByEvent(Integer id);
 }

@@ -4,12 +4,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,20 +21,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
+import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
+import com.itacademy.jd2.pk.hop.service.impl.PointServiceImpl;
 import com.itacademy.jd2.pk.hop.web.converter.EventFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.EventToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
+import com.itacademy.jd2.pk.hop.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/event")
 
 public class EventController extends AbstractController<EventDTO> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
+
 	private IEventService eventService;
+	private ICountryService countryService;
 
 	private EventToDTOConverter toDTOConverter;
 
@@ -41,11 +49,12 @@ public class EventController extends AbstractController<EventDTO> {
 
 	@Autowired
 	public EventController(IEventService eventService, EventToDTOConverter toDTOConverter,
-			EventFromDTOConverter fromDTOConverter) {
+			EventFromDTOConverter fromDTOConverter, ICountryService countryService) {
 		super();
 		this.eventService = eventService;
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
+		this.countryService = countryService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -72,9 +81,14 @@ public class EventController extends AbstractController<EventDTO> {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
+		Integer userId = AuthHelper.getLoggedUserId();
+		LOGGER.info("user id" + userId);
+		hashMap.put("userId", userId);
+
 		final IEvent newEntity = eventService.createEntity();
 		EventDTO dto = toDTOConverter.apply(newEntity);
 		hashMap.put("formModel", dto);
+		loadComboboxesModels(hashMap);
 		return new ModelAndView("event.add", hashMap);
 	}
 
@@ -84,6 +98,8 @@ public class EventController extends AbstractController<EventDTO> {
 			return "event.add";
 		} else {
 			final IEvent entity = fromDTOConverter.apply(formModel);
+			entity.setCreatorId(AuthHelper.getLoggedUserId());
+
 			eventService.save(entity);
 			return "redirect:/event";
 		}
@@ -123,6 +139,13 @@ public class EventController extends AbstractController<EventDTO> {
 				.collect(Collectors.toMap(Type::name, Type::name));
 
 		hashMap.put("typeChoices", eventTypesMap);
+
+		final List<ICountry> countries = countryService.getAll();
+
+		final Map<Integer, String> countriesMap = countries.stream()
+				.collect(Collectors.toMap(ICountry::getId, ICountry::getName));
+
+		hashMap.put("countryChoices", countriesMap);
 
 	}
 

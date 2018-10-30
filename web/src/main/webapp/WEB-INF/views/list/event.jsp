@@ -5,17 +5,14 @@
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
-<c:set var="baseUrl" value="${contextPath}/event" />
-<h4 class="header">Event</h4>
+<c:set var="baseUrl" value="${contextPath}" />
+<h4 class="header">List of event</h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">
-					<i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
+			<th><i class="material-icons">filter_vintage</i>id</th>
 
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
-					<i class="material-icons">assignment_ind</i>name</mytaglib:sort-link></th>
+			<th><i class="material-icons">assignment_ind</i>name</th>
 
 			<th>type</th>
 
@@ -50,7 +47,7 @@
 							value="${event.updated}" /></td>
 				</sec:authorize>
 				<td class="right"><a class="btn-floating"
-					href="${baseUrl}/${event.id}"><i class="material-icons">info</i></a>
+					href="${baseUrl}/event/${event.id}" title="event info" ><i class="material-icons">info</i></a>
 					<sec:authorize access="!isAnonymous()">
 						<a class="btn-floating" href="${baseUrl}/${event.id}/edit"><i
 							class="material-icons">edit</i></a>
@@ -61,10 +58,3 @@
 		</c:forEach>
 	</tbody>
 </table>
-
- <jspFragments:paging />
-<sec:authorize access="hasAnyRole('ADMIN')">
-
-	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
-		class="material-icons">add</i></a>
-</sec:authorize>

@@ -14,17 +14,18 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 public class EventDTO {
 
 	private Integer id;
-
+	@NotEmpty
 	private String name;
-
+	@NotNull
 	private Integer creatorId;
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
-
+	
 	private Integer countryId;
-//	@NotNull
+	@NotNull
 	private Type type;
-
+	@NotNull
 	private String info;
 	@DecimalMin(value = "-90")
 	@DecimalMax(value = "90")
