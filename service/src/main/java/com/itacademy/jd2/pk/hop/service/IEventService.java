@@ -2,6 +2,8 @@ package com.itacademy.jd2.pk.hop.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 
@@ -9,11 +11,11 @@ public interface IEventService {
 	IEvent get(Integer id);
 
 	List<IEvent> getAll();
-
+	@Transactional
 	void save(IEvent entity);
-
+	@Transactional
 	void delete(Integer id);
-
+	@Transactional
 	void deleteAll();
 
 	IEvent createEntity();
