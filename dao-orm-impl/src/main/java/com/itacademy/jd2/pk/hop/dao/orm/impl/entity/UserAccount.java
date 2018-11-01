@@ -22,7 +22,7 @@ public class UserAccount extends BaseEntity implements IUserAccount {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false, targetEntity = Customer.class)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccount", targetEntity = Customer.class)
 	@PrimaryKeyJoinColumn
 	private ICustomer customer;
 
