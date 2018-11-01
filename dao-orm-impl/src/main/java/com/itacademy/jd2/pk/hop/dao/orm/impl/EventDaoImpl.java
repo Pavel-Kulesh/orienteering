@@ -2,11 +2,13 @@ package com.itacademy.jd2.pk.hop.dao.orm.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.IEventDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Event;
-
+@Repository
 public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IEventDao {
 
 	protected EventDaoImpl() {

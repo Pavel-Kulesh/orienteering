@@ -3,13 +3,14 @@ package com.itacademy.jd2.pk.hop.dao.orm.impl.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IBaseEntity;
-@Entity
+
+@MappedSuperclass
 public abstract class BaseEntity implements IBaseEntity {
 
 	@Id

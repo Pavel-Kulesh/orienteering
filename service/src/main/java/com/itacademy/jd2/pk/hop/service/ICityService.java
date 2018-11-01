@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 
 public interface ICityService {
+	@Transactional
 	ICity get(Integer id);
 
 	List<ICity> getAll();

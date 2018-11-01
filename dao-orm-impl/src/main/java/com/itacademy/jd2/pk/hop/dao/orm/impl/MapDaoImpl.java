@@ -2,11 +2,13 @@ package com.itacademy.jd2.pk.hop.dao.orm.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map;
-
+@Repository
 public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDao {
 
 	protected MapDaoImpl() {

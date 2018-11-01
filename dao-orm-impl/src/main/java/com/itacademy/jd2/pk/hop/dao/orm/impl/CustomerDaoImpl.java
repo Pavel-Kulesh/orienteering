@@ -2,14 +2,16 @@ package com.itacademy.jd2.pk.hop.dao.orm.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.ICustomerDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer;
-
+@Repository
 public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> implements ICustomerDao {
 
-	protected CustomerDaoImpl(Class<? extends ICustomer> entityClass) {
+	protected CustomerDaoImpl() {
 		super(Customer.class);
 
 	}

@@ -2,12 +2,14 @@ package com.itacademy.jd2.pk.hop.dao.orm.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.itacademy.jd2.pk.hop.dao.api.INewsDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.INews;
 import com.itacademy.jd2.pk.hop.dao.api.filter.NewsFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.News;
 
-
+@Repository
 public class NewsDaoImpl extends AbstractDaoImpl<INews, Integer> implements INewsDao {
 
 	protected NewsDaoImpl() {
