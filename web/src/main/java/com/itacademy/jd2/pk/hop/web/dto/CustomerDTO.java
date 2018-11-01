@@ -2,9 +2,11 @@ package com.itacademy.jd2.pk.hop.web.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CustomerDTO {
+
 	private Integer id;
 	@Size(min = 1, max = 50)
 	private String name;
@@ -12,7 +14,7 @@ public class CustomerDTO {
 	private String surname;
 
 	private String phone;
-
+	@NotNull
 	private Integer cityId;
 
 	private Date created;

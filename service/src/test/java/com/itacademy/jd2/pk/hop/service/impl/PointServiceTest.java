@@ -28,11 +28,11 @@ public class PointServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getLatitude());
 		assertNotNull(entityFromDb.getLongitude());
-		assertNotNull(entityFromDb.getRouteId());
+		assertNotNull(entityFromDb.getRoute());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getId(), entityFromDb.getId());
-		assertEquals(entity.getRouteId(), entityFromDb.getRouteId());
+		assertEquals(entity.getRoute().getId(), entityFromDb.getRoute().getId());
 		assertEquals(entityFromDb.getLatitude(), entityFromDb.getLatitude());
 		assertEquals(entity.getLongitude(), entityFromDb.getLongitude());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
@@ -54,7 +54,7 @@ public class PointServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb.getId());
 			assertNotNull(entityFromDb.getLatitude());
 			assertNotNull(entityFromDb.getLongitude());
-			assertNotNull(entityFromDb.getRouteId());
+			assertNotNull(entityFromDb.getRoute());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
 		}
@@ -72,9 +72,8 @@ public class PointServiceTest extends AbstractTest {
 
 		for (int i = 0; i < randomObjectsCount; i++) {
 			IPoint entity = pointService.createEntity();
-			IRoute route = saveNewRoute();
-			entity.setRouteId(route.getId());
-
+			IRoute newRoute = saveNewRoute();
+			entity.setRoute(newRoute);
 			entity.setLatitude(getDoubleNumber());
 			entity.setLongitude(getDoubleNumber());
 			entity.setCreated(new Date());
@@ -92,7 +91,7 @@ public class PointServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb.getId());
 			assertNotNull(entityFromDb.getLatitude());
 			assertNotNull(entityFromDb.getLongitude());
-			assertNotNull(entityFromDb.getRouteId());
+			assertNotNull(entityFromDb.getRoute());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
 		}
@@ -112,14 +111,14 @@ public class PointServiceTest extends AbstractTest {
 	public void testDeleteById() {
 
 		IPoint point = saveNewPoint();
-		System.out.println(point.getRouteId() + "--------------route_id");
-		pointService.delete(point.getRouteId());
+		System.out.println(point.getRoute().getId() + "--------------route_id");
+		pointService.delete(point.getRoute().getId());
 		List<IPoint> allEntities = pointService.getAll();
 
 		boolean idExist = false;
 
 		for (IPoint entity : allEntities) {
-			if (entity.getRouteId().equals(point.getRouteId())) {
+			if (entity.getRoute().getId().equals(point.getRoute().getId())) {
 				idExist = true;
 			}
 		}

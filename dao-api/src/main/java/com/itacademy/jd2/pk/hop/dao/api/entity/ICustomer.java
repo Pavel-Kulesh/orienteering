@@ -13,7 +13,11 @@ public interface ICustomer extends IBaseEntity {
 
 	void setPhone(String phone);
 
-	Integer getCityId();
+	ICity getCity();
 
-	void setCityId(Integer cityId);
+	void setCity(ICity city);
+
+	IUserAccount getUserAccount();
+
+	void setUserAccount(IUserAccount userAccount);
 }

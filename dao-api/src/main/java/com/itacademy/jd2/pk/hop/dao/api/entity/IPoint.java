@@ -1,10 +1,6 @@
 package com.itacademy.jd2.pk.hop.dao.api.entity;
 
 public interface IPoint extends IBaseEntity {
-	Integer getRouteId();
-
-	void setRouteId(Integer routeId);
-
 	Double getLatitude();
 
 	void setLatitude(Double latitude);
@@ -16,4 +12,8 @@ public interface IPoint extends IBaseEntity {
 	Integer getDiffTime();
 
 	void setDiffTime(Integer diffTime);
+
+	IRoute getRoute();
+
+	void setRoute(IRoute route);
 }

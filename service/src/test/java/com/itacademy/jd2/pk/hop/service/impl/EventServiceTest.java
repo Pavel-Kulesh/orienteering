@@ -24,8 +24,8 @@ public class EventServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getName());
-		assertNotNull(entityFromDb.getCountryId());
-		assertNotNull(entityFromDb.getCreatorId());
+		assertNotNull(entityFromDb.getCountry());
+		assertNotNull(entityFromDb.getCustomer());
 		assertNotNull(entityFromDb.getInfo());
 		assertNotNull(entityFromDb.getDate());
 		assertNotNull(entityFromDb.getLatitude());
@@ -34,9 +34,9 @@ public class EventServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getId(), entityFromDb.getId());
-		assertEquals(entity.getCountryId(), entityFromDb.getCountryId());
+		assertEquals(entity.getCountry().getId(), entityFromDb.getCountry().getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
-		assertEquals(entity.getCreatorId(), entityFromDb.getCreatorId());
+		assertEquals(entity.getCustomer().getId(), entityFromDb.getCustomer().getId());
 		assertEquals(entity.getInfo(), entityFromDb.getInfo());
 		assertEquals(entity.getDate(), entityFromDb.getDate());
 		assertEquals(entity.getLatitude(), entityFromDb.getLatitude());
@@ -63,7 +63,7 @@ public class EventServiceTest extends AbstractTest {
 		Double newLong = getDoubleNumber();
 
 		entity.setName(newName);
-		entity.setCountryId(newCountry.getId());
+		entity.setCountry(newCountry);
 		entity.setType(newType);
 		entity.setInfo(newInfo);
 
@@ -81,8 +81,8 @@ public class EventServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getName());
-		assertNotNull(entityFromDb.getCountryId());
-		assertNotNull(entityFromDb.getCreatorId());
+		assertNotNull(entityFromDb.getCountry());
+		assertNotNull(entityFromDb.getCustomer());
 		assertNotNull(entityFromDb.getInfo());
 		assertNotNull(entityFromDb.getDate());
 		assertNotNull(entityFromDb.getLatitude());
@@ -92,12 +92,12 @@ public class EventServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getUpdated());
 
 		assertEquals(entity.getId(), entityFromDb.getId());
-		assertEquals(entity.getCreatorId(), entityFromDb.getCreatorId());
+		assertEquals(entity.getCustomer().getId(), entityFromDb.getCustomer().getId());
 		assertEquals(newName, entityFromDb.getName());
 		assertEquals(newInfo, entityFromDb.getInfo());
 		assertEquals(newType, entityFromDb.getType());
 		assertEquals(newDate, entityFromDb.getDate());
-		assertEquals(newCountry.getId(), entityFromDb.getCountryId());
+		assertEquals(newCountry.getId(), entityFromDb.getCountry().getId());
 		assertEquals(newLat, entityFromDb.getLatitude());
 		assertEquals(newLong, entityFromDb.getLongitude());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
@@ -118,8 +118,8 @@ public class EventServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb);
 			assertNotNull(entityFromDb.getId());
 			assertNotNull(entityFromDb.getName());
-			assertNotNull(entityFromDb.getCountryId());
-			assertNotNull(entityFromDb.getCreatorId());
+			assertNotNull(entityFromDb.getCountry());
+			assertNotNull(entityFromDb.getCustomer());
 			assertNotNull(entityFromDb.getInfo());
 			assertNotNull(entityFromDb.getDate());
 			assertNotNull(entityFromDb.getLatitude());

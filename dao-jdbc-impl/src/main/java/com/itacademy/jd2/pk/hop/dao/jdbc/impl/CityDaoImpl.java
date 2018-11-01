@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.ICityDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.City;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Country;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.SQLExecutionException;
 
 @Repository
@@ -33,7 +34,7 @@ public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICit
 			try {
 				pStmt.setString(1, entity.getName());
 				pStmt.setObject(2, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(3, entity.getCountryId());
+				pStmt.setInt(3, entity.getCountry().getId());
 				pStmt.setInt(4, entity.getId());
 				pStmt.executeUpdate();
 				c.commit();
@@ -59,7 +60,7 @@ public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICit
 				pStmt.setString(1, entity.getName());
 				pStmt.setObject(2, entity.getCreated(), Types.TIMESTAMP);
 				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(4, entity.getCountryId());
+				pStmt.setInt(4, entity.getCountry().getId());
 
 				pStmt.executeUpdate();
 
@@ -95,8 +96,10 @@ public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICit
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
 
+		Country country = new Country();
 		Integer countryId = (Integer) resultSet.getObject("country_id");
-		entity.setCountryId(countryId);
+		country.setId(countryId);
+		entity.setCountry(country);
 
 		return entity;
 	}

@@ -23,7 +23,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.IRegisterService;
 import com.itacademy.jd2.pk.hop.web.converter.AccountConverterFormDTO;
-import com.itacademy.jd2.pk.hop.web.converter.CustomerConverterFormDTO;
+import com.itacademy.jd2.pk.hop.web.converter.CustomerConverterRegFormFromDTO;
 import com.itacademy.jd2.pk.hop.web.dto.RegFormDTO;
 
 @Controller
@@ -31,7 +31,7 @@ import com.itacademy.jd2.pk.hop.web.dto.RegFormDTO;
 public class RegistrationController {
 
 	private AccountConverterFormDTO accountConverterFormDTO;
-	private CustomerConverterFormDTO customerConverterFormDTO;
+	private CustomerConverterRegFormFromDTO customerConverterFormDTO;
 	private IRegisterService registerService;
 	private ICityService cityService;
 
@@ -39,7 +39,7 @@ public class RegistrationController {
 
 	@Autowired
 	public RegistrationController(AccountConverterFormDTO accountConverterFormDTO,
-			CustomerConverterFormDTO customerConverterFormDTO, IRegisterService registerService,
+			CustomerConverterRegFormFromDTO customerConverterFormDTO, IRegisterService registerService,
 			ICityService cityService) {
 		super();
 		this.accountConverterFormDTO = accountConverterFormDTO;

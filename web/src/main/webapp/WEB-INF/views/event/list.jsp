@@ -41,7 +41,7 @@
 
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.date}" /></td>
 
-					<td><c:out value="${event.creatorId}" /></td>
+					<td><c:out value="${event.customerId}" /></td>
 					<td><c:out value="${event.countryId}" /></td>
 
 					<td><fmt:formatDate pattern="yyyy-MM-dd"

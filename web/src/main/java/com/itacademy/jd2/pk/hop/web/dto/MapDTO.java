@@ -13,7 +13,8 @@ public class MapDTO {
 	private Integer id;
 	@Size(min = 1)
 	private String name;
-	private Integer userId;
+	@NotNull
+	private Integer customerId;
 	@Size(min = 1, max = 100)
 	private String path;
 	@Size(min = 1)
@@ -47,14 +48,6 @@ public class MapDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 
 	public String getPath() {
@@ -119,6 +112,14 @@ public class MapDTO {
 
 	public void setUpdated(Date updated) {
 		this.updated = updated;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 }

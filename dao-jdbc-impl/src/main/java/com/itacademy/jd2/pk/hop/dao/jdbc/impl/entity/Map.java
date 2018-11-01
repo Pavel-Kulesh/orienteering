@@ -2,13 +2,16 @@ package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
 import java.math.BigDecimal;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 
 public class Map extends BaseEntity implements IMap {
 	private String name;
 	private String path;
 	private String file;
-	private Integer userId;
+
+	private ICustomer customer;
 	private BigDecimal latitude1;
 	private BigDecimal latitude2;
 	private BigDecimal longitude1;
@@ -36,14 +39,6 @@ public class Map extends BaseEntity implements IMap {
 
 	public void setFile(String file) {
 		this.file = file;
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 
 	public BigDecimal getLatitude1() {
@@ -78,11 +73,19 @@ public class Map extends BaseEntity implements IMap {
 		this.longitude2 = longitude2;
 	}
 
+	public ICustomer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(ICustomer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
-		return "Map [name=" + name + ", path=" + path + ", file=" + file + ", userId=" + userId + ", latitude1="
+		return "Map [name=" + name + ", path=" + path + ", file=" + file + ", customer=" + customer + ", latitude1="
 				+ latitude1 + ", latitude2=" + latitude2 + ", longitude1=" + longitude1 + ", longitude2=" + longitude2
-				+ ", Id()=" + getId() + ", Created()=" + getCreated() + ", Updated()=" + getUpdated() + "]";
+				+ ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
 
 }

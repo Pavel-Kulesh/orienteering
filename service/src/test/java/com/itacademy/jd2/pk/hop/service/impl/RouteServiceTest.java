@@ -22,14 +22,14 @@ public class RouteServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getPath());
 		assertNotNull(entityFromDb.getFile());
-		assertNotNull(entityFromDb.getUserId());
+		assertNotNull(entityFromDb.getCustomer());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getFile(), entityFromDb.getFile());
 		assertEquals(entity.getPath(), entityFromDb.getPath());
-		assertEquals(entity.getUserId(), entityFromDb.getUserId());
+		assertEquals(entity.getCustomer().getId(), entityFromDb.getCustomer().getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
@@ -37,12 +37,12 @@ public class RouteServiceTest extends AbstractTest {
 	@Test
 	public void testUpdate() throws InterruptedException {
 		IRoute entity = saveNewRoute();
-	
+
 		String newName = entity.getName() + "_updated";
 		entity.setName(newName);
 		String newPath = entity.getPath() + "_updated";
 		entity.setPath(newPath);
-	
+
 		Thread.sleep(1000);
 		routeService.save(entity);
 
@@ -77,7 +77,7 @@ public class RouteServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb.getName());
 			assertNotNull(entityFromDb.getPath());
 			assertNotNull(entityFromDb.getFile());
-			assertNotNull(entityFromDb.getUserId());
+			assertNotNull(entityFromDb.getCustomer());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
 

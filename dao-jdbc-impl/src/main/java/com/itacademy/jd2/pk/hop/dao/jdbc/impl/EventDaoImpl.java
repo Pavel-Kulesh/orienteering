@@ -13,7 +13,10 @@ import com.itacademy.jd2.pk.hop.dao.api.IEventDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Country;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Event;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.UserAccount;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
 @Repository
@@ -35,7 +38,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 				pStmt.setString(1, entity.getName());
 				pStmt.setObject(2, entity.getUpdated(), Types.TIMESTAMP);
 				pStmt.setObject(3, entity.getDate(), Types.TIMESTAMP);
-				pStmt.setInt(4, entity.getCountryId());
+				pStmt.setInt(4, entity.getCountry().getId());
 				pStmt.setString(5, entity.getType().name());
 				pStmt.setString(6, entity.getInfo());
 				pStmt.setDouble(7, entity.getLatitude());
@@ -52,15 +55,15 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 	@Override
 	public void insert(IEvent entity) {
 		executeStatement(new PreparedStatementAction<IEvent>(String.format(
-				"insert into %s (name, created, updated, creator_id, country_id, date, type, info, latitude, longitude) values(?,?,?,?,?,?,?,?,?,?)",
+				"insert into %s (name, created, updated, customer_id, country_id, date, type, info, latitude, longitude) values(?,?,?,?,?,?,?,?,?,?)",
 				getTableName()), true) {
 			@Override
 			public IEvent doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
 				pStmt.setObject(2, entity.getCreated(), Types.TIMESTAMP);
 				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(4, entity.getCreatorId());
-				pStmt.setInt(5, entity.getCountryId());
+				pStmt.setInt(4, entity.getCustomer().getId());
+				pStmt.setInt(5, entity.getCountry().getId());
 				pStmt.setObject(6, entity.getDate(), Types.TIMESTAMP);
 				pStmt.setString(7, entity.getType().name());
 				pStmt.setString(8, entity.getInfo());
@@ -97,13 +100,18 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 		entity.setName(resultSet.getString("name"));
 
-		Integer creatorId = (Integer) resultSet.getObject("creator_id");
-		entity.setCreatorId(creatorId);
+		Customer customer = new Customer();
+		Integer creatorId = (Integer) resultSet.getObject("customer_id");
+		customer.setId(creatorId);
+		entity.setCustomer(customer);
 
 		entity.setDate(resultSet.getTimestamp("date"));
 
+		Country country = new Country();
 		Integer countryId = (Integer) resultSet.getObject("country_id");
-		entity.setCountryId(countryId);
+		country.setId(countryId);
+		entity.setCountry(country);
+		;
 
 		entity.setType(Type.valueOf(resultSet.getString("type")));
 
@@ -165,8 +173,8 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	public List<IEvent> getEventsByCustomer(Integer id) {
-		String text = String
-				.format("select * from event a1 join user_2_event b1 on a1.id=b1.event_id where user_id=%s;", id);
+		String text = String.format(
+				"select * from event a1 join customer_2_event b1 on a1.id=b1.event_id where a1.customer_id=%s;", id);
 		return executeFindQueryWithCustomSelect(text);
 	}
 

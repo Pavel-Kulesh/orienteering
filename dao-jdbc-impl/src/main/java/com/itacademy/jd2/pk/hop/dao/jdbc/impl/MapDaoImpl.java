@@ -12,7 +12,9 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Map;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.UserAccount;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
 @Repository
@@ -49,13 +51,13 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 	@Override
 	public void insert(IMap entity) {
 		executeStatement(new PreparedStatementAction<IMap>(String.format(
-				"insert into %s (name, user_id, path, file, latitude1, longitude1, latitude2, longitude2, created, updated) values(?,?,?,?,?,?,?,?,?,?)",
+				"insert into %s (name, customer_id, path, file, latitude1, longitude1, latitude2, longitude2, created, updated) values(?,?,?,?,?,?,?,?,?,?)",
 				getTableName()), true) {
 			@Override
 			public IMap doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 
 				pStmt.setString(1, entity.getName());
-				pStmt.setInt(2, entity.getUserId());
+				pStmt.setInt(2, entity.getCustomer().getId());
 				pStmt.setString(3, entity.getPath());
 				pStmt.setString(4, entity.getFile());
 				pStmt.setObject(5, entity.getLatitude1());
@@ -91,7 +93,12 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		IMap entity = createEntity();
 		entity.setId((Integer) resultSet.getObject("id"));
 		entity.setName(resultSet.getString("name"));
-		entity.setUserId((Integer) resultSet.getObject("user_id"));
+
+		Customer customer = new Customer();
+		Integer creatorId = (Integer) resultSet.getObject("customer_id");
+		customer.setId(creatorId);
+		entity.setCustomer(customer);
+
 		entity.setPath(resultSet.getString("path"));
 		entity.setFile(resultSet.getString("file"));
 		entity.setLatitude1((BigDecimal) resultSet.getObject("latitude1"));

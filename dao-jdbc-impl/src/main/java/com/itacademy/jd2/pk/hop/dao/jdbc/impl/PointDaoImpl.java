@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IPointDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Point;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Route;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.SQLExecutionException;
 
@@ -53,7 +54,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 			public IPoint doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setObject(1, entity.getCreated(), Types.TIMESTAMP);
 				pStmt.setObject(2, entity.getUpdated(), Types.TIMESTAMP);
-				pStmt.setInt(3, entity.getRouteId());
+				pStmt.setInt(3, entity.getRoute().getId());
 				pStmt.setDouble(4, entity.getLatitude());
 				pStmt.setDouble(5, entity.getLongitude());
 				pStmt.setObject(6, entity.getDiffTime());
@@ -85,8 +86,10 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
 
+		Route route = new Route();
 		Integer routeId = (Integer) resultSet.getObject("route_id");
-		entity.setRouteId(routeId);
+		route.setId(routeId);
+		entity.setRoute(route);;
 
 		// exception BigDecimal to double
 		Double latitude = resultSet.getDouble("latitude");
@@ -132,7 +135,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 
 					pStmt.setObject(1, entity.getCreated(), Types.TIMESTAMP);
 					pStmt.setObject(2, entity.getUpdated(), Types.TIMESTAMP);
-					pStmt.setInt(3, entity.getRouteId());
+					pStmt.setInt(3, entity.getRoute().getId());
 					pStmt.setDouble(4, entity.getLatitude());
 					pStmt.setDouble(5, entity.getLongitude());
 					pStmt.setObject(6, entity.getDiffTime());
@@ -149,7 +152,6 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 					entity.setId(id);
 				}
 
-				// the same should be done in 'update' DAO method
 				c.commit();
 			} catch (final Exception e) {
 				c.rollback();

@@ -8,7 +8,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
 
 @Component
-public class CustomerToDTOConterter implements Function<ICustomer, CustomerDTO> {
+public class CustomerToDTOConverter implements Function<ICustomer, CustomerDTO> {
 
 	@Override
 	public CustomerDTO apply(ICustomer entity) {
@@ -17,7 +17,7 @@ public class CustomerToDTOConterter implements Function<ICustomer, CustomerDTO> 
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setSurname(entity.getSurname());
-		dto.setCityId(entity.getCityId());
+		dto.setCityId(entity.getCity().getId());
 		dto.setPhone(entity.getPhone());
 		dto.setCreated(entity.getCreated());
 		dto.setUpdated(entity.getUpdated());

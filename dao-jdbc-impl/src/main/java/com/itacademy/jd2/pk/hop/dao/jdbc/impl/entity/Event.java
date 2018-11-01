@@ -2,14 +2,17 @@ package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
 import java.util.Date;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 
 public class Event extends BaseEntity implements IEvent {
 	private String name;
-	private Integer creatorId;
+	private ICustomer customer;
 	private Date date;
-	private Integer countryId;
+	private ICountry country;
 	private Type type;
 	private String info;
 	private Double latitude;
@@ -39,28 +42,12 @@ public class Event extends BaseEntity implements IEvent {
 		this.name = name;
 	}
 
-	public Integer getCreatorId() {
-		return creatorId;
-	}
-
-	public void setCreatorId(Integer creatorId) {
-		this.creatorId = creatorId;
-	}
-
 	public Date getDate() {
 		return date;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public Integer getCountryId() {
-		return countryId;
-	}
-
-	public void setCountryId(Integer countryId) {
-		this.countryId = countryId;
 	}
 
 	public Type getType() {
@@ -79,11 +66,27 @@ public class Event extends BaseEntity implements IEvent {
 		this.info = info;
 	}
 
+	public ICountry getCountry() {
+		return country;
+	}
+
+	public void setCountry(ICountry country) {
+		this.country = country;
+	}
+
+	public ICustomer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(ICustomer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
-		return "Event [name=" + name + ", creatorId=" + creatorId + ", date=" + date + ", countryId=" + countryId
-				+ ", type=" + type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", Id()=" + getId() + ", Created()=" + getCreated() + ", Updated()=" + getUpdated() + "]";
+		return "Event [name=" + name + ", customer=" + customer + ", date=" + date + ", country=" + country + ", type="
+				+ type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude + ", getId()="
+				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
 
 }

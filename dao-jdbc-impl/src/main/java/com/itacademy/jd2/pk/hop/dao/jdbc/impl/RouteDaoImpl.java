@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Route;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
@@ -45,7 +46,7 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 	@Override
 	public void insert(IRoute entity) {
 		executeStatement(new PreparedStatementAction<IRoute>(
-				String.format("insert into %s (name, path, file, user_id, created, updated) values(?,?,?,?,?,?)",
+				String.format("insert into %s (name, path, file, customer_id, created, updated) values(?,?,?,?,?,?)",
 						getTableName()),
 				true) {
 			@Override
@@ -53,7 +54,7 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 				pStmt.setString(1, entity.getName());
 				pStmt.setString(2, entity.getPath());
 				pStmt.setString(3, entity.getFile());
-				pStmt.setInt(4, entity.getUserId());
+				pStmt.setInt(4, entity.getCustomer().getId());
 				pStmt.setObject(5, entity.getCreated(), Types.TIMESTAMP);
 				pStmt.setObject(6, entity.getUpdated(), Types.TIMESTAMP);
 
@@ -86,8 +87,10 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
 
-		Integer userId = (Integer) resultSet.getObject("user_id");
-		entity.setUserId(userId);
+		Customer customer = new Customer();
+		Integer userId = (Integer) resultSet.getObject("customer_id");
+		customer.setId(userId);
+		entity.setCustomer(customer);
 
 		return entity;
 	}

@@ -5,17 +5,21 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
 
 @Component
 public class MapFromDTOConverter implements Function<MapDTO, IMap> {
-
+	private ICustomerService customerService;
 	private IMapService mapService;
+
 	@Autowired
-	public MapFromDTOConverter(IMapService mapService) {
+	public MapFromDTOConverter(ICustomerService customerService, IMapService mapService) {
 		super();
+		this.customerService = customerService;
 		this.mapService = mapService;
 	}
 
@@ -26,7 +30,8 @@ public class MapFromDTOConverter implements Function<MapDTO, IMap> {
 		entity.setName(dto.getName());
 		entity.setFile(dto.getFile());
 		entity.setPath(dto.getPath());
-		entity.setUserId(dto.getUserId());
+		ICustomer customer = customerService.get(dto.getCustomerId());
+		entity.setCustomer(customer);
 		entity.setLatitude1(dto.getLatitude1());
 		entity.setLatitude2(dto.getLatitude2());
 		entity.setLongitude1(dto.getLongitude1());

@@ -99,7 +99,9 @@ public class AbstractTest {
 		ICity entity = cityService.createEntity();
 		entity.setName("city-" + getRandomPrefix());
 		ICountry country = saveNewCountry();
-		entity.setCountryId(country.getId());
+
+		entity.setCountry(country);
+		;
 
 		cityService.save(entity);
 		return entity;
@@ -139,7 +141,8 @@ public class AbstractTest {
 		entity.setName("name-" + getRandomPrefix());
 		entity.setSurname("surname-" + getRandomPrefix());
 		entity.setPhone("phone-" + getRandomPrefix());
-		entity.setCityId(city.getId());
+		entity.setCity(city);
+		;
 		customerService.save(entity);
 
 		return entity;
@@ -153,7 +156,8 @@ public class AbstractTest {
 		entity.setName("name-" + getRandomPrefix());
 		entity.setPath("path-" + getRandomPrefix());
 		entity.setFile("file-" + getRandomPrefix());
-		entity.setUserId(customer.getId());
+		entity.setCustomer(customer);
+		;
 		routeService.save(entity);
 
 		return entity;
@@ -163,7 +167,7 @@ public class AbstractTest {
 	protected IPoint saveNewPoint() {
 		IPoint entity = pointService.createEntity();
 		IRoute route = saveNewRoute();
-		entity.setRouteId(route.getId());
+		entity.setRoute(route);
 
 		entity.setLatitude(getDoubleNumber());
 		entity.setLongitude(getDoubleNumber());
@@ -182,9 +186,9 @@ public class AbstractTest {
 		ICountry country = saveNewCountry();
 
 		entity.setName("name-" + getRandomPrefix());
-		entity.setCreatorId(customer.getId());
+		entity.setCustomer(customer);
 		entity.setDate(new Date());
-		entity.setCountryId(country.getId());
+		entity.setCountry(country);
 
 		Type[] allTypes = Type.values();
 		int randomIndex = Math.max(0, getRANDOM().nextInt(allTypes.length));
@@ -206,7 +210,7 @@ public class AbstractTest {
 		entity.setName("name-" + getRandomPrefix());
 		entity.setPath("path-" + getRandomPrefix());
 		entity.setFile("file-" + getRandomPrefix());
-		entity.setUserId(customer.getId());
+		entity.setCustomer(customer);
 
 		mapService.save(entity);
 

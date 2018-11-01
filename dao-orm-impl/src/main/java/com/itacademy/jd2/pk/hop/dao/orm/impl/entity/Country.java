@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
+
 @Entity
 public class Country extends BaseEntity implements ICountry {
 	@Column

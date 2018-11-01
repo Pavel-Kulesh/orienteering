@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.ICustomerDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
+import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.City;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
@@ -34,7 +35,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 				pStmt.setString(1, entity.getName());
 				pStmt.setString(2, entity.getSurname());
 				pStmt.setObject(3, entity.getPhone());
-				pStmt.setInt(4, entity.getCityId());
+				pStmt.setInt(4, entity.getCity().getId());
 				pStmt.setObject(5, entity.getUpdated(), Types.TIMESTAMP);
 				pStmt.setInt(6, entity.getId());
 
@@ -55,7 +56,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 				pStmt.setString(2, entity.getName());
 				pStmt.setString(3, entity.getSurname());
 				pStmt.setObject(4, entity.getPhone());
-				pStmt.setInt(5, entity.getCityId());
+				pStmt.setInt(5, entity.getCity().getId());
 				pStmt.setObject(6, entity.getCreated(), Types.TIMESTAMP);
 				pStmt.setObject(7, entity.getUpdated(), Types.TIMESTAMP);
 
@@ -87,7 +88,12 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		entity.setName(resultSet.getString("name"));
 		entity.setSurname(resultSet.getString("surname"));
 		entity.setPhone((String) resultSet.getObject("phone"));
-		entity.setCityId((Integer) resultSet.getObject("city_id"));
+
+		City city = new City();
+		Integer cityId = (Integer) resultSet.getObject("city_id");
+		city.setId(cityId);
+		entity.setCity(city);
+		;
 
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
@@ -110,8 +116,8 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 
 	@Override
 	public List<ICustomer> getCustomersByEvent(Integer id) {
-		String text = String
-				.format("select * from customer a1 join user_2_event b1 on a1.id=b1.user_id where event_id=%s;", id);
+		String text = String.format(
+				"select * from customer a1 join customer_2_event b1 on a1.id=b1.customer_id where event_id=%s;", id);
 		return executeFindQueryWithCustomSelect(text);
 	}
 

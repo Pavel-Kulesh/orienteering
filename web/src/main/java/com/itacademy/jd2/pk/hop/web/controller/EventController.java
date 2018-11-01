@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
+import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
 import com.itacademy.jd2.pk.hop.service.impl.PointServiceImpl;
 import com.itacademy.jd2.pk.hop.web.converter.EventFromDTOConverter;
@@ -46,15 +48,17 @@ public class EventController extends AbstractController<EventDTO> {
 	private EventToDTOConverter toDTOConverter;
 
 	private EventFromDTOConverter fromDTOConverter;
+	private ICustomerService customerService;
 
 	@Autowired
 	public EventController(IEventService eventService, EventToDTOConverter toDTOConverter,
-			EventFromDTOConverter fromDTOConverter, ICountryService countryService) {
+			EventFromDTOConverter fromDTOConverter, ICountryService countryService, ICustomerService customerService) {
 		super();
 		this.eventService = eventService;
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
 		this.countryService = countryService;
+		this.customerService = customerService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -95,10 +99,12 @@ public class EventController extends AbstractController<EventDTO> {
 	@RequestMapping(method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("formModel") final EventDTO formModel, final BindingResult result) {
 		if (result.hasErrors()) {
-			return "event.add";
+			return "event.edit";
 		} else {
 			final IEvent entity = fromDTOConverter.apply(formModel);
-			entity.setCreatorId(AuthHelper.getLoggedUserId());
+
+			ICustomer customer = customerService.get(AuthHelper.getLoggedUserId());
+			entity.setCustomer(customer);
 
 			eventService.save(entity);
 			return "redirect:/event";

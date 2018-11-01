@@ -6,19 +6,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+
 @Entity
 public class Event extends BaseEntity implements IEvent {
+
 	@Column
 	private String name;
-	@Column
-	private Integer creatorId;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Customer.class)
+	private ICustomer customer;
 	@Column
 	private Date date;
-	@Column
-	private Integer countryId;
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Country.class)
+	private ICountry country;
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Type type;
@@ -53,28 +59,12 @@ public class Event extends BaseEntity implements IEvent {
 		this.name = name;
 	}
 
-	public Integer getCreatorId() {
-		return creatorId;
-	}
-
-	public void setCreatorId(Integer creatorId) {
-		this.creatorId = creatorId;
-	}
-
 	public Date getDate() {
 		return date;
 	}
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public Integer getCountryId() {
-		return countryId;
-	}
-
-	public void setCountryId(Integer countryId) {
-		this.countryId = countryId;
 	}
 
 	public Type getType() {
@@ -93,11 +83,27 @@ public class Event extends BaseEntity implements IEvent {
 		this.info = info;
 	}
 
+	public ICountry getCountry() {
+		return country;
+	}
+
+	public void setCountry(ICountry country) {
+		this.country = country;
+	}
+
+	public ICustomer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(ICustomer customer) {
+		this.customer = customer;
+	}
+
 	@Override
 	public String toString() {
-		return "Event [name=" + name + ", creatorId=" + creatorId + ", date=" + date + ", countryId=" + countryId
-				+ ", type=" + type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", Id()=" + getId() + ", Created()=" + getCreated() + ", Updated()=" + getUpdated() + "]";
+		return "Event [name=" + name + ", customer=" + customer + ", date=" + date + ", country=" + country + ", type="
+				+ type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude + ", getId()="
+				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
 
 }

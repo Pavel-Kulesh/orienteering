@@ -24,14 +24,14 @@ public class CustomerServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getSurname());
-		assertNotNull(entityFromDb.getCityId());
+		assertNotNull(entityFromDb.getCity());
 		// assertNotNull(entityFromDb.getPhone()); can be null
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getSurname(), entityFromDb.getSurname());
-		assertEquals(entity.getCityId(), entityFromDb.getCityId());
+		assertEquals(entity.getCity().getId(), entityFromDb.getCity().getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
@@ -47,7 +47,8 @@ public class CustomerServiceTest extends AbstractTest {
 		entity.setName(newName);
 		entity.setSurname(newSurname);
 		entity.setPhone(newPhone);
-		entity.setCityId(newCity.getId());
+
+		entity.setCity(newCity);
 
 		Thread.sleep(1000);
 		customerService.update(entity);
@@ -58,7 +59,7 @@ public class CustomerServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getSurname());
-		assertNotNull(entityFromDb.getCityId());
+		assertNotNull(entityFromDb.getCity());
 		// assertNotNull(entityFromDb.getPhone()); can be null
 
 		assertNotNull(entityFromDb.getCreated());
@@ -67,7 +68,7 @@ public class CustomerServiceTest extends AbstractTest {
 		assertEquals(newName, entityFromDb.getName());
 		assertEquals(newSurname, entityFromDb.getSurname());
 		assertEquals(newPhone, entityFromDb.getPhone());
-		assertEquals(newCity.getId(), entityFromDb.getCityId());
+		assertEquals(newCity.getId(), entityFromDb.getCity().getId());
 
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
@@ -90,7 +91,7 @@ public class CustomerServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb.getSurname());
 			// assertNotNull(entityFromDb.getPhone()); can be null
 
-			assertNotNull(entityFromDb.getCityId());
+			assertNotNull(entityFromDb.getCity());
 
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());

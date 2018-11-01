@@ -22,7 +22,7 @@
 			<div class="input-field col s12">
 				<form:input path="info" type="text" disabled="${readonly}" />
 				<form:errors path="info" cssClass="red-text" />
-				<label for="info">INfo</label>
+				<label for="info">Info</label>
 			</div>
 		</div>
 

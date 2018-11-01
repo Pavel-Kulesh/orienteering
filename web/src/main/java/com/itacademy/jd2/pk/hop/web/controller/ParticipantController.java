@@ -22,7 +22,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerFromDTOConverter;
-import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConterter;
+import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
@@ -32,11 +32,11 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 
 	private ICustomerService customerService;
 
-	private CustomerToDTOConterter toDTOConverter;
+	private CustomerToDTOConverter toDTOConverter;
 	private CustomerFromDTOConverter fromDTOConverter;
 
 	@Autowired
-	public ParticipantController(ICustomerService customerService, CustomerToDTOConterter toDTOConverter,
+	public ParticipantController(ICustomerService customerService, CustomerToDTOConverter toDTOConverter,
 			CustomerFromDTOConverter fromDTOConverter) {
 		super();
 		this.customerService = customerService;

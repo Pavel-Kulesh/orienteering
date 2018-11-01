@@ -15,10 +15,6 @@ public interface IMap extends IBaseEntity {
 
 	void setFile(String file);
 
-	Integer getUserId();
-
-	void setUserId(Integer userId);
-
 	BigDecimal getLatitude1();
 
 	void setLatitude1(BigDecimal latitude1);
@@ -34,4 +30,8 @@ public interface IMap extends IBaseEntity {
 	BigDecimal getLongitude2();
 
 	void setLongitude2(BigDecimal longitude2);
+
+	ICustomer getCustomer();
+
+	void setCustomer(ICustomer customer);
 }

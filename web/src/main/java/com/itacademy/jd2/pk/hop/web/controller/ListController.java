@@ -15,7 +15,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
-import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConterter;
+import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.EventToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
 import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
@@ -24,12 +24,12 @@ import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
 @RequestMapping(value = "/list")
 public class ListController {
 	private ICustomerService customerService;
-	private CustomerToDTOConterter customerToDTOConverter;
+	private CustomerToDTOConverter customerToDTOConverter;
 	private EventToDTOConverter eventToDTOConverter;
 	private IEventService eventService;
 
 	@Autowired
-	public ListController(ICustomerService customerService, CustomerToDTOConterter customerToDTOConverter,
+	public ListController(ICustomerService customerService, CustomerToDTOConverter customerToDTOConverter,
 			EventToDTOConverter eventToDTOConverter, IEventService eventService) {
 		super();
 		this.customerService = customerService;

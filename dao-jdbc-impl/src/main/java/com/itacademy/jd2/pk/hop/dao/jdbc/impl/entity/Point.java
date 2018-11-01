@@ -1,21 +1,18 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 
 public class Point extends BaseEntity implements IPoint {
-	private Integer routeId;
+	
+	
+	private IRoute route;
 	private Double latitude;
 	private Double longitude;
 	private Integer diffTime;
 
-	public Integer getRouteId() {
-		return routeId;
-	}
-
-	public void setRouteId(Integer routeId) {
-		this.routeId = routeId;
-	}
-
+	
+	
 	public Double getLatitude() {
 		return latitude;
 	}
@@ -40,11 +37,21 @@ public class Point extends BaseEntity implements IPoint {
 		this.diffTime = diffTime;
 	}
 
+	public IRoute getRoute() {
+		return route;
+	}
+
+	public void setRoute(IRoute route) {
+		this.route = route;
+	}
+
 	@Override
 	public String toString() {
-		return "Point [routeId=" + routeId + ", latitude=" + latitude + ", longitude=" + longitude + ", diffTime="
+		return "Point [route=" + route + ", latitude=" + latitude + ", longitude=" + longitude + ", diffTime="
 				+ diffTime + ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()="
 				+ getUpdated() + "]";
 	}
+
+	
 
 }

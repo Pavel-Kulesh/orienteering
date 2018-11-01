@@ -13,7 +13,7 @@
 		<tr>
 			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="user_id" pageUrl="${baseUrl}">user_id</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="customer_id" pageUrl="${baseUrl}">customer_id</mytaglib:sort-link></th>
 			<th></th>
 		</tr>
 
@@ -21,7 +21,7 @@
 			<tr>
 				<td><c:out value="${map.id}" /></td>
 				<td><c:out value="${map.name}" /></td>
-				<td><c:out value="${map.userId}" /></td>
+				<td><c:out value="${map.customerId}" /></td>
 
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${map.id}"><i class="material-icons">info</i></a>

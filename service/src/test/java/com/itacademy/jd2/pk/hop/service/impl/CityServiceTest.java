@@ -25,13 +25,13 @@ public class CityServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getName());
-		assertNotNull(entityFromDb.getCountryId());
+		assertNotNull(entityFromDb.getCountry());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
-		assertEquals(entity.getCountryId(), entityFromDb.getCountryId());
+		assertEquals(entity.getCountry().getId(), entityFromDb.getCountry().getId());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
@@ -44,7 +44,8 @@ public class CityServiceTest extends AbstractTest {
 		String newName = entity.getName() + "_updated";
 		entity.setName(newName);
 		ICountry country = saveNewCountry();
-		entity.setCountryId(country.getId());
+		entity.setCountry(country);
+		;
 
 		Thread.sleep(1000);
 		cityService.save(entity);
@@ -54,8 +55,8 @@ public class CityServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb);
 		assertEquals(newName, entityFromDb.getName());
 		assertNotNull(entityFromDb.getId());
-		assertNotNull(entityFromDb.getCountryId());
-		assertEquals(entityFromDb.getCountryId(), country.getId());
+		assertNotNull(entityFromDb.getCountry());
+		assertEquals(entityFromDb.getCountry().getId(), country.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
@@ -73,7 +74,7 @@ public class CityServiceTest extends AbstractTest {
 		for (ICity entityFromDb : allEntities) {
 			assertNotNull(entityFromDb.getName());
 			assertNotNull(entityFromDb.getId());
-			assertNotNull(entityFromDb.getCountryId());
+			assertNotNull(entityFromDb.getCountry());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
 		}

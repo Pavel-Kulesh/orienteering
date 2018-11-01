@@ -1,12 +1,14 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 
 public class Route extends BaseEntity implements IRoute {
 	private String name;
 	private String path;
 	private String file;
-	private Integer userId;
+	private ICustomer customer;
 
 	public String getFile() {
 		return file;
@@ -32,17 +34,17 @@ public class Route extends BaseEntity implements IRoute {
 		this.path = path;
 	}
 
-	public Integer getUserId() {
-		return userId;
+	public ICustomer getCustomer() {
+		return customer;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setCustomer(ICustomer customer) {
+		this.customer = customer;
 	}
 
 	@Override
 	public String toString() {
-		return "Route [name=" + name + ", path=" + path + ", file=" + file + ", userId=" + userId + ", getId()="
+		return "Route [name=" + name + ", path=" + path + ", file=" + file + ", customer=" + customer + ", getId()="
 				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
 

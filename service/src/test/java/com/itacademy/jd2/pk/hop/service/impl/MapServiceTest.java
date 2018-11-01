@@ -20,13 +20,13 @@ public class MapServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getFile());
 		assertNotNull(entityFromDb.getPath());
-		assertNotNull(entityFromDb.getUserId());
+		assertNotNull(entityFromDb.getCustomer());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
-		assertEquals(entity.getUserId(), entityFromDb.getUserId());
+		assertEquals(entity.getCustomer().getId(), entityFromDb.getCustomer().getId());
 		assertEquals(entity.getPath(), entityFromDb.getPath());
 		assertEquals(entity.getFile(), entityFromDb.getFile());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());

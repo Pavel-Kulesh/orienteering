@@ -5,7 +5,11 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
+import com.itacademy.jd2.pk.hop.service.ICountryService;
+import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
 import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
 
@@ -13,11 +17,17 @@ import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
 public class EventFromDTOConverter implements Function<EventDTO, IEvent> {
 
 	private IEventService eventServise;
+	private ICountryService countryService;
+	private ICustomerService customerService;
 
 	@Autowired
-	public EventFromDTOConverter(IEventService eventServise) {
+
+	public EventFromDTOConverter(IEventService eventServise, ICountryService countryService,
+			ICustomerService customerService) {
 		super();
 		this.eventServise = eventServise;
+		this.countryService = countryService;
+		this.customerService = customerService;
 	}
 
 	@Override
@@ -26,9 +36,11 @@ public class EventFromDTOConverter implements Function<EventDTO, IEvent> {
 
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setCreatorId(dto.getCreatorId());
+		ICustomer customer = customerService.get(dto.getCustomerId());
+		entity.setCustomer(customer);
 		entity.setDate(dto.getDate());
-		entity.setCountryId(dto.getCountryId());
+		ICountry country = countryService.get(dto.getCountryId());
+		entity.setCountry(country);
 		entity.setType(dto.getType());
 		entity.setInfo(dto.getInfo());
 		entity.setLatitude(dto.getLatitude());

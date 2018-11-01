@@ -7,17 +7,9 @@ public interface IEvent extends IBaseEntity {
 
 	void setName(String name);
 
-	Integer getCreatorId();
-
-	void setCreatorId(Integer creatorId);
-
 	Date getDate();
 
 	void setDate(Date date);
-
-	Integer getCountryId();
-
-	void setCountryId(Integer countryId);
 
 	Type getType();
 
@@ -34,4 +26,13 @@ public interface IEvent extends IBaseEntity {
 	Double getLongitude();
 
 	void setLongitude(Double longitude);
+
+	ICountry getCountry();
+
+	void setCountry(ICountry country);
+
+	ICustomer getCustomer();
+
+	void setCustomer(ICustomer customer);
+
 }

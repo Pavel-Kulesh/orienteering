@@ -6,15 +6,13 @@ import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.City;
 
 public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICityDao {
 
-	protected CityDaoImpl(Class<? extends ICity> entityClass) {
+	protected CityDaoImpl() {
 		super(City.class);
-
 	}
 
 	@Override
 	public ICity createEntity() {
-	City city = new City();
+		City city = new City();
 		return city;
 	}
-
 }

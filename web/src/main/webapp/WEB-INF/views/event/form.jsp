@@ -38,7 +38,7 @@
 						<label for="info">Info</label>
 					</div>
 				</div>
-				<form:input path="creatorId" type="hidden" />
+				<form:input path="customerId" type="hidden" />
 				<form:input path="countryId" type="hidden" />
 
 

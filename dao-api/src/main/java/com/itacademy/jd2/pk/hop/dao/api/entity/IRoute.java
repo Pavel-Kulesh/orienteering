@@ -9,11 +9,12 @@ public interface IRoute extends IBaseEntity {
 
 	void setPath(String path);
 
-	Integer getUserId();
-
-	void setUserId(Integer userId);
-
 	String getFile();
 
 	void setFile(String file);
+
+	ICustomer getCustomer();
+
+	void setCustomer(ICustomer customer);
+
 }

@@ -2,12 +2,11 @@ package com.itacademy.jd2.pk.hop.dao.api.entity;
 
 public interface ICity extends IBaseEntity {
 
-  String getName();
+	String getName();
 
-  void setName(String name);
+	void setName(String name);
 
-  Integer getCountryId();
+	ICountry getCountry();
 
-  void setCountryId(Integer countryId);
-
+	void setCountry(ICountry country);
 }

@@ -19,7 +19,7 @@
 		<div class="row">
 
 			<div class="input-field col s12">
-				<form:input path="userId" value="${userId}" type="hidden" />
+				<form:input path="customerId" value="${userId}" type="hidden" />
 
 			</div>
 
