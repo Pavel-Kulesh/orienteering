@@ -116,36 +116,37 @@ public class AbstractTest {
 		return entity;
 	}
 
-	protected IUserAccount saveNewUser() {
+	protected IUserAccount saveNewUserAccount() {
 		IUserAccount entity = userAccountService.createEntity();
 		entity.setEmail("email-" + getRandomPrefix());
 		entity.setPassword("password-" + getRandomPrefix());
+		ICustomer customer = customerService.createEntity();
 
 		Role[] allRoles = Role.values();
 		int randomIndex = Math.max(0, getRANDOM().nextInt(allRoles.length));
 		entity.setRole(allRoles[randomIndex]);
 
 		userAccountService.save(entity);
-
+		Integer id = entity.getId();
+		customer.setId(id);
+		entity.setCustomer(customer);
 		return entity;
 
 	}
 
 	protected ICustomer saveNewCustomer() {
-		ICustomer entity = customerService.createEntity();
-
-		IUserAccount user = saveNewUser();
+		IUserAccount userAccount = saveNewUserAccount();
 		ICity city = saveNewCity();
+		ICustomer customer = userAccount.getCustomer();
+		customer.setUserAccount(userAccount);
+		customer.setName("name-" + getRandomPrefix());
+		customer.setSurname("surname-" + getRandomPrefix());
+		customer.setPhone("phone-" + getRandomPrefix());
+		customer.setCity(city);
 
-		entity.setId(user.getId());
-		entity.setName("name-" + getRandomPrefix());
-		entity.setSurname("surname-" + getRandomPrefix());
-		entity.setPhone("phone-" + getRandomPrefix());
-		entity.setCity(city);
-		;
-		customerService.save(entity);
+		customerService.save(customer);
 
-		return entity;
+		return customer;
 
 	}
 

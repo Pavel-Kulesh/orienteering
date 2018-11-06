@@ -15,7 +15,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 public class UserAccountServiceTest extends AbstractTest {
 	@Test
 	public void testCreated() {
-		IUserAccount entity = saveNewUser();
+		IUserAccount entity = saveNewUserAccount();
 		IUserAccount entityFromDb = userAccountService.get(entity.getId());
 
 		assertNotNull(entityFromDb);
@@ -33,7 +33,7 @@ public class UserAccountServiceTest extends AbstractTest {
 
 	@Test
 	public void testUpdate() throws InterruptedException {
-		IUserAccount entity = saveNewUser();
+		IUserAccount entity = saveNewUserAccount();
 		String newPass = entity.getPassword() + "_updated";
 
 		entity.setPassword(newPass);
@@ -68,7 +68,7 @@ public class UserAccountServiceTest extends AbstractTest {
 		int randomObjectsCount = getRandomObjectsCount();
 
 		for (int i = 0; i < randomObjectsCount; i++) {
-			saveNewUser();
+			saveNewUserAccount();
 		}
 
 		List<IUserAccount> allEntities = userAccountService.getAll();
@@ -88,14 +88,14 @@ public class UserAccountServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeleteById() {
-		IUserAccount entity = saveNewUser();
+		IUserAccount entity = saveNewUserAccount();
 		userAccountService.delete(entity.getId());
 		assertNull(userAccountService.get(entity.getId()));
 	}
 
 	@Test
 	public void testDeleteAll() {
-		saveNewUser();
+		saveNewUserAccount();
 		userAccountService.deleteAll();
 		assertEquals(0, userAccountService.getAll().size());
 	}

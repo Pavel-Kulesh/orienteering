@@ -1,8 +1,13 @@
 package com.itacademy.jd2.pk.hop.dao.orm.impl.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -12,11 +17,23 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 
 @Entity
-public class Customer extends BaseEntity implements ICustomer {
+public class Customer implements ICustomer {
+
+	@Id
+	private Integer id;
+
+	@Column(updatable = false)
+	private Date created;
+
+	@Column
+	private Date updated;
+
 	@Column
 	private String name;
+
 	@Column
 	private String surname;
+
 	@Column
 	private String phone;
 
@@ -67,10 +84,34 @@ public class Customer extends BaseEntity implements ICustomer {
 		this.city = city;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+
 	@Override
 	public String toString() {
-		return "Customer [name=" + name + ", surname=" + surname + ", phone=" + phone + ", city=" + city + ", getId()="
-				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+		return "Customer [id=" + id + ", created=" + created + ", updated=" + updated + ", name=" + name + ", surname="
+				+ surname + ", phone=" + phone + ", city=" + city + ", userAccount=" + userAccount + "]";
 	}
 
 }
