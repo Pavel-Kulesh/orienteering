@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -111,7 +109,7 @@ public class Customer implements ICustomer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", created=" + created + ", updated=" + updated + ", name=" + name + ", surname="
-				+ surname + ", phone=" + phone + ", city=" + city + ", userAccount=" + userAccount + "]";
+				+ surname + ", phone=" + phone + ", city=" + city +"]";
 	}
 
 }
