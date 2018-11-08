@@ -25,44 +25,29 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-
-
 			<th><i class="material-icons">assignment_ind</i>name</th>
-
 			<th>type</th>
 			<th><i class="material-icons">access_time</i>date</th>
 			<th><i class="material-icons">public</i>country</th>
-
 			<th></th>
-
 		</tr>
 
 		<tr>
 			<td><c:out value="${formModel.name}" /></td>
-
 			<td><c:out value="${formModel.type }" /></td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd"
 					value="${formModel.date}" /></td>
-
-
 			<td><c:out value="${formModel.countryId}" /></td>
-
-
-
-
 		</tr>
-
 		<tr>
 			<td colspan="4" align="justify">something</td>
 		</tr>
 
 
 		<tr>
-
 			<td colspan="4" align="center">
 				<table>
 					<tbody>
-
 						<c:out value="${formModel.info}" />
 					</tbody>
 				</table>
