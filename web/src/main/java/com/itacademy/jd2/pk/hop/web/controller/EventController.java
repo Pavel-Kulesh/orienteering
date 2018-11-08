@@ -125,7 +125,7 @@ public class EventController extends AbstractController<EventDTO> {
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
-		return new ModelAndView("event.edit", hashMap);
+		return new ModelAndView("event.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)

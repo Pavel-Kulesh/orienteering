@@ -4,14 +4,6 @@
 <h4 class="header">Edit Event</h4>
 
 
-<form:form class="col s12" method="GET"
-	action="${baseUrl}/list/event/id" modelAttribute="formModel" title="list of registered participants " >
-
-	<a href="${contextPath}/list/event/${formModel.id}"
-		class="btn waves-effect waves-light right" type="submit"><i
-		class="large material-icons">home</i></a>
-
-</form:form>
 
 <ul>
 	<li>

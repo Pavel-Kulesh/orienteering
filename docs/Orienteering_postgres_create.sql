@@ -142,6 +142,15 @@ CREATE TABLE "country" (
 
 
 
+CREATE TABLE "map_2_route" (
+	"map_id" integer NOT NULL,
+	"route_id" integer NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
+
 ALTER TABLE "customer" ADD CONSTRAINT "customer_fk0" FOREIGN KEY ("id") REFERENCES "user_account"("id");
 ALTER TABLE "customer" ADD CONSTRAINT "customer_fk1" FOREIGN KEY ("city_id") REFERENCES "city"("id");
 
@@ -161,4 +170,7 @@ ALTER TABLE "point" ADD CONSTRAINT "point_fk0" FOREIGN KEY ("route_id") REFERENC
 
 ALTER TABLE "city" ADD CONSTRAINT "city_fk0" FOREIGN KEY ("country_id") REFERENCES "country"("id");
 
+
+ALTER TABLE "map_2_route" ADD CONSTRAINT "map_2_route_fk0" FOREIGN KEY ("map_id") REFERENCES "map"("id");
+ALTER TABLE "map_2_route" ADD CONSTRAINT "map_2_route_fk1" FOREIGN KEY ("route_id") REFERENCES "route"("id");
 

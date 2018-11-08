@@ -62,7 +62,7 @@
 	</tbody>
 </table>
 
- <jspFragments:paging />
+<jspFragments:paging />
 <sec:authorize access="hasAnyRole('ADMIN')">
 
 	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i

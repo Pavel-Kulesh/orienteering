@@ -42,7 +42,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		if (user == null) {
 			LOGGER.error(
-					"YOU HAVE SEVERAL IDENTICAL USERS IN THE TABLE! YOU MUST CHANGE THE DATABASE! THE EMAIL FIELD MUST BE UNIQUE! CALL THE ADMIN!");
+					"CALL THE ADMIN!");
 
 			throw new BadCredentialsException("1000");
 		}

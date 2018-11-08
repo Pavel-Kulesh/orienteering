@@ -36,13 +36,20 @@
 
 	<definition name="event.edit" extends="DefaultTemplate">
 		<put-attribute name="body"
-			value="/WEB-INF/views/event/form.jsp" />
+			value="/WEB-INF/views/event/edit.jsp" />
+	</definition>
+	<definition name="event.info" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/event/info.jsp" />
 	</definition>
 
 	<definition name="event.add" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/event/form-add.jsp" />
 	</definition>
+
+
+
 
 	<definition name="link" extends="DefaultTemplate">
 		<put-attribute name="body"
