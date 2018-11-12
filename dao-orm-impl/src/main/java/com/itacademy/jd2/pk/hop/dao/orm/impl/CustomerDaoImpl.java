@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
@@ -41,7 +42,8 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		final CriteriaQuery<ICustomer> cq = cb.createQuery(ICustomer.class);
 		final Root<Customer> from = cq.from(Customer.class);
 		cq.select(from);
-
+		from.fetch(Customer_.userAccount, JoinType.LEFT);
+		from.fetch(Customer_.city, JoinType.LEFT);
 		final String sortColumn = filter.getSortColumn();
 		if (sortColumn != null) {
 			final Path<?> expression = getSortPath(from, sortColumn);

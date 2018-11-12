@@ -12,12 +12,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 
 public class EventDTO {
-	@NotNull
+
 	private Integer id;
 	@NotEmpty
 	private String name;
 	@NotNull
 	private Integer customerId;
+	
+	private String countryName;
+	
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
@@ -124,6 +127,14 @@ public class EventDTO {
 
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 
 }

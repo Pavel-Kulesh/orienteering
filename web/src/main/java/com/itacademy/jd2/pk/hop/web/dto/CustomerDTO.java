@@ -16,6 +16,7 @@ public class CustomerDTO {
 	private String phone;
 	@NotNull
 	private Integer cityId;
+	private String cityName;
 
 	private Date created;
 	private Date updated;
@@ -75,4 +76,13 @@ public class CustomerDTO {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
 }

@@ -3,14 +3,17 @@ package com.itacademy.jd2.pk.hop.web.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Country;
 
 public class RegFormDTO {
 	@Size(min = 1, max = 50)
 	private String email;
 	@Size(min = 1, max = 50)
 	private String password;
-	@NotNull
+
 	private Role role;
 	@Size(min = 1, max = 50)
 	private String name;
@@ -18,6 +21,10 @@ public class RegFormDTO {
 	private String surname;
 
 	private String phone;
+
+	private ICity city;
+	private ICountry country;
+
 	@NotNull
 	private Integer cityId;
 
@@ -75,6 +82,22 @@ public class RegFormDTO {
 
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
+	}
+
+	public ICity getCity() {
+		return city;
+	}
+
+	public void setCity(ICity city) {
+		this.city = city;
+	}
+
+	public ICountry getCountry() {
+		return country;
+	}
+
+	public void setCountry(ICountry country) {
+		this.country = country;
 	}
 
 }

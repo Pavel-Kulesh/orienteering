@@ -16,7 +16,7 @@
 			<th><mytaglib:sort-link column="surname" pageUrl="${baseUrl}"><i class="material-icons">child_care</i>surname</mytaglib:sort-link></th>
 			<sec:authorize access="!isAnonymous()">
 				<th><i class="material-icons">contact_phone</i>phone</th>
-				<th><i class="material-icons">location_city</i>city_id</th>
+				<th><i class="material-icons">location_city</i>city</th>
 				<th>created</th>
 				<th>updated</th>
 			</sec:authorize>
@@ -31,7 +31,7 @@
 
 				<sec:authorize access="!isAnonymous()">
 					<td><c:out value="${participant.phone}" /></td>
-					<td><c:out value="${participant.cityId}" /></td>
+					<td><c:out value="${participant.cityName}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${participant.created}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"

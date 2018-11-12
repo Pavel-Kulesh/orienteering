@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Event_;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map_;
 
@@ -40,7 +42,7 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		final CriteriaQuery<IMap> cq = cb.createQuery(IMap.class);
 		final Root<Map> from = cq.from(Map.class);
 		cq.select(from);
-
+		from.fetch(Map_.customer, JoinType.LEFT);
 		final String sortColumn = filter.getSortColumn();
 		if (sortColumn != null) {
 			final Path<?> expression = getSortPath(from, sortColumn);
@@ -79,7 +81,7 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 			return from.get(Map_.id);
 		case "customer":
 			return from.get(Map_.customer);
-		
+
 		default:
 			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
 		}

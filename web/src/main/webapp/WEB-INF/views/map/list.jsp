@@ -13,16 +13,19 @@
 		<tr>
 			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="customer_id" pageUrl="${baseUrl}">customer_id</mytaglib:sort-link></th>
-			<th></th>
+			<sec:authorize access="hasAnyRole('ADMIN')">
+				<th><mytaglib:sort-link column="customer_id"
+						pageUrl="${baseUrl}">customer_id</mytaglib:sort-link></th>
+			</sec:authorize>
 		</tr>
 
 		<c:forEach var="map" items="${gridItem}" varStatus="loopCounter">
 			<tr>
 				<td><c:out value="${map.id}" /></td>
 				<td><c:out value="${map.name}" /></td>
-				<td><c:out value="${map.customerId}" /></td>
-
+				<sec:authorize access="hasAnyRole('ADMIN')">
+					<td><c:out value="${map.customerId}" /></td>
+				</sec:authorize>
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${map.id}"><i class="material-icons">info</i></a>
 					<sec:authorize access="!isAnonymous()">

@@ -53,7 +53,7 @@
 			<i class="material-icons">filter</i>
 			<div class="input-field col s12">
 				<form:select path="countryId" disabled="${readonly}">
-					<option style="display: none;">Select country</option>
+					<option value="" disabled selected>Select country</option>
 					<form:options items="${countryChoices}" />
 				</form:select>
 				<form:errors path="countryId" cssClass="red-text" />
@@ -65,10 +65,13 @@
 
 
 
+
+
+
 		<div class="row">
 			<i class="material-icons">filter</i>
 			<form:select path="type" disabled="${readonly}">
-				<option style="display: none;">Select type</option>
+				<option value="" disabled selected>Select type</option>
 				<form:options items="${typeChoices}" />
 			</form:select>
 			<form:errors path="type" cssClass="red-text" />

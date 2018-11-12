@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
@@ -39,7 +40,9 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 		final CriteriaQuery<IEvent> cq = cb.createQuery(IEvent.class);
 		final Root<Event> from = cq.from(Event.class);
 		cq.select(from);
-
+		from.fetch(Event_.customer, JoinType.LEFT);
+		from.fetch(Event_.country, JoinType.LEFT);
+		// from.fetch(Event_.type, JoinType.LEFT);
 		final String sortColumn = filter.getSortColumn();
 		if (sortColumn != null) {
 			final Path<?> expression = getSortPath(from, sortColumn);
@@ -69,7 +72,19 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	public List<IEvent> getEventsByCustomer(Integer id) {
-		throw new RuntimeException("not implemented");
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IEvent> cq = cb.createQuery(IEvent.class);
+		final Root<Event> from = cq.from(Event.class);
+		cq.select(from);
+		from.fetch(Event_.customer, JoinType.LEFT);
+		from.fetch(Event_.country, JoinType.LEFT);
+		// from.fetch(Event_.type, JoinType.LEFT);
+
+		// cq.where(cb.equal(from.get(Event_.id), id));
+		final TypedQuery<IEvent> q = em.createQuery(cq);
+
+		return q.getResultList();
 	}
 
 	private Path<?> getSortPath(final Root<Event> from, final String sortColumn) {
@@ -82,9 +97,32 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 			return from.get(Event_.updated);
 		case "id":
 			return from.get(Event_.id);
+		case "type":
+			return from.get(Event_.type);
+		case "date":
+			return from.get(Event_.date);
+		case "country":
+			return from.get(Event_.country);
+		case "customer_id":
+			return from.get(Event_.customer);
 		default:
 			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
 		}
+	}
+
+	@Override
+	public IEvent get(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IEvent> cq = cb.createQuery(IEvent.class);
+		final Root<Event> from = cq.from(Event.class);
+		cq.select(from);
+		from.fetch(Event_.customer, JoinType.LEFT);
+		from.fetch(Event_.country, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Event_.id), id));
+		final TypedQuery<IEvent> q = em.createQuery(cq);
+		return q.getResultList().get(0);
 	}
 
 }

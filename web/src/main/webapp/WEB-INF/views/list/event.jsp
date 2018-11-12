@@ -38,7 +38,7 @@
 
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.date}" /></td>
 
-					<td><c:out value="${event.creatorId}" /></td>
+					<td><c:out value="${event.customerId}" /></td>
 					<td><c:out value="${event.countryId}" /></td>
 
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
@@ -47,8 +47,9 @@
 							value="${event.updated}" /></td>
 				</sec:authorize>
 				<td class="right"><a class="btn-floating"
-					href="${baseUrl}/event/${event.id}" title="event info" ><i class="material-icons">info</i></a>
-					<sec:authorize access="!isAnonymous()">
+					href="${baseUrl}/event/${event.id}" title="event info"><i
+						class="material-icons">info</i></a> <sec:authorize
+						access="!isAnonymous()">
 						<a class="btn-floating" href="${baseUrl}/${event.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red" href="${baseUrl}/${event.id}/delete"><i

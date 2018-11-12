@@ -26,6 +26,7 @@ import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 import com.itacademy.jd2.pk.hop.web.security.AuthHelper;
+import com.itacademy.jd2.pk.hop.web.security.ExtendedUsernamePasswordAuthenticationToken;
 
 @Controller
 @RequestMapping(value = "/map")

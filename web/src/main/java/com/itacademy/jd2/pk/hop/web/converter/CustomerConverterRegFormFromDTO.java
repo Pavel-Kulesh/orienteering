@@ -27,6 +27,7 @@ public class CustomerConverterRegFormFromDTO implements Function<RegFormDTO, ICu
 	public ICustomer apply(RegFormDTO dto) {
 
 		ICustomer entity = customerService.createEntity();
+		
 		entity.setName(dto.getName());
 		entity.setSurname(dto.getSurname());
 		entity.setPhone(dto.getPhone());

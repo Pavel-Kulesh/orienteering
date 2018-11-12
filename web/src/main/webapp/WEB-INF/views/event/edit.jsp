@@ -37,7 +37,7 @@
 				<div class="row">
 					<div class="input-field col s12">
 						<form:select path="type" disabled="${readonly}">
-							<option style="display: none;">Select type</option>
+							<option value="" disabled selected>Select type</option>
 							<form:options items="${typeChoices}" />
 						</form:select>
 						<form:errors path="type" cssClass="red-text" />

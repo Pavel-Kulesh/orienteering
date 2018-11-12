@@ -17,15 +17,16 @@
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
 					<i class="material-icons">assignment_ind</i>name</mytaglib:sort-link></th>
 
-			<th>type</th>
+			<th><mytaglib:sort-link column="type" pageUrl="${baseUrl}">type</mytaglib:sort-link></th>
 
-			<th><i class="material-icons">description</i>info</th>
+			<th><mytaglib:sort-link column="date" pageUrl="${baseUrl}">
+					<i class="material-icons">access_time</i>date</mytaglib:sort-link></th>
 			<sec:authorize access="!isAnonymous()">
-				<th><i class="material-icons">access_time</i>date</th>
-				<th>creator_id</th>
-				<th><i class="material-icons">public</i>country_id</th>
-				<th><i class="material-icons">query_builder</i>created</th>
-				<th><i class="material-icons">access_time</i>updated</th>
+				<th><i class="material-icons">description</i>info</th>
+				<th><mytaglib:sort-link column="customer_id" pageUrl="${baseUrl}">customer_id</mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="country" pageUrl="${baseUrl}"><i class="material-icons">public</i>country</mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}"><i class="material-icons">query_builder</i>created</mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="updated" pageUrl="${baseUrl}"><i class="material-icons">access_time</i>updated</mytaglib:sort-link></th>
 				<th></th>
 			</sec:authorize>
 		</tr>
@@ -35,14 +36,17 @@
 				<td><c:out value="${event.name}" /></td>
 
 				<td><c:out value="${event.type }" /></td>
-				<td><c:out value="${event.info}" /></td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.date}" />
+
+
+				</td>
 				<sec:authorize access="!isAnonymous()">
 
 
-					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.date}" /></td>
+					<td><c:out value="${event.info}" /></td>
 
 					<td><c:out value="${event.customerId}" /></td>
-					<td><c:out value="${event.countryId}" /></td>
+					<td><c:out value="${event.countryName}" /></td>
 
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${event.created}" /></td>

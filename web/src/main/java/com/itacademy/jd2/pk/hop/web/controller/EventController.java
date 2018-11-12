@@ -29,7 +29,6 @@ import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
-import com.itacademy.jd2.pk.hop.service.impl.PointServiceImpl;
 import com.itacademy.jd2.pk.hop.web.converter.EventFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.EventToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
@@ -105,7 +104,6 @@ public class EventController extends AbstractController<EventDTO> {
 
 			ICustomer customer = customerService.get(AuthHelper.getLoggedUserId());
 			entity.setCustomer(customer);
-
 			eventService.save(entity);
 			return "redirect:/event";
 		}

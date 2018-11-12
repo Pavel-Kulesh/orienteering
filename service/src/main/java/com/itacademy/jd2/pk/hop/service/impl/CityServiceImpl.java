@@ -71,4 +71,9 @@ public class CityServiceImpl implements ICityService {
 		return dao.createEntity();
 	}
 
+	@Override
+	public List<ICity> getByCountry(Integer id) {
+		return dao.getByCountry(id);
+	}
+
 }

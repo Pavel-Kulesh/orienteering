@@ -10,20 +10,29 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
+import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICityService;
+import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.IRegisterService;
 import com.itacademy.jd2.pk.hop.web.converter.AccountConverterFormDTO;
+import com.itacademy.jd2.pk.hop.web.converter.CityToDTOConverter;
+import com.itacademy.jd2.pk.hop.web.converter.CountryToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerConverterRegFormFromDTO;
+import com.itacademy.jd2.pk.hop.web.dto.CityDTO;
+import com.itacademy.jd2.pk.hop.web.dto.CountryDTO;
 import com.itacademy.jd2.pk.hop.web.dto.RegFormDTO;
 
 @Controller
@@ -34,18 +43,25 @@ public class RegistrationController {
 	private CustomerConverterRegFormFromDTO customerConverterFormDTO;
 	private IRegisterService registerService;
 	private ICityService cityService;
+	private ICountryService countryService;
+	private CountryToDTOConverter countryToDTO;
+	private CityToDTOConverter cityToDTO;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
 
 	@Autowired
 	public RegistrationController(AccountConverterFormDTO accountConverterFormDTO,
 			CustomerConverterRegFormFromDTO customerConverterFormDTO, IRegisterService registerService,
-			ICityService cityService) {
+			ICityService cityService, ICountryService countryService, CountryToDTOConverter countryToDTO,
+			CityToDTOConverter cityToDTO) {
 		super();
 		this.accountConverterFormDTO = accountConverterFormDTO;
 		this.customerConverterFormDTO = customerConverterFormDTO;
 		this.registerService = registerService;
 		this.cityService = cityService;
+		this.countryService = countryService;
+		this.countryToDTO = countryToDTO;
+		this.cityToDTO = cityToDTO;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -80,6 +96,28 @@ public class RegistrationController {
 
 		hashMap.put("cityChoices", citiesMap);
 
+	}
+
+	@RequestMapping(value = "/countries", method = RequestMethod.GET)
+	public ResponseEntity<List<CountryDTO>> getCountries() {
+		List<ICountry> entities = countryService.getAll();
+		List<CountryDTO> countries = entities.stream().map(countryToDTO).collect(Collectors.toList());
+		System.out.println("??????????????????? list countries------------" + countries);
+		List<ICity> byCountry1 = cityService.getByCountry(1);
+		System.out.println("count city by country 1 ="+byCountry1.size());
+		List<ICity> byCountry2 = cityService.getByCountry(2);
+		System.out.println("count city by country 2 ="+byCountry2.size());
+		return new ResponseEntity<List<CountryDTO>>(countries, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/cities", method = RequestMethod.GET)
+	public ResponseEntity<List<CityDTO>> getCities(
+			@RequestParam(name = "countryId", required = true) final Integer countryId) {
+
+		List<ICity> citiesByCountry = cityService.getByCountry(countryId);
+		final List<CityDTO> cities = citiesByCountry.stream().map(cityToDTO).collect(Collectors.toList());
+
+		return new ResponseEntity<List<CityDTO>>(cities, HttpStatus.OK);
 	}
 
 }

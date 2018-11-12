@@ -15,29 +15,21 @@
 				<li><a href="${baseUrl}/link">Links</a></li>
 
 
-				<sec:authentication var="user" property="principal" />
+
 
 				<sec:authorize access="isAuthenticated()">
-
-
 					<li><i class="large material-icons">account_circle</i></li>
-
-					<sec:authorize access="isAuthenticated()">
-						<li><sec:authentication property="userName" /></li>
-						<li>-</li>
-						<li><sec:authentication property="authorities" /></li>
-					</sec:authorize>
-
-
-
+					<li><sec:authentication property="name" /> <sec:authentication
+							property="surname" /> <sec:authentication property="role" /></li>
 
 
 
 					<li><a class="right" href="${baseUrl}/execute_logout"
-						title="logout"> ${pageContext.request.userPrincipal.name} <i
+						title="logout"><sec:authentication property="email" /> <i
 							class="material-icons">arrow_forward</i></a></li>
 
 				</sec:authorize>
+
 
 
 

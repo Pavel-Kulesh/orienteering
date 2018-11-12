@@ -44,10 +44,8 @@ public class UserAccount extends BaseEntity implements IUserAccount {
 
 	@Override
 	public String toString() {
-		return "UserAccount [email=" + email + ", password=" + password + ", role=" + role + ", customer=" + customer
-				+ ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+		return "UserAccount [email=" + email + ", password=" + password + ", role=" + role + ", getId()=" + getId()
+				+ ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
-
-	
 
 }

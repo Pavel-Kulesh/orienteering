@@ -15,7 +15,9 @@ function initSelectElement(htmlElementId, jsonArray) {
 
 	// вставляет новые опции в элемент
 	$.each(jsonArray, function(key, value) {
-		$('#' + htmlElementId).append($("<option></option>").attr("value", value.id).text(value.title));
+		$('#' + htmlElementId).append(
+				$("<option></option>").attr("value", value.id)
+						.text(value.title));
 	});
 }
 
@@ -29,7 +31,7 @@ function initComboboxes(contextUrl) {
 	// запроса.
 	// текущая строка кода выполнится при загрузке страницы (в соответствии с
 	// местом встави в JSP)
-	$.get(contextUrl + "/ajax-samples/countries", function(countriesArray) {
+	$.get(contextUrl + "/registration/countries", function(countriesArray) {
 
 		// получив список стран - инициализируем соответствующий комбик
 		initSelectElement('country', countriesArray);
@@ -38,20 +40,23 @@ function initComboboxes(contextUrl) {
 		// получаем выбранный сейчас элемент и строим с его помощь. новый GET
 		// запрос
 		// на сервер
-		$("#country").change(function() {
-			var selectedId = $(this).val();
-			$.get(contextUrl + "/ajax-samples/regions?countryId=" + selectedId, function(regionsArray) {
-				initSelectElement('region', regionsArray);
-			})
-		});
+		// $("#country").change(function() {
+		// var selectedId = $(this).val();
+		// $.get(contextUrl + "/ajax-samples/regions?countryId=" + selectedId,
+		// function(regionsArray) {
+		// initSelectElement('region', regionsArray);
+		// })
+		// });
 
-		$("#region").change(function() {
-			var selectedId = $(this).val();
-			$.get(contextUrl + "/ajax-samples/cities?regionId=" + selectedId, function(citiesArray) {
-				initSelectElement('city', citiesArray);
-			})
+		$("#country").change(
+				function() {
+					var selectedId = $(this).val();
+					$.get(contextUrl + "/registration/cities?countryId="
+							+ selectedId, function(citiesArray) {
+						initSelectElement('city', citiesArray);
+					})
 
-		});
+				});
 	});
 	// документация по JQUERY - https://api.jquery.com/
 
@@ -78,3 +83,4 @@ function initComboboxes(contextUrl) {
 	// остальные похожие
 
 }
+
