@@ -1,6 +1,7 @@
 package com.itacademy.jd2.pk.hop.dao.api.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 public interface IEvent extends IBaseEntity {
 	String getName();
@@ -34,5 +35,13 @@ public interface IEvent extends IBaseEntity {
 	ICustomer getCustomer();
 
 	void setCustomer(ICustomer customer);
+
+	Set<ICustomer> getCustomersList();
+
+	void setCustomersList(Set<ICustomer> customersList);
+
+	void addCustomerToList(ICustomer customer);
+
+	void deleteCustomerFromList(ICustomer customer);
 
 }

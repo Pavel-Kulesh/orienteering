@@ -1,0 +1,18 @@
+insert into country (name, created, updated) values ('Belarus','2017-10-25','2017-10-25'), ('Latvia','2017-10-25','2017-10-25'), ('France','2017-10-25','2017-10-25'), ('Germany','2017-10-25','2017-10-25');
+select * from country;
+--insert into city (name, created, updated, country_id) values('Grodno','2017-10-25','2017-10-25',1),('Minsk','2017-10-25','2017-10-25',1),('Vilnus','2017-10-25','2017-10-25',2),('Kaunas','2017-10-25','2017-10-25',2), ('Paris','2017-10-25','2017-10-25',3), ('Lion','2017-10-25','2017-10-25',3), ('Berlin','2017-10-25','2017-10-25',4), ('Borna','2017-10-25','2017-10-25',4), ('Dohna','2017-10-25','2017-10-25',4), ('Bremen','2017-10-25','2017-10-25',4);
+--select * from city;
+--insert into user_account (email, created, updated, password, role) values ('1@list.ru','2017-10-25','2017-10-25','qwewrwr','USER'),('2@list.ru','2017-10-25','2017-10-25','qwewrwr','USER'),('3@list.ru','2017-10-25','2017-10-25','qwewrwr','ORGANIZER'),('4@list.ru','2017-10-25','2017-10-25','qwewrwr','USER'), ('5@list.ru','2017-10-25','2017-10-25','qwewrwr','USER');
+--select * from user_account;
+--insert into customer (id, name, surname, phone, city_id, created, updated) values(1,'Pavel','K','111-111-111',1,'2017-10-25','2017-10-25'),(2,'Vadim','D','111-111-111',5,'2017-10-25','2017-10-25'),  (3,'Maria','M','111-111-111',5,'2017-10-25','2017-10-25');
+--select * from customer;
+--insert into event (name, created, updated, customer_id, country_id, date, type, info, latitude, longitude) values('Running Day','2017-10-25','2017-10-25',1,1,'2017-10-25','ROGANE','sleeping day after',24.1,2.33);
+--select * from event;
+--insert into map (name, user_id, path, file, latitude1, longitude1, latitude2, longitude2, created, updated) values('first map',1,'455','11',23.22,22.55555,34,44,'2017-10-25','2017-10-25'),('second map',2,'455','11',23.22,22.55555,34,44,'2017-10-25','2017-10-25');
+--select * from map;
+
+--insert into item_event  (user_id,event_id) values(1,2),values(1,2),values(2,2), values(3,2);
+--select * from customer_2_event;
+--select * from customer a1 join item_event b1 on a1.id=b1.user_id where event_id=2;
+--select * from event a1 join item_event b1 on a1.id=b1.event_id where user_id=1;
+--UPDATE user_account a SET role = 'ADMIN' where a.id=5; 

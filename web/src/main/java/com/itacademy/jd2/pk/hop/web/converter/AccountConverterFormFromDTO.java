@@ -12,11 +12,11 @@ import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 import com.itacademy.jd2.pk.hop.web.dto.RegFormDTO;
 
 @Component
-public class AccountConverterFormDTO implements Function<RegFormDTO, IUserAccount> {
+public class AccountConverterFormFromDTO implements Function<RegFormDTO, IUserAccount> {
 	private IUserAccountService userAccountService;
 
 	@Autowired
-	public AccountConverterFormDTO(IUserAccountService userAccountService) {
+	public AccountConverterFormFromDTO(IUserAccountService userAccountService) {
 		super();
 		this.userAccountService = userAccountService;
 	}

@@ -1,17 +1,21 @@
 package com.itacademy.jd2.pk.hop.dao.orm.impl.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 
 @Entity
@@ -41,6 +45,9 @@ public class Customer implements ICustomer {
 	@OneToOne(fetch = FetchType.LAZY, optional = false, targetEntity = UserAccount.class)
 	@PrimaryKeyJoinColumn
 	private IUserAccount userAccount;
+
+	@ManyToMany(mappedBy = "customersList")
+	private Set<Event> eventsList = new HashSet<>();
 
 	public IUserAccount getUserAccount() {
 		return userAccount;
@@ -106,10 +113,34 @@ public class Customer implements ICustomer {
 		this.updated = updated;
 	}
 
+	/*
+	 * public Set<Event> getEventsList() { return eventsList; }
+	 * 
+	 * public void setEventsList(Set<Event> eventsList) { this.eventsList =
+	 * eventsList; }
+	 */
+
+	public Set<Event> getEventsList() {
+		return eventsList;
+	}
+
+	public void setEventsList(Set<Event> eventsList) {
+		this.eventsList = eventsList;
+	}
+
+	public void addEventToList(Event event) {
+		eventsList.add(event);
+	}
+
+	public void deleteEventFromList(IEvent event) {
+		eventsList.remove(event);
+
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", created=" + created + ", updated=" + updated + ", name=" + name + ", surname="
-				+ surname + ", phone=" + phone + ", city=" + city +"]";
+				+ surname + ", phone=" + phone + ", city=" + city + "]";
 	}
 
 }

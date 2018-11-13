@@ -1,6 +1,7 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
@@ -87,6 +88,30 @@ public class Event extends BaseEntity implements IEvent {
 		return "Event [name=" + name + ", customer=" + customer + ", date=" + date + ", country=" + country + ", type="
 				+ type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude + ", getId()="
 				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+	}
+
+	@Override
+	public Set<ICustomer> getCustomersList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setCustomersList(Set<ICustomer> customersList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addCustomerToList(ICustomer customer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteCustomerFromList(ICustomer customer) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

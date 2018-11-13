@@ -24,6 +24,7 @@ import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
+import com.itacademy.jd2.pk.hop.web.dto.RegFormDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
@@ -68,11 +69,11 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
-		final ICustomer newEntity = customerService.createEntity();
-		CustomerDTO dto = toDTOConverter.apply(newEntity);
+
+		RegFormDTO dto = new RegFormDTO();
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("participant.edit", hashMap);
+		return new ModelAndView("registration", hashMap);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

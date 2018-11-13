@@ -18,7 +18,6 @@
 		<div class="row">
 			<i class="material-icons">description</i>
 			<div class="input-field col s12">
-
 				<form:input path="info" type="text" disabled="${readonly}" />
 				<form:errors path="info" cssClass="red-text" />
 				<label for="info">Info</label>
@@ -39,13 +38,9 @@
 
 
 		<div class="row">
-
 			<div class="input-field col s12">
-				<form:input path="customerId" value="${userId}" type="hidden" />
-
+				<form:input path="customerId"  type="hidden" />
 			</div>
-
-
 		</div>
 
 
@@ -61,13 +56,6 @@
 			</div>
 		</div>
 
-
-
-
-
-
-
-
 		<div class="row">
 			<i class="material-icons">filter</i>
 			<form:select path="type" disabled="${readonly}">
@@ -76,8 +64,6 @@
 			</form:select>
 			<form:errors path="type" cssClass="red-text" />
 			<label for="type">type list</label>
-
-
 		</div>
 
 		<table>
@@ -95,13 +81,7 @@
 						<label for="longitude">longitude</label>
 					</div></td>
 			</tr>
-
 		</table>
-
-
-
-
-
 
 		<div class="row">
 			<div class="col s6"></div>

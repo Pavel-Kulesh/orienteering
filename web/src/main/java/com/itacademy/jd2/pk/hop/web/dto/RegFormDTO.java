@@ -6,7 +6,6 @@ import javax.validation.constraints.Size;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
-import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Country;
 
 public class RegFormDTO {
 	@Size(min = 1, max = 50)
@@ -24,6 +23,8 @@ public class RegFormDTO {
 
 	private ICity city;
 	private ICountry country;
+	
+	
 
 	@NotNull
 	private Integer cityId;

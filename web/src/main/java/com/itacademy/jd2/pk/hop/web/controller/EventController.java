@@ -86,10 +86,8 @@ public class EventController extends AbstractController<EventDTO> {
 		final Map<String, Object> hashMap = new HashMap<>();
 		Integer userId = AuthHelper.getLoggedUserId();
 		LOGGER.info("user id" + userId);
-		hashMap.put("userId", userId);
-
-		final IEvent newEntity = eventService.createEntity();
-		EventDTO dto = toDTOConverter.apply(newEntity);
+		EventDTO dto = new EventDTO();
+		dto.setCustomerId(userId);
 		hashMap.put("formModel", dto);
 		loadComboboxesModels(hashMap);
 		return new ModelAndView("event.add", hashMap);
@@ -104,7 +102,18 @@ public class EventController extends AbstractController<EventDTO> {
 
 			ICustomer customer = customerService.get(AuthHelper.getLoggedUserId());
 			entity.setCustomer(customer);
+			
+			
+			boolean p=false;
+			if (entity.getId() == null) {
+				p=true;
+
+			} 
 			eventService.save(entity);
+			
+			if (p) {
+				//add new element to table customet_2_event
+			}
 			return "redirect:/event";
 		}
 	}

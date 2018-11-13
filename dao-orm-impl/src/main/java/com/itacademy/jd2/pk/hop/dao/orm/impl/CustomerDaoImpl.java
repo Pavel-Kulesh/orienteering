@@ -62,6 +62,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		// throw new RuntimeException("not implemented");
 
 		final EntityManager em = getEntityManager();
+
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 		final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 		final Root<Customer> from = cq.from(Customer.class);
@@ -72,7 +73,35 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 
 	@Override
 	public List<ICustomer> getCustomersByEvent(Integer id) {
-		throw new RuntimeException("not implemented");
+
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<ICustomer> cq = cb.createQuery(ICustomer.class);
+		final Root<Customer> from = cq.from(Customer.class);
+		cq.select(from);
+		from.fetch(Customer_.userAccount, JoinType.LEFT);
+		from.fetch(Customer_.city, JoinType.LEFT);
+
+		final TypedQuery<ICustomer> q = em.createQuery(cq);
+
+		return q.getResultList();
+
+		/*
+		 * final EntityManager em = getEntityManager(); final CriteriaBuilder cb =
+		 * em.getCriteriaBuilder(); final CriteriaQuery<IEvent> cq =
+		 * cb.createQuery(IEvent.class); final Root<Event> from = cq.from(Event.class);
+		 * cq.select(from); from.fetch(Event_.customer, JoinType.LEFT);
+		 * from.fetch(Event_.country, JoinType.LEFT); from.fetch(Event_.customersList,
+		 * JoinType.LEFT);
+		 * 
+		 * cq.where(cb.equal(from.get(Event_.id), id)); final TypedQuery<IEvent> q =
+		 * em.createQuery(cq); List<IEvent> resultList = q.getResultList(); IEvent event
+		 * = resultList.get(0); Set<ICustomer> customersList = event.getCustomersList();
+		 * ArrayList<ICustomer> a = new ArrayList<>(); boolean addAll =
+		 * a.addAll(customersList); System.out.println(addAll + "     size list = " +
+		 * a.size() + "    size  sertList = " + customersList.size()); return null;
+		 */
+
 	}
 
 	private Path<?> getSortPath(final Root<Customer> from, final String sortColumn) {
@@ -92,6 +121,21 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		default:
 			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
 		}
+	}
+
+	@Override
+	public ICustomer get(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<ICustomer> cq = cb.createQuery(ICustomer.class);
+		final Root<Customer> from = cq.from(Customer.class);
+		cq.select(from);
+		from.fetch(Customer_.userAccount, JoinType.LEFT);
+		from.fetch(Customer_.city, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Customer_.id), id));
+		final TypedQuery<ICustomer> q = em.createQuery(cq);
+		return q.getResultList().get(0);
 	}
 
 }

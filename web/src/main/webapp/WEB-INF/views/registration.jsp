@@ -57,10 +57,14 @@
 		</div>
 
 		<div class="row">
-			<div class="col s12">
-				<form:select path="country" cssClass="browser-default" />
-			</div>
-		</div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">visibility</i>
+                <form:select path="country" disabled="${readonly}">
+                </form:select>
+                <form:errors path="country" cssClass="red-text" />
+                <label for="country">Country</label>
+            </div>
+        </div>
 
 		<div class="row">
 			<div class="col s12">

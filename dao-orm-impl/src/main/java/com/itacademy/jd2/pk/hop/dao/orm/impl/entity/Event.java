@@ -1,13 +1,19 @@
 package com.itacademy.jd2.pk.hop.dao.orm.impl.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
@@ -34,6 +40,12 @@ public class Event extends BaseEntity implements IEvent {
 	private Double latitude;
 	@Column
 	private Double longitude;
+
+	@JoinTable(name = "customer_2_event", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "customer_id") })
+	@ManyToMany(targetEntity = Customer.class, fetch = FetchType.LAZY)
+	@OrderBy("title ASC")
+	private Set<ICustomer> customersList = new HashSet<>();
 
 	public Double getLatitude() {
 		return latitude;
@@ -97,6 +109,23 @@ public class Event extends BaseEntity implements IEvent {
 
 	public void setCustomer(ICustomer customer) {
 		this.customer = customer;
+	}
+
+	public Set<ICustomer> getCustomersList() {
+		return customersList;
+	}
+
+	public void setCustomersList(Set<ICustomer> customersList) {
+		this.customersList = customersList;
+	}
+
+	public void addCustomerToList(ICustomer customer) {
+		customersList.add(customer);
+
+	}
+
+	public void deleteCustomerFromList(ICustomer customer) {
+		customersList.remove(customer);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.IRegisterService;
-import com.itacademy.jd2.pk.hop.web.converter.AccountConverterFormDTO;
+import com.itacademy.jd2.pk.hop.web.converter.AccountConverterFormFromDTO;
 import com.itacademy.jd2.pk.hop.web.converter.CityToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.CountryToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerConverterRegFormFromDTO;
@@ -39,7 +39,7 @@ import com.itacademy.jd2.pk.hop.web.dto.RegFormDTO;
 @RequestMapping(value = "/registration")
 public class RegistrationController {
 
-	private AccountConverterFormDTO accountConverterFormDTO;
+	private AccountConverterFormFromDTO accountConverterFormDTO;
 	private CustomerConverterRegFormFromDTO customerConverterFormDTO;
 	private IRegisterService registerService;
 	private ICityService cityService;
@@ -50,7 +50,7 @@ public class RegistrationController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
 
 	@Autowired
-	public RegistrationController(AccountConverterFormDTO accountConverterFormDTO,
+	public RegistrationController(AccountConverterFormFromDTO accountConverterFormDTO,
 			CustomerConverterRegFormFromDTO customerConverterFormDTO, IRegisterService registerService,
 			ICityService cityService, ICountryService countryService, CountryToDTOConverter countryToDTO,
 			CityToDTOConverter cityToDTO) {
@@ -102,11 +102,7 @@ public class RegistrationController {
 	public ResponseEntity<List<CountryDTO>> getCountries() {
 		List<ICountry> entities = countryService.getAll();
 		List<CountryDTO> countries = entities.stream().map(countryToDTO).collect(Collectors.toList());
-		System.out.println("??????????????????? list countries------------" + countries);
-		List<ICity> byCountry1 = cityService.getByCountry(1);
-		System.out.println("count city by country 1 ="+byCountry1.size());
-		List<ICity> byCountry2 = cityService.getByCountry(2);
-		System.out.println("count city by country 2 ="+byCountry2.size());
+		
 		return new ResponseEntity<List<CountryDTO>>(countries, HttpStatus.OK);
 	}
 

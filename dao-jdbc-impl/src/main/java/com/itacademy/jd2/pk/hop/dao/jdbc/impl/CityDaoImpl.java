@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Repository;
@@ -102,6 +103,12 @@ public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICit
 		entity.setCountry(country);
 
 		return entity;
+	}
+
+	@Override
+	public List<ICity> getByCountry(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

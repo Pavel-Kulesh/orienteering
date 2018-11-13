@@ -19,6 +19,7 @@ function initSelectElement(htmlElementId, jsonArray) {
 				$("<option></option>").attr("value", value.id)
 						.text(value.title));
 	});
+	$('#' + htmlElementId).formSelect();
 }
 
 function initComboboxes(contextUrl) {

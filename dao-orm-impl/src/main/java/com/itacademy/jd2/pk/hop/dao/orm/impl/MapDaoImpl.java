@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
-import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Event_;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map_;
 
@@ -85,6 +84,20 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		default:
 			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
 		}
+	}
+
+	@Override
+	public IMap get(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IMap> cq = cb.createQuery(IMap.class);
+		final Root<Map> from = cq.from(Map.class);
+		cq.select(from);
+		from.fetch(Map_.customer, JoinType.LEFT);
+
+		final TypedQuery<IMap> q = em.createQuery(cq);
+
+		return q.getResultList().get(0);
 	}
 
 }

@@ -10,9 +10,13 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><i class="material-icons">filter_vintage</i>id</th>
+			<sec:authorize access="!isAnonymous()">
+				<th><i class="material-icons">filter_vintage</i>id</th>
+			</sec:authorize>
 			<th><i class="material-icons">assignment_ind</i>name</th>
 			<th><i class="material-icons">assignment_ind</i>surname</th>
+			<th><i class="material-icons">assignment_ind</i>city</th>
+
 			<sec:authorize access="!isAnonymous()">
 				<th><i class="material-icons">contact_phone</i>phone</th>
 				<th><i class="material-icons">access_time</i>created</th>
@@ -22,9 +26,12 @@
 		</tr>
 		<c:forEach var="customer" items="${gridItem}" varStatus="loopCounter">
 			<tr>
-				<td><c:out value="${customer.id}" /></td>
+				<sec:authorize access="!isAnonymous()">
+					<td><c:out value="${customer.id}" /></td>
+				</sec:authorize>
 				<td><c:out value="${customer.name}" /></td>
 				<td><c:out value="${customer.surname}" /></td>
+				<td><c:out value="${customer.cityName}" /></td>
 				<sec:authorize access="!isAnonymous()">
 					<td><c:out value="${customer.phone}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
@@ -36,10 +43,10 @@
 					href="${baseUrl}/participant/${customer.id}"><i
 						class="material-icons">info</i></a> <sec:authorize
 						access="hasAnyRole('ADMIN')">
-						<a class="btn-floating" href="${baseUrl}/${customer.id}/edit"><i
+						<a class="btn-floating" href="${baseUrl}/participant/${customer.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red"
-							href="${baseUrl}/${customer.id}/delete"><i
+							href="${baseUrl}/participant/${customer.id}/delete"><i
 							class="material-icons">delete</i></a>
 					</sec:authorize></td>
 
