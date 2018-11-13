@@ -1,7 +1,10 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
+import java.util.Set;
+
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 
 public class Customer extends BaseEntity implements ICustomer {
@@ -56,6 +59,30 @@ public class Customer extends BaseEntity implements ICustomer {
 		return "Customer [name=" + name + ", surname=" + surname + ", phone=" + phone + ", city=" + city
 				+ ", userAccount=" + userAccount + ", getId()=" + getId() + ", getCreated()=" + getCreated()
 				+ ", getUpdated()=" + getUpdated() + "]";
+	}
+
+	@Override
+	public void addEventToList(IEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Set<IEvent> getEventsList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setEventsList(Set<IEvent> eventsList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteEventFromList(IEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

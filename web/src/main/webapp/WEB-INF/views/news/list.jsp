@@ -16,7 +16,9 @@
 				<th><i class="material-icons">access_time</i>created</th>
 				<th><i class="material-icons">access_time</i>updated</th>
 				<th></th>
+				
 			</sec:authorize>
+			<th></th>
 		</tr>
 		<c:forEach var="news" items="${gridItem}" varStatus="loopCounter">
 			<tr>

@@ -46,8 +46,8 @@ public class Customer implements ICustomer {
 	@PrimaryKeyJoinColumn
 	private IUserAccount userAccount;
 
-	@ManyToMany(mappedBy = "customersList")
-	private Set<Event> eventsList = new HashSet<>();
+	@ManyToMany(mappedBy = "customersList", targetEntity = Event.class)
+	private Set<IEvent> eventsList = new HashSet<>();
 
 	public IUserAccount getUserAccount() {
 		return userAccount;
@@ -113,23 +113,16 @@ public class Customer implements ICustomer {
 		this.updated = updated;
 	}
 
-	/*
-	 * public Set<Event> getEventsList() { return eventsList; }
-	 * 
-	 * public void setEventsList(Set<Event> eventsList) { this.eventsList =
-	 * eventsList; }
-	 */
+	public void addEventToList(IEvent event) {
+		eventsList.add(event);
+	}
 
-	public Set<Event> getEventsList() {
+	public Set<IEvent> getEventsList() {
 		return eventsList;
 	}
 
-	public void setEventsList(Set<Event> eventsList) {
+	public void setEventsList(Set<IEvent> eventsList) {
 		this.eventsList = eventsList;
-	}
-
-	public void addEventToList(Event event) {
-		eventsList.add(event);
 	}
 
 	public void deleteEventFromList(IEvent event) {

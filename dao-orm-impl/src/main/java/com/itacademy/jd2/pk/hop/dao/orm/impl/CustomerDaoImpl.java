@@ -81,6 +81,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		cq.select(from);
 		from.fetch(Customer_.userAccount, JoinType.LEFT);
 		from.fetch(Customer_.city, JoinType.LEFT);
+		from.fetch(Customer_.eventsList, JoinType.LEFT);
 
 		final TypedQuery<ICustomer> q = em.createQuery(cq);
 

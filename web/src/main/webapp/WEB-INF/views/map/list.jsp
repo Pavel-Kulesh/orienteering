@@ -17,6 +17,7 @@
 				<th><mytaglib:sort-link column="customer_id"
 						pageUrl="${baseUrl}">customer_id</mytaglib:sort-link></th>
 			</sec:authorize>
+			<th></th>
 		</tr>
 
 		<c:forEach var="map" items="${gridItem}" varStatus="loopCounter">

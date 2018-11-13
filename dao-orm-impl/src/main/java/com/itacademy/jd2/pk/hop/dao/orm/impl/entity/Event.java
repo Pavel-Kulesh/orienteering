@@ -44,7 +44,7 @@ public class Event extends BaseEntity implements IEvent {
 	@JoinTable(name = "customer_2_event", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "customer_id") })
 	@ManyToMany(targetEntity = Customer.class, fetch = FetchType.LAZY)
-	@OrderBy("title ASC")
+	//@OrderBy("title ASC")
 	private Set<ICustomer> customersList = new HashSet<>();
 
 	public Double getLatitude() {
