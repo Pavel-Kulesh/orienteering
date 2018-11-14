@@ -84,10 +84,10 @@ public class EventController extends AbstractController<EventDTO> {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
-		Integer userId = AuthHelper.getLoggedUserId();
-		LOGGER.info("user id" + userId);
+		Integer customerId = getCustomerId();
+		LOGGER.info("user id" + customerId);
 		EventDTO dto = new EventDTO();
-		dto.setCustomerId(userId);
+		dto.setCustomerId(customerId);
 		hashMap.put("formModel", dto);
 		loadComboboxesModels(hashMap);
 		return new ModelAndView("event.add", hashMap);
@@ -102,17 +102,16 @@ public class EventController extends AbstractController<EventDTO> {
 
 			ICustomer customer = customerService.get(AuthHelper.getLoggedUserId());
 			entity.setCustomer(customer);
-			
-			
-			boolean p=false;
-			if (entity.getId() == null) {
-				p=true;
 
-			} 
+			boolean p = false;
+			if (entity.getId() == null) {
+				p = true;
+
+			}
 			eventService.save(entity);
-			
+
 			if (p) {
-				//add new element to table customet_2_event
+				// add new element to table customet_2_event
 			}
 			return "redirect:/event";
 		}
@@ -132,6 +131,13 @@ public class EventController extends AbstractController<EventDTO> {
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
+		/*
+		 * boolean statusRegOnEvent =
+		 * eventService.checkExistCustomerToEvent(getCustomerId(), id);
+		 * hashMap.put("registerToEvent", !statusRegOnEvent);
+		 * hashMap.put("deleteFromEvent", statusRegOnEvent);
+		 */
+
 		return new ModelAndView("event.info", hashMap);
 	}
 
@@ -143,6 +149,33 @@ public class EventController extends AbstractController<EventDTO> {
 		hashMap.put("formModel", dto);
 		loadComboboxesModels(hashMap);
 		return new ModelAndView("event.edit", hashMap);
+	}
+
+	@RequestMapping(value = "/registrationCustomerToEvent/{id}", method = RequestMethod.GET)
+	public ModelAndView addCustomerToEvent(@PathVariable(name = "id", required = true) final Integer id) {
+
+		// eventService.addCustomerToEvent(getCustomerId(), id);
+		final IEvent dbModel = eventService.get(id);
+		final EventDTO dto = toDTOConverter.apply(dbModel);
+		final HashMap<String, Object> hashMap = new HashMap<>();
+		hashMap.put("formModel", dto);
+		hashMap.put("readonly", true);
+
+		return new ModelAndView("event.info", hashMap);
+
+	}
+
+	@RequestMapping(value = "/deleteCustomerFromEvent/{id}", method = RequestMethod.GET)
+	public ModelAndView deleteCustomerFromEvent(@PathVariable(name = "id", required = true) final Integer id) {
+
+		// eventService.deleteCustomerFromEvent(getCustomerId(), id);
+		final IEvent dbModel = eventService.get(id);
+		final EventDTO dto = toDTOConverter.apply(dbModel);
+		final HashMap<String, Object> hashMap = new HashMap<>();
+		hashMap.put("formModel", dto);
+		hashMap.put("readonly", true);
+
+		return new ModelAndView("event.info", hashMap);
 	}
 
 	private void loadComboboxesModels(final Map<String, Object> hashMap) {
@@ -162,4 +195,8 @@ public class EventController extends AbstractController<EventDTO> {
 
 	}
 
+	private Integer getCustomerId() {
+		Integer customerId = AuthHelper.getLoggedUserId();
+		return customerId;
+	}
 }

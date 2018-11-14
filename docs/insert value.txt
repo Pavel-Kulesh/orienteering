@@ -6,12 +6,12 @@ select * from country;
 --select * from user_account;
 --insert into customer (id, name, surname, phone, city_id, created, updated) values(1,'Pavel','K','111-111-111',1,'2017-10-25','2017-10-25'),(2,'Vadim','D','111-111-111',5,'2017-10-25','2017-10-25'),  (3,'Maria','M','111-111-111',5,'2017-10-25','2017-10-25');
 --select * from customer;
---insert into event (name, created, updated, customer_id, country_id, date, type, info, latitude, longitude) values('Running Day','2017-10-25','2017-10-25',1,1,'2017-10-25','ROGANE','sleeping day after',24.1,2.33);
+--insert into event (name, created, updated, customer_id, country_id, date, type, info, latitude, longitude) values('Running Day','2017-10-25','2017-10-25',1,1,'2017-10-25','ROGANE','sleeping day after',24.1,2.33), ('sleeping Day','2017-10-25','2017-10-25',3,3,'2017-10-25','ROGANE','some info',24.1,2.33);
 --select * from event;
---insert into map (name, user_id, path, file, latitude1, longitude1, latitude2, longitude2, created, updated) values('first map',1,'455','11',23.22,22.55555,34,44,'2017-10-25','2017-10-25'),('second map',2,'455','11',23.22,22.55555,34,44,'2017-10-25','2017-10-25');
+--insert into map (name, customer_id, path, file, latitude1, longitude1, latitude2, longitude2, created, updated) values('first map',1,'455','11',23.22,22.55555,34,44,'2017-10-25','2017-10-25'),('second map',2,'455','11',23.22,22.55555,34,44,'2017-10-25','2017-10-25');
 --select * from map;
 
---insert into item_event  (user_id,event_id) values(1,2),values(1,2),values(2,2), values(3,2);
+--insert into customer_2_event  (customer_id,event_id) values(1,2), (1,2), (2,2), (3,2);
 --select * from customer_2_event;
 --select * from customer a1 join item_event b1 on a1.id=b1.user_id where event_id=2;
 --select * from event a1 join item_event b1 on a1.id=b1.event_id where user_id=1;

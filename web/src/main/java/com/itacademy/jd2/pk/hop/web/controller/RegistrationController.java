@@ -62,6 +62,7 @@ public class RegistrationController {
 		this.countryService = countryService;
 		this.countryToDTO = countryToDTO;
 		this.cityToDTO = cityToDTO;
+
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -102,7 +103,7 @@ public class RegistrationController {
 	public ResponseEntity<List<CountryDTO>> getCountries() {
 		List<ICountry> entities = countryService.getAll();
 		List<CountryDTO> countries = entities.stream().map(countryToDTO).collect(Collectors.toList());
-		
+
 		return new ResponseEntity<List<CountryDTO>>(countries, HttpStatus.OK);
 	}
 

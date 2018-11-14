@@ -11,10 +11,13 @@ public interface IEventService {
 	IEvent get(Integer id);
 
 	List<IEvent> getAll();
+
 	@Transactional
 	void save(IEvent entity);
+
 	@Transactional
 	void delete(Integer id);
+
 	@Transactional
 	void deleteAll();
 
@@ -23,6 +26,15 @@ public interface IEventService {
 	List<IEvent> find(EventFilter filter);
 
 	long getCount(EventFilter filter);
+
 	List<IEvent> getEventsByCustomer(Integer id);
 
+	@Transactional
+	void addCustomerToEvent(Integer customerId, Integer eventId);
+
+	@Transactional
+	void deleteCustomerFromEvent(Integer customerId, Integer eventId);
+
+	@Transactional
+	boolean checkExistCustomerToEvent(Integer customerId, Integer eventId);
 }

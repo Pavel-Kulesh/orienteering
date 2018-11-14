@@ -82,8 +82,25 @@ public class EventServiceImpl implements IEventService {
 
 	@Override
 	public List<IEvent> getEventsByCustomer(Integer id) {
-		
+
 		return dao.getEventsByCustomer(id);
+	}
+
+	@Override
+	public void addCustomerToEvent(Integer customerId, Integer eventId) {
+		dao.addCustomerToEvent(customerId, eventId);
+
+	}
+
+	@Override
+	public void deleteCustomerFromEvent(Integer customerId, Integer eventId) {
+		dao.deleteCustomerFromEvent(customerId, eventId);
+
+	}
+
+	@Override
+	public boolean checkExistCustomerToEvent(Integer customerId, Integer eventId) {
+		return dao.checkExistCustomerToEvent(customerId, eventId);
 	}
 
 }

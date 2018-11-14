@@ -12,4 +12,10 @@ public interface IEventDao extends IDao<IEvent, Integer> {
 
 	List<IEvent> getEventsByCustomer(Integer id);
 
+	void addCustomerToEvent(Integer customerId, Integer eventId);
+
+	void deleteCustomerFromEvent(Integer customerId, Integer eventId);
+
+	boolean checkExistCustomerToEvent(Integer customerId, Integer eventId);
+
 }

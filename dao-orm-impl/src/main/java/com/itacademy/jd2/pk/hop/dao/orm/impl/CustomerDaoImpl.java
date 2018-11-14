@@ -1,6 +1,8 @@
 package com.itacademy.jd2.pk.hop.dao.orm.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -15,9 +17,12 @@ import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.ICustomerDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer_;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Event;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Event_;
 
 @Repository
 public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> implements ICustomerDao {
@@ -76,32 +81,23 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<ICustomer> cq = cb.createQuery(ICustomer.class);
-		final Root<Customer> from = cq.from(Customer.class);
+		final CriteriaQuery<IEvent> cq = cb.createQuery(IEvent.class);
+		final Root<Event> from = cq.from(Event.class);
 		cq.select(from);
-		from.fetch(Customer_.userAccount, JoinType.LEFT);
-		from.fetch(Customer_.city, JoinType.LEFT);
-		from.fetch(Customer_.eventsList, JoinType.LEFT);
+		// from.fetch(Event_.customer, JoinType.LEFT);
+		// from.fetch(Event_.country, JoinType.LEFT);
+		from.fetch(Event_.customersList, JoinType.LEFT);
 
-		final TypedQuery<ICustomer> q = em.createQuery(cq);
+		cq.where(cb.equal(from.get(Event_.id), id));
+		final TypedQuery<IEvent> q = em.createQuery(cq);
+		List<IEvent> resultList = q.getResultList();
 
-		return q.getResultList();
+		IEvent event = resultList.get(0);
+		Set<ICustomer> customers = event.getCustomersList();
+		List<ICustomer> customersList = new ArrayList<ICustomer>();
+		customersList.addAll(customers);
 
-		/*
-		 * final EntityManager em = getEntityManager(); final CriteriaBuilder cb =
-		 * em.getCriteriaBuilder(); final CriteriaQuery<IEvent> cq =
-		 * cb.createQuery(IEvent.class); final Root<Event> from = cq.from(Event.class);
-		 * cq.select(from); from.fetch(Event_.customer, JoinType.LEFT);
-		 * from.fetch(Event_.country, JoinType.LEFT); from.fetch(Event_.customersList,
-		 * JoinType.LEFT);
-		 * 
-		 * cq.where(cb.equal(from.get(Event_.id), id)); final TypedQuery<IEvent> q =
-		 * em.createQuery(cq); List<IEvent> resultList = q.getResultList(); IEvent event
-		 * = resultList.get(0); Set<ICustomer> customersList = event.getCustomersList();
-		 * ArrayList<ICustomer> a = new ArrayList<>(); boolean addAll =
-		 * a.addAll(customersList); System.out.println(addAll + "     size list = " +
-		 * a.size() + "    size  sertList = " + customersList.size()); return null;
-		 */
+		return customersList;
 
 	}
 

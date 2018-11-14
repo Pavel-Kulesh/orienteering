@@ -178,4 +178,22 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 		return executeFindQueryWithCustomSelect(text);
 	}
 
+	@Override
+	public void addCustomerToEvent(Integer customerId, Integer eventId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteCustomerFromEvent(Integer customerId, Integer eventId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean checkExistCustomerToEvent(Integer customerId, Integer eventId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

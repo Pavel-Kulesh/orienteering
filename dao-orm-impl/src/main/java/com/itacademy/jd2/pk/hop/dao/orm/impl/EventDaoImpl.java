@@ -78,28 +78,13 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 	@Override
 	public List<IEvent> getEventsByCustomer(Integer id) {
 
-		/*
-		 * final EntityManager em = getEntityManager(); final CriteriaBuilder cb =
-		 * em.getCriteriaBuilder(); final CriteriaQuery<IEvent> cq =
-		 * cb.createQuery(IEvent.class); final Root<Event> from = cq.from(Event.class);
-		 * cq.select(from); from.fetch(Event_.customer, JoinType.LEFT);
-		 * from.fetch(Event_.country, JoinType.LEFT); from.fetch(Event_.customersList,
-		 * JoinType.LEFT);
-		 * 
-		 * 
-		 * // cq.where(cb.equal(from.get(Event_.id), id)); final TypedQuery<IEvent> q =
-		 * em.createQuery(cq);
-		 * 
-		 * return q.getResultList();
-		 */
-
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 		final CriteriaQuery<ICustomer> cq = cb.createQuery(ICustomer.class);
 		final Root<Customer> from = cq.from(Customer.class);
 		cq.select(from);
-		//from.fetch(Customer_.userAccount, JoinType.LEFT);
-		//from.fetch(Customer_.city, JoinType.LEFT);
+		// from.fetch(Customer_.userAccount, JoinType.LEFT);
+		// from.fetch(Customer_.city, JoinType.LEFT);
 		from.fetch(Customer_.eventsList, JoinType.LEFT);
 
 		cq.where(cb.equal(from.get(Customer_.id), id));
@@ -107,7 +92,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 		List<ICustomer> resultList = q.getResultList();
 		Customer customer = (Customer) resultList.get(0);
-		Set<IEvent> events= customer.getEventsList();
+		Set<IEvent> events = customer.getEventsList();
 		List<IEvent> eventsList = new ArrayList<IEvent>();
 		eventsList.addAll(events);
 		return eventsList;
@@ -150,6 +135,36 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 		cq.where(cb.equal(from.get(Event_.id), id));
 		final TypedQuery<IEvent> q = em.createQuery(cq);
 		return q.getResultList().get(0);
+	}
+
+	@Override
+	public void addCustomerToEvent(Integer customerId, Integer eventId) {
+		final EntityManager em = getEntityManager();
+		em.createNativeQuery(String.format("insert into customer_2_event (customer_id, event_id) values(%s, %s)",
+				customerId, eventId)).executeUpdate();
+
+	}
+
+	@Override
+	public void deleteCustomerFromEvent(Integer customerId, Integer eventId) {
+		final EntityManager em = getEntityManager();
+		em.createNativeQuery((String.format("delete from customer_2_event e where e.customer_id = %s and e.event_id=%s",
+				customerId, eventId))).executeUpdate();
+
+	}
+
+	@Override
+	public boolean checkExistCustomerToEvent(Integer customerId, Integer eventId) {
+		final EntityManager em = getEntityManager();
+
+		/*int resRequest = em
+				.createNativeQuery(String.format(
+						"select * from customer a1 join customer_2_event b1 on a1.id=b1.customer_id where a1.id=%s and event_id=%s", customerId, eventId))
+				.executeUpdate();
+		if (resRequest != 0) {
+			return true;
+		}*/
+		return false;
 	}
 
 }

@@ -1,12 +1,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/event" />
 <h4 class="header">Event: ${formModel.name}</h4>
-
-
-
-
 
 
 <div class="row">
@@ -66,6 +64,28 @@
 
 
 
+<div class="row">
+	<div class="col s5"></div>
+
+	<sec:authorize access="!isAnonymous()">
+		<div class="col s2">
+			<c:if test="${registerToEvent}">
+				<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}"
+					class="btn waves-effect waves-light" type="submit"> Register to	event <i class="large material-icons">rowing</i>
+				</a>
+			</c:if>
+			<c:if test="${deleteFromEvent}">
+				<a href="$${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
+					class="btn waves-effect waves-light" type="submit"> Unregister from event<i class="large material-icons">rowing</i>
+				</a>
+			</c:if>
+		</div>
+
+	</sec:authorize>
+	<div class="col s5"></div>
+</div>
+
+
 
 
 <div class="row">
@@ -75,8 +95,8 @@
 			class="btn waves-effect waves-light" type="submit"> LIST OF
 			PARTICIPANTS <i class="large material-icons">public</i>
 		</a>
-
 	</div>
+
 	<div class="col s3">
 		<a class="waves-effect waves-light btn" href="${baseUrl}">Go to
 			events list<i class="material-icons right">undo</i>
@@ -84,50 +104,3 @@
 	</div>
 	<div class="col s3"></div>
 </div>
-
-<%-- <table class="bordered highlight">
-	<tbody>
-		<tr>
-			<th><i class="material-icons">assignment_ind</i>name</th>
-			<th>type</th>
-			<th><i class="material-icons">access_time</i>date</th>
-			<th><i class="material-icons">public</i>country</th>
-			<th></th>
-		</tr>
-
-		<tr>
-			<td><c:out value="${formModel.name}" /></td>
-			<td><c:out value="${formModel.type }" /></td>
-			<td><fmt:formatDate pattern="yyyy-MM-dd"
-					value="${formModel.date}" /></td>
-			<td><c:out value="${formModel.countryName}" /></td>
-		</tr>
-		<tr>
-
-			<td colspan="4">
-				<div class="row">
-
-					<div class="col s3"></div>
-					<div class="col s6">
-						<ul class="collapsible">
-							<li>
-								<div class="collapsible-header">
-									<i class="material-icons">assignment</i> Info
-								</div>
-								<div class="collapsible-body">
-									<p>
-										<c:out value="${formModel.info}" />
-									</p>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="col s3"></div>
-				</div>
-			</td>
-
-		</tr>
-	</tbody>
-</table>
- --%>
-
