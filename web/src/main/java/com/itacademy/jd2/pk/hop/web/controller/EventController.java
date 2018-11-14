@@ -137,7 +137,8 @@ public class EventController extends AbstractController<EventDTO> {
 		 * hashMap.put("registerToEvent", !statusRegOnEvent);
 		 * hashMap.put("deleteFromEvent", statusRegOnEvent);
 		 */
-
+		hashMap.put("registerToEvent", true);
+		hashMap.put("deleteFromEvent", true);
 		return new ModelAndView("event.info", hashMap);
 	}
 
@@ -154,12 +155,22 @@ public class EventController extends AbstractController<EventDTO> {
 	@RequestMapping(value = "/registrationCustomerToEvent/{id}", method = RequestMethod.GET)
 	public ModelAndView addCustomerToEvent(@PathVariable(name = "id", required = true) final Integer id) {
 
-		// eventService.addCustomerToEvent(getCustomerId(), id);
+		eventService.addCustomerToEvent(getCustomerId(), id);
 		final IEvent dbModel = eventService.get(id);
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
+
+		/*
+		 * boolean statusRegOnEvent =
+		 * eventService.checkExistCustomerToEvent(getCustomerId(), id);
+		 * hashMap.put("registerToEvent", !statusRegOnEvent);
+		 * hashMap.put("deleteFromEvent", statusRegOnEvent);
+		 */
+
+		hashMap.put("registerToEvent", true);
+		hashMap.put("deleteFromEvent", true);
 
 		return new ModelAndView("event.info", hashMap);
 
@@ -168,7 +179,7 @@ public class EventController extends AbstractController<EventDTO> {
 	@RequestMapping(value = "/deleteCustomerFromEvent/{id}", method = RequestMethod.GET)
 	public ModelAndView deleteCustomerFromEvent(@PathVariable(name = "id", required = true) final Integer id) {
 
-		// eventService.deleteCustomerFromEvent(getCustomerId(), id);
+		eventService.deleteCustomerFromEvent(getCustomerId(), id);
 		final IEvent dbModel = eventService.get(id);
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();

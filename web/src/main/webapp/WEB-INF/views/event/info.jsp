@@ -75,7 +75,7 @@
 				</a>
 			</c:if>
 			<c:if test="${deleteFromEvent}">
-				<a href="$${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
+				<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
 					class="btn waves-effect waves-light" type="submit"> Unregister from event<i class="large material-icons">rowing</i>
 				</a>
 			</c:if>

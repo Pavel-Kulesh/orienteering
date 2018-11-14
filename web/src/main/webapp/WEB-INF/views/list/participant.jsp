@@ -15,14 +15,7 @@
 			</sec:authorize>
 			<th><i class="material-icons">assignment_ind</i>name</th>
 			<th><i class="material-icons">assignment_ind</i>surname</th>
-			<th><i class="material-icons">assignment_ind</i>city</th>
 
-			<sec:authorize access="!isAnonymous()">
-				<th><i class="material-icons">contact_phone</i>phone</th>
-				<th><i class="material-icons">access_time</i>created</th>
-				<th><i class="material-icons">access_time</i>updated</th>
-				<th></th>
-			</sec:authorize>
 		</tr>
 		<c:forEach var="customer" items="${gridItem}" varStatus="loopCounter">
 			<tr>
@@ -31,19 +24,12 @@
 				</sec:authorize>
 				<td><c:out value="${customer.name}" /></td>
 				<td><c:out value="${customer.surname}" /></td>
-				<td><c:out value="${customer.cityName}" /></td>
-				<sec:authorize access="!isAnonymous()">
-					<td><c:out value="${customer.phone}" /></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd"
-							value="${customer.created}" /></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd"
-							value="${customer.updated}" /></td>
-				</sec:authorize>
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/participant/${customer.id}"><i
 						class="material-icons">info</i></a> <sec:authorize
 						access="hasAnyRole('ADMIN')">
-						<a class="btn-floating" href="${baseUrl}/participant/${customer.id}/edit"><i
+						<a class="btn-floating"
+							href="${baseUrl}/participant/${customer.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red"
 							href="${baseUrl}/participant/${customer.id}/delete"><i
