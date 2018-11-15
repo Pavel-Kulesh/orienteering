@@ -17,7 +17,7 @@ function initSelectElement(htmlElementId, jsonArray) {
 	$.each(jsonArray, function(key, value) {
 		$('#' + htmlElementId).append(
 				$("<option></option>").attr("value", value.id)
-						.text(value.title));
+						.text(value.name));
 	});
 	$('#' + htmlElementId).formSelect();
 }

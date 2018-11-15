@@ -27,8 +27,9 @@
 				<th><mytaglib:sort-link column="country" pageUrl="${baseUrl}"><i class="material-icons">public</i>country</mytaglib:sort-link></th>
 				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}"><i class="material-icons">query_builder</i>created</mytaglib:sort-link></th>
 				<th><mytaglib:sort-link column="updated" pageUrl="${baseUrl}"><i class="material-icons">access_time</i>updated</mytaglib:sort-link></th>
-				<th></th>
+				
 			</sec:authorize>
+			<th></th>
 		</tr>
 		<c:forEach var="event" items="${gridItem}" varStatus="loopCounter">
 			<tr>

@@ -131,14 +131,17 @@ public class EventController extends AbstractController<EventDTO> {
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
+		Integer customerId = getCustomerId();
+		if (customerId != null) {
+
+			boolean statusRegOnEvent = eventService.checkExistCustomerToEvent(customerId, id);
+			hashMap.put("registerToEvent", !statusRegOnEvent);
+			hashMap.put("deleteFromEvent", statusRegOnEvent);
+		}
+
 		/*
-		 * boolean statusRegOnEvent =
-		 * eventService.checkExistCustomerToEvent(getCustomerId(), id);
-		 * hashMap.put("registerToEvent", !statusRegOnEvent);
-		 * hashMap.put("deleteFromEvent", statusRegOnEvent);
+		 * hashMap.put("registerToEvent", true); hashMap.put("deleteFromEvent", true);
 		 */
-		hashMap.put("registerToEvent", true);
-		hashMap.put("deleteFromEvent", true);
 		return new ModelAndView("event.info", hashMap);
 	}
 
@@ -162,16 +165,12 @@ public class EventController extends AbstractController<EventDTO> {
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
+		boolean statusRegOnEvent = eventService.checkExistCustomerToEvent(getCustomerId(), id);
+		hashMap.put("registerToEvent", !statusRegOnEvent);
+		hashMap.put("deleteFromEvent", statusRegOnEvent);
 		/*
-		 * boolean statusRegOnEvent =
-		 * eventService.checkExistCustomerToEvent(getCustomerId(), id);
-		 * hashMap.put("registerToEvent", !statusRegOnEvent);
-		 * hashMap.put("deleteFromEvent", statusRegOnEvent);
+		 * hashMap.put("registerToEvent", true); hashMap.put("deleteFromEvent", true);
 		 */
-
-		hashMap.put("registerToEvent", true);
-		hashMap.put("deleteFromEvent", true);
-
 		return new ModelAndView("event.info", hashMap);
 
 	}
@@ -184,8 +183,6 @@ public class EventController extends AbstractController<EventDTO> {
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		hashMap.put("readonly", true);
-
 		return new ModelAndView("event.info", hashMap);
 	}
 
