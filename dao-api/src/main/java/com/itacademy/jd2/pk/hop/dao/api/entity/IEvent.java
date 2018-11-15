@@ -40,8 +40,4 @@ public interface IEvent extends IBaseEntity {
 
 	void setCustomersList(Set<ICustomer> customersList);
 
-	void addCustomerToList(ICustomer customer);
-
-	void deleteCustomerFromList(ICustomer customer);
-
 }

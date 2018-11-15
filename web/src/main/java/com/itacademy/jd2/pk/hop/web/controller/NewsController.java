@@ -99,15 +99,12 @@ public class NewsController extends AbstractController<NewsDTO> {
 		final NewsDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		hashMap.put("readonly", true);
-
-		return new ModelAndView("news.edit", hashMap);
+		return new ModelAndView("news.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
 		final NewsDTO dto = toDTOConverter.apply(newsService.get(id));
-
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 

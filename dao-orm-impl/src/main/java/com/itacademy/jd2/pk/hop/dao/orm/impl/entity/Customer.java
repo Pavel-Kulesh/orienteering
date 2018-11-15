@@ -113,21 +113,12 @@ public class Customer implements ICustomer {
 		this.updated = updated;
 	}
 
-	public void addEventToList(IEvent event) {
-		eventsList.add(event);
-	}
-
 	public Set<IEvent> getEventsList() {
 		return eventsList;
 	}
 
 	public void setEventsList(Set<IEvent> eventsList) {
 		this.eventsList = eventsList;
-	}
-
-	public void deleteEventFromList(IEvent event) {
-		eventsList.remove(event);
-
 	}
 
 	@Override

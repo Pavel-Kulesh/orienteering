@@ -157,13 +157,13 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 	public boolean checkExistCustomerToEvent(Integer customerId, Integer eventId) {
 		final EntityManager em = getEntityManager();
 
-		/*int resRequest = em
-				.createNativeQuery(String.format(
-						"select * from customer a1 join customer_2_event b1 on a1.id=b1.customer_id where a1.id=%s and event_id=%s", customerId, eventId))
-				.executeUpdate();
-		if (resRequest != 0) {
+		@SuppressWarnings("unchecked")
+		List<ICustomer> resRequest = em.createNativeQuery(String.format(
+				"select * from customer a1 join customer_2_event b1 on a1.id=b1.customer_id where a1.id=%s and event_id=%s",
+				customerId, eventId)).getResultList();
+		if (!resRequest.isEmpty()) {
 			return true;
-		}*/
+		}
 		return false;
 	}
 

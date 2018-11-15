@@ -3,31 +3,39 @@
 <c:set var="baseUrl" value="${contextPath}/news" />
 <h4 class="header">Edit News</h4>
 <div class="row">
-	<form:form class="col s12" method="POST" action="${baseUrl}"
+
+	<div class="col s3"></div>
+	<form:form class="col s6" method="POST" action="${baseUrl}"
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 
-		
+
 		<div class="row">
-		<i class="material-icons">assignment</i>
-			<div class="input-field col s12">
-				<form:input path="name" type="text" disabled="${readonly}" />
+
+			<div class="input-field col s9">
+				<form:input path="name" type="text" />
 				<form:errors path="name" cssClass="red-text" />
 				<label for="name">Name</label>
 			</div>
-		</div>
-
-		<div class="row">
-		<i class="material-icons">announcement</i>
-			<div class="input-field col s12">
-				<form:input path="info" type="text" disabled="${readonly}" />
-				<form:errors path="info" cssClass="red-text" />
-				<label for="info">Info</label>
+			<div class="col s3">
+				<i class="material-icons" title="Name info">assignment</i>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col s6"></div>
+
+			<div class="input-field col s9">
+				<form:input path="info" type="text" />
+				<form:errors path="info" cssClass="red-text" />
+				<label for="info">Info</label>
+			</div>
+			<div class="col s3">
+				<i class="material-icons" title="News info">announcement</i>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s2"></div>
 			<div class="col s3">
 				<c:if test="${!readonly}">
 					<button class="btn waves-effect waves-light right" type="submit">Save</button>
@@ -38,6 +46,8 @@
 					back to listƒ<i class="material-icons right"></i>
 				</a>
 			</div>
+			<div class="col s4"></div>
 		</div>
 	</form:form>
+	<div class="col s3"></div>
 </div>

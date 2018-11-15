@@ -102,16 +102,5 @@ public class Event extends BaseEntity implements IEvent {
 		
 	}
 
-	@Override
-	public void addCustomerToList(ICustomer customer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteCustomerFromList(ICustomer customer) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 }

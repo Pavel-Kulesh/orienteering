@@ -23,12 +23,8 @@ public interface ICustomer extends IBaseEntity {
 
 	void setUserAccount(IUserAccount userAccount);
 
-	void addEventToList(IEvent event);
-
 	Set<IEvent> getEventsList();
 
 	void setEventsList(Set<IEvent> eventsList);
-
-	void deleteEventFromList(IEvent event);
 
 }

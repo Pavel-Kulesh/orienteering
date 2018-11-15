@@ -99,9 +99,8 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 		final CustomerDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		hashMap.put("readonly", true);
 
-		return new ModelAndView("participant.edit", hashMap);
+		return new ModelAndView("participant.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)

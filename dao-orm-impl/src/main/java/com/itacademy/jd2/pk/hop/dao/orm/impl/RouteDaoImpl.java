@@ -6,9 +6,9 @@ import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Route;
 @Repository
-public class IRouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IRouteDao {
+public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IRouteDao {
 
-	protected IRouteDaoImpl() {
+	protected RouteDaoImpl() {
 		super(Route.class);
 	}
 

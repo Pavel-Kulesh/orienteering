@@ -62,12 +62,6 @@ public class Customer extends BaseEntity implements ICustomer {
 	}
 
 	@Override
-	public void addEventToList(IEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Set<IEvent> getEventsList() {
 		// TODO Auto-generated method stub
 		return null;
@@ -76,14 +70,7 @@ public class Customer extends BaseEntity implements ICustomer {
 	@Override
 	public void setEventsList(Set<IEvent> eventsList) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	@Override
-	public void deleteEventFromList(IEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }

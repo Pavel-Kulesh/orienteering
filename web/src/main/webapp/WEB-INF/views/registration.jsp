@@ -5,8 +5,8 @@
 
 <h4 class="header">REG</h4>
 <div class="row">
-
-	<form:form class="col s12" method="POST" action="${baseUrl}"
+<div class="col s3"></div>
+	<form:form class="col s6" method="POST" action="${baseUrl}"
 		modelAttribute="formModel">
 		<div class="row">
 
@@ -102,6 +102,7 @@
 			</div>
 		</div>
 	</form:form>
+	<div class="col s3"></div>
 </div>
 
 

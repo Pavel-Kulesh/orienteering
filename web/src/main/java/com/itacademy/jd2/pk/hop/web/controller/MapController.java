@@ -100,9 +100,7 @@ public class MapController extends AbstractController<MapDTO> {
 		final MapDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		hashMap.put("readonly", true);
-
-		return new ModelAndView("map.edit", hashMap);
+		return new ModelAndView("map.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)

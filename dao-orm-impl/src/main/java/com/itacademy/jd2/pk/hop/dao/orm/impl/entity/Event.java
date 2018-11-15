@@ -118,15 +118,7 @@ public class Event extends BaseEntity implements IEvent {
 	public void setCustomersList(Set<ICustomer> customersList) {
 		this.customersList = customersList;
 	}
-
-	public void addCustomerToList(ICustomer customer) {
-		customersList.add(customer);
-
-	}
-
-	public void deleteCustomerFromList(ICustomer customer) {
-		customersList.remove(customer);
-	}
+	
 
 	@Override
 	public String toString() {

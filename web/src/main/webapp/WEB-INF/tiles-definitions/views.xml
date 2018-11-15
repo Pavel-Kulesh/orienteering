@@ -24,6 +24,11 @@
 			value="/WEB-INF/views/news/form.jsp" />
 	</definition>
 
+	<definition name="news.info" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/news/info.jsp" />
+	</definition>
+
 	<definition name="index" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/index.jsp" />
@@ -56,29 +61,41 @@
 			value="/WEB-INF/views/links.jsp" />
 	</definition>
 
+
+
 	<definition name="map.list" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/map/list.jsp" />
 	</definition>
 	<definition name="map.edit" extends="DefaultTemplate">
 		<put-attribute name="body"
-			value="/WEB-INF/views/map/form.jsp" />
+			value="/WEB-INF/views/map/edit.jsp" />
+	</definition>
+	<definition name="map.info" extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/map/info.jsp" />
 	</definition>
 	<definition name="map.add" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/map/form-add.jsp" />
 	</definition>
 
+
+
 	<definition name="participant.list"
 		extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/participant/list.jsp" />
 	</definition>
-
+	<definition name="participant.info"
+		extends="DefaultTemplate">
+		<put-attribute name="body"
+			value="/WEB-INF/views/participant/info.jsp" />
+	</definition>
 	<definition name="participant.edit"
 		extends="DefaultTemplate">
 		<put-attribute name="body"
-			value="/WEB-INF/views/participant/form.jsp" />
+			value="/WEB-INF/views/participant/edit.jsp" />
 	</definition>
 
 
