@@ -44,7 +44,7 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<%-- <div class="row">
 			<i class="material-icons">location_city</i>
 			<div class="input-field col s12">
 				<form:select path="cityId">
@@ -54,24 +54,27 @@
 				<form:errors path="cityId" cssClass="red-text" />
 				<label for="cityId">city</label>
 			</div>
-		</div>
+		</div> --%>
 
 		<div class="row">
 			<div class="input-field col s12">
 				<i class="material-icons prefix">visibility</i>
-				<form:select path="country">
+				<form:select path="countryId">
 				</form:select>
-				<form:errors path="country" cssClass="red-text" />
+				<form:errors path="countryId" cssClass="red-text" />
 				<label for="country">Country</label>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col s12">
-				<form:select path="city" cssClass="browser-default" />
+			<div class="input-field col s12">
+				<i class="material-icons prefix">visibility</i>
+				<form:select path="cityId">
+				</form:select>
+				<form:errors path="cityId" cssClass="red-text" />
+				<label for="cityId">City</label>
 			</div>
 		</div>
-
 
 
 

@@ -95,9 +95,9 @@ public class MapController extends AbstractController<MapDTO> {
 		} else {
 
 			File fileDoc = formModel.getFileDoc();
-
 			fileDoc.getAbsolutePath();
 
+			File file1 = new File(fileDoc.getAbsolutePath());
 			String filePath = fileDoc.getAbsolutePath();
 			System.out.println("file path: " + filePath);
 			try {
@@ -107,8 +107,8 @@ public class MapController extends AbstractController<MapDTO> {
 				e.printStackTrace();
 			}
 
+			
 			final IMap entity = fromDTOConverter.apply(formModel);
-
 			mapService.save(entity);
 
 			return "redirect:/map";

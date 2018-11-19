@@ -3,8 +3,6 @@ package com.itacademy.jd2.pk.hop.web.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
-import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 
 public class RegFormDTO {
@@ -21,10 +19,7 @@ public class RegFormDTO {
 
 	private String phone;
 
-	private ICity city;
-	private ICountry country;
-	// private String cityId;
-	private String countryId;
+	private Integer countryId;
 
 	@NotNull
 	private Integer cityId;
@@ -85,27 +80,11 @@ public class RegFormDTO {
 		this.cityId = cityId;
 	}
 
-	public ICity getCity() {
-		return city;
-	}
-
-	public void setCity(ICity city) {
-		this.city = city;
-	}
-
-	public ICountry getCountry() {
-		return country;
-	}
-
-	public void setCountry(ICountry country) {
-		this.country = country;
-	}
-
-	public String getCountryId() {
+	public Integer getCountryId() {
 		return countryId;
 	}
 
-	public void setCountryId(String countryId) {
+	public void setCountryId(Integer countryId) {
 		this.countryId = countryId;
 	}
 

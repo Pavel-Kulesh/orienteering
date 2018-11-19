@@ -35,7 +35,7 @@ function initComboboxes(contextUrl) {
 	$.get(contextUrl + "/registration/countries", function(countriesArray) {
 
 		// получив список стран - инициализируем соответствующий комбик
-		initSelectElement('country', countriesArray);
+		initSelectElement('countryId', countriesArray);
 
 		// вешаем функцию-обработчик на 'onchange' событие на нужные элементы.
 		// получаем выбранный сейчас элемент и строим с его помощь. новый GET
@@ -49,12 +49,12 @@ function initComboboxes(contextUrl) {
 		// })
 		// });
 
-		$("#country").change(
+		$("#countryId").change(
 				function() {
 					var selectedId = $(this).val();
 					$.get(contextUrl + "/registration/cities?countryId="
 							+ selectedId, function(citiesArray) {
-						initSelectElement('city', citiesArray);
+						initSelectElement('cityId', citiesArray);
 					})
 
 				});
