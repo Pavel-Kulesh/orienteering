@@ -1,0 +1,12 @@
+6e3aca92-4af0-463b-b120-ef3e1eaad3b8
+
+<script
+	src="https://api-maps.yandex.ru/2.1/?apikey=6e3aca92-4af0-463b-b120-ef3e1eaad3b8&lang=en_US"
+	type="text/javascript"></script>
+
+
+IT-academy-mail@yandex.by  10Hobbit16
+
+
+
+it.academy.test.mail@gmail.com

@@ -73,7 +73,7 @@ public class NewsController extends AbstractController<NewsDTO> {
 		NewsDTO dto = toDTOConverter.apply(newEntity);
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("news.edit", hashMap);
+		return new ModelAndView("news.add", hashMap);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

@@ -10,6 +10,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IRegisterService;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
+import com.itacademy.jd2.pk.hop.service.reg.SendMailSSL;
 
 @Service
 public class RegisterService implements IRegisterService {
@@ -31,7 +32,10 @@ public class RegisterService implements IRegisterService {
 		try {
 			userAccountService.save(userAccount);
 			customer.setId(userAccount.getId());
+			customer.setUserAccount(userAccount);
 			customerService.save(customer);
+			SendMailSSL.sendEmail(userAccount.getEmail());
+
 		} catch (Exception e) {
 			LOGGER.info("error registration");
 		}

@@ -102,17 +102,8 @@ public class EventController extends AbstractController<EventDTO> {
 
 			ICustomer customer = customerService.get(AuthHelper.getLoggedUserId());
 			entity.setCustomer(customer);
-
-			boolean p = false;
-			if (entity.getId() == null) {
-				p = true;
-
-			}
 			eventService.save(entity);
 
-			if (p) {
-				// add new element to table customet_2_event
-			}
 			return "redirect:/event";
 		}
 	}
@@ -134,14 +125,9 @@ public class EventController extends AbstractController<EventDTO> {
 		Integer customerId = getCustomerId();
 		if (customerId != null) {
 
-			boolean statusRegOnEvent = eventService.checkExistCustomerToEvent(customerId, id);
-			hashMap.put("registerToEvent", !statusRegOnEvent);
-			hashMap.put("deleteFromEvent", statusRegOnEvent);
+			setStatusRegToEvent(id, hashMap);
 		}
 
-		/*
-		 * hashMap.put("registerToEvent", true); hashMap.put("deleteFromEvent", true);
-		 */
 		return new ModelAndView("event.info", hashMap);
 	}
 
@@ -165,12 +151,8 @@ public class EventController extends AbstractController<EventDTO> {
 		hashMap.put("formModel", dto);
 		hashMap.put("readonly", true);
 
-		boolean statusRegOnEvent = eventService.checkExistCustomerToEvent(getCustomerId(), id);
-		hashMap.put("registerToEvent", !statusRegOnEvent);
-		hashMap.put("deleteFromEvent", statusRegOnEvent);
-		/*
-		 * hashMap.put("registerToEvent", true); hashMap.put("deleteFromEvent", true);
-		 */
+		setStatusRegToEvent(id, hashMap);
+
 		return new ModelAndView("event.info", hashMap);
 
 	}
@@ -183,7 +165,14 @@ public class EventController extends AbstractController<EventDTO> {
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
+		setStatusRegToEvent(id, hashMap);
 		return new ModelAndView("event.info", hashMap);
+	}
+
+	private void setStatusRegToEvent(final Integer id, final HashMap<String, Object> hashMap) {
+		boolean statusRegOnEvent = eventService.checkExistCustomerToEvent(getCustomerId(), id);
+		hashMap.put("registerToEvent", !statusRegOnEvent);
+		hashMap.put("deleteFromEvent", statusRegOnEvent);
 	}
 
 	private void loadComboboxesModels(final Map<String, Object> hashMap) {
@@ -203,8 +192,4 @@ public class EventController extends AbstractController<EventDTO> {
 
 	}
 
-	private Integer getCustomerId() {
-		Integer customerId = AuthHelper.getLoggedUserId();
-		return customerId;
-	}
 }

@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
+import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
@@ -32,17 +33,19 @@ import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 public class ParticipantController extends AbstractController<CustomerDTO> {
 
 	private ICustomerService customerService;
+	private IUserAccountService userAccountService;
 
 	private CustomerToDTOConverter toDTOConverter;
 	private CustomerFromDTOConverter fromDTOConverter;
 
 	@Autowired
 	public ParticipantController(ICustomerService customerService, CustomerToDTOConverter toDTOConverter,
-			CustomerFromDTOConverter fromDTOConverter) {
+			CustomerFromDTOConverter fromDTOConverter, IUserAccountService userAccountService) {
 		super();
 		this.customerService = customerService;
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
+		this.userAccountService = userAccountService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -90,6 +93,7 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
 		customerService.delete(id);
+		userAccountService.delete(id);
 		return "redirect:/participant";
 	}
 

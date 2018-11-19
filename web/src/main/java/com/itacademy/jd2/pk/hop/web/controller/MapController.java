@@ -1,10 +1,20 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -16,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
@@ -69,9 +80,9 @@ public class MapController extends AbstractController<MapDTO> {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
-		Integer userId = AuthHelper.getLoggedUserId();
+
 		MapDTO dto = new MapDTO();
-		dto.setCustomerId(userId);
+		dto.setCustomerId(getCustomerId());
 		hashMap.put("formModel", dto);
 
 		return new ModelAndView("map.add", hashMap);
@@ -82,8 +93,24 @@ public class MapController extends AbstractController<MapDTO> {
 		if (result.hasErrors()) {
 			return "map.add";
 		} else {
+
+			File fileDoc = formModel.getFileDoc();
+
+			fileDoc.getAbsolutePath();
+
+			String filePath = fileDoc.getAbsolutePath();
+			System.out.println("file path: " + filePath);
+			try {
+				readUsingFiles(filePath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			final IMap entity = fromDTOConverter.apply(formModel);
+
 			mapService.save(entity);
+
 			return "redirect:/map";
 		}
 	}
@@ -111,6 +138,20 @@ public class MapController extends AbstractController<MapDTO> {
 		hashMap.put("formModel", dto);
 
 		return new ModelAndView("map.edit", hashMap);
+	}
+
+	private static void readUsingFiles(String fileName) throws IOException {
+		Path path = Paths.get(fileName);
+		Path pathToFile = Paths.get(fileName);
+		System.out.println(pathToFile.toAbsolutePath());
+		// считываем содержимое файла в массив байт
+		byte[] bytes = Files.readAllBytes(path);
+		// считываем содержимое файла в список строк
+		List<String> allLines = Files.readAllLines(path, StandardCharsets.UTF_8);
+		for (String string : allLines) {
+			System.out.println(string);
+
+		}
 	}
 
 }

@@ -23,8 +23,8 @@ public class RegFormDTO {
 
 	private ICity city;
 	private ICountry country;
-	
-	
+	// private String cityId;
+	private String countryId;
 
 	@NotNull
 	private Integer cityId;
@@ -99,6 +99,14 @@ public class RegFormDTO {
 
 	public void setCountry(ICountry country) {
 		this.country = country;
+	}
+
+	public String getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(String countryId) {
+		this.countryId = countryId;
 	}
 
 }

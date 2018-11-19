@@ -23,11 +23,11 @@ ymaps.ready(init);
 function init() {
     var map = new ymaps.Map('map', {
         center: [53.7, 24],
-        zoom: 3,
+        zoom: 2,
         type: 'yandex#hybrid',
         controls: ['zoomControl']
     }, {
-               restrictMapArea: [[53.65, 23.7], [53.72, 24.3]]
+               restrictMapArea: [[53.65, 23.98], [53.70, 24.1]]
     });
     map.controls.get('zoomControl').options.set({size: 'small'});
 

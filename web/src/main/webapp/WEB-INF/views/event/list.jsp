@@ -7,7 +7,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="baseUrl" value="${contextPath}/event" />
-<h4 class="header">Event</h4>
+<h4 class="header"><mytaglib:i18n key="event.header"/></h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
@@ -15,18 +15,18 @@
 					<i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
 
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
-					<i class="material-icons">assignment_ind</i>name</mytaglib:sort-link></th>
+					<i class="material-icons">assignment_ind</i><mytaglib:i18n key="event.name"/></mytaglib:sort-link></th>
 
-			<th><mytaglib:sort-link column="type" pageUrl="${baseUrl}">type</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="type" pageUrl="${baseUrl}"><mytaglib:i18n key="event.type"/></mytaglib:sort-link></th>
 
 			<th><mytaglib:sort-link column="date" pageUrl="${baseUrl}">
-					<i class="material-icons">access_time</i>date</mytaglib:sort-link></th>
+					<i class="material-icons">access_time</i><mytaglib:i18n key="event.date"/></mytaglib:sort-link></th>
 			<sec:authorize access="!isAnonymous()">
-				<th><i class="material-icons">description</i>info</th>
-				<th><mytaglib:sort-link column="customer_id" pageUrl="${baseUrl}">customer_id</mytaglib:sort-link></th>
-				<th><mytaglib:sort-link column="country" pageUrl="${baseUrl}"><i class="material-icons">public</i>country</mytaglib:sort-link></th>
-				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}"><i class="material-icons">query_builder</i>created</mytaglib:sort-link></th>
-				<th><mytaglib:sort-link column="updated" pageUrl="${baseUrl}"><i class="material-icons">access_time</i>updated</mytaglib:sort-link></th>
+				<th><i class="material-icons">description</i><mytaglib:i18n key="event.info"/></th>
+				<th><mytaglib:sort-link column="customer_id" pageUrl="${baseUrl}"><mytaglib:i18n key="event.customerId"/></mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="country" pageUrl="${baseUrl}"><i class="material-icons">public</i><mytaglib:i18n key="event.country"/></mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}"><i class="material-icons">query_builder</i><mytaglib:i18n key="event.created"/></mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="updated" pageUrl="${baseUrl}"><i class="material-icons">access_time</i><mytaglib:i18n key="event.updated"/></mytaglib:sort-link></th>
 				
 			</sec:authorize>
 			<th></th>
@@ -71,5 +71,5 @@
 <sec:authorize access="hasAnyRole('ADMIN')">
 
 	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
-		class="material-icons">add</i></a>
+		class="material-icons">add</i><mytaglib:i18n key="event.add"/></a>
 </sec:authorize>

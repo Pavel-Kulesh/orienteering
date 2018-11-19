@@ -15,10 +15,14 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script
+	src="https://api-maps.yandex.ru/2.1/?apikey=6e3aca92-4af0-463b-b120-ef3e1eaad3b8&lang=en_US"
+	type="text/javascript"></script>
 
 <link rel="stylesheet" href="${contextPath}/resources/css/custom.css">
 <script src="${contextPath}/resources/js/init-materialize-forms.js"></script>
 <script src="${contextPath}/resources/js/init-menu.js"></script>
+<script src="${contextPath}/resources/js/my-map.js"></script>
 </head>
 <body>
 	<tiles:insertAttribute name="header" />

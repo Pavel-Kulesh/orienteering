@@ -124,7 +124,7 @@ public class Customer implements ICustomer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", created=" + created + ", updated=" + updated + ", name=" + name + ", surname="
-				+ surname + ", phone=" + phone + ", city=" + city + "]";
+				+ surname + ", phone=" + phone + "]";
 	}
 
 }

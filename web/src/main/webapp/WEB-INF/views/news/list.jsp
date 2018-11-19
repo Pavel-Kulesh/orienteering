@@ -5,16 +5,16 @@
 <%@ taglib prefix="jspFragments" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/news" />
-<h4 class="header">News</h4>
+<h4 class="header"><mytaglib:i18n key="menu.news"/></h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
 			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}"><i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}"><i class="material-icons">assignment_ind</i>name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}"><i class="material-icons">assignment_ind</i><mytaglib:i18n key="news.name"/></mytaglib:sort-link></th>
 			<sec:authorize access="!isAnonymous()">
-				<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}"><i class="material-icons">description</i>info</mytaglib:sort-link></th>
-				<th><i class="material-icons">access_time</i>created</th>
-				<th><i class="material-icons">access_time</i>updated</th>
+				<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}"><i class="material-icons">description</i><mytaglib:i18n key="news.info"/></mytaglib:sort-link></th>
+				<th><i class="material-icons">access_time</i><mytaglib:i18n key="news.created"/></th>
+				<th><i class="material-icons">access_time</i><mytaglib:i18n key="news.updated"/></th>
 				<th></th>
 				
 			</sec:authorize>
@@ -47,6 +47,6 @@
 <jspFragments:paging />
 <sec:authorize access="hasAnyRole('ADMIN')">
 
-	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
+	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><mytaglib:i18n key="news.add"/><i
 		class="material-icons">add</i></a>
 </sec:authorize>

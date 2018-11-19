@@ -11,9 +11,14 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}"><i class="material-icons">bubble_chart</i>id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}"><i class="material-icons">directions_run</i>name</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="surname" pageUrl="${baseUrl}"><i class="material-icons">child_care</i>surname</mytaglib:sort-link></th>
+			<sec:authorize access="hasAnyRole('ADMIN')">
+				<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">
+						<i class="material-icons">bubble_chart</i>id</mytaglib:sort-link></th>
+			</sec:authorize>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
+					<i class="material-icons">directions_run</i>name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="surname" pageUrl="${baseUrl}">
+					<i class="material-icons">child_care</i>surname</mytaglib:sort-link></th>
 			<sec:authorize access="!isAnonymous()">
 				<th><i class="material-icons">contact_phone</i>phone</th>
 				<th><i class="material-icons">location_city</i>city</th>
@@ -25,7 +30,9 @@
 		<c:forEach var="participant" items="${gridItem}"
 			varStatus="loopCounter">
 			<tr>
-				<td><c:out value="${participant.id}" /></td>
+				<sec:authorize access="hasAnyRole('ADMIN')">
+					<td><c:out value="${participant.id}" /></td>
+				</sec:authorize>
 				<td><c:out value="${participant.name}" /></td>
 				<td><c:out value="${participant.surname}" /></td>
 

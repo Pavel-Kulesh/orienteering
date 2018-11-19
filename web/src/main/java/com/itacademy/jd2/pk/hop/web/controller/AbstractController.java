@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.itacademy.jd2.pk.hop.dao.api.filter.AbstractFilter;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.SortDTO;
+import com.itacademy.jd2.pk.hop.web.security.AuthHelper;
 
 public abstract class AbstractController<DTO> {
     protected GridStateDTO getListDTO(final HttpServletRequest req) {
@@ -30,5 +31,9 @@ public abstract class AbstractController<DTO> {
             filter.setSortOrder(sortModel.isAscending());
         }
     }
+    protected Integer getCustomerId() {
+		Integer customerId = AuthHelper.getLoggedUserId();
+		return customerId;
+	}
 
 }

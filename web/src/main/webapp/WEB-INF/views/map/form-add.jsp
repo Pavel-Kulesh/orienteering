@@ -3,13 +3,27 @@
 <c:set var="baseUrl" value="${contextPath}/map" />
 <h4 class="header">Add map</h4>
 <div class="row">
-<div class="col s3"></div>
-	<form:form class="col s6" method="POST" action="${baseUrl}"
-		modelAttribute="formModel">
+	<div class="col s3"></div>
+	<form:form class="col s6" method="POST" action="${baseUrl}" modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
+		<form:input path="customerId" type="hidden" />
+
+
+
+		<table>
+			<tr>
+				<td>File to upload:</td>
+				<td><input type="file" name="fileDoc" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+
 
 		<div class="row">
-		<i class="material-icons">note</i>
+			<i class="material-icons">note</i>
 			<div class="input-field col s12">
 				<form:input path="name" type="text" disabled="${readonly}" />
 				<form:errors path="name" cssClass="red-text" />
@@ -17,17 +31,9 @@
 			</div>
 		</div>
 
+
 		<div class="row">
-
-			<div class="input-field col s12">
-				<form:input path="customerId" type="hidden" />
-
-			</div>
-
-
-		</div>
-		<div class="row">
-		<i class="material-icons">link</i>
+			<i class="material-icons">link</i>
 			<div class="input-field col s12">
 				<form:input path="path" type="text" disabled="${readonly}" />
 				<form:errors path="path" cssClass="red-text" />
@@ -36,8 +42,8 @@
 		</div>
 
 		<div class="row">
-		
-		<i class="material-icons">insert_drive_file</i>
+
+			<i class="material-icons">insert_drive_file</i>
 			<div class="input-field col s12">
 				<form:input path="file" type="text" disabled="${readonly}" />
 				<form:errors path="file" cssClass="red-text" />
@@ -49,7 +55,7 @@
 		<table>
 			<tr>
 				<td><div class="row">
-				<i class="material-icons">search</i>
+						<i class="material-icons">search</i>
 						<div class="input-field col s12">
 							<form:input path="latitude1" type="text" disabled="${readonly}" />
 							<form:errors path="latitude1" cssClass="red-text" />
@@ -58,7 +64,7 @@
 					</div></td>
 				<td>
 					<div class="row">
-					<i class="material-icons">search</i>
+						<i class="material-icons">search</i>
 						<div class="input-field col s12">
 							<form:input path="longitude1" type="text" disabled="${readonly}" />
 							<form:errors path="longitude1" cssClass="red-text" />
@@ -71,7 +77,7 @@
 
 			<tr>
 				<td><div class="row">
-				<i class="material-icons">search</i>
+						<i class="material-icons">search</i>
 						<div class="input-field col s12">
 							<form:input path="latitude2" type="text" disabled="${readonly}" />
 							<form:errors path="latitude2" cssClass="red-text" />
@@ -80,7 +86,7 @@
 					</div></td>
 				<td>
 					<div class="row">
-					<i class="material-icons">search</i>
+						<i class="material-icons">search</i>
 						<div class="input-field col s12">
 							<form:input path="longitude2" type="text" disabled="${readonly}" />
 							<form:errors path="longitude2" cssClass="red-text" />

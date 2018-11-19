@@ -1,5 +1,6 @@
 package com.itacademy.jd2.pk.hop.web.dto;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -33,6 +34,8 @@ public class MapDTO {
 	private BigDecimal longitude2;
 	private Date created;
 	private Date updated;
+	
+	private File fileDoc;
 
 	public Integer getId() {
 		return id;
@@ -121,5 +124,14 @@ public class MapDTO {
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
+
+	public File getFileDoc() {
+		return fileDoc;
+	}
+
+	public void setFileDoc(File fileDoc) {
+		this.fileDoc = fileDoc;
+	}
+	
 
 }
