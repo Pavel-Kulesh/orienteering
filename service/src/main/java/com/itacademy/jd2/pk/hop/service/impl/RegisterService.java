@@ -29,17 +29,12 @@ public class RegisterService implements IRegisterService {
 
 	@Override
 	public void saveRegisterData(ICustomer customer, IUserAccount userAccount) {
-		try {
-			userAccountService.save(userAccount);
-			customer.setId(userAccount.getId());
-			customer.setUserAccount(userAccount);
-			customerService.save(customer);
-			SendMailSSL.sendEmail(userAccount.getEmail());
-
-		} catch (Exception e) {
-			LOGGER.info("error registration");
-		}
-
+		userAccountService.save(userAccount);
+		customer.setId(userAccount.getId());
+		customer.setUserAccount(userAccount);
+		customerService.save(customer);
+		SendMailSSL.sendEmail(userAccount.getEmail());
+		LOGGER.info("registration complite");
 	}
 
 }

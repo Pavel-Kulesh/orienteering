@@ -1,20 +1,13 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -36,7 +29,6 @@ import com.itacademy.jd2.pk.hop.web.converter.MapFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
-import com.itacademy.jd2.pk.hop.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/map")
@@ -89,25 +81,16 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final MapDTO formModel, final BindingResult result) {
+	public String save(@RequestParam("fileDoc") final MultipartFile fileDoc,
+			@Valid @ModelAttribute("formModel") final MapDTO formModel, final BindingResult result) throws IOException {
 		if (result.hasErrors()) {
 			return "map.add";
 		} else {
 
-			File fileDoc = formModel.getFileDoc();
-			fileDoc.getAbsolutePath();
+			final String result1 = new BufferedReader(new InputStreamReader(fileDoc.getInputStream())).lines()
+					.collect(Collectors.joining("\n"));
+			System.out.println("result file=" + result1);
 
-			File file1 = new File(fileDoc.getAbsolutePath());
-			String filePath = fileDoc.getAbsolutePath();
-			System.out.println("file path: " + filePath);
-			try {
-				readUsingFiles(filePath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			
 			final IMap entity = fromDTOConverter.apply(formModel);
 			mapService.save(entity);
 
@@ -138,20 +121,6 @@ public class MapController extends AbstractController<MapDTO> {
 		hashMap.put("formModel", dto);
 
 		return new ModelAndView("map.edit", hashMap);
-	}
-
-	private static void readUsingFiles(String fileName) throws IOException {
-		Path path = Paths.get(fileName);
-		Path pathToFile = Paths.get(fileName);
-		System.out.println(pathToFile.toAbsolutePath());
-		// считываем содержимое файла в массив байт
-		byte[] bytes = Files.readAllBytes(path);
-		// считываем содержимое файла в список строк
-		List<String> allLines = Files.readAllLines(path, StandardCharsets.UTF_8);
-		for (String string : allLines) {
-			System.out.println(string);
-
-		}
 	}
 
 }

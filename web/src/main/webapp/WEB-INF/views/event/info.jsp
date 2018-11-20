@@ -3,12 +3,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-	<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/event" />
 <div class="row">
 	<div class="col s3"></div>
 	<div class="col s6">
-		<h4 class="header"><mytaglib:i18n key="event.name"/>: ${formModel.name}</h4>
+		<h4 class="header">
+			<mytaglib:i18n key="event.name" />
+			: ${formModel.name}
+		</h4>
 	</div>
 	<div class="col s3"></div>
 </div>
@@ -20,7 +23,8 @@
 		<ul class="collapsible">
 			<li>
 				<div class="collapsible-header">
-					<mytaglib:i18n key="event.date"/> <span class="badge"><i class="material-icons">query_builder</i></span>
+					<mytaglib:i18n key="event.date" />
+					<span class="badge"><i class="material-icons">query_builder</i></span>
 				</div>
 				<div class="collapsible-body">
 					<p>
@@ -30,7 +34,8 @@
 			</li>
 			<li>
 				<div class="collapsible-header">
-					<mytaglib:i18n key="event.type"/> <span class="badge"><i class="material-icons">directions_run</i></span>
+					<mytaglib:i18n key="event.type" />
+					<span class="badge"><i class="material-icons">directions_run</i></span>
 				</div>
 				<div class="collapsible-body">
 					<p>${formModel.type}</p>
@@ -38,7 +43,8 @@
 			</li>
 			<li>
 				<div class="collapsible-header">
-					<mytaglib:i18n key="event.country"/> <span class="badge"><i class="material-icons">public</i></span>
+					<mytaglib:i18n key="event.country" />
+					<span class="badge"><i class="material-icons">public</i></span>
 				</div>
 				<div class="collapsible-body">
 					<p>${formModel.countryName}</p>
@@ -46,7 +52,8 @@
 			</li>
 			<li>
 				<div class="collapsible-header">
-					<mytaglib:i18n key="event.info"/> <span class="badge"><i class="material-icons">description</i>
+					<mytaglib:i18n key="event.info" />
+					<span class="badge"><i class="material-icons">description</i>
 					</span>
 				</div>
 				<div class="collapsible-body">
@@ -56,8 +63,8 @@
 
 			<li>
 				<div class="collapsible-header">
-					<mytaglib:i18n key="event.map"/> <span class="badge "><i class="material-icons">public</i>
-					</span>
+					<mytaglib:i18n key="event.map" />
+					<span class="badge "><i class="material-icons">public</i> </span>
 				</div>
 				<div class="collapsible-body">
 
@@ -84,13 +91,14 @@
 			<c:if test="${registerToEvent}">
 				<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}"
 					class="btn waves-effect waves-light grey darken-3" type="submit">
-					<mytaglib:i18n key="event.register"/> <i class="large material-icons">rowing</i>
+					<mytaglib:i18n key="event.register" /> <i
+					class="large material-icons">rowing</i>
 				</a>
 			</c:if>
 			<c:if test="${deleteFromEvent}">
 				<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
-					class="btn waves-effect waves-light red" type="submit">
-					<mytaglib:i18n key="event.unregister"/><i class="large material-icons">rowing</i>
+					class="btn waves-effect waves-light red" type="submit"> <mytaglib:i18n
+						key="event.unregister" /><i class="large material-icons">rowing</i>
 				</a>
 			</c:if>
 		</div>
@@ -106,13 +114,14 @@
 	<div class="col s3"></div>
 	<div class="col s3">
 		<a href="${contextPath}/list/event/${formModel.id}"
-			class="btn waves-effect waves-light" type="submit"> <mytaglib:i18n key="event.list.participant"/> <i class="large material-icons">public</i>
+			class="btn waves-effect waves-light" type="submit"> <mytaglib:i18n
+				key="event.list.participant" /> <i class="large material-icons">public</i>
 		</a>
 	</div>
 
 	<div class="col s3">
-		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="event.back"/><i class="material-icons right">undo</i>
-		</a>
+		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n
+				key="event.back" /><i class="material-icons right">undo</i> </a>
 	</div>
 	<div class="col s3"></div>
 </div>

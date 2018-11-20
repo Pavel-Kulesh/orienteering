@@ -4,7 +4,8 @@
 <h4 class="header">Add map</h4>
 <div class="row">
 	<div class="col s3"></div>
-	<form:form class="col s6" method="POST" action="${baseUrl}" modelAttribute="formModel">
+	<form:form class="col s6" method="POST" enctype="multipart/form-data"
+		action="${baseUrl}" modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 		<form:input path="customerId" type="hidden" />
 
@@ -79,7 +80,7 @@
 				<td><div class="row">
 						<i class="material-icons">search</i>
 						<div class="input-field col s12">
-							<form:input path="latitude2" type="text"  />
+							<form:input path="latitude2" type="text" />
 							<form:errors path="latitude2" cssClass="red-text" />
 							<label for="latitude2">latitude2</label>
 						</div>
@@ -88,7 +89,7 @@
 					<div class="row">
 						<i class="material-icons">search</i>
 						<div class="input-field col s12">
-							<form:input path="longitude2" type="text"  />
+							<form:input path="longitude2" type="text" />
 							<form:errors path="longitude2" cssClass="red-text" />
 							<label for="longitude2">longitude2</label>
 						</div>
