@@ -4,114 +4,105 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	<definition name="DefaultTemplate"
-		template="/WEB-INF/views/main-template.jsp">
+	<definition name="DefaultTemplate" template="/WEB-INF/views/main-template.jsp">
 		<put-attribute name="title" value="ППоплаВА" />
-		<put-attribute name="header"
-			value="/WEB-INF/views/header.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
 	</definition>
 
 	<definition name="news.list" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/news/list.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/news/list.jsp" />
 	</definition>
 
 	<definition name="news.edit" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/news/edit.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/news/edit.jsp" />
 	</definition>
-	
+
 	<definition name="news.add" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/news/add.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/news/add.jsp" />
 	</definition>
 
 	<definition name="news.info" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/news/info.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/news/info.jsp" />
 	</definition>
 
 	<definition name="index" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/index.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/index.jsp" />
 	</definition>
 
 	<definition name="event.list" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/event/list.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/event/list.jsp" />
 	</definition>
 
 	<definition name="event.edit" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/event/edit.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/event/edit.jsp" />
 	</definition>
 	<definition name="event.info" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/event/info.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/event/info.jsp" />
 	</definition>
 
 	<definition name="event.add" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/event/form-add.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/event/form-add.jsp" />
 	</definition>
 
 
 
 
 	<definition name="link" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/links.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/links.jsp" />
 	</definition>
 
+
+
+	<definition name="route" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/list.jsp" />
+	</definition>
+
+	<definition name="route.add" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/list.jsp" />
+	</definition>
+
+	<definition name="route.info" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/list.jsp" />
+	</definition>
 
 
 	<definition name="map.list" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/map/list.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/map/list.jsp" />
 	</definition>
 	<definition name="map.edit" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/map/edit.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/map/edit.jsp" />
 	</definition>
 	<definition name="map.info" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/map/info.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/map/info.jsp" />
 	</definition>
 	<definition name="map.add" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/map/form-add.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/map/form-add.jsp" />
 	</definition>
 
 
 
-	<definition name="participant.list"
-		extends="DefaultTemplate">
+	<definition name="participant.list" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/participant/list.jsp" />
 	</definition>
-	<definition name="participant.info"
-		extends="DefaultTemplate">
+	<definition name="participant.info" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/participant/info.jsp" />
 	</definition>
-	<definition name="participant.edit"
-		extends="DefaultTemplate">
+	<definition name="participant.edit" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/participant/edit.jsp" />
 	</definition>
 
 
 	<definition name="login" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/login.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
 	</definition>
 
 	<definition name="registration" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/registration.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
 	</definition>
 
 	<definition name="user2event" extends="DefaultTemplate">
@@ -119,8 +110,7 @@
 			value="/WEB-INF/views/list/participant.jsp" />
 	</definition>
 	<definition name="event2user" extends="DefaultTemplate">
-		<put-attribute name="body"
-			value="/WEB-INF/views/list/event.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/list/event.jsp" />
 	</definition>
 
 

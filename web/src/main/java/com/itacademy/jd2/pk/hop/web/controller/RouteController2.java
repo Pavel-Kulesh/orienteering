@@ -1,10 +1,8 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,15 +32,15 @@ import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 import com.itacademy.jd2.pk.hop.web.tag.MYGPX;
 
 @Controller
-@RequestMapping(value = "/map")
-public class MapController extends AbstractController<MapDTO> {
+@RequestMapping(value = "/route")
+public class RouteController2 extends AbstractController<MapDTO> {
 
 	private IMapService mapService;
 	private MapToDTOConverter toDTOConverter;
 	private MapFromDTOConverter fromDTOConverter;
 
 	@Autowired
-	public MapController(IMapService mapService, MapToDTOConverter toDTOConverter,
+	public RouteController2(IMapService mapService, MapToDTOConverter toDTOConverter,
 			MapFromDTOConverter fromDTOConverter) {
 		super();
 		this.mapService = mapService;
@@ -69,7 +67,7 @@ public class MapController extends AbstractController<MapDTO> {
 
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
-		return new ModelAndView("map.list", models);
+		return new ModelAndView("route.list", models);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -80,7 +78,7 @@ public class MapController extends AbstractController<MapDTO> {
 		dto.setCustomerId(getCustomerId());
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("map.add", hashMap);
+		return new ModelAndView("route.add", hashMap);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -89,26 +87,24 @@ public class MapController extends AbstractController<MapDTO> {
 		if (result.hasErrors()) {
 			return "map.add";
 		} else {
-
+/*
 			final String result1 = new BufferedReader(new InputStreamReader(fileDoc.getInputStream())).lines()
 					.collect(Collectors.joining("\n"));
-
-			byte[] bytes = fileDoc.getBytes();
-			String encodedString = Base64.getEncoder().encodeToString(bytes);
+			System.out.println("result file=" + result1);
+*/
+			MYGPX.seeTrack(fileDoc.getInputStream());
 
 			final IMap entity = fromDTOConverter.apply(formModel);
-
-			entity.setFile(encodedString);
 			mapService.save(entity);
 
-			return "redirect:/map";
+			return "redirect:/route";
 		}
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
 		mapService.delete(id);
-		return "redirect:/map";
+		return "redirect:/route";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -117,7 +113,7 @@ public class MapController extends AbstractController<MapDTO> {
 		final MapDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		return new ModelAndView("map.info", hashMap);
+		return new ModelAndView("route.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
@@ -127,7 +123,7 @@ public class MapController extends AbstractController<MapDTO> {
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 
-		return new ModelAndView("map.edit", hashMap);
+		return new ModelAndView("route.edit", hashMap);
 	}
 
 }

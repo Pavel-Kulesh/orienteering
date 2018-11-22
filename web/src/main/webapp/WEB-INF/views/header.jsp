@@ -12,6 +12,9 @@
 				<li><a href="${baseUrl}/event"><mytaglib:i18n key="menu.event"></mytaglib:i18n></a></li>
 				<li><a href="${baseUrl}/participant"><mytaglib:i18n key="menu.participant"></mytaglib:i18n></a></li>
 				<li><a href="${baseUrl}/map"><mytaglib:i18n key="menu.map"></mytaglib:i18n></a></li>
+				<sec:authorize access="isAuthenticated()">
+				<li><a href="${baseUrl}/route"><mytaglib:i18n key="menu.route"></mytaglib:i18n></a></li>
+				</sec:authorize>
 				<li><a href="${baseUrl}/link"><mytaglib:i18n key="menu.link"></mytaglib:i18n></a></li>
 
 

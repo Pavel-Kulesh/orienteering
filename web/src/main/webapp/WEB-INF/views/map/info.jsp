@@ -21,6 +21,7 @@
 				</div>
 				<div class="collapsible-body">
 					<p>Event's map</p>
+
 				</div>
 			</li>
 			<li>
@@ -28,7 +29,18 @@
 					Map <span class="badge"><i class="material-icons">public</i></span>
 				</div>
 				<div class="collapsible-body">
-					<p>need insert yandex map</p>
+					<p>
+						<script>
+							ymaps.ready(initMapWithImage.bind(null,
+									'${formModel.path}',
+									'${formModel.latitude1}',
+									'${formModel.longitude1}',
+									'${formModel.latitude2}',
+									'${formModel.longitude2}'));
+						</script>
+					<div id="map" style="width: 100%; height: 300px"></div>
+
+
 				</div>
 			</li>
 		</ul>

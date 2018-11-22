@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer_;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map_;
 
@@ -94,7 +95,7 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		final Root<Map> from = cq.from(Map.class);
 		cq.select(from);
 		from.fetch(Map_.customer, JoinType.LEFT);
-
+		cq.where(cb.equal(from.get(Map_.id), id));
 		final TypedQuery<IMap> q = em.createQuery(cq);
 
 		return q.getResultList().get(0);
