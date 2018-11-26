@@ -1,0 +1,30 @@
+{  "type": "FeatureCollection",  "features": [
+{
+      "type": "Feature",
+      "id": 1,
+      "options": {"strokeWidth": 3},
+      "properties": {"balloonContent": "Содержимое балуна", "hintContent": "Текст подсказки"},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+#array# [lt, lg],
+        ]
+      }
+    }
+  ]
+}
+
+
+
+String.Format("text", arg);
+
+StringBilder sb= new SB;
+array<point>;
+String line;
+foreach( point: array){
+doble lt= point.get lat;
+double lg= point. get long;
+sb.append([lt, lg],);
+last element add without ","
+
+}
