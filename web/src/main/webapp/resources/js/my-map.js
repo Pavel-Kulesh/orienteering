@@ -24,8 +24,11 @@ function initMapWithImage(image, lt1, lg1, lt2, lg2) {
         type: 'yandex#hybrid',
         controls: ['zoomControl']
     }, {
-               restrictMapArea: [[lt1-1, lg1-1], [lt2+1, lg2+1]]
-    });
+               restrictMapArea: [[lt1-0.2, lg1-0.2], [lt2+0.2, lg2+0.2]] ,
+              
+        }
+    
+	);
     map.controls.get('zoomControl').options.set({size: 'small'});
 
 var myPolygon = new ymaps.Polygon([
@@ -45,9 +48,9 @@ var myPolygon = new ymaps.Polygon([
         }, {
             // write option geoObject.
             // background image.
-        	//   fillImageHref: 'D:/java_train/images/vert.png',
+        	// fillImageHref: 'D:/java_train/images/vert.png',
           fillImageHref: 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
-           //   fillImageHref: image,
+           // fillImageHref: image,
             // 
             fillMethod: 'stretch',
             // delete contour.

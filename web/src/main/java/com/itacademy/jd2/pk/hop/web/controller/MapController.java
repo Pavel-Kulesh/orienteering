@@ -118,7 +118,7 @@ public class MapController extends AbstractController<MapDTO> {
 	public String edit(@Valid @ModelAttribute("formModel") final MapDTO formModel, final BindingResult result)
 			throws IOException {
 		if (result.hasErrors()) {
-			return "map.add";
+			return "map.edit";
 		} else {
 
 			final IMap entity = fromDTOConverter.apply(formModel);

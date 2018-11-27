@@ -69,8 +69,8 @@
 				<div class="collapsible-body">
 
 					<script>
-						ymaps.ready(initMap.bind(null, '${formModel.latitude}',
-								'${formModel.longitude}'));
+						ymaps.ready(initMap.bind(null, ${formModel.latitude},
+								${formModel.longitude}));
 					</script>
 					<div id="map" style="width: 100%; height: 300px"></div>
 
