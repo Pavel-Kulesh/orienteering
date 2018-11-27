@@ -8,4 +8,5 @@ public interface IPointDao extends IDao<IPoint, Integer> {
 
 	void insertList(List<IPoint> entities);
 
+	List<IPoint> selectById(Integer id);
 }

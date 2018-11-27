@@ -73,9 +73,7 @@
 		<div class="row">
 			<div class="col s2"></div>
 			<div class="col s3">
-				<c:if test="${!readonly}">
-					<button class="btn waves-effect waves-light right" type="submit">Save</button>
-				</c:if>
+				<button class="btn waves-effect waves-light right" type="submit">Save</button>
 			</div>
 			<div class="col s3">
 				<a class="btn waves-effect waves-light right" href="${baseUrl}"

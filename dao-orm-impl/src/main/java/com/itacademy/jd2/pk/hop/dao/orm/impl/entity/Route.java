@@ -19,6 +19,7 @@ public class Route extends BaseEntity implements IRoute {
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Customer.class)
 	private ICustomer customer;
 
+		
 	public String getFile() {
 		return file;
 	}

@@ -23,4 +23,12 @@ public interface IMapService {
 	List<IMap> find(MapFilter filter);
 
 	long getCount(MapFilter filter);
+	
+	@Transactional
+	void addRouteToEvent(Integer mapId, Integer routeId);
+
+	@Transactional
+	void deleteRouteFromEvent(Integer mapId, Integer routeId);
+	
+	
 }

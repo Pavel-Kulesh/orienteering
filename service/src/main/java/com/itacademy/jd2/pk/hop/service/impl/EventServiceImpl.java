@@ -99,7 +99,7 @@ public class EventServiceImpl implements IEventService {
 	}
 
 	@Override
-	public boolean checkExistCustomerToEvent(Integer customerId, Integer eventId) {
+	public boolean checkExistCustomerInEvent(Integer customerId, Integer eventId) {
 		return dao.checkExistCustomerToEvent(customerId, eventId);
 	}
 

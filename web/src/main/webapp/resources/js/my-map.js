@@ -18,7 +18,7 @@ function initMap(lt, lg) {
 }
 
 function initMapWithImage(image, lt1, lg1, lt2, lg2) {
-	var map = new ymaps.Map('map', {
+	var map = new ymaps.Map('map1', {
         center: [(lt1+lt2)/2, (lg1+lg2)/2],
         zoom: 2,
         type: 'yandex#hybrid',
@@ -46,7 +46,8 @@ var myPolygon = new ymaps.Polygon([
             // write option geoObject.
             // background image.
         	//   fillImageHref: 'D:/java_train/images/vert.png',
-            fillImageHref: image,
+          fillImageHref: 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
+           //   fillImageHref: image,
             // 
             fillMethod: 'stretch',
             // delete contour.

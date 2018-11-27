@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
-import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer_;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map_;
 
@@ -99,6 +98,23 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		final TypedQuery<IMap> q = em.createQuery(cq);
 
 		return q.getResultList().get(0);
+	}
+
+	@Override
+	public void addRouteToEvent(Integer mapId, Integer routeId) {
+		final EntityManager em = getEntityManager();
+		em.createNativeQuery(String.format("insert into map_2_route (map_id, route_id) values(%s, %s)", mapId, routeId))
+				.executeUpdate();
+
+	}
+
+	@Override
+	public void deleteRouteFromEvent(Integer mapId, Integer routeId) {
+		final EntityManager em = getEntityManager();
+		em.createNativeQuery(
+				(String.format("delete from map_2_route e where e.map_id = %s and e.route_id=%s", mapId, routeId)))
+				.executeUpdate();
+
 	}
 
 }

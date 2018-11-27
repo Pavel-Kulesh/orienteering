@@ -1,14 +1,20 @@
 package com.itacademy.jd2.pk.hop.dao.orm.impl.entity;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 
 @Entity
 public class Map extends BaseEntity implements IMap {
@@ -30,6 +36,12 @@ public class Map extends BaseEntity implements IMap {
 	private BigDecimal longitude1;
 	@Column
 	private BigDecimal longitude2;
+
+	@JoinTable(name = "map_2_route", joinColumns = { @JoinColumn(name = "map_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "route_id") })
+	@ManyToMany(targetEntity = Route.class, fetch = FetchType.LAZY)
+	// @OrderBy("title ASC")
+	private Set<IRoute> routesList = new HashSet<>();
 
 	public String getName() {
 		return name;
@@ -93,6 +105,14 @@ public class Map extends BaseEntity implements IMap {
 
 	public void setCustomer(ICustomer customer) {
 		this.customer = customer;
+	}
+
+	public Set<IRoute> getRoutesList() {
+		return routesList;
+	}
+
+	public void setRoutesList(Set<IRoute> routesList) {
+		this.routesList = routesList;
 	}
 
 	@Override

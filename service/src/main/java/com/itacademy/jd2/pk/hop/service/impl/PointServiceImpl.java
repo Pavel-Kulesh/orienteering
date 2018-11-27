@@ -35,6 +35,8 @@ public class PointServiceImpl implements IPointService {
 		return all;
 	}
 
+	
+	
 	@Override
 	public void save(IPoint entity) {
 
@@ -72,5 +74,13 @@ public class PointServiceImpl implements IPointService {
 	public IPoint createEntity() {
 		return dao.createEntity();
 	}
+
+	@Override
+	public List<IPoint> selectById(Integer id) {
+		
+		return dao.selectById(id);
+	}
+
+	
 
 }

@@ -4,11 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Route;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
@@ -93,6 +96,18 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 		entity.setCustomer(customer);
 
 		return entity;
+	}
+
+	@Override
+	public List<IRoute> find(RouteFilter filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long getCount(RouteFilter filter) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

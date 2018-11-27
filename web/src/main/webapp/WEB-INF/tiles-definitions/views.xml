@@ -55,16 +55,19 @@
 
 
 
-	<definition name="route" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/list.jsp" />
+	<definition name="route.list" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/route/list.jsp" />
 	</definition>
 
 	<definition name="route.add" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/list.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/route/add.jsp" />
 	</definition>
 
 	<definition name="route.info" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/list.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/route/info.jsp" />
+	</definition>
+	<definition name="route.edit" extends="DefaultTemplate">
+		<put-attribute name="body" value="/WEB-INF/views/route/edit.jsp" />
 	</definition>
 
 

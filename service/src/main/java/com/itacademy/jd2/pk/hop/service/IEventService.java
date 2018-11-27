@@ -35,6 +35,6 @@ public interface IEventService {
 	@Transactional
 	void deleteCustomerFromEvent(Integer customerId, Integer eventId);
 
-	@Transactional
-	boolean checkExistCustomerToEvent(Integer customerId, Integer eventId);
+	
+	boolean checkExistCustomerInEvent(Integer customerId, Integer eventId);
 }

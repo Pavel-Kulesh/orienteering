@@ -1,6 +1,7 @@
 package com.itacademy.jd2.pk.hop.dao.api.entity;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public interface IMap extends IBaseEntity {
 	String getName();
@@ -34,4 +35,9 @@ public interface IMap extends IBaseEntity {
 	ICustomer getCustomer();
 
 	void setCustomer(ICustomer customer);
+
+	Set<IRoute> getRoutesList();
+
+	void setRoutesList(Set<IRoute> routesList);
+
 }

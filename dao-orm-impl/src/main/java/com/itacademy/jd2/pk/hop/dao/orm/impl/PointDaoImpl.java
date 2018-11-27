@@ -2,11 +2,21 @@ package com.itacademy.jd2.pk.hop.dao.orm.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+
 import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IPointDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Point;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Point_;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Route_;
+
 @Repository
 public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IPointDao {
 
@@ -22,7 +32,26 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 
 	@Override
 	public void insertList(List<IPoint> entities) {
-		throw new RuntimeException("not implemented");
+		final EntityManager em = getEntityManager();
+	
+		for (IPoint point : entities) {
+			em.persist(point);
+		}
+
+	}
+
+	@Override
+	public List<IPoint> selectById(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IPoint> cq = cb.createQuery(IPoint.class);
+		final Root<Point> from = cq.from(Point.class);
+		cq.select(from);
+		from.fetch(Point_.route, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Route_.id), id));
+		final TypedQuery<IPoint> q = em.createQuery(cq);
+		return q.getResultList();
 
 	}
 

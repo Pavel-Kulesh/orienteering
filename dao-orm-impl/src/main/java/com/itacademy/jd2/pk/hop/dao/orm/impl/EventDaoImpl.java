@@ -39,7 +39,6 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	public List<IEvent> find(EventFilter filter) {
-		// throw new RuntimeException("not implemented");
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 		final CriteriaQuery<IEvent> cq = cb.createQuery(IEvent.class);

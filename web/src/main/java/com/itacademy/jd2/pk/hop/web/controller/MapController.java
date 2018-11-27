@@ -25,13 +25,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
+import com.itacademy.jd2.pk.hop.service.IPointService;
 import com.itacademy.jd2.pk.hop.web.converter.MapFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
-import com.itacademy.jd2.pk.hop.web.tag.MYGPX;
+import com.itacademy.jd2.pk.hop.web.tag.MyGPX;
 
 @Controller
 @RequestMapping(value = "/map")
@@ -41,13 +43,16 @@ public class MapController extends AbstractController<MapDTO> {
 	private MapToDTOConverter toDTOConverter;
 	private MapFromDTOConverter fromDTOConverter;
 
+	private IPointService pointServise;
+
 	@Autowired
-	public MapController(IMapService mapService, MapToDTOConverter toDTOConverter,
-			MapFromDTOConverter fromDTOConverter) {
+	public MapController(IMapService mapService, MapToDTOConverter toDTOConverter, MapFromDTOConverter fromDTOConverter,
+			IPointService pointServise) {
 		super();
 		this.mapService = mapService;
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
+		this.pointServise = pointServise;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -98,7 +103,26 @@ public class MapController extends AbstractController<MapDTO> {
 
 			final IMap entity = fromDTOConverter.apply(formModel);
 
+			List<IPoint> poits = MyGPX.seeTrack(fileDoc.getInputStream());
+			for (IPoint iPoint : poits) {
+				System.out.println(iPoint);
+			}
 			entity.setFile(encodedString);
+			mapService.save(entity);
+
+			return "redirect:/map";
+		}
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String edit(@Valid @ModelAttribute("formModel") final MapDTO formModel, final BindingResult result)
+			throws IOException {
+		if (result.hasErrors()) {
+			return "map.add";
+		} else {
+
+			final IMap entity = fromDTOConverter.apply(formModel);
+
 			mapService.save(entity);
 
 			return "redirect:/map";

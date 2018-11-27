@@ -37,9 +37,13 @@
 
 				<div class="row">
 					<div class="input-field col s12">
+					
+									
+					
 						<form:select path="type">
 							<option value="" disabled selected><mytaglib:i18n
 									key="event.select.type" />
+									<form:options items="${typeChoices}" />
 						</form:select>
 						<form:errors path="type" cssClass="red-text" />
 						<label for="type"><mytaglib:i18n key="event.type" /></label>

@@ -120,8 +120,7 @@ public class EventController extends AbstractController<EventDTO> {
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		hashMap.put("readonly", true);
-
+		
 		Integer customerId = getCustomerId();
 		if (customerId != null) {
 
@@ -149,8 +148,7 @@ public class EventController extends AbstractController<EventDTO> {
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		hashMap.put("readonly", true);
-
+		
 		setStatusRegToEvent(id, hashMap);
 
 		return new ModelAndView("event.info", hashMap);
@@ -170,7 +168,7 @@ public class EventController extends AbstractController<EventDTO> {
 	}
 
 	private void setStatusRegToEvent(final Integer id, final HashMap<String, Object> hashMap) {
-		boolean statusRegOnEvent = eventService.checkExistCustomerToEvent(getCustomerId(), id);
+		boolean statusRegOnEvent = eventService.checkExistCustomerInEvent(getCustomerId(), id);
 		hashMap.put("registerToEvent", !statusRegOnEvent);
 		hashMap.put("deleteFromEvent", statusRegOnEvent);
 	}

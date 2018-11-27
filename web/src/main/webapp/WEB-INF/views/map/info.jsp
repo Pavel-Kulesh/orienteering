@@ -30,6 +30,7 @@
 				</div>
 				<div class="collapsible-body">
 					<p>
+					
 						<script>
 							ymaps.ready(initMapWithImage.bind(null,
 									'${formModel.path}',
@@ -38,7 +39,7 @@
 									'${formModel.latitude2}',
 									'${formModel.longitude2}'));
 						</script>
-					<div id="map" style="width: 100%; height: 300px"></div>
+					<div id="map1" style="width: 100%; height: 300px"></div>
 
 
 				</div>

@@ -1,10 +1,11 @@
 package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
-import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 
 public class Map extends BaseEntity implements IMap {
 	private String name;
@@ -86,6 +87,18 @@ public class Map extends BaseEntity implements IMap {
 		return "Map [name=" + name + ", path=" + path + ", file=" + file + ", customer=" + customer + ", latitude1="
 				+ latitude1 + ", latitude2=" + latitude2 + ", longitude1=" + longitude1 + ", longitude2=" + longitude2
 				+ ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+	}
+
+	@Override
+	public Set<IRoute> getRoutesList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRoutesList(Set<IRoute> routesList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

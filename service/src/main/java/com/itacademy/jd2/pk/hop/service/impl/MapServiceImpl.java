@@ -78,4 +78,18 @@ public class MapServiceImpl implements IMapService {
 		return dao.getCount(filter);
 	}
 
+	@Override
+	public void addRouteToEvent(Integer mapId, Integer routeId) {
+		dao.addRouteToEvent(mapId, routeId);
+		
+	}
+
+	@Override
+	public void deleteRouteFromEvent(Integer mapId, Integer routeId) {
+		dao.deleteRouteFromEvent(mapId, routeId);
+		
+	}
+
+	
+
 }

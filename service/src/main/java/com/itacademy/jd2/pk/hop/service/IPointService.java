@@ -10,14 +10,20 @@ public interface IPointService {
 	IPoint get(Integer id);
 
 	List<IPoint> getAll();
+
 	@Transactional
 	void save(IPoint entity);
+
 	@Transactional
 	void saveList(List<IPoint> entities);
+
 	@Transactional
 	void delete(Integer id);
+
 	@Transactional
 	void deleteAll();
+
+	List<IPoint> selectById(Integer id);
 
 	IPoint createEntity();
 

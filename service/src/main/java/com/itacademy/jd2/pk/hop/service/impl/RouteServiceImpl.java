@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.itacademy.jd2.pk.hop.dao.api.IPointDao;
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 
 @Service
@@ -81,6 +82,18 @@ public class RouteServiceImpl implements IRouteService {
 	@Override
 	public IRoute createEntity() {
 		return dao.createEntity();
+	}
+
+	@Override
+	public List<IRoute> find(RouteFilter filter) {
+
+		return dao.find(filter);
+	}
+
+	@Override
+	public long getCount(RouteFilter filter) {
+
+		return dao.getCount(filter);
 	}
 
 }

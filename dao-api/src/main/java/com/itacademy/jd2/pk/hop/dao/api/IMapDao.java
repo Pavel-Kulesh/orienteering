@@ -10,4 +10,7 @@ public interface IMapDao extends IDao<IMap, Integer> {
 
 	long getCount(MapFilter filter);
 
+	void addRouteToEvent(Integer mapId, Integer routeId);
+
+	void deleteRouteFromEvent(Integer mapId, Integer routeId);
 }
