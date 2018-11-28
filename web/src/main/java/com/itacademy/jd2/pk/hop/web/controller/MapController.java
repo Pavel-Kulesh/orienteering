@@ -43,16 +43,14 @@ public class MapController extends AbstractController<MapDTO> {
 	private MapToDTOConverter toDTOConverter;
 	private MapFromDTOConverter fromDTOConverter;
 
-	private IPointService pointServise;
-
 	@Autowired
-	public MapController(IMapService mapService, MapToDTOConverter toDTOConverter, MapFromDTOConverter fromDTOConverter,
-			IPointService pointServise) {
+	public MapController(IMapService mapService, MapToDTOConverter toDTOConverter,
+			MapFromDTOConverter fromDTOConverter) {
 		super();
 		this.mapService = mapService;
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
-		this.pointServise = pointServise;
+
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -103,10 +101,6 @@ public class MapController extends AbstractController<MapDTO> {
 
 			final IMap entity = fromDTOConverter.apply(formModel);
 
-			List<IPoint> poits = MyGPX.seeTrack(fileDoc.getInputStream());
-			for (IPoint iPoint : poits) {
-				System.out.println(iPoint);
-			}
 			entity.setFile(encodedString);
 			mapService.save(entity);
 

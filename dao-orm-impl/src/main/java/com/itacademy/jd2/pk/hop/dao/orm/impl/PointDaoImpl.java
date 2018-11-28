@@ -33,10 +33,11 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 	@Override
 	public void insertList(List<IPoint> entities) {
 		final EntityManager em = getEntityManager();
-	
+
 		for (IPoint point : entities) {
-			em.persist(point);
+			em.merge(point);
 		}
+		em.getTransaction().commit();
 
 	}
 

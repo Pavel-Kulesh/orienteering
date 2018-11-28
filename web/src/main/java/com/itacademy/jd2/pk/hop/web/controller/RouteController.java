@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -90,9 +91,9 @@ public class RouteController extends AbstractController<RouteDTO> {
 			@Valid @ModelAttribute("formModel") final RouteDTO formModel, final BindingResult result)
 			throws IOException {
 
-		// (1)
-		// need change some param: ex. see form: fileDoc not null or value""
-		// add error to result
+		if (fileDoc == null) {
+			throw new BadCredentialsException("1000");
+		}
 
 		if (result.hasErrors()) {
 			return "route.add";
@@ -119,18 +120,14 @@ public class RouteController extends AbstractController<RouteDTO> {
 			 * result1);
 			 */
 
-			// MYGPX.seeTrack(fileDoc.getInputStream());
 			List<IPoint> poits = MyGPX.seeTrack(fileDoc.getInputStream());
 			final IRoute entity = fromDTOConverter.apply(formModel);
 			routeService.save(entity);
 
-			// foreach list<Ipoint> setRouteId entity.getId
-			// pointService.saveList(List);
-
 			for (IPoint point : poits) {
-				point.setId(entity.getId());
+				point.setRoute(entity);
 			}
-			// pointServise.saveList(poits);
+			pointService.saveList(poits);
 
 			return "redirect:/route";
 		}
