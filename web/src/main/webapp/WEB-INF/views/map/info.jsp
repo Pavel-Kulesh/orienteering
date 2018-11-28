@@ -34,10 +34,10 @@
 						<script>
 							ymaps.ready(initMapWithImage.bind(null,
 									'${formModel.path}',
-									'${formModel.latitude1}',
-									'${formModel.longitude1}',
-									'${formModel.latitude2}',
-									'${formModel.longitude2}'));
+									${formModel.latitude1},
+									${formModel.longitude1},
+									${formModel.latitude2},
+									${formModel.longitude2}));
 						</script>
 					<div id="map1" style="width: 100%; height: 300px"></div>
 

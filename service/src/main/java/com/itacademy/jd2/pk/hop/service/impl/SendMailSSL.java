@@ -1,4 +1,4 @@
-package com.itacademy.jd2.pk.hop.service.reg;
+package com.itacademy.jd2.pk.hop.service.impl;
 
 import java.util.Properties;
 
@@ -10,8 +10,16 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendMailSSL {
-	public static void sendEmail(String email) {
+import org.springframework.stereotype.Service;
+
+import com.itacademy.jd2.pk.hop.service.ISendMailSSL;
+
+@Service
+public class SendMailSSL implements ISendMailSSL{
+	
+	
+	
+	public void sendEmail(String email) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");

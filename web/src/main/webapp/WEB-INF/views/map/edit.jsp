@@ -6,9 +6,11 @@
 
 <div class="row">
 	<div class="col s2"></div>
-	<form:form class="col s8" method="POST" action="${baseUrl}"
+	<form:form class="col s8" method="POST" action="${baseUrl}/edit"
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
+		<form:input path="file" type="hidden" />
+		<form:input path="path" type="hidden" />
 
 		<div class="row">
 			<i class="material-icons">note</i>

@@ -164,4 +164,10 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 
 	}
 
+	@Override
+	public List<IPoint> selectById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

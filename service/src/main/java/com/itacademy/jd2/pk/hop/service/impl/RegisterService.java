@@ -9,8 +9,8 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IRegisterService;
+import com.itacademy.jd2.pk.hop.service.ISendMailSSL;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
-import com.itacademy.jd2.pk.hop.service.reg.SendMailSSL;
 
 @Service
 public class RegisterService implements IRegisterService {
@@ -19,12 +19,15 @@ public class RegisterService implements IRegisterService {
 
 	private ICustomerService customerService;
 	private IUserAccountService userAccountService;
+	private ISendMailSSL sendMailServise;
 
 	@Autowired
-	public RegisterService(ICustomerService customerService, IUserAccountService userAccountService) {
+	public RegisterService(ICustomerService customerService, IUserAccountService userAccountService,
+			ISendMailSSL sendMailServise) {
 		super();
 		this.customerService = customerService;
 		this.userAccountService = userAccountService;
+		this.sendMailServise = sendMailServise;
 	}
 
 	@Override
@@ -33,7 +36,7 @@ public class RegisterService implements IRegisterService {
 		customer.setId(userAccount.getId());
 		customer.setUserAccount(userAccount);
 		customerService.save(customer);
-		SendMailSSL.sendEmail(userAccount.getEmail());
+		sendMailServise.sendEmail(userAccount.getEmail());
 		LOGGER.info("registration complite");
 	}
 
