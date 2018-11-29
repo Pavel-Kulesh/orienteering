@@ -26,8 +26,6 @@
 				<th><mytaglib:sort-link column="customer_id" pageUrl="${baseUrl}"><mytaglib:i18n key="event.customerId"/></mytaglib:sort-link></th>
 				<th><mytaglib:sort-link column="country" pageUrl="${baseUrl}"><i class="material-icons">public</i><mytaglib:i18n key="event.country"/></mytaglib:sort-link></th>
 				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}"><i class="material-icons">query_builder</i><mytaglib:i18n key="event.created"/></mytaglib:sort-link></th>
-				<th><mytaglib:sort-link column="updated" pageUrl="${baseUrl}"><i class="material-icons">access_time</i><mytaglib:i18n key="event.updated"/></mytaglib:sort-link></th>
-				
 			</sec:authorize>
 			<th></th>
 		</tr>
@@ -51,8 +49,6 @@
 
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${event.created}" /></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd"
-							value="${event.updated}" /></td>
 				</sec:authorize>
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${event.id}"><i class="material-icons">info</i></a>

@@ -47,13 +47,13 @@ var myPolygon = new ymaps.Polygon([
         // property.
         {
             // balun.
-            balloonContent: "my map"
+                  
         }, {
             // write option geoObject.
             // background image.
         	// fillImageHref: 'D:/java_train/images/vert.png',
          fillImageHref: 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
-       //     fillImageHref: image,
+       // fillImageHref: image,
             // 
             fillMethod: 'stretch',
             // delete contour.

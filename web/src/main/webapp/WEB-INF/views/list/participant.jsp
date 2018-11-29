@@ -15,7 +15,7 @@
 			</sec:authorize>
 			<th><i class="material-icons">assignment_ind</i>name</th>
 			<th><i class="material-icons">assignment_ind</i>surname</th>
-
+			<th></th>
 		</tr>
 		<c:forEach var="customer" items="${gridItem}" varStatus="loopCounter">
 			<tr>

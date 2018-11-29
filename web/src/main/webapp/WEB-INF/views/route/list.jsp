@@ -40,23 +40,26 @@
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
 
-					<sec:authorize access="!isAnonymous()">
-						<c:if test="${(route.customerId==currentCustomer)}">
+
+
+					<c:choose>
+						<c:when test="${(route.customerId==currentCustomer)}">
 							<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
 								class="material-icons">edit</i></a>
 							<a class="btn-floating red" href="${baseUrl}/${route.id}/delete"><i
 								class="material-icons">delete</i></a>
-						</c:if>
-					</sec:authorize>
-						<sec:authorize access="hasAnyRole('ADMIN')">
+						</c:when>
+						<c:otherwise>
+							<sec:authorize access="hasRole('ADMIN')">
 
-							<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
-								class="material-icons">edit</i></a>
-							<a class="btn-floating red" href="${baseUrl}/${route.id}/delete"><i
-								class="material-icons">delete</i></a>
+								<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
+									class="material-icons">edit</i></a>
+								<a class="btn-floating red" href="${baseUrl}/${route.id}/delete"><i
+									class="material-icons">delete</i></a>
 
-						</sec:authorize>
-					</td>
+							</sec:authorize>
+						</c:otherwise>
+					</c:choose></td>
 
 			</tr>
 		</c:forEach>

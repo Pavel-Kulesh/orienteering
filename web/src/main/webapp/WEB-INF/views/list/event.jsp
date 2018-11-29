@@ -15,6 +15,7 @@
 			<th><i class="material-icons">assignment_ind</i>name</th>
 			<th><i class="material-icons">access_time</i>date</th>
 			<th>type</th>
+			<th></th>
 		</tr>
 		<c:forEach var="event" items="${gridItem}" varStatus="loopCounter">
 			<tr>

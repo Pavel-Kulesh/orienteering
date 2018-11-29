@@ -18,8 +18,8 @@
 
 
 <div class="row">
-	<div class="col s3"></div>
-	<div class="col s6">
+
+	<div class="col s12">
 		<ul class="collapsible">
 			<li>
 				<div class="collapsible-header">
@@ -80,7 +80,6 @@
 		</ul>
 
 	</div>
-	<div class="col s3"></div>
 </div>
 
 <div class="row">

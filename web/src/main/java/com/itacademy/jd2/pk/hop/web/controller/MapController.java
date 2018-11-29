@@ -93,6 +93,19 @@ public class MapController extends AbstractController<MapDTO> {
 			return "map.add";
 		} else {
 
+			/*@RequestMapping(value = "/image-manual-response", method = RequestMethod.GET)
+			public void getImageAsByteArray(HttpServletResponse response) throws IOException {
+			    InputStream in = servletContext.getResourceAsStream("/WEB-INF/images/image-example.jpg");
+			    response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			    IOUtils.copy(in, response.getOutputStream());
+			}
+			*/
+			
+			
+			
+			
+			
+			
 			final String result1 = new BufferedReader(new InputStreamReader(fileDoc.getInputStream())).lines()
 					.collect(Collectors.joining("\n"));
 

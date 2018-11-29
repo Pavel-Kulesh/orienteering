@@ -61,18 +61,17 @@ public class MyGPX {
 					// point set created and updated zonedDataTime=> date
 
 					Optional<ZonedDateTime> time = wayPoint.getTime();
-					
-					
-///-------------------- incorrect
-					point.setCreated(new java.util.Date());
-					point.setUpdated(new java.util.Date());
 
-					
-//___________________________________________________________					
-					
-					
-					
-					
+					if (time.isPresent()) {
+						ZonedDateTime zonedDateTime = time.get();
+						java.util.Date date = Date.from(zonedDateTime.toInstant());
+						point.setCreated(date);
+						point.setUpdated(date);
+					} else {
+						point.setCreated(new java.util.Date());
+						point.setUpdated(new java.util.Date());
+					}
+
 					point.setLatitude(wayPoint.getLatitude().doubleValue());
 					point.setLongitude(wayPoint.getLongitude().doubleValue());
 
