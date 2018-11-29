@@ -63,7 +63,7 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 			return from.get(Route_.updated);
 		case "id":
 			return from.get(Route_.id);
-		case "customer":
+		case "customer_id":
 			return from.get(Route_.customer);
 
 		default:
@@ -81,6 +81,20 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 		cq.select(cb.count(from));
 		final TypedQuery<Long> q = em.createQuery(cq);
 		return q.getSingleResult();
+	}
+
+	@Override
+	public IRoute get(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
+		final Root<Route> from = cq.from(Route.class);
+		cq.select(from);
+		from.fetch(Route_.customer, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Route_.id), id));
+		final TypedQuery<IRoute> q = em.createQuery(cq);
+		return q.getResultList().get(0);
 	}
 
 }

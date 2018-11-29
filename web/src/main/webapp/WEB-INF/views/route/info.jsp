@@ -5,46 +5,37 @@
 <h4 class="header">ROUTE INFO</h4>
 
 <div class="row">
-	<div class="col s3"></div>
-	<div class="col s6">
+	
+	<div class="col s12">
 		<ul class="collapsible">
 			<li>
 				<div class="collapsible-header">
-					<mytaglib:i18n key="news.name" /> <span class="badge"><i class="material-icons">assignment</i></span>
+					Name <span class="badge"><i class="material-icons">assignment</i></span>
 				</div>
 				<div class="collapsible-body">
-					<p><mytaglib:i18n key="news.name" />: "${formModel.name}"</p>
+					<p> "${formModel.name}"</p>
 				</div>
 			</li>
 			<li>
 				<div class="collapsible-header">
-					<mytaglib:i18n key="news.info" /> <span class="badge"><i class="material-icons">announcement</i></span>
+					Route <span class="badge"><i class="material-icons">announcement</i></span>
 				</div>
 				<div class="collapsible-body">
-					<p>${formModel.info}</p>
+					<p>need add simple map+ route</p>
 				</div>
 			</li>
 		</ul>
 	</div>
-	<div class="col s3"></div>
 </div>
 
-<div class="row">
-	<div class="col s2"></div>
-	<div class="col s8">
-		<div class="card-panel teal">
-			<span class="white-text">${formModel.info} </span>
-		</div>
-	</div>
-	<div class="col s2"></div>
-</div>
+
 
 
 <div class="row">
 	<div class="col s5"></div>
 
 	<div class="col s3">
-		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="news.back" /><i class="material-icons right">undo</i>
+		<a class="waves-effect waves-light btn" href="${baseUrl}">Back<i class="material-icons right">undo</i>
 		</a>
 	</div>
 

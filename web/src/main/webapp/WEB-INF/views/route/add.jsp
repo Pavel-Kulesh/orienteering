@@ -6,8 +6,8 @@
 <div class="row">
 
 	<div class="col s3"></div>
-	<form:form class="col s6" method="POST" action="${baseUrl}"
-		modelAttribute="formModel">
+	<form:form class="col s6" method="POST" enctype="multipart/form-data"
+		action="${baseUrl}" modelAttribute="formModel">
 
 		<form:input path="id" type="hidden" />
 		<form:input path="customerId" type="hidden" />
@@ -31,26 +31,7 @@
 				<td></td>
 			</tr>
 		</table>
-		
-		
-		<div class="row">
-			<i class="material-icons">link</i>
-			<div class="input-field col s12">
-				<form:input path="path" type="text" />
-				<form:errors path="path" cssClass="red-text" />
-				<label for="path">path</label>
-			</div>
-		</div>
-
-		<div class="row">
-
-			<i class="material-icons">insert_drive_file</i>
-			<div class="input-field col s12">
-				<form:input path="file" type="text" />
-				<form:errors path="file" cssClass="red-text" />
-				<label for="file">file</label>
-			</div>
-		</div>
+			
 
 
 		<div class="row">

@@ -46,6 +46,19 @@
 				</sec:authorize>
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${participant.id}"><i class="material-icons">info</i></a>
+					
+					<sec:authorize access="!isAnonymous()">
+						<c:if test="${(participant.id==currentCustomer)}">
+							<a class="btn-floating" href="${baseUrl}/${participant.id}/edit"><i
+								class="material-icons">edit</i></a>
+							<a class="btn-floating red" href="${baseUrl}/${participant.id}/delete"><i
+								class="material-icons">delete</i></a>
+						</c:if>
+					</sec:authorize>
+					
+					
+					
+					
 					<sec:authorize access="hasAnyRole('ADMIN')">
 						<a class="btn-floating" href="${baseUrl}/${participant.id}/edit"><i
 							class="material-icons">edit</i></a>

@@ -32,7 +32,7 @@ public class RouteFromDTOConverter implements Function<RouteDTO, IRoute> {
 		entity.setFile(dto.getFile());
 		ICustomer customer = customerService.get(dto.getCustomerId());
 		entity.setCustomer(customer);
-		return null;
+		return entity;
 	}
 
 }

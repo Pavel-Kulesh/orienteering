@@ -66,6 +66,10 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
+
+		Integer currentCustomer = getCustomerId();
+		models.put("currentCustomer", currentCustomer);
+
 		return new ModelAndView("participant.list", models);
 	}
 
@@ -85,7 +89,12 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 			return "participant.edit";
 		} else {
 			final ICustomer entity = fromDTOConverter.apply(formModel);
-			customerService.save(entity);
+			if (entity.getId() == null) {
+				customerService.save(entity);
+			} else {
+				customerService.update(entity);
+			}
+
 			return "redirect:/participant";
 		}
 	}

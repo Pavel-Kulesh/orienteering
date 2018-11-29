@@ -8,7 +8,8 @@
 		action="${baseUrl}/list/user/id" modelAttribute="formModel">
 
 		<a href="${contextPath}/list/user/${formModel.id}"
-			class="btn waves-effect waves-light right" type="submit" title="list of registered events "><i
+			class="btn waves-effect waves-light right" type="submit"
+			title="list of registered events "><i
 			class="large material-icons">home</i></a>
 
 	</form:form>
@@ -20,6 +21,7 @@
 	<form:form class="col s12" method="POST" action="${baseUrl}"
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
+		<form:input path="cityId" type="hidden" />
 
 
 		<div class="row">
@@ -39,11 +41,19 @@
 		</div>
 
 		<div class="row">
+			<div class="input-field col s12">
+				<form:input path="phone" type="text" disabled="${readonly}" />
+				<form:errors path="phone" cssClass="red-text" />
+				<label for="surname">Phone</label>
+			</div>
+		</div>
+
+
+
+		<div class="row">
 			<div class="col s6"></div>
 			<div class="col s3">
-				<c:if test="${!readonly}">
-					<button class="btn waves-effect waves-light right" type="submit">Save</button>
-				</c:if>
+				<button class="btn waves-effect waves-light right" type="submit">Save</button>
 			</div>
 			<div class="col s3">
 				<a class="btn waves-effect waves-light right" href="${baseUrl}">Go

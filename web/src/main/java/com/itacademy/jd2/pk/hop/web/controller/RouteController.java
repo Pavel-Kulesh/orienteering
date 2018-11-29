@@ -1,11 +1,13 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
@@ -70,6 +73,10 @@ public class RouteController extends AbstractController<RouteDTO> {
 		gridState.setTotalCount(routeService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
+
+		Integer currentCustomer = getCustomerId();
+		models.put("currentCustomer", currentCustomer);
+
 		models.put("gridItem", dtos);
 		return new ModelAndView("route.list", models);
 	}
@@ -122,11 +129,28 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 			List<IPoint> poits = MyGPX.seeTrack(fileDoc.getInputStream());
 			final IRoute entity = fromDTOConverter.apply(formModel);
+			entity.setFile("exemple string");
+			entity.setPath("exemple path2");
 			routeService.save(entity);
 
-			for (IPoint point : poits) {
-				point.setRoute(entity);
+			for (IPoint p : poits) {
+				p.setRoute(entity);
 			}
+
+			
+			
+			Double[] point = new Double[2];
+			ArrayList<Object> points = new ArrayList<>();
+			for (IPoint p : poits) {
+				point[0] = p.getLatitude();
+				point[1] = p.getLongitude();
+				points.add(point);
+			}
+			String json = new Gson().toJson(points);
+
+			
+			
+			
 			pointService.saveList(poits);
 
 			return "redirect:/route";
@@ -148,6 +172,18 @@ public class RouteController extends AbstractController<RouteDTO> {
 		hashMap.put("formModel", dto);
 
 		// take all point and hashMap.put("pointItems", list);
+
+		List<IPoint> pointsByRoute = pointService.selectById(id);
+
+		/*
+		 * Double[] point = new Double[2]; ArrayList<Object> points = new ArrayList<>();
+		 * 
+		 * for (IPoint p : pointsByRoute) { point[0] = p.getLatitude(); point[1] =
+		 * p.getLongitude(); points.add(point); } String json = new
+		 * Gson().toJson(points);
+		 * 
+		 * hashMap.put("json", json);
+		 */
 
 		return new ModelAndView("route.info", hashMap);
 	}

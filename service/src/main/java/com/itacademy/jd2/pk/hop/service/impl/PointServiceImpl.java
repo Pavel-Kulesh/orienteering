@@ -49,9 +49,7 @@ public class PointServiceImpl implements IPointService {
 	public void saveList(List<IPoint> entities) {
 
 		dao.insertList(entities);
-		for (IPoint entity : entities) {
-			LOGGER.info("new point created: {}", entity);
-		}
+		LOGGER.info("new points created---------------");
 
 	}
 

@@ -11,35 +11,38 @@ function initMap(lt, lg) {
 		balloonContentFooter : "see tutorial",
 
 	});
-
 	myMap.geoObjects.add(myPlacemark);
 	
-
 }
 
 function initMapWithImage(image, lt1, lg1, lt2, lg2) {
 	var map = new ymaps.Map('map1', {
         center: [(lt1+lt2)/2, (lg1+lg2)/2],
-        zoom: 2,
+        zoom: 12,
         type: 'yandex#hybrid',
         controls: ['zoomControl']
     }, {
-               restrictMapArea: [[lt1-0.2, lg1-0.2], [lt2+0.2, lg2+0.2]] ,
-              
+               restrictMapArea: [[lt1-0.002, lg1-0.002], [lt2+0.002, lg2+0.002]] ,
         }
-    
 	);
     map.controls.get('zoomControl').options.set({size: 'small'});
+    
+    var myPolygon1 = new ymaps.Polygon([
+        [[lt1-0.002, lg1-0.002],[lt2+0.002, lg1-0.002],[lt2+0.002, lg2+0.002],[lt1-0.002, lg2+0.002],]
+    ],
+    // property.
+    {},
+     {
+    	fillColor: "#FFFFFF",
+        fillMethod: 'stretch',
+        stroke: false
+    }
+);
+    
+    
 
 var myPolygon = new ymaps.Polygon([
-            // .
-            [
-                [lt1, lg1], 
-			[lt2, lg1],
-                 [lt2, lg2], 
-			[lt1, lg2],
-              	             
-            ]
+            [[lt1, lg1],[lt2, lg1],[lt2, lg2],[lt1, lg2],]
         ],
         // property.
         {
@@ -49,16 +52,16 @@ var myPolygon = new ymaps.Polygon([
             // write option geoObject.
             // background image.
         	// fillImageHref: 'D:/java_train/images/vert.png',
-          fillImageHref: 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
-           // fillImageHref: image,
+         fillImageHref: 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
+       //     fillImageHref: image,
             // 
             fillMethod: 'stretch',
             // delete contour.
             stroke: false
         }
     );
-   
-    map.geoObjects.add(myPolygon);
+map.geoObjects.add(myPolygon1);
+map.geoObjects.add(myPolygon);
 
 
 }

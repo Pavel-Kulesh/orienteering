@@ -2,9 +2,12 @@ package com.itacademy.jd2.pk.hop.web.tag;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Point;
@@ -55,6 +58,21 @@ public class MyGPX {
 					IPoint point = new Point();
 					WayPoint nextPoint = wayPoint;
 
+					// point set created and updated zonedDataTime=> date
+
+					Optional<ZonedDateTime> time = wayPoint.getTime();
+					
+					
+///-------------------- incorrect
+					point.setCreated(new java.util.Date());
+					point.setUpdated(new java.util.Date());
+
+					
+//___________________________________________________________					
+					
+					
+					
+					
 					point.setLatitude(wayPoint.getLatitude().doubleValue());
 					point.setLongitude(wayPoint.getLongitude().doubleValue());
 

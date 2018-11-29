@@ -3,6 +3,7 @@ package com.itacademy.jd2.pk.hop.dao.orm.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -35,9 +36,8 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 		final EntityManager em = getEntityManager();
 
 		for (IPoint point : entities) {
-			em.merge(point);
+			em.persist(point);
 		}
-		em.getTransaction().commit();
 
 	}
 
@@ -48,12 +48,22 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 		final CriteriaQuery<IPoint> cq = cb.createQuery(IPoint.class);
 		final Root<Point> from = cq.from(Point.class);
 		cq.select(from);
+	
 		from.fetch(Point_.route, JoinType.LEFT);
 
 		cq.where(cb.equal(from.get(Route_.id), id));
 		final TypedQuery<IPoint> q = em.createQuery(cq);
-		return q.getResultList();
+		List<IPoint> result = q.getResultList();
+		
+				return result;
 
+	}
+
+	@Override
+	public void delete(Integer id) {
+		EntityManager em = getEntityManager();
+		em.createQuery(String.format("delete from %s p where p.route_id = %s", Point.class.getSimpleName(), id)).setParameter("route_id", id)
+				.executeUpdate();
 	}
 
 }
