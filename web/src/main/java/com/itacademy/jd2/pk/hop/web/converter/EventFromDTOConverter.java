@@ -45,7 +45,7 @@ public class EventFromDTOConverter implements Function<EventDTO, IEvent> {
 		entity.setInfo(dto.getInfo());
 		entity.setLatitude(dto.getLatitude());
 		entity.setLongitude(dto.getLongitude());
-
+		entity.setVersion(dto.getVersion());
 		return entity;
 	}
 

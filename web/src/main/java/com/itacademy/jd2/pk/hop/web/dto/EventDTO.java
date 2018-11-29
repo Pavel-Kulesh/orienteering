@@ -13,14 +13,15 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 
 public class EventDTO {
 
+	private Integer version;
+
 	private Integer id;
 	@NotEmpty
 	private String name;
 	@NotNull
 	private Integer customerId;
-	
+
 	private String countryName;
-	
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
@@ -135,6 +136,14 @@ public class EventDTO {
 
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 }

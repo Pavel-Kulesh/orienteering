@@ -6,7 +6,6 @@ import java.util.Set;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
-import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 
 public class Event extends BaseEntity implements IEvent {
@@ -18,6 +17,7 @@ public class Event extends BaseEntity implements IEvent {
 	private String info;
 	private Double latitude;
 	private Double longitude;
+	private Integer version;
 
 	public Double getLatitude() {
 		return latitude;
@@ -99,8 +99,18 @@ public class Event extends BaseEntity implements IEvent {
 	@Override
 	public void setCustomersList(Set<ICustomer> customersList) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
+	@Override
+	public Integer getVersion() {
+		return version;
+	}
+
+	@Override
+	public void setVersion(Integer version) {
+		this.version = version;
+
+	}
+
 }

@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OrderBy;
+import javax.persistence.Version;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
@@ -41,10 +41,14 @@ public class Event extends BaseEntity implements IEvent {
 	@Column
 	private Double longitude;
 
+	@Column
+	@Version
+	private Integer version = 0;
+
 	@JoinTable(name = "customer_2_event", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "customer_id") })
 	@ManyToMany(targetEntity = Customer.class, fetch = FetchType.LAZY)
-	//@OrderBy("title ASC")
+	// @OrderBy("title ASC")
 	private Set<ICustomer> customersList = new HashSet<>();
 
 	public Double getLatitude() {
@@ -118,13 +122,23 @@ public class Event extends BaseEntity implements IEvent {
 	public void setCustomersList(Set<ICustomer> customersList) {
 		this.customersList = customersList;
 	}
-	
 
 	@Override
 	public String toString() {
 		return "Event [name=" + name + ", customer=" + customer + ", date=" + date + ", country=" + country + ", type="
 				+ type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude + ", getId()="
 				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+	}
+
+	@Override
+	public Integer getVersion() {
+		return version;
+	}
+
+	@Override
+	public void setVersion(Integer version) {
+		this.version = version;
+
 	}
 
 }

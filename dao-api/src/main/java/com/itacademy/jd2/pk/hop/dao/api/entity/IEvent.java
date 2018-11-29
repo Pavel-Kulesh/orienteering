@@ -40,4 +40,8 @@ public interface IEvent extends IBaseEntity {
 
 	void setCustomersList(Set<ICustomer> customersList);
 
+	Integer getVersion();
+
+	void setVersion(Integer version);
+
 }
