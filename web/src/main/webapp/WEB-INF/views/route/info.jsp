@@ -29,11 +29,12 @@
 					Speed <span class="badge"><i class="material-icons">announcement</i></span>
 				</div>
 				<div class="collapsible-body">
-					<div id="chart_lines" style="width: 100%; height: 100%;"></div>
+					 <!-- <div id="chart_lines" style="width: 900px; height: 500px;"></div> -->
 				</div>
 
 			</li>
 		</ul>
+		<div id="chart_lines" style="width: 900px; height: 500px;"></div>
 	</div>
 </div>
 

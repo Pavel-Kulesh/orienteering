@@ -4,7 +4,7 @@
 <h4 class="header">Map info: ${formModel.name}</h4>
 
 <div class="row">
-		<div class="col s12">
+	<div class="col s12">
 		<ul class="collapsible">
 			<li>
 				<div class="collapsible-header">
@@ -29,7 +29,6 @@
 				</div>
 				<div class="collapsible-body">
 					<p>
-
 						<script>
 						var contextUrl = '${contextPath}';
 						var mapId = '${formModel.id}';
@@ -41,9 +40,6 @@
 									${formModel.longitude2}));
 						</script>
 					<div id="map1" style="width: 100%; height: 500px"></div>
-
-
-
 				</div>
 			</li>
 
@@ -79,7 +75,7 @@
 			action="${baseUrl}/addRouteToMap/${formModel.id}"
 			modelAttribute="formModel" method="get" enctype="multipart/form-data">
 			<div class="row">
-			<div class="col s2"></div>
+				<div class="col s2"></div>
 				<div class="col s8">
 					Select route to add on map list
 					<form:select path="routeId">
@@ -105,12 +101,12 @@
 
 	</div>
 	<div class="col s4">
-	
-	<form:form class="col s12"
+
+		<form:form class="col s12"
 			action="${baseUrl}/deleteRouteFromMap/${formModel.id}"
 			modelAttribute="formModel" method="get" enctype="multipart/form-data">
 			<div class="row">
-			<div class="col s2"></div>
+				<div class="col s2"></div>
 				<div class="col s8">
 					Select my route to delete from map list
 					<form:select path="routeId">
@@ -132,15 +128,14 @@
 
 			</div>
 		</form:form>
-	
+
 	</div>
 	<div class="col s4">
-	
-	<form:form class="col s12"
-			action="#"
-			modelAttribute="formModel" method="get" enctype="multipart/form-data">
+
+		<form:form class="col s12" action="#" modelAttribute="formModel"
+			method="get" enctype="multipart/form-data">
 			<div class="row">
-			<div class="col s2"></div>
+				<div class="col s2"></div>
 				<div class="col s8">
 					Select route to display on map
 					<form:select path="routeId">
@@ -148,29 +143,29 @@
 							<form:options items="${mapRoutes}" />
 					</form:select>
 					<label for="routeId">Route</label>
-
 				</div>
 				<div class="col s2"></div>
 			</div>
 			<div class="row">
 				<div class="col s2"></div>
 				<div class="col s8">
-					<input type="submit" value="Show no map" />
+					<button type="button" onclick="showSelectedTrack()">Show
+						no map</button>
 				</div>
 				<div class="col s2"></div>
 
 
 			</div>
 		</form:form>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
 	</div>
 </div>
 
@@ -189,7 +184,14 @@
 
 
 
+<script type="text/javascript">
 
+
+function showSelectedTrack(){
+	var selectElment=$( "select#routeId" );
+	alert ('show selected track'+selectElment);
+}
+</script>
 
 
 

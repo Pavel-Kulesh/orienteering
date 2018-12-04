@@ -143,10 +143,10 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		return null;
 	}
 
-	@Override
+	/*@Override
 	public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 }

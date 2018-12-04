@@ -1,5 +1,6 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
+import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
@@ -20,11 +22,13 @@ public class MapServiceImpl implements IMapService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MapServiceImpl.class);
 
 	private IMapDao dao;
+	private IRouteDao routeDao;
 
 	@Autowired
-	public MapServiceImpl(IMapDao dao) {
+	public MapServiceImpl(IMapDao dao, IRouteDao routeDao) {
 		super();
 		this.dao = dao;
+		this.routeDao = routeDao;
 	}
 
 	@Override
@@ -100,7 +104,15 @@ public class MapServiceImpl implements IMapService {
 	@Override
 	public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId) {
 
-		return dao.getRoutesOnMapByCustomer(mapId, customerId);
+		List<IRoute> routesOnMapByCustomer = dao.getRoutesOnMap(mapId);
+
+		List<IRoute> result = new ArrayList<>();
+		for (IRoute route : routesOnMapByCustomer) {
+			IRoute res = routeDao.get(route.getId());
+			result.add(res);
+		}
+
+		return result;
 	}
 
 }

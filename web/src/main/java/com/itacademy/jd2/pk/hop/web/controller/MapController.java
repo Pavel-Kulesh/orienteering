@@ -242,6 +242,11 @@ public class MapController extends AbstractController<MapDTO> {
 					.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
 
 			hashMap.put("customerRoutes", routesOnMapByCustomer);
+		
+		
+		
+		
+		
 		}
 
 		final List<IRoute> customerRoutes1 = routeService.getCustomerRoutes(getCustomerId());

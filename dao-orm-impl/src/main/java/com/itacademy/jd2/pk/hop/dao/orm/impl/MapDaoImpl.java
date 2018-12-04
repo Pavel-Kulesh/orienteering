@@ -141,33 +141,27 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		return routesList;
 	}
 
-	@Override
-	public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId) {
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<IMap> cq = cb.createQuery(IMap.class);
-		final Root<Map> from = cq.from(Map.class);
-		cq.select(from);
-		from.fetch(Map_.routesList, JoinType.LEFT);
-		from.fetch(Map_.customer, JoinType.LEFT);
-
-		cq.where(cb.equal(from.get(Map_.id), mapId));
-		final TypedQuery<IMap> q = em.createQuery(cq);
-
-		List<IMap> resultList = q.getResultList();
-		Map route = (Map) resultList.get(0);
-		Set<IRoute> routes = route.getRoutesList();
-
-		List<IRoute> routesList = new ArrayList<IRoute>();
-
-		/*for (IRoute r : routes) {
-			if (r.getCustomer().getId().equals(customerId)) {
-				routesList.add(r);
-			}
-
-		}*/
-		routesList.addAll(routes);
-		return routesList;
-	}
+	/*
+	 * @Override public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer
+	 * customerId) { final EntityManager em = getEntityManager(); final
+	 * CriteriaBuilder cb = em.getCriteriaBuilder(); final CriteriaQuery<IMap> cq =
+	 * cb.createQuery(IMap.class); final Root<Map> from = cq.from(Map.class);
+	 * cq.select(from); from.fetch(Map_.routesList, JoinType.LEFT);
+	 * from.fetch(Map_.customer, JoinType.LEFT);
+	 * 
+	 * cq.where(cb.equal(from.get(Map_.id), mapId)); final TypedQuery<IMap> q =
+	 * em.createQuery(cq);
+	 * 
+	 * List<IMap> resultList = q.getResultList(); Map route = (Map)
+	 * resultList.get(0); Set<IRoute> routes = route.getRoutesList();
+	 * 
+	 * List<IRoute> routesList = new ArrayList<IRoute>();
+	 * 
+	 * for (IRoute r : routes) { if (r.getCustomer().getId().equals(customerId)) {
+	 * routesList.add(r); }
+	 * 
+	 * } routesList.addAll(routes); return routesList; }
+	 *
+	 */
 
 }
