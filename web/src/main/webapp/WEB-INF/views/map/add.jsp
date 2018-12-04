@@ -8,6 +8,7 @@
 		action="${baseUrl}" modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 		<form:input path="customerId" type="hidden" />
+		<form:input path="file" type="hidden" />
 
 
 
@@ -42,17 +43,7 @@
 			</div>
 		</div>
 
-		<div class="row">
-
-			<i class="material-icons">insert_drive_file</i>
-			<div class="input-field col s12">
-				<form:input path="file" type="text" />
-				<form:errors path="file" cssClass="red-text" />
-				<label for="file">file</label>
-			</div>
-		</div>
-
-
+		
 		<table>
 			<tr>
 				<td><div class="row">

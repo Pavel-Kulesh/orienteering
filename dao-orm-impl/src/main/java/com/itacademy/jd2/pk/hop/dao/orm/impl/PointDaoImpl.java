@@ -8,7 +8,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
@@ -64,16 +63,12 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 	public void delete(Integer id) {
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		// create delete
 		CriteriaDelete<Point> delete = cb.createCriteriaDelete(Point.class);
 
-		// set the root class
 		Root<Point> from = delete.from(Point.class);
 
-		// set where clause
 		delete.where(cb.equal(from.get(Point_.route).get(Route_.id), id));
 
-		// perform update
 		em.createQuery(delete).executeUpdate();
 
 	}

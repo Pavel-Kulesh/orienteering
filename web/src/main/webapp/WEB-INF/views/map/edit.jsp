@@ -9,6 +9,7 @@
 	<form:form class="col s8" method="POST" action="${baseUrl}/edit"
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
+		<form:input path="customerId" type="hidden" />
 		<form:input path="file" type="hidden" />
 		<form:input path="path" type="hidden" />
 

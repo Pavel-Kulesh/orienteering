@@ -13,7 +13,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICity;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 
 public class CustomerServiceTest extends AbstractTest {
-	/*@Test
+	@Test
 	public void testCreated() {
 		ICustomer entity = saveNewCustomer();
 		ICustomer entityFromDb = customerService.get(entity.getId());
@@ -29,11 +29,11 @@ public class CustomerServiceTest extends AbstractTest {
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getSurname(), entityFromDb.getSurname());
-	//	assertEquals(entity.getCity().getId(), entityFromDb.getCity().getId());
+		assertEquals(entity.getCity().getId(), entityFromDb.getCity().getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
-*/
+
 	@Test
 	public void testUpdate() throws InterruptedException {
 		ICustomer entity = saveNewCustomer();
@@ -66,50 +66,39 @@ public class CustomerServiceTest extends AbstractTest {
 		assertEquals(newName, entityFromDb.getName());
 		assertEquals(newSurname, entityFromDb.getSurname());
 		assertEquals(newPhone, entityFromDb.getPhone());
-		//assertEquals(newCity.getId(), entityFromDb.getCity().getId());
+		// assertEquals(newCity.getId(), entityFromDb.getCity().getId());
 
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
 	}
 
-	/*@Test
-	public void testGetAll() {
-		int initialCount = customerService.getAll().size();
-		int randomObjectsCount = getRandomObjectsCount();
-
-		for (int i = 0; i < randomObjectsCount; i++) {
-			saveNewCustomer();
-		}
-		List<ICustomer> allEntities = customerService.getAll();
-
-		for (ICustomer entityFromDb : allEntities) {
-			assertNotNull(entityFromDb);
-			assertNotNull(entityFromDb.getId());
-			assertNotNull(entityFromDb.getName());
-			assertNotNull(entityFromDb.getSurname());
-			// assertNotNull(entityFromDb.getPhone()); can be null
-
-			assertNotNull(entityFromDb.getCity());
-
-			assertNotNull(entityFromDb.getCreated());
-			assertNotNull(entityFromDb.getUpdated());
-		}
-		assertEquals(randomObjectsCount + initialCount, allEntities.size());
-
-	}
-
-	@Test
-	public void testDeleteById() {
-		ICustomer entity = saveNewCustomer();
-		customerService.delete(entity.getId());
-		assertNull(customerService.get(entity.getId()));
-	}
-
-	@Test
-	public void testDeleteAll() {
-		saveNewCustomer();
-		customerService.deleteAll();
-		assertEquals(0, customerService.getAll().size());
-	}
-*/
+	/*
+	 * @Test public void testGetAll() { int initialCount =
+	 * customerService.getAll().size(); int randomObjectsCount =
+	 * getRandomObjectsCount();
+	 * 
+	 * for (int i = 0; i < randomObjectsCount; i++) { saveNewCustomer(); }
+	 * List<ICustomer> allEntities = customerService.getAll();
+	 * 
+	 * for (ICustomer entityFromDb : allEntities) { assertNotNull(entityFromDb);
+	 * assertNotNull(entityFromDb.getId()); assertNotNull(entityFromDb.getName());
+	 * assertNotNull(entityFromDb.getSurname()); //
+	 * assertNotNull(entityFromDb.getPhone()); can be null
+	 * 
+	 * assertNotNull(entityFromDb.getCity());
+	 * 
+	 * assertNotNull(entityFromDb.getCreated());
+	 * assertNotNull(entityFromDb.getUpdated()); } assertEquals(randomObjectsCount +
+	 * initialCount, allEntities.size());
+	 * 
+	 * }
+	 * 
+	 * @Test public void testDeleteById() { ICustomer entity = saveNewCustomer();
+	 * customerService.delete(entity.getId());
+	 * assertNull(customerService.get(entity.getId())); }
+	 * 
+	 * @Test public void testDeleteAll() { saveNewCustomer();
+	 * customerService.deleteAll(); assertEquals(0,
+	 * customerService.getAll().size()); }
+	 */
 }

@@ -43,7 +43,7 @@
 	</definition>
 
 	<definition name="event.add" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/event/form-add.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/event/add.jsp" />
 	</definition>
 
 
@@ -81,7 +81,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/map/info.jsp" />
 	</definition>
 	<definition name="map.add" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/map/form-add.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/map/add.jsp" />
 	</definition>
 
 

@@ -31,36 +31,24 @@
 		</tr>
 		<c:forEach var="route" items="${gridItem}" varStatus="loopCounter">
 			<tr>
-				<td><c:out value="${route.id}" /></td>
-				<td><c:out value="${route.name}" /></td>
-				<sec:authorize access="hasAnyRole('ADMIN')">
-					<td><c:out value="${route.customerId}" /></td>
-					<td><c:out value="${route.created}" /></td>
-				</sec:authorize>
-				<td class="right"><a class="btn-floating"
-					href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
+				<c:if test="${route.statusVisible}">
+					<td><c:out value="${route.id}" /></td>
+					<td><c:out value="${route.name}" /></td>
+					<sec:authorize access="hasRole('ADMIN')">
+						<td><c:out value="${route.customerId}" /></td>
+						<td><c:out value="${route.created}" /></td>
+					</sec:authorize>
+					<td class="right"><a class="btn-floating"
+						href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
 
 
 
-					<c:choose>
-						<c:when test="${(route.customerId==currentCustomer)}">
-							<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
-								class="material-icons">edit</i></a>
-							<a class="btn-floating red" href="${baseUrl}/${route.id}/delete"><i
-								class="material-icons">delete</i></a>
-						</c:when>
-						<c:otherwise>
-							<sec:authorize access="hasRole('ADMIN')">
 
-								<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
-									class="material-icons">edit</i></a>
-								<a class="btn-floating red" href="${baseUrl}/${route.id}/delete"><i
-									class="material-icons">delete</i></a>
 
-							</sec:authorize>
-						</c:otherwise>
-					</c:choose></td>
-
+						<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
+							class="material-icons">edit</i></a> <a class="btn-floating red"
+						href="${baseUrl}/${route.id}/delete"><i class="material-icons">delete</i></a>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</tbody>

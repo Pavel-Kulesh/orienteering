@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Map;
@@ -134,6 +135,18 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 	public void deleteRouteFromEvent(Integer mapId, Integer routeId) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<IRoute> getRoutesOnMap(Integer mapId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

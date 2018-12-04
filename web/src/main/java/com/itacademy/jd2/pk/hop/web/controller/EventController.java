@@ -76,6 +76,15 @@ public class EventController extends AbstractController<EventDTO> {
 		List<EventDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
 		gridState.setTotalCount(eventService.getCount(filter));
 
+		String currentLoginRole = getLoginRole();
+		Integer currentCustomerId = getCustomerId();
+		for (EventDTO eventDTO : dtos) {
+			if (eventDTO.getCustomerId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
+				eventDTO.setStatusVisible(true);
+			}
+		}
+		
+		
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 		return new ModelAndView("event.list", models);

@@ -63,7 +63,6 @@ public class RouteServiceImpl implements IRouteService {
 
 	@Override
 	public void delete(Integer id) {
-		// need delete all point where route_id=id
 		pointDao.delete(id);
 		dao.delete(id);
 		LOGGER.info("delete route with id=" + id + " +delete all point where route_id=id");
@@ -94,6 +93,24 @@ public class RouteServiceImpl implements IRouteService {
 	public long getCount(RouteFilter filter) {
 
 		return dao.getCount(filter);
+	}
+
+	@Override
+	public List<IRoute> getCustomerRoutes(Integer id) {
+
+		return dao.getCustomerRoutes(id);
+	}
+
+	@Override
+	public void addRouteToMap(Integer mapId, Integer routeId) {
+		dao.addRouteToMap(mapId, routeId);
+
+	}
+
+	@Override
+	public void deleteRouteFromMap(Integer mapId, Integer routeId) {
+		dao.deleteRouteFromMap(mapId, routeId);
+
 	}
 
 }

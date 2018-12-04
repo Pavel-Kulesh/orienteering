@@ -28,8 +28,6 @@ public class RouteFromDTOConverter implements Function<RouteDTO, IRoute> {
 	public IRoute apply(RouteDTO dto) {
 		IRoute entity = routeSerise.createEntity();
 		entity.setName(dto.getName());
-		entity.setPath(dto.getPath());
-		entity.setFile(dto.getFile());
 		ICustomer customer = customerService.get(dto.getCustomerId());
 		entity.setCustomer(customer);
 		return entity;

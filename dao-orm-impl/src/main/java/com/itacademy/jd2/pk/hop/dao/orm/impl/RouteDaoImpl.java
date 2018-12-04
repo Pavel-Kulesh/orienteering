@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
+import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer_;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Route;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Route_;
 
@@ -95,6 +96,37 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 		cq.where(cb.equal(from.get(Route_.id), id));
 		final TypedQuery<IRoute> q = em.createQuery(cq);
 		return q.getResultList().get(0);
+	}
+
+	@Override
+	public List<IRoute> getCustomerRoutes(Integer id) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
+		final Root<Route> from = cq.from(Route.class);
+		cq.select(from);
+		from.fetch(Route_.customer, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Route_.customer).get(Customer_.id), id));
+		final TypedQuery<IRoute> q = em.createQuery(cq);
+		return q.getResultList();
+	}
+
+	@Override
+	public void addRouteToMap(Integer mapId, Integer routeId) {
+		final EntityManager em = getEntityManager();
+		em.createNativeQuery(String.format("insert into map_2_route (map_id, route_id) values(%s, %s)", mapId, routeId))
+				.executeUpdate();
+
+	}
+
+	@Override
+	public void deleteRouteFromMap(Integer mapId, Integer routeId) {
+		final EntityManager em = getEntityManager();
+		em.createNativeQuery(
+				(String.format("delete from map_2_route e where e.map_id = %s and e.route_id=%s", mapId, routeId)))
+				.executeUpdate();
+
 	}
 
 }

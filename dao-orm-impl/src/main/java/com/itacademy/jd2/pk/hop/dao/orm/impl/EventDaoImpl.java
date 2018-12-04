@@ -82,8 +82,6 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 		final CriteriaQuery<ICustomer> cq = cb.createQuery(ICustomer.class);
 		final Root<Customer> from = cq.from(Customer.class);
 		cq.select(from);
-		// from.fetch(Customer_.userAccount, JoinType.LEFT);
-		// from.fetch(Customer_.city, JoinType.LEFT);
 		from.fetch(Customer_.eventsList, JoinType.LEFT);
 
 		cq.where(cb.equal(from.get(Customer_.id), id));

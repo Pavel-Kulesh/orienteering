@@ -41,6 +41,8 @@ public class EventDTO {
 	private Date created;
 
 	private Date updated;
+	
+	private boolean statusVisible;
 
 	public Integer getId() {
 		return id;
@@ -145,5 +147,15 @@ public class EventDTO {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+
+	public boolean getStatusVisible() {
+		return statusVisible;
+	}
+
+	public void setStatusVisible(boolean statusVisible) {
+		this.statusVisible = statusVisible;
+	}
+
+		
 
 }

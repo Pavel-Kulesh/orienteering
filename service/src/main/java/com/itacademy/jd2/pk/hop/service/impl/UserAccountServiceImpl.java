@@ -13,13 +13,13 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 
 @Service
-public class UserAccountService implements IUserAccountService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountService.class);
+public class UserAccountServiceImpl implements IUserAccountService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountServiceImpl.class);
 
 	private IUserAccountDao dao;
 
 	@Autowired
-	public UserAccountService(IUserAccountDao dao) {
+	public UserAccountServiceImpl(IUserAccountDao dao) {
 		super();
 		this.dao = dao;
 	}

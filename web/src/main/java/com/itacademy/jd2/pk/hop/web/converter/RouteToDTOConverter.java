@@ -14,7 +14,6 @@ public class RouteToDTOConverter implements Function<IRoute, RouteDTO> {
 	public RouteDTO apply(IRoute entity) {
 		RouteDTO dto = new RouteDTO();
 		dto.setCustomerId(entity.getCustomer().getId());
-		dto.setPath(entity.getPath());
 		dto.setName(entity.getName());
 		dto.setId(entity.getId());
 		dto.setCreated(entity.getCreated());

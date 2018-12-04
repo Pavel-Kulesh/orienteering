@@ -12,21 +12,23 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">
-					<i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
+			<sec:authorize access="hasRole('ADMIN')">
+				<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">
+						<i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
+			</sec:authorize>
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
 					<i class="material-icons">assignment_ind</i>
 					<mytaglib:i18n key="news.name" />
 				</mytaglib:sort-link></th>
-			<sec:authorize access="!isAnonymous()">
+			<sec:authorize access="hasRole('ADMIN')">
 				<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}">
 						<i class="material-icons">description</i>
 						<mytaglib:i18n key="news.info" />
 					</mytaglib:sort-link></th>
-				<th><i class="material-icons">access_time</i>
-				<mytaglib:i18n key="news.created" /></th>
-				<th><i class="material-icons">access_time</i>
-				<mytaglib:i18n key="news.updated" /></th>
+				<th><i class="material-icons">access_time</i> <mytaglib:i18n
+						key="news.created" /></th>
+				<th><i class="material-icons">access_time</i> <mytaglib:i18n
+						key="news.updated" /></th>
 				<th></th>
 
 			</sec:authorize>
@@ -34,9 +36,11 @@
 		</tr>
 		<c:forEach var="news" items="${gridItem}" varStatus="loopCounter">
 			<tr>
-				<td><c:out value="${news.id}" /></td>
+				<sec:authorize access="hasRole('ADMIN')">
+					<td><c:out value="${news.id}" /></td>
+				</sec:authorize>
 				<td><c:out value="${news.name}" /></td>
-				<sec:authorize access="!isAnonymous()">
+				<sec:authorize access="hasRole('ADMIN')">
 					<td><c:out value="${news.info}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${news.created}" /></td>
@@ -46,7 +50,7 @@
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${news.id}"><i class="material-icons">info</i></a>
 
-					<sec:authorize access="hasAnyRole('ADMIN')">
+					<sec:authorize access="hasRole('ADMIN')">
 						<a class="btn-floating" href="${baseUrl}/${news.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red" href="${baseUrl}/${news.id}/delete"><i
@@ -58,7 +62,7 @@
 	</tbody>
 </table>
 <jspFragments:paging />
-<sec:authorize access="hasAnyRole('ADMIN')">
+<sec:authorize access="hasRole('ADMIN')">
 
 	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><mytaglib:i18n
 			key="news.add" /><i class="material-icons">add</i></a>

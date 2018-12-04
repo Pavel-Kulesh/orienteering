@@ -12,12 +12,12 @@ public class RouteDTO {
 	@NotEmpty
 	private String name;
 
-	private String file;
-	private String path;
 	private Date created;
 
 	@NotNull
 	private Integer customerId;
+	
+	private boolean statusVisible;
 
 	public Integer getId() {
 		return id;
@@ -35,22 +35,6 @@ public class RouteDTO {
 		this.name = name;
 	}
 
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	public Integer getCustomerId() {
 		return customerId;
 	}
@@ -65,6 +49,14 @@ public class RouteDTO {
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public boolean getStatusVisible() {
+		return statusVisible;
+	}
+
+	public void setStatusVisible(boolean statusVisible) {
+		this.statusVisible = statusVisible;
 	}
 
 }

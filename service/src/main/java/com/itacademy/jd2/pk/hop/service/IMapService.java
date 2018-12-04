@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 
 public interface IMapService {
@@ -25,10 +26,15 @@ public interface IMapService {
 	long getCount(MapFilter filter);
 	
 	@Transactional
-	void addRouteToEvent(Integer mapId, Integer routeId);
+	void addRouteToMap(Integer mapId, Integer routeId);
 
 	@Transactional
-	void deleteRouteFromEvent(Integer mapId, Integer routeId);
+	void deleteRouteFromMap(Integer mapId, Integer routeId);
+	
+	List<IRoute> getRoutesOnMap(Integer mapId);
+
+	List<IRoute> getRoutesOnMapByCustomer(Integer mapId,Integer customerId);
+	
 	
 	
 }

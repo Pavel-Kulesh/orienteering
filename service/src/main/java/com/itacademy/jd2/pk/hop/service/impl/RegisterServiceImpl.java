@@ -9,25 +9,25 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IRegisterService;
-import com.itacademy.jd2.pk.hop.service.ISendMailSSL;
+import com.itacademy.jd2.pk.hop.service.IMailSevice;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 
 @Service
-public class RegisterService implements IRegisterService {
+public class RegisterServiceImpl implements IRegisterService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RegisterService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RegisterServiceImpl.class);
 
 	private ICustomerService customerService;
 	private IUserAccountService userAccountService;
-	private ISendMailSSL sendMailServise;
+	private IMailSevice mailServise;
 
 	@Autowired
-	public RegisterService(ICustomerService customerService, IUserAccountService userAccountService,
-			ISendMailSSL sendMailServise) {
+	public RegisterServiceImpl(ICustomerService customerService, IUserAccountService userAccountService,
+			IMailSevice sendMailServise) {
 		super();
 		this.customerService = customerService;
 		this.userAccountService = userAccountService;
-		this.sendMailServise = sendMailServise;
+		this.mailServise = sendMailServise;
 	}
 
 	@Override
@@ -36,8 +36,12 @@ public class RegisterService implements IRegisterService {
 		customer.setId(userAccount.getId());
 		customer.setUserAccount(userAccount);
 		customerService.save(customer);
-		sendMailServise.sendEmail(userAccount.getEmail());
+		mailServise.sendEmail(userAccount.getEmail());
 		LOGGER.info("registration complite");
+	}
+
+	public void setMailServise(IMailSevice mailServise) {
+		this.mailServise = mailServise;
 	}
 
 }

@@ -5,14 +5,6 @@ public interface IRoute extends IBaseEntity {
 
 	void setName(String name);
 
-	String getPath();
-
-	void setPath(String path);
-
-	String getFile();
-
-	void setFile(String file);
-
 	ICustomer getCustomer();
 
 	void setCustomer(ICustomer customer);

@@ -21,6 +21,7 @@
 ymaps.ready(init);
 
 function init() {
+var src='D:/11.jpg';
     var map = new ymaps.Map('map', {
         center: [53.7, 24],
         zoom: 2,
@@ -42,18 +43,27 @@ var myPolygon = new ymaps.Polygon([
             ]
         ],
         // property.
-        {
-            // balun.
-            balloonContent: "my map"
+        
+{
+            // Содержимое балуна.
+            balloonContent: "Рыбные места"
         }, {
-            // write option geoObject.
-            // background image.
-            fillImageHref: 'D:/java_train/images/vert.png',
-            // 
+            // Описываем опции геообъекта.
+            // Фоновое изображение.
+            fillImageHref: 'https://storge.pic2.me/upload/288/58c5bab290b9b.jpg',
+            // Тип заливки фоном.
             fillMethod: 'stretch',
-            // delete contour.
+            // Убираем видимость обводки.
             stroke: false
         }
+
+
+
+
+
+
+
+
     );
 
     // add poligon on map.

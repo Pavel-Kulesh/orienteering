@@ -20,6 +20,7 @@ public class CustomerDTO {
 
 	private Date created;
 	private Date updated;
+	private boolean statusVisible;
 
 	public Integer getId() {
 		return id;
@@ -83,6 +84,14 @@ public class CustomerDTO {
 
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
+	}
+
+	public boolean getStatusVisible() {
+		return statusVisible;
+	}
+
+	public void setStatusVisible(boolean statusVisible) {
+		this.statusVisible = statusVisible;
 	}
 
 }

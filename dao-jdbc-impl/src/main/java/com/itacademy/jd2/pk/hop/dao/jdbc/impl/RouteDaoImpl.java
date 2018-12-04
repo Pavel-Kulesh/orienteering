@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
-import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
@@ -30,15 +29,12 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 		// ===>>> not update user_id
 
 		executeStatement(new PreparedStatementAction<IRoute>(
-				String.format("update %s set name=?, path=?, updated=? where id=?", getTableName())) {
+				String.format("update %s set name=?, updated=? where id=?", getTableName())) {
 			@Override
 			public IRoute doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
-				pStmt.setString(2, entity.getPath());
-				pStmt.setObject(3, entity.getUpdated(), Types.TIMESTAMP);
-
-				// pStmt.setString(5, entity.getFile()); need update?
-				pStmt.setInt(4, entity.getId());
+				pStmt.setObject(2, entity.getUpdated(), Types.TIMESTAMP);
+				pStmt.setInt(3, entity.getId());
 
 				pStmt.executeUpdate();
 				return entity;
@@ -49,17 +45,15 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 	@Override
 	public void insert(IRoute entity) {
 		executeStatement(new PreparedStatementAction<IRoute>(
-				String.format("insert into %s (name, path, file, customer_id, created, updated) values(?,?,?,?,?,?)",
+				String.format("insert into %s (name, customer_id, created, updated) values(?,?,?,?)",
 						getTableName()),
 				true) {
 			@Override
 			public IRoute doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
 				pStmt.setString(1, entity.getName());
-				pStmt.setString(2, entity.getPath());
-				pStmt.setString(3, entity.getFile());
-				pStmt.setInt(4, entity.getCustomer().getId());
-				pStmt.setObject(5, entity.getCreated(), Types.TIMESTAMP);
-				pStmt.setObject(6, entity.getUpdated(), Types.TIMESTAMP);
+				pStmt.setInt(2, entity.getCustomer().getId());
+				pStmt.setObject(3, entity.getCreated(), Types.TIMESTAMP);
+				pStmt.setObject(4, entity.getUpdated(), Types.TIMESTAMP);
 
 				pStmt.executeUpdate();
 
@@ -85,8 +79,6 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 		IRoute entity = createEntity();
 		entity.setId((Integer) resultSet.getObject("id"));
 		entity.setName(resultSet.getString("name"));
-		entity.setPath(resultSet.getString("path"));
-		entity.setFile(resultSet.getString("file"));
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
 
@@ -108,6 +100,24 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 	public long getCount(RouteFilter filter) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<IRoute> getCustomerRoutes(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addRouteToMap(Integer mapId, Integer routeId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteRouteFromMap(Integer mapId, Integer routeId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -24,12 +24,12 @@
 			<tr>
 				<td><c:out value="${map.id}" /></td>
 				<td><c:out value="${map.name}" /></td>
-				<sec:authorize access="hasAnyRole('ADMIN')">
+				<sec:authorize access="hasRole('ADMIN')">
 					<td><c:out value="${map.customerId}" /></td>
 				</sec:authorize>
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${map.id}"><i class="material-icons">info</i></a>
-					<sec:authorize access="!isAnonymous()">
+					<sec:authorize access="hasRole('ADMIN')">
 						<a class="btn-floating" href="${baseUrl}/${map.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red" href="${baseUrl}/${map.id}/delete"><i

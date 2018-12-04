@@ -8,7 +8,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 
 public interface IRouteService {
-	
+
 	IRoute get(Integer id);
 
 	List<IRoute> getAll();
@@ -27,4 +27,13 @@ public interface IRouteService {
 	List<IRoute> find(RouteFilter filter);
 
 	long getCount(RouteFilter filter);
+
+	List<IRoute> getCustomerRoutes(Integer id);
+
+	@Transactional
+	void addRouteToMap(Integer mapId, Integer routeId);
+
+	@Transactional
+	void deleteRouteFromMap(Integer mapId, Integer routeId);
+
 }

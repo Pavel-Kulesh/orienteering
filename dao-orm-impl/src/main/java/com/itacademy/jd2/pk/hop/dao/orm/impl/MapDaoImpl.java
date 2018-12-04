@@ -1,6 +1,8 @@
 package com.itacademy.jd2.pk.hop.dao.orm.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Map_;
@@ -115,6 +118,56 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 				(String.format("delete from map_2_route e where e.map_id = %s and e.route_id=%s", mapId, routeId)))
 				.executeUpdate();
 
+	}
+
+	@Override
+	public List<IRoute> getRoutesOnMap(Integer mapId) {
+
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IMap> cq = cb.createQuery(IMap.class);
+		final Root<Map> from = cq.from(Map.class);
+		cq.select(from);
+		from.fetch(Map_.routesList, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Map_.id), mapId));
+		final TypedQuery<IMap> q = em.createQuery(cq);
+
+		List<IMap> resultList = q.getResultList();
+		Map route = (Map) resultList.get(0);
+		Set<IRoute> routes = route.getRoutesList();
+		List<IRoute> routesList = new ArrayList<IRoute>();
+		routesList.addAll(routes);
+		return routesList;
+	}
+
+	@Override
+	public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId) {
+		final EntityManager em = getEntityManager();
+		final CriteriaBuilder cb = em.getCriteriaBuilder();
+		final CriteriaQuery<IMap> cq = cb.createQuery(IMap.class);
+		final Root<Map> from = cq.from(Map.class);
+		cq.select(from);
+		from.fetch(Map_.routesList, JoinType.LEFT);
+		from.fetch(Map_.customer, JoinType.LEFT);
+
+		cq.where(cb.equal(from.get(Map_.id), mapId));
+		final TypedQuery<IMap> q = em.createQuery(cq);
+
+		List<IMap> resultList = q.getResultList();
+		Map route = (Map) resultList.get(0);
+		Set<IRoute> routes = route.getRoutesList();
+
+		List<IRoute> routesList = new ArrayList<IRoute>();
+
+		/*for (IRoute r : routes) {
+			if (r.getCustomer().getId().equals(customerId)) {
+				routesList.add(r);
+			}
+
+		}*/
+		routesList.addAll(routes);
+		return routesList;
 	}
 
 }

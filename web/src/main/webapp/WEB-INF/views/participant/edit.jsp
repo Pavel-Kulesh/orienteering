@@ -39,6 +39,21 @@
 				<label for="surname">Surname</label>
 			</div>
 		</div>
+<%-- 
+		<div class="row">
+			<div class="input-field col s12">
+				<form:select path="type">
+					<option value="" disabled selected>Role
+						<form:options items="${roleChoices}" />
+				</form:select>
+				<form:errors path="role" cssClass="red-text" />
+				<label for="role">role</label>
+			</div>
+		</div> --%>
+
+
+
+
 
 		<div class="row">
 			<div class="input-field col s12">

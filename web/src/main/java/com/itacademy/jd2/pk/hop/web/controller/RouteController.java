@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
@@ -34,6 +33,7 @@ import com.itacademy.jd2.pk.hop.web.converter.RouteFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.RouteToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.PointDTO;
 import com.itacademy.jd2.pk.hop.web.dto.RouteDTO;
+import com.itacademy.jd2.pk.hop.web.dto.SpeedDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 import com.itacademy.jd2.pk.hop.web.tag.MyGPX;
 
@@ -76,8 +76,13 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 		final HashMap<String, Object> models = new HashMap<>();
 
-		Integer currentCustomer = getCustomerId();
-		models.put("currentCustomer", currentCustomer);
+		String currentLoginRole = getLoginRole();
+		Integer currentCustomerId = getCustomerId();
+		for (RouteDTO routeDTO : dtos) {
+			if (routeDTO.getCustomerId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
+				routeDTO.setStatusVisible(true);
+			}
+		}
 
 		models.put("gridItem", dtos);
 		return new ModelAndView("route.list", models);
@@ -108,47 +113,30 @@ public class RouteController extends AbstractController<RouteDTO> {
 			return "route.add";
 		} else {
 
-			// get String save to file and path (test program)
-			// if we did/t save file to disc =>
-			// =>delete attribute file and path from entity in DB
-
-			// create new class for parse GPS=Track
-			// write method to return List<IPoint>
-			// getPointList(Integer customerId, fileDoc.getInputStream()){}
-			// after save entity (route) to DB save List<IPoint>
-			// if cant parse give exception "invalid file-gpx" and see (1)
-
-			// https://code.i-harness.com/ru/q/6d18
-
-			// http://qaru.site/questions/13112/calculate-distance-between-two-latitude-longitude-points-haversine-formula
-
-			/*
-			 * final String result1 = new BufferedReader(new
-			 * InputStreamReader(fileDoc.getInputStream())).lines()
-			 * .collect(Collectors.joining("\n")); System.out.println("result file=" +
-			 * result1);
-			 */
-
 			List<IPoint> poits = MyGPX.seeTrack(fileDoc.getInputStream());
 			final IRoute entity = fromDTOConverter.apply(formModel);
-			entity.setFile("exemple string");
-			entity.setPath("exemple path2");
 			routeService.save(entity);
 
 			for (IPoint p : poits) {
 				p.setRoute(entity);
 			}
 
-			Double[] point = new Double[2];
-			ArrayList<Object> points = new ArrayList<>();
-			for (IPoint p : poits) {
-				point[0] = p.getLatitude();
-				point[1] = p.getLongitude();
-				points.add(point);
-			}
-			String json = new Gson().toJson(points);
-
 			pointService.saveList(poits);
+
+			return "redirect:/route";
+		}
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String edit(@Valid @ModelAttribute("formModel") final RouteDTO formModel, final BindingResult result)
+			throws IOException {
+
+		if (result.hasErrors()) {
+			return "route.edit";
+		} else {
+
+			final IRoute entity = fromDTOConverter.apply(formModel);
+			routeService.save(entity);
 
 			return "redirect:/route";
 		}
@@ -158,6 +146,8 @@ public class RouteController extends AbstractController<RouteDTO> {
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
 		pointService.delete(id);
 		routeService.delete(id);
+		
+		//delete all link manyToMany map_2_route;
 		return "redirect:/route";
 	}
 
@@ -167,27 +157,6 @@ public class RouteController extends AbstractController<RouteDTO> {
 		final RouteDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-
-		// take all point and hashMap.put("pointItems", list);
-
-		/*
-		 * List<IPoint> pointsByRoute = pointService.selectById(id);
-		 * 
-		 * Double[] point = new Double[2]; ArrayList<Object> points = new ArrayList<>();
-		 * 
-		 * int count = points.size(); Double aveLat = null; Double aveLong = null;
-		 * Double sumLat = null; Double sumLong = null;
-		 * 
-		 * for (IPoint p : pointsByRoute) { count++; sumLat += p.getLatitude(); sumLong
-		 * += p.getLongitude(); point[0] = p.getLatitude(); point[1] = p.getLongitude();
-		 * points.add(point); }
-		 * 
-		 * if (count == 0) { throw new NullPointerException("incorrect file gpx");
-		 * 
-		 * } else { aveLat = sumLat / count; aveLong = sumLong / count; } String json =
-		 * new Gson().toJson(points); // String json1 = new Gson().toJson(new Double);
-		 * hashMap.put("json", json);
-		 */
 
 		return new ModelAndView("route.info", hashMap);
 	}
@@ -213,6 +182,47 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 		}
 		return new ResponseEntity<List<PointDTO>>(points, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/speed", method = RequestMethod.GET)
+	public ResponseEntity<List<SpeedDTO>> getPointsInfo(
+			@RequestParam(name = "routeId", required = true) final Integer routeId) {
+		List<IPoint> pointsFromDB = pointService.selectById(routeId);
+
+		List<SpeedDTO> speedInterval = getSpeedInterval(pointsFromDB);
+
+		return new ResponseEntity<List<SpeedDTO>>(speedInterval, HttpStatus.OK);
+	}
+
+	private List<SpeedDTO> getSpeedInterval(List<IPoint> points) {
+		List<SpeedDTO> intervals = new ArrayList<>();
+		IPoint startPoint = points.get(0);
+		for (IPoint point : points) {
+			double distance = getDistanceBetween(startPoint.getLatitude(), startPoint.getLongitude(),
+					point.getLatitude(), point.getLongitude());
+			intervals.add(new SpeedDTO(distance, point.getDiffTime()));
+			startPoint = point;
+		}
+
+		return intervals;
+
+	}
+
+	public double getDistanceBetween(double lat1, double lon1, double lat2, double lon2) {
+		double dLat = toRadians(lat2 - lat1);
+		double dLon = toRadians(lon2 - lon1);
+
+		double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+				+ Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		// double d = EARTH_RADIUS * c;
+		double d = 6371 * c;
+
+		return d;
+	}
+
+	public double toRadians(double degrees) {
+		return degrees * (Math.PI / 180);
 	}
 
 }

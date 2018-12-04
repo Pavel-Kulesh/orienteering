@@ -1,9 +1,15 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
+import static org.mockito.ArgumentMatchers.anyString;
+
 import java.util.Date;
 import java.util.Random;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +32,11 @@ import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
+import com.itacademy.jd2.pk.hop.service.IMailSevice;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.service.INewsServise;
 import com.itacademy.jd2.pk.hop.service.IPointService;
+import com.itacademy.jd2.pk.hop.service.IRegisterService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 
@@ -54,13 +62,30 @@ public class AbstractTest {
 	@Autowired
 	protected IMapService mapService;
 
-	// +event
+	@Autowired
+	protected IRegisterService registerService;
 
-	// +map
+	@Autowired
+	protected IMailSevice mailService;
 
 	private static Random RANDOM = new Random();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
+
+	@BeforeEach
+	public void setUpMethod() {
+
+		final IMailSevice spy = Mockito.spy(mailService);
+		Mockito.doAnswer(new Answer<Void>() {
+			@Override
+			public final Void answer(final InvocationOnMock invocation) throws Throwable {
+				LOGGER.info("email sending simulated:{}", invocation.getArguments()[0]);
+				return null;
+			}
+		}).when(spy).sendEmail(anyString());
+		registerService.setMailServise(spy);
+
+	}
 
 	@AfterAll
 	public static void cleadDB() {
@@ -155,10 +180,8 @@ public class AbstractTest {
 		ICustomer customer = saveNewCustomer();
 
 		entity.setName("name-" + getRandomPrefix());
-		entity.setPath("path-" + getRandomPrefix());
-		entity.setFile("file-" + getRandomPrefix());
 		entity.setCustomer(customer);
-		;
+		
 		routeService.save(entity);
 
 		return entity;
@@ -218,4 +241,29 @@ public class AbstractTest {
 		return entity;
 	}
 
+	protected ICustomer registerData() {
+		IUserAccount entity = userAccountService.createEntity();
+		entity.setEmail("email-" + getRandomPrefix());
+		entity.setPassword("password-" + getRandomPrefix());
+		ICustomer customer = customerService.createEntity();
+		ICity city = saveNewCity();
+		customer.setUserAccount(entity);
+		customer.setName("name-" + getRandomPrefix());
+		customer.setSurname("surname-" + getRandomPrefix());
+		customer.setPhone("phone-" + getRandomPrefix());
+		customer.setCity(city);
+
+		Role[] allRoles = Role.values();
+		int randomIndex = Math.max(0, getRANDOM().nextInt(allRoles.length));
+		entity.setRole(allRoles[randomIndex]);
+
+		registerService.saveRegisterData(customer, entity);
+
+		Integer id = entity.getId();
+		customer.setId(id);
+		entity.setCustomer(customer);
+
+		return customer;
+
+	}
 }

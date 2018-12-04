@@ -1,5 +1,6 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
@@ -62,12 +65,20 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 
 		final List<ICustomer> entities = customerService.find(filter);
 		List<CustomerDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
+		String currentLoginRole = getLoginRole();
+		Integer currentCustomerId = getCustomerId();
+		for (CustomerDTO customerDTO : dtos) {
+			if (customerDTO.getId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
+				customerDTO.setStatusVisible(true);
+			}
+		}
+
 		gridState.setTotalCount(customerService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 
-		Integer currentCustomer = getCustomerId();
+		Integer currentCustomer = currentCustomerId;
 		models.put("currentCustomer", currentCustomer);
 
 		return new ModelAndView("participant.list", models);
@@ -122,8 +133,16 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-
+	//	loadComboboxesModels(hashMap);
 		return new ModelAndView("participant.edit", hashMap);
 	}
+/*
+	private void loadComboboxesModels(final Map<String, Object> hashMap) {
+		final List<Role> customerRolesList = Arrays.asList(Role.values());
+		final Map<String, String> eventTypesMap = customerRolesList.stream()
+				.collect(Collectors.toMap(Role::name, Role::name));
 
+		hashMap.put("roleChoices", eventTypesMap);
+
+	}*/
 }

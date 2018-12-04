@@ -21,12 +21,27 @@
 					Route <span class="badge"><i class="material-icons">announcement</i></span>
 				</div>
 				<div class="collapsible-body">
-					<div id="map" style="width: 100%; height: 300px"></div>
+					<div id="map" style="width: 100%; height: 400px"></div>
 				</div>
+			</li>
+			<li>
+				<div class="collapsible-header">
+					Speed <span class="badge"><i class="material-icons">announcement</i></span>
+				</div>
+				<div class="collapsible-body">
+					<div id="chart_lines" style="width: 100%; height: 100%;"></div>
+				</div>
+
 			</li>
 		</ul>
 	</div>
 </div>
+
+
+
+
+
+
 
 
 
@@ -71,63 +86,84 @@
 
 			var myMap = new ymaps.Map("map", {
 				center : [ avgLat, avgLong ],
-				zoom : 12
+				zoom : 14
 			}, {
 				searchControlProvider : 'yandex#search'
 			});
 
-			// Создаем ломаную, используя класс GeoObject.
 			var myGeoObject = new ymaps.GeoObject({
-				// Описываем геометрию геообъекта.
 				geometry : {
-					// Тип геометрии - "Ломаная линия".
 					type : "LineString",
-					// Указываем координаты вершин ломаной.
 					coordinates : points
 				},
-				// Описываем свойства геообъекта.
 				properties : {
-					// Содержимое хинта.
 					hintContent : "I route",
-					// Содержимое балуна.
 					balloonContent : "Look map"
 				}
 			}, {
-				// Задаем опции геообъекта.
-				// Включаем возможность перетаскивания ломаной.
 				draggable : false,
-				// Цвет линии.
 				strokeColor : "#FF0000",
-				// Ширина линии.
 				strokeWidth : 5
 			});
 
-			/* 	// Создаем ломаную с помощью вспомогательного класса Polyline.
-				var myPolyline = new ymaps.Polyline([
-				// Указываем координаты вершин ломаной.
-				[ 55.80, 37.50 ], [ 55.80, 37.40 ],
-						[ 55.70, 37.50 ], [ 55.70, 37.40 ] ], {
-					// Описываем свойства геообъекта.
-					// Содержимое балуна.
-					balloonContent : "Ломаная линия"
-				}, {
-					// Задаем опции геообъекта.
-					// Отключаем кнопку закрытия балуна.
-					balloonCloseButton : false,
-					// Цвет линии.
-					strokeColor : "#000000",
-					// Ширина линии.
-					strokeWidth : 4,
-					// Коэффициент прозрачности.
-					strokeOpacity : 0.5
-				}); */
-
-			// Добавляем линии на карту.
 			myMap.geoObjects.add(myGeoObject);
 
 		});
-
 	});
+</script>
+<script type="text/javascript">
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+
+		$.get(contextUrl + "/route/speed?routeId=" + routeId, function(
+				speedIntervalData) {
+
+			var points = [];
+			var summ = 0;
+			var dist = 0;
+			speedIntervalData.forEach(function(p) {
+
+				var distance = p.distance * 1000;
+				var time = p.diffTime;
+				dist += distance;
+				summ += time;
+				if (time == 0) {
+					points.push([ summ, 0 ]);
+				} else {
+					speed = distance / time;
+					points.push([ summ, speed ])
+				}
+
+			})
+
+			var data = new google.visualization.DataTable();
+			data.addColumn('number', 'x');
+			data.addColumn('number', 'values m/sec');
+
+			data.addRows(points);
+
+			// The intervals data as narrow lines (useful for showing raw source data)
+			var options_lines = {
+				title : 'Line speed intervals, default m/sec',
+				curveType : 'function',
+				lineWidth : 4,
+				intervals : {
+					'style' : 'line'
+				},
+				legend : 'none'
+			};
+
+			var chart_lines = new google.visualization.LineChart(document
+					.getElementById('chart_lines'));
+			chart_lines.draw(data, options_lines);
+
+		})
+
+	}
 </script>
 
 

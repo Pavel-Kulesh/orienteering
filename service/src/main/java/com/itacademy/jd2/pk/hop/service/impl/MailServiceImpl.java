@@ -12,10 +12,10 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Service;
 
-import com.itacademy.jd2.pk.hop.service.ISendMailSSL;
+import com.itacademy.jd2.pk.hop.service.IMailSevice;
 
 @Service
-public class SendMailSSL implements ISendMailSSL{
+public class MailServiceImpl implements IMailSevice{
 	
 	
 	

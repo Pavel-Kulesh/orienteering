@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
+import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 
@@ -79,17 +80,27 @@ public class MapServiceImpl implements IMapService {
 	}
 
 	@Override
-	public void addRouteToEvent(Integer mapId, Integer routeId) {
+	public void addRouteToMap(Integer mapId, Integer routeId) {
 		dao.addRouteToEvent(mapId, routeId);
-		
+
 	}
 
 	@Override
-	public void deleteRouteFromEvent(Integer mapId, Integer routeId) {
+	public void deleteRouteFromMap(Integer mapId, Integer routeId) {
 		dao.deleteRouteFromEvent(mapId, routeId);
-		
+
 	}
 
-	
+	@Override
+	public List<IRoute> getRoutesOnMap(Integer mapId) {
+
+		return dao.getRoutesOnMap(mapId);
+	}
+
+	@Override
+	public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId) {
+
+		return dao.getRoutesOnMapByCustomer(mapId, customerId);
+	}
 
 }

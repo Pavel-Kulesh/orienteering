@@ -20,16 +20,13 @@ public class RouteServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getName());
-		assertNotNull(entityFromDb.getPath());
-		assertNotNull(entityFromDb.getFile());
 		assertNotNull(entityFromDb.getCustomer());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getId(), entityFromDb.getId());
-		assertEquals(entity.getFile(), entityFromDb.getFile());
-		assertEquals(entity.getPath(), entityFromDb.getPath());
-	//	assertEquals(entity.getCustomer().getId(), entityFromDb.getCustomer().getId());
+		// assertEquals(entity.getCustomer().getId(),
+		// entityFromDb.getCustomer().getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
@@ -40,8 +37,6 @@ public class RouteServiceTest extends AbstractTest {
 
 		String newName = entity.getName() + "_updated";
 		entity.setName(newName);
-		String newPath = entity.getPath() + "_updated";
-		entity.setPath(newPath);
 
 		Thread.sleep(1000);
 		routeService.save(entity);
@@ -50,13 +45,10 @@ public class RouteServiceTest extends AbstractTest {
 
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
-		assertNotNull(entityFromDb.getFile());
 		assertNotNull(entityFromDb.getCreated());
 		assertEquals(entity.getId(), entityFromDb.getId());
-		assertEquals(entity.getFile(), entityFromDb.getFile());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertEquals(newName, entityFromDb.getName());
-		assertEquals(newPath, entityFromDb.getPath());
 		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
 
 	}
@@ -75,8 +67,6 @@ public class RouteServiceTest extends AbstractTest {
 		for (IRoute entityFromDb : allEntities) {
 			assertNotNull(entityFromDb.getId());
 			assertNotNull(entityFromDb.getName());
-			assertNotNull(entityFromDb.getPath());
-			assertNotNull(entityFromDb.getFile());
 			assertNotNull(entityFromDb.getCustomer());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
@@ -89,8 +79,10 @@ public class RouteServiceTest extends AbstractTest {
 	@Test
 	public void testDeleteById() {
 		IRoute entity = saveNewRoute();
+		
 		routeService.delete(entity.getId());
 		assertNull(routeService.get(entity.getId()));
+	
 	}
 
 	@Test
