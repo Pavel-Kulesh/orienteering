@@ -1,24 +1,16 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,9 +40,7 @@ public class MapController extends AbstractController<MapDTO> {
 	private MapFromDTOConverter fromDTOConverter;
 	private IRouteService routeService;
 
-	@Autowired
-	private ServletContext servletContext;
-
+	
 	@Autowired
 	public MapController(IMapService mapService, MapToDTOConverter toDTOConverter, MapFromDTOConverter fromDTOConverter,
 			IRouteService routeService) {
@@ -168,35 +157,11 @@ public class MapController extends AbstractController<MapDTO> {
 		return new ModelAndView("map.edit", hashMap);
 	}
 
-	@RequestMapping(value = "/image-manual-response", method = RequestMethod.GET)
-	public void getImageAsByteArray(HttpServletResponse response) throws IOException {
-		final InputStream in = servletContext.getResourceAsStream("/WEB-INF/images/image-example.jpg");
-		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-		IOUtils.copy(in, response.getOutputStream());
-	}
-
-	@RequestMapping(value = "/image-byte-array", method = RequestMethod.GET)
-	@ResponseBody
-	public byte[] getImageAsByteArray() throws IOException {
-		final InputStream in = servletContext.getResourceAsStream("/WEB-INF/images/image-example.jpg");
-		return IOUtils.toByteArray(in);
-	}
-
-	@RequestMapping(value = "/image-response-entity", method = RequestMethod.GET)
-	public ResponseEntity<byte[]> getImageAsResponseEntity() throws IOException {
-		ResponseEntity<byte[]> responseEntity;
-		final HttpHeaders headers = new HttpHeaders();
-		final InputStream in = servletContext.getResourceAsStream("/WEB-INF/images/11.jpg");
-		byte[] media = IOUtils.toByteArray(in);
-		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-		responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
-		return responseEntity;
-	}
-
 	@RequestMapping(value = "/addRouteToMap/{id}", method = RequestMethod.GET)
 	public ModelAndView addRouteToMap(@PathVariable(name = "id", required = true) final Integer mapId,
 			@RequestParam("routeId") final Integer routeId) {
 
+		
 		final IMap dbModel = mapService.get(mapId);
 		final MapDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
@@ -230,6 +195,8 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	private void loadComboboxesModels(final Map<String, Object> hashMap, Integer mapId) {
+		List<IRoute> customerRoutes1 = new ArrayList<>();
+		List<IRoute> routesOnMapByCustomer1 = new ArrayList<>();
 
 		List<IRoute> routesOnMap1 = mapService.getRoutesOnMap(mapId);
 		Map<Integer, String> routesOnMap = routesOnMap1.stream()
@@ -237,24 +204,26 @@ public class MapController extends AbstractController<MapDTO> {
 		hashMap.put("mapRoutes", routesOnMap);
 
 		if (getCustomerId() != null) {
-			List<IRoute> routesOnMapByCustomer1 = mapService.getRoutesOnMapByCustomer(mapId, getCustomerId());
-			Map<Integer, String> routesOnMapByCustomer = routesOnMapByCustomer1.stream()
-					.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
-
-			hashMap.put("customerRoutes", routesOnMapByCustomer);
-		
-		
-		
-		
-		
+			if (getLoginRole().equals("ADMIN")) {
+				hashMap.put("myRoutesOnMap", routesOnMap);
+			} else {
+				routesOnMapByCustomer1 = mapService.getRoutesOnMapByCustomer(mapId, getCustomerId());
+				Map<Integer, String> routesOnMapByCustomer = routesOnMapByCustomer1.stream()
+						.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
+				hashMap.put("myRoutesOnMap", routesOnMapByCustomer);
+			}
 		}
 
-		final List<IRoute> customerRoutes1 = routeService.getCustomerRoutes(getCustomerId());
+		if ("ADMIN".equals(getLoginRole())) {
+			customerRoutes1 = routeService.getAll();
+		} else {
+			customerRoutes1 = routeService.getCustomerRoutes(getCustomerId());
+		}
 
-		final Map<Integer, String> customerRoutes = customerRoutes1.stream()
+		Map<Integer, String> customerRoutes = customerRoutes1.stream()
 				.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
 
-		hashMap.put("routeChoices", customerRoutes);
+		hashMap.put("myRoutes", customerRoutes);
 
 	}
 }

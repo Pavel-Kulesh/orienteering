@@ -27,6 +27,7 @@ public class RouteFromDTOConverter implements Function<RouteDTO, IRoute> {
 	@Override
 	public IRoute apply(RouteDTO dto) {
 		IRoute entity = routeSerise.createEntity();
+		entity.setId(dto.getId());
 		entity.setName(dto.getName());
 		ICustomer customer = customerService.get(dto.getCustomerId());
 		entity.setCustomer(customer);

@@ -131,6 +131,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 		cq.where(cb.equal(from.get(Event_.id), id));
 		final TypedQuery<IEvent> q = em.createQuery(cq);
+	
 		return q.getResultList().get(0);
 	}
 

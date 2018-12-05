@@ -34,6 +34,7 @@ public class MapDTO {
 	private Date created;
 	private Date updated;
 	private boolean statusVisible;
+	@Size(min = 1,message=" select route")
 	private Integer routeId;
 
 	public Integer getId() {

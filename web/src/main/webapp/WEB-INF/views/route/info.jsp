@@ -7,45 +7,10 @@
 <div class="row">
 
 	<div class="col s12">
-		<ul class="collapsible">
-			<li>
-				<div class="collapsible-header">
-					Name <span class="badge"><i class="material-icons">assignment</i></span>
-				</div>
-				<div class="collapsible-body">
-					<p>"${formModel.name}"</p>
-				</div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					Route <span class="badge"><i class="material-icons">announcement</i></span>
-				</div>
-				<div class="collapsible-body">
-					<div id="map" style="width: 100%; height: 400px"></div>
-				</div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					Speed <span class="badge"><i class="material-icons">announcement</i></span>
-				</div>
-				<div class="collapsible-body">
-					 <!-- <div id="chart_lines" style="width: 900px; height: 500px;"></div> -->
-				</div>
-
-			</li>
-		</ul>
-		<div id="chart_lines" style="width: 900px; height: 500px;"></div>
+		<div id="map" style="width: 100%; height: 400px"></div>
+		<div id="chart_lines" style="width: 100%; height: 500px;"></div>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
 
 <div class="row">
 	<div class="col s5"></div>
@@ -58,7 +23,6 @@
 
 	<div class="col s5"></div>
 </div>
-
 
 <script>
 	var contextUrl = '${contextPath}';

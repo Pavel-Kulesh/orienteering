@@ -109,7 +109,10 @@ public class MapServiceImpl implements IMapService {
 		List<IRoute> result = new ArrayList<>();
 		for (IRoute route : routesOnMapByCustomer) {
 			IRoute res = routeDao.get(route.getId());
-			result.add(res);
+			if (res.getCustomer().getId().equals(customerId)) {
+
+				result.add(res);
+			}
 		}
 
 		return result;

@@ -1,19 +1,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/map" />
 <h4 class="header">Map info: ${formModel.name}</h4>
 
 <div class="row">
 	<div class="col s12">
 		<ul class="collapsible">
-			<li>
-				<div class="collapsible-header">
-					Name <span class="badge"><i class="material-icons">sentiment_satisfied</i></span>
-				</div>
-				<div class="collapsible-body">
-					<p>${formModel.name}</p>
-				</div>
-			</li>
+
 			<li>
 				<div class="collapsible-header">
 					Info <span class="badge"><i class="material-icons">star</i></span>
@@ -23,113 +18,94 @@
 
 				</div>
 			</li>
-			<li>
-				<div class="collapsible-header">
-					Map <span class="badge"><i class="material-icons">public</i></span>
-				</div>
-				<div class="collapsible-body">
-					<p>
-						<script>
-						var contextUrl = '${contextPath}';
-						var mapId = '${formModel.id}';
-							ymaps.ready(initMapWithImage.bind(null,
+		</ul>
+
+
+		<div>
+			<script>
+						ymaps.ready(initMapWithImage.bind(null,
 									'${formModel.path}',
 									${formModel.latitude1},
 									${formModel.longitude1},
 									${formModel.latitude2},
 									${formModel.longitude2}));
 						</script>
-					<div id="map1" style="width: 100%; height: 500px"></div>
-				</div>
-			</li>
-
-			<li>
-				<div class="collapsible-header">
-					Info <span class="badge"><i class="material-icons">star</i></span>
-				</div>
-				<div class="collapsible-body">
-					<ul>
-						<li><a href="${baseUrl}/image-manual-response">Image
-								manually add to response</a></li>
-						<li><a href="${baseUrl}/image-byte-array.jpg">Image
-								Download <i>byte[]</i> Example
-						</a></li>
-						<li><a href="${baseUrl}/image-response-entity.jpg">Image
-								Download <i>ResponseEntity</i> Example
-						</a></li>
-					</ul>
-
-				</div>
-			</li>
-
-		</ul>
+			<div id="map1" style="width: 100%; height: 500px"></div>
+		</div>
 	</div>
 </div>
 
 
 
 <div class="row">
+
 	<div class="col s4">
+		<sec:authorize access="!isAnonymous()">
+			<form:form class="col s12"
+				action="${baseUrl}/addRouteToMap/${formModel.id}"
+				modelAttribute="formModel" method="get"
+				enctype="multipart/form-data">
+				<div class="row">
+					<div class="col s2"></div>
+					<div class="col s8">
+						Select route to add on map list
+						<form:select path="routeId">
+							<option value="" disabled selected>Routes
+								<form:options items="${myRoutes}" />
+						</form:select>
+						<form:errors path="routeId" cssClass="red-text" />
+						<label for="routeId">Route</label>
 
-		<form:form class="col s12"
-			action="${baseUrl}/addRouteToMap/${formModel.id}"
-			modelAttribute="formModel" method="get" enctype="multipart/form-data">
-			<div class="row">
-				<div class="col s2"></div>
-				<div class="col s8">
-					Select route to add on map list
-					<form:select path="routeId">
-						<option value="" disabled selected>Routes
-							<form:options items="${routeChoices}" />
-					</form:select>
-					<label for="routeId">Route</label>
+					</div>
+					<div class="col s2"></div>
+				</div>
+				<div class="row">
+					<div class="col s2"></div>
+					<div class="col s8">
+						<input type="submit" value="Add route to map" />
+					</div>
+					<div class="col s2"></div>
+
 
 				</div>
-				<div class="col s2"></div>
-			</div>
-			<div class="row">
-				<div class="col s2"></div>
-				<div class="col s8">
-					<input type="submit" value="Add route to map" />
-				</div>
-				<div class="col s2"></div>
+			</form:form>
 
-
-			</div>
-		</form:form>
-
-
+		</sec:authorize>
 	</div>
 	<div class="col s4">
+		<sec:authorize access="!isAnonymous()">
+			<form:form class="col s12"
+				action="${baseUrl}/deleteRouteFromMap/${formModel.id}"
+				modelAttribute="formModel" method="get"
+				enctype="multipart/form-data">
+				<div class="row">
+					<div class="col s2"></div>
+					<div class="col s8">
+						Select my route to delete from map list
+						<form:select path="routeId">
+							<option value="" disabled selected>Routes
+								<form:options items="${myRoutesOnMap}" />
+						</form:select>
+						<form:errors path="routeId" cssClass="red-text" />
+						<label for="routeId">Route</label>
 
-		<form:form class="col s12"
-			action="${baseUrl}/deleteRouteFromMap/${formModel.id}"
-			modelAttribute="formModel" method="get" enctype="multipart/form-data">
-			<div class="row">
-				<div class="col s2"></div>
-				<div class="col s8">
-					Select my route to delete from map list
-					<form:select path="routeId">
-						<option value="" disabled selected>Routes
-							<form:options items="${customerRoutes}" />
-					</form:select>
-					<label for="routeId">Route</label>
+					</div>
+					<div class="col s2"></div>
+				</div>
+				<div class="row">
+					<div class="col s2"></div>
+					<div class="col s8">
+						<input type="submit" value="Delete route from map" />
+					</div>
+					<div class="col s2"></div>
+
 
 				</div>
-				<div class="col s2"></div>
-			</div>
-			<div class="row">
-				<div class="col s2"></div>
-				<div class="col s8">
-					<input type="submit" value="Delete route from map" />
-				</div>
-				<div class="col s2"></div>
-
-
-			</div>
-		</form:form>
-
+			</form:form>
+		</sec:authorize>
 	</div>
+
+
 	<div class="col s4">
 
 		<form:form class="col s12" action="#" modelAttribute="formModel"
@@ -153,19 +129,8 @@
 						no map</button>
 				</div>
 				<div class="col s2"></div>
-
-
 			</div>
 		</form:form>
-
-
-
-
-
-
-
-
-
 	</div>
 </div>
 
@@ -173,7 +138,6 @@
 
 <div class="row">
 	<div class="col s5"></div>
-
 	<div class="col s2">
 		<a class="waves-effect waves-light btn" href="${baseUrl}">Go to
 			maps list<i class="material-icons right">undo</i>
@@ -190,7 +154,47 @@
 function showSelectedTrack(){
 	var selectElment=$( "select#routeId" );
 	alert ('show selected track'+selectElment);
-}
+	}
+	
+	/* 
+	1)need take routeId 
+	2) init function, take pointsData
+	3) create myGeoObject (route for current routeId)
+	4) add myGeoObject to current map (id="map1" line 33)
+	 */
+/* var contextUrl = '${contextPath}';
+var routeId = '${formModel.id}';
+
+ymaps.ready(function() {
+	$.get(contextUrl + "/route/points?routeId=" + routeId, function(
+			pointsData) {
+
+		var points = [];
+		
+		pointsData.forEach(function(p) {
+			var lat = p.latitude;
+			var lon = p.longitude;
+			points.push([ lat, lon ]);
+		})
+
+		var myGeoObject = new ymaps.GeoObject({
+			geometry : {
+				type : "LineString",
+				coordinates : points
+			},
+			properties : {
+				hintContent : "I route",
+				balloonContent : "Look map"
+			}
+		}, {
+			draggable : false,
+			strokeColor : "#FF0000",
+			strokeWidth : 5
+		});
+		map.geoObjects.add(myGeoObject);   
+	});
+})
+	 */
 </script>
 
 
