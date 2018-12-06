@@ -1,7 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/participant" />
-<h4 class="header">Personal info</h4>
+<h4 class="header"><mytaglib:i18n key="participant.header.info" /></h4>
 
 
 <div class="row">
@@ -10,7 +11,7 @@
 		<ul class="collapsible">
 			<li>
 				<div class="collapsible-header">
-					Name <span class="badge"><i class="material-icons">sentiment_satisfied</i></span>
+					<mytaglib:i18n key="participant.name" /> <span class="badge"><i class="material-icons">sentiment_satisfied</i></span>
 				</div>
 				<div class="collapsible-body">
 					<p>${formModel.name}</p>
@@ -18,7 +19,7 @@
 			</li>
 			<li>
 				<div class="collapsible-header">
-					Surname <span class="badge"><i class="material-icons">sentiment_satisfied</i></span>
+					<mytaglib:i18n key="participant.surname" /> <span class="badge"><i class="material-icons">sentiment_satisfied</i></span>
 				</div>
 				<div class="collapsible-body">
 					<p>${formModel.surname}</p>
@@ -26,7 +27,7 @@
 			</li>
 			<li>
 				<div class="collapsible-header">
-					City <span class="badge"><i class="material-icons">star</i></span>
+					<mytaglib:i18n key="participant.city" /> <span class="badge"><i class="material-icons">star</i></span>
 				</div>
 				<div class="collapsible-body">
 					<p>${formModel.cityName}</p>
@@ -42,14 +43,13 @@
 	<div class="col s3">
 		<a href="${contextPath}/list/user/${formModel.id}"
 			class="btn waves-effect waves-light right" type="submit"
-			title="list of registered events "> Events list <i
+			title="list of registered events "> <mytaglib:i18n key="participant.eventList" /> <i
 			class="large material-icons">public</i>
 		</a>
 	</div>
 
 	<div class="col s3">
-		<a class="waves-effect waves-light btn" href="${baseUrl}">Go to
-			participant list<i class="material-icons right">undo</i>
+		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="participant.back" /><i class="material-icons right">undo</i>
 		</a>
 	</div>
 	<div class="col s3"></div>

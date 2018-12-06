@@ -7,15 +7,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="baseUrl" value="${contextPath}/map" />
-<h4 class="header">Map</h4>
+<h4 class="header"><mytaglib:i18n key="map.header" /></h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
 			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">name</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}"><mytaglib:i18n key="map.name" /></mytaglib:sort-link></th>
 			<sec:authorize access="hasAnyRole('ADMIN')">
 				<th><mytaglib:sort-link column="customer_id"
-						pageUrl="${baseUrl}">customer_id</mytaglib:sort-link></th>
+						pageUrl="${baseUrl}"><mytaglib:i18n key="map.customerId" /></mytaglib:sort-link></th>
 			</sec:authorize>
 			<th></th>
 		</tr>

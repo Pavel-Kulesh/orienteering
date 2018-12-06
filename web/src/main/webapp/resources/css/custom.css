@@ -37,5 +37,21 @@ table {
 }
 
 nav, .page-footer {
-	background-color: #0000CD;
-	}
+	background-color: #f5f5f5;
+}
+
+nav ul a, .page-footer ul a {
+	color: #070707;
+}
+
+.white-text, .grey-text.text-lighten-4  {
+	color: #0e0202 !important;
+}
+
+
+.grey-text.text-lighten-3, .footer-copyright {
+
+    color: #ff1744   !important;
+}
+
+

@@ -2,25 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/map" />
-<h4 class="header">Map info: ${formModel.name}</h4>
+<h4 class="header">
+	<mytaglib:i18n key="map.info" />
+	: ${formModel.name}
+</h4>
 
 <div class="row">
 	<div class="col s12">
-		<ul class="collapsible">
-
-			<li>
-				<div class="collapsible-header">
-					Info <span class="badge"><i class="material-icons">star</i></span>
-				</div>
-				<div class="collapsible-body">
-					<p>Event's map</p>
-
-				</div>
-			</li>
-		</ul>
-
-
 		<div>
 			<script>
 						ymaps.ready(initMapWithImage.bind(null,
@@ -48,13 +38,13 @@
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
-						Select route to add on map list
+						<mytaglib:i18n key="map.add.route" />
 						<form:select path="routeId">
-							<option value="" disabled selected>Routes
+							<option value="" disabled selected><mytaglib:i18n key="map.routes" />
 								<form:options items="${myRoutes}" />
 						</form:select>
 						<form:errors path="routeId" cssClass="red-text" />
-						<label for="routeId">Route</label>
+						<label for="routeId"><mytaglib:i18n key="map.routes" /></label>
 
 					</div>
 					<div class="col s2"></div>
@@ -62,7 +52,7 @@
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
-						<input type="submit" value="Add route to map" />
+						<input type="submit" value="<mytaglib:i18n key="map.add.route" />" />
 					</div>
 					<div class="col s2"></div>
 
@@ -81,13 +71,13 @@
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
-						Select my route to delete from map list
+						<mytaglib:i18n key="map.delete.route" />
 						<form:select path="routeId">
-							<option value="" disabled selected>Routes
+							<option value="" disabled selected><mytaglib:i18n key="map.routes" />
 								<form:options items="${myRoutesOnMap}" />
 						</form:select>
 						<form:errors path="routeId" cssClass="red-text" />
-						<label for="routeId">Route</label>
+						<label for="routeId"><mytaglib:i18n key="map.routes" /></label>
 
 					</div>
 					<div class="col s2"></div>
@@ -95,7 +85,7 @@
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
-						<input type="submit" value="Delete route from map" />
+						<input type="submit" value="<mytaglib:i18n key="map.delete.route" />" />
 					</div>
 					<div class="col s2"></div>
 
@@ -113,20 +103,19 @@
 			<div class="row">
 				<div class="col s2"></div>
 				<div class="col s8">
-					Select route to display on map
+				<mytaglib:i18n key="map.show" />
 					<form:select path="routeId">
-						<option value="" disabled selected>Routes
+						<option value="" disabled selected><mytaglib:i18n key="map.routes" />
 							<form:options items="${mapRoutes}" />
 					</form:select>
-					<label for="routeId">Route</label>
+					<label for="routeId"><mytaglib:i18n key="map.routes" /></label>
 				</div>
 				<div class="col s2"></div>
 			</div>
 			<div class="row">
 				<div class="col s2"></div>
 				<div class="col s8">
-					<button type="button" onclick="showSelectedTrack()">Show
-						no map</button>
+					<button type="button" onclick="showSelectedTrack()"><mytaglib:i18n key="map.show" /></button>
 				</div>
 				<div class="col s2"></div>
 			</div>
@@ -139,8 +128,7 @@
 <div class="row">
 	<div class="col s5"></div>
 	<div class="col s2">
-		<a class="waves-effect waves-light btn" href="${baseUrl}">Go to
-			maps list<i class="material-icons right">undo</i>
+		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="back" /><i class="material-icons right">undo</i>
 		</a>
 	</div>
 	<div class="col s5"></div>

@@ -52,7 +52,8 @@ function initMapWithImage(image, lt1, lg1, lt2, lg2) {
             // write option geoObject.
             // background image.
         	 fillImageHref: image,
-    //  fillImageHref:	 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
+    // fillImageHref:
+	// 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
     
         	
             // 
@@ -62,6 +63,6 @@ function initMapWithImage(image, lt1, lg1, lt2, lg2) {
         }
     );
 	    map.geoObjects.add(myPolygon); 
-	  //  debugger;
+	  // debugger;
 	}
 

@@ -3,10 +3,12 @@ package com.itacademy.jd2.pk.hop.web.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 
 public class RegFormDTO {
-	@Size(min = 1, max = 50)
+	@Email(message = "Email should be valid")
 	private String email;
 	@Size(min = 1, max = 50)
 	private String password;
@@ -21,7 +23,7 @@ public class RegFormDTO {
 
 	private Integer countryId;
 
-	@NotNull
+	@NotNull(message = "Select city")
 	private Integer cityId;
 
 	public String getEmail() {

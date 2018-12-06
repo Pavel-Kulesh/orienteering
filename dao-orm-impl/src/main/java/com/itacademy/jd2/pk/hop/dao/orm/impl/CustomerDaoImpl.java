@@ -115,6 +115,8 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 			return from.get(Customer_.surname);
 		case "phone":
 			return from.get(Customer_.phone);
+		case "city":
+			return from.get(Customer_.city);
 		default:
 			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
 		}

@@ -7,7 +7,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <c:set var="baseUrl" value="${contextPath}/participant" />
-<h4 class="header">Participants</h4>
+<h4 class="header"><mytaglib:i18n key="participant.header" /></h4>
 <table class="bordered highlight">
 	<tbody>
 		<tr>
@@ -16,13 +16,13 @@
 						<i class="material-icons">bubble_chart</i>id</mytaglib:sort-link></th>
 			</sec:authorize>
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
-					<i class="material-icons">directions_run</i>name</mytaglib:sort-link></th>
+					<i class="material-icons">directions_run</i><mytaglib:i18n key="participant.name" /></mytaglib:sort-link></th>
 			<th><mytaglib:sort-link column="surname" pageUrl="${baseUrl}">
-					<i class="material-icons">child_care</i>surname</mytaglib:sort-link></th>
+					<i class="material-icons">child_care</i><mytaglib:i18n key="participant.surname" /></mytaglib:sort-link></th>
 			<sec:authorize access="hasRole('ADMIN')">
-				<th><i class="material-icons">contact_phone</i>phone</th>
-				<th><i class="material-icons">location_city</i>city</th>
-				<th>created</th>
+				<th><mytaglib:sort-link column="phone" pageUrl="${baseUrl}"><i class="material-icons">contact_phone</i><mytaglib:i18n key="participant.phone" /></mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="city" pageUrl="${baseUrl}"><i class="material-icons">location_city</i><mytaglib:i18n key="participant.city" /></mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}"><mytaglib:i18n key="participant.created" /></mytaglib:sort-link></th>
 			</sec:authorize>
 			<th></th>
 		</tr>

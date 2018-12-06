@@ -95,7 +95,7 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 
 		cq.where(cb.equal(from.get(Route_.id), id));
 		final TypedQuery<IRoute> q = em.createQuery(cq);
-		
+	//	List<IRoute> resultList = q.getResultList();
 		return q.getResultList().get(0);
 	}
 
