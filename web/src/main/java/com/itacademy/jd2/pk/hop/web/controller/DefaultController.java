@@ -17,28 +17,28 @@ import com.itacademy.jd2.pk.hop.web.tag.I18N;
 @RequestMapping(value = "/")
 public class DefaultController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DefaultController.class);
 
-    private static final Locale LOCALE_RU = new Locale("ru");
-    private static final Locale LOCALE_EN = new Locale("en");
+	private static final Locale LOCALE_RU = new Locale("ru");
+	private static final Locale LOCALE_EN = new Locale("en");
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String index(final HttpServletRequest req,
-            @RequestParam(name = "language", required = false) final String lang) {
-        if (lang != null) {
+	@RequestMapping(method = RequestMethod.GET)
+	public String index(final HttpServletRequest req,
+			@RequestParam(name = "language", required = false) final String lang) {
+		if (lang != null) {
 
-            Locale locale;
-            if ("ru".equals(lang)) {
-                locale = LOCALE_RU;
-            } else {
-                locale = LOCALE_EN;
-            }
+			Locale locale;
+			if ("ru".equals(lang)) {
+				locale = LOCALE_RU;
+			} else {
+				locale = LOCALE_EN;
+			}
 
-            req.getSession().setAttribute(I18N.SESSION_LOCALE_KEY, locale);
-            LOGGER.info("switch to locale:" + locale);
-        }
-
-        return "index";
-    }
+			req.getSession().setAttribute(I18N.SESSION_LOCALE_KEY, locale);
+			LOGGER.info("switch to locale:" + locale);
+		}
+		// write code if() redirect (/***)
+		return "index";
+	}
 
 }

@@ -24,6 +24,8 @@ public class Map extends BaseEntity implements IMap {
 	private String path;
 	@Column
 	private String file;
+	@Column
+	private byte[] image;
 
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Customer.class)
 	private ICustomer customer;
@@ -113,6 +115,14 @@ public class Map extends BaseEntity implements IMap {
 
 	public void setRoutesList(Set<IRoute> routesList) {
 		this.routesList = routesList;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	@Override

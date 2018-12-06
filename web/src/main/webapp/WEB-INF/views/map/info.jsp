@@ -13,6 +13,7 @@
 	<div class="col s12">
 		<div>
 			<script>
+			
 						ymaps.ready(initMapWithImage.bind(null,
 									'${formModel.path}',
 									${formModel.latitude1},
@@ -33,18 +34,19 @@
 		<sec:authorize access="!isAnonymous()">
 			<form:form class="col s12"
 				action="${baseUrl}/addRouteToMap/${formModel.id}"
-				modelAttribute="formModel" method="get"
+				modelAttribute="idHolder" method="post"
 				enctype="multipart/form-data">
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
 						<mytaglib:i18n key="map.add.route" />
-						<form:select path="routeId">
-							<option value="" disabled selected><mytaglib:i18n key="map.routes" />
+						<form:select path="id">
+							<option value="" disabled selected><mytaglib:i18n
+									key="map.routes" />
 								<form:options items="${myRoutes}" />
 						</form:select>
-						<form:errors path="routeId" cssClass="red-text" />
-						<label for="routeId"><mytaglib:i18n key="map.routes" /></label>
+						<form:errors path="id" cssClass="red-text" />
+						<label for="id"><mytaglib:i18n key="map.routes" /></label>
 
 					</div>
 					<div class="col s2"></div>
@@ -66,18 +68,19 @@
 		<sec:authorize access="!isAnonymous()">
 			<form:form class="col s12"
 				action="${baseUrl}/deleteRouteFromMap/${formModel.id}"
-				modelAttribute="formModel" method="get"
+				modelAttribute="idHolder" method="get"
 				enctype="multipart/form-data">
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
 						<mytaglib:i18n key="map.delete.route" />
-						<form:select path="routeId">
-							<option value="" disabled selected><mytaglib:i18n key="map.routes" />
+						<form:select path="id">
+							<option value="" disabled selected><mytaglib:i18n
+									key="map.routes" />
 								<form:options items="${myRoutesOnMap}" />
 						</form:select>
-						<form:errors path="routeId" cssClass="red-text" />
-						<label for="routeId"><mytaglib:i18n key="map.routes" /></label>
+						<form:errors path="id" cssClass="red-text" />
+						<label for="id"><mytaglib:i18n key="map.routes" /></label>
 
 					</div>
 					<div class="col s2"></div>
@@ -85,7 +88,8 @@
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
-						<input type="submit" value="<mytaglib:i18n key="map.delete.route" />" />
+						<input type="submit"
+							value="<mytaglib:i18n key="map.delete.route" />" />
 					</div>
 					<div class="col s2"></div>
 
@@ -98,24 +102,27 @@
 
 	<div class="col s4">
 
-		<form:form class="col s12" action="#" modelAttribute="formModel"
-			method="get" enctype="multipart/form-data">
+		<form:form class="col s12" action="#" modelAttribute="idHolder"
+			method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col s2"></div>
 				<div class="col s8">
-				<mytaglib:i18n key="map.show" />
-					<form:select path="routeId">
-						<option value="" disabled selected><mytaglib:i18n key="map.routes" />
+					<mytaglib:i18n key="map.show" />
+					<form:select path="id" cssClass="route-selector">
+						<option value="" disabled selected><mytaglib:i18n
+								key="map.routes" />
 							<form:options items="${mapRoutes}" />
 					</form:select>
-					<label for="routeId"><mytaglib:i18n key="map.routes" /></label>
+					<label for="id"><mytaglib:i18n key="map.routes" /></label>
 				</div>
 				<div class="col s2"></div>
 			</div>
 			<div class="row">
 				<div class="col s2"></div>
 				<div class="col s8">
-					<button type="button" onclick="showSelectedTrack()"><mytaglib:i18n key="map.show" /></button>
+					<button type="button" onclick="showSelectedTrack()">
+						<mytaglib:i18n key="map.show" />
+					</button>
 				</div>
 				<div class="col s2"></div>
 			</div>
@@ -128,8 +135,8 @@
 <div class="row">
 	<div class="col s5"></div>
 	<div class="col s2">
-		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="back" /><i class="material-icons right">undo</i>
-		</a>
+		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n
+				key="back" /><i class="material-icons right">undo</i> </a>
 	</div>
 	<div class="col s5"></div>
 </div>
@@ -140,9 +147,9 @@
 
 
 function showSelectedTrack(){
-	var selectElment=$( "select#routeId" );
-	alert ('show selected track'+selectElment);
-	}
+	
+	var selectedRouteId=$( "select.route-selector" ).val();
+	//alert ('show selected track:'+selectedRoute);
 	
 	/* 
 	1)need take routeId 
@@ -150,11 +157,10 @@ function showSelectedTrack(){
 	3) create myGeoObject (route for current routeId)
 	4) add myGeoObject to current map (id="map1" line 33)
 	 */
-/* var contextUrl = '${contextPath}';
+ var contextUrl = '${contextPath}';
 var routeId = '${formModel.id}';
 
-ymaps.ready(function() {
-	$.get(contextUrl + "/route/points?routeId=" + routeId, function(
+	$.get(contextUrl + "/route/points?routeId=" + selectedRouteId, function(
 			pointsData) {
 
 		var points = [];
@@ -179,10 +185,12 @@ ymaps.ready(function() {
 			strokeColor : "#FF0000",
 			strokeWidth : 5
 		});
-		map.geoObjects.add(myGeoObject);   
+		
+		debugger;
+		globalMapReference.geoObjects.add(myGeoObject);   
 	});
-})
-	 */
+}
+	 
 </script>
 
 

@@ -36,6 +36,7 @@ public class MapFromDTOConverter implements Function<MapDTO, IMap> {
 		entity.setLatitude2(dto.getLatitude2());
 		entity.setLongitude1(dto.getLongitude1());
 		entity.setLongitude2(dto.getLongitude2());
+		
 
 		return entity;
 	}

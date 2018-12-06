@@ -1,5 +1,7 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +10,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,7 +33,9 @@ import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 import com.itacademy.jd2.pk.hop.web.converter.MapFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
+import com.itacademy.jd2.pk.hop.web.dto.IdHolder;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
+import com.itacademy.jd2.pk.hop.web.dto.NewsDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
@@ -40,7 +47,6 @@ public class MapController extends AbstractController<MapDTO> {
 	private MapFromDTOConverter fromDTOConverter;
 	private IRouteService routeService;
 
-	
 	@Autowired
 	public MapController(IMapService mapService, MapToDTOConverter toDTOConverter, MapFromDTOConverter fromDTOConverter,
 			IRouteService routeService) {
@@ -108,7 +114,7 @@ public class MapController extends AbstractController<MapDTO> {
 			 * byte[] bytes = fileDoc.getBytes();
 			 */
 			final IMap entity = fromDTOConverter.apply(formModel);
-
+			entity.setImage(fileDoc.getBytes());
 			entity.setFile("random for test");
 			mapService.save(entity);
 
@@ -143,6 +149,8 @@ public class MapController extends AbstractController<MapDTO> {
 		final MapDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
+		hashMap.put("idHolder", new IdHolder());
+		
 		loadComboboxesModels(hashMap, id);
 		return new ModelAndView("map.info", hashMap);
 	}
@@ -157,16 +165,15 @@ public class MapController extends AbstractController<MapDTO> {
 		return new ModelAndView("map.edit", hashMap);
 	}
 
-	@RequestMapping(value = "/addRouteToMap/{id}", method = RequestMethod.GET)
-	public ModelAndView addRouteToMap(@PathVariable(name = "id", required = true) final Integer mapId,
-			@RequestParam("routeId") final Integer routeId) {
+	@RequestMapping(value = "/addRouteToMap/{mapId}", method = RequestMethod.POST)
+	public ModelAndView addRouteToMap(@PathVariable(name = "mapId", required = true) final Integer mapId,
+			@Valid @ModelAttribute("idHolder") final IdHolder idHolder) {
 
-		
 		final IMap dbModel = mapService.get(mapId);
 		final MapDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 
-		mapService.addRouteToMap(mapId, routeId);
+		mapService.addRouteToMap(mapId, idHolder.getId());
 
 		hashMap.put("formModel", dto);
 
@@ -178,13 +185,13 @@ public class MapController extends AbstractController<MapDTO> {
 
 	@RequestMapping(value = "/deleteRouteFromMap/{id}", method = RequestMethod.GET)
 	public ModelAndView deleteRouteFromMap(@PathVariable(name = "id", required = true) final Integer mapId,
-			@RequestParam("routeId") final Integer routeId) {
+			@Valid @ModelAttribute("idHolder") final IdHolder idHolder) {
 
 		final IMap dbModel = mapService.get(mapId);
 		final MapDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 
-		mapService.deleteRouteFromMap(mapId, routeId);
+		mapService.deleteRouteFromMap(mapId, idHolder.getId());
 
 		hashMap.put("formModel", dto);
 
@@ -225,5 +232,18 @@ public class MapController extends AbstractController<MapDTO> {
 
 		hashMap.put("myRoutes", customerRoutes);
 
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/image/{mapId}")
+	public void getImageAsByteArray(HttpServletResponse response,
+			@PathVariable(name = "mapId", required = true) final Integer mapId) throws IOException {
+		IMap entity = mapService.get(mapId);
+		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+		// FileInputStream input = new FileInputStream("d://image-example.jpg");
+
+		byte[] buf = entity.getImage();
+
+		ByteArrayInputStream input = new ByteArrayInputStream(buf);
+		IOUtils.copy(input, response.getOutputStream());
 	}
 }

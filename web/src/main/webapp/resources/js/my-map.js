@@ -64,5 +64,6 @@ function initMapWithImage(image, lt1, lg1, lt2, lg2) {
     );
 	    map.geoObjects.add(myPolygon); 
 	  // debugger;
+	    window.globalMapReference=map;
 	}
 

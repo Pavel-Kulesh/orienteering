@@ -17,5 +17,4 @@ public interface IMapDao extends IDao<IMap, Integer> {
 
 	List<IRoute> getRoutesOnMap(Integer mapId);
 
-	/* List<IRoute> getRoutesOnMapByCustomer(Integer mapId,Integer customerId); */
 }

@@ -17,7 +17,7 @@ public class MapDTO {
 	private Integer customerId;
 	@Size(min = 1, max = 100)
 	private String path;
-	
+
 	private String file;
 	@DecimalMin(value = "-90")
 	@DecimalMax(value = "90")
@@ -34,9 +34,7 @@ public class MapDTO {
 	private Date created;
 	private Date updated;
 	private boolean statusVisible;
-	
-	@NotNull(message="select route")
-	private Integer routeId;
+	private byte[] image;
 
 	public Integer getId() {
 		return id;
@@ -134,12 +132,18 @@ public class MapDTO {
 		this.statusVisible = statusVisible;
 	}
 
-	public Integer getRouteId() {
-		return routeId;
+	/*
+	 * public Integer getRouteId() { return routeId; }
+	 * 
+	 * public void setRouteId(Integer routeId) { this.routeId = routeId; }
+	 */
+
+	public byte[] getImage() {
+		return image;
 	}
 
-	public void setRouteId(Integer routeId) {
-		this.routeId = routeId;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 }
