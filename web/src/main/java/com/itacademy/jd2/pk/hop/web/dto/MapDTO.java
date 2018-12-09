@@ -132,13 +132,7 @@ public class MapDTO {
 		this.statusVisible = statusVisible;
 	}
 
-	/*
-	 * public Integer getRouteId() { return routeId; }
-	 * 
-	 * public void setRouteId(Integer routeId) { this.routeId = routeId; }
-	 */
-
-	public byte[] getImage() {
+		public byte[] getImage() {
 		return image;
 	}
 

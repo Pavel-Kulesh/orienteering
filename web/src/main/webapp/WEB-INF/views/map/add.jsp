@@ -14,14 +14,10 @@
 		<form:input path="file" type="hidden" />
 	
 	
-	
-		<form:input path="routeId" type="hidden" value="1" />
-
-
 
 		<table>
 			<tr>
-				<td>File to upload: Delete this param</td>
+				<td>File to upload:</td>
 				<td><input type="file" name="fileDoc" /></td>
 			</tr>
 			<tr>

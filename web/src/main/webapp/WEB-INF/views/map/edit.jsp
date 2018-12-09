@@ -17,13 +17,6 @@
 		<form:input path="path" type="hidden" />
 		
 		
-		
-		
-		<form:input path="routeId" type="hidden" value="1" />
-
-
-
-
 
 		<div class="row">
 			<i class="material-icons">note</i>

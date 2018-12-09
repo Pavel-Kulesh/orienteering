@@ -15,8 +15,18 @@ function initMap(lt, lg) {
 	
 }
 
-function initMapWithImage(image, lt1, lg1, lt2, lg2) {
+/*function initMapWithImage(url, mapId, lt1, lg1, lt2, lg2) {
 	
+	var pathImage="";
+	
+	$.get(url + "/map/image/" + mapId, function(
+			textData) {
+		pathImage="data:jpg;base64,"+textData;
+	});
+	*/
+	
+function initMapWithImage(pathImage, lt1, lg1, lt2, lg2) {
+		
 	var map = new ymaps.Map('map1', {
 	        center: [(lt1+lt2)/2, (lg1+lg2)/2],
 	        zoom: 8,
@@ -51,19 +61,15 @@ function initMapWithImage(image, lt1, lg1, lt2, lg2) {
         }, {
             // write option geoObject.
             // background image.
-        	 fillImageHref: image,
-    // fillImageHref:
-	// 'http://1920x1080hdwallpapers.com/image/201505/food/1485/garnet-delicious-red-berries.jpg',
-    
-        	
-            // 
+      //   fillImageHref: "localhost:8081/orienteering/map/image/"+mapId,
+        	 fillImageHref: pathImage,
+    // fillImageHref:'data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
             fillMethod: 'stretch',
             // delete contour.
             stroke: false
         }
     );
 	    map.geoObjects.add(myPolygon); 
-	  // debugger;
 	    window.globalMapReference=map;
 	}
 

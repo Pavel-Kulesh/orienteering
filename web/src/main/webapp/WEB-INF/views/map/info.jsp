@@ -9,22 +9,56 @@
 	: ${formModel.name}
 </h4>
 
+<div>
+	<p>Taken from wikpedia</p>
+	<img src="" alt="Red dot" />
+</div>
+
 <div class="row">
 	<div class="col s12">
 		<div>
 			<script>
-			
-						ymaps.ready(initMapWithImage.bind(null,
-									'${formModel.path}',
-									${formModel.latitude1},
-									${formModel.longitude1},
-									${formModel.latitude2},
-									${formModel.longitude2}));
+						
+			 ymaps.ready(initMapWithImage.bind(null,
+					 '${formModel.path}',
+					${formModel.latitude1},
+					${formModel.longitude1},
+					${formModel.latitude2},
+					${formModel.longitude2}));
 						</script>
 			<div id="map1" style="width: 100%; height: 500px"></div>
 		</div>
 	</div>
 </div>
+
+
+
+
+<!-- <div class="row">
+	<div class="col s12">
+		<div>
+			<script>
+			
+			var mapId = '${formModel.id}';
+			var contextUrl = '${contextPath}';
+			
+			 ymaps.ready(initMapWithImage.bind(null,
+					 contextUrl,
+					 mapId,
+					${formModel.latitude1},
+					${formModel.longitude1},
+					${formModel.latitude2},
+					${formModel.longitude2}));
+						</script>
+			<div id="map1" style="width: 100%; height: 500px"></div>
+		</div>
+	</div>
+</div> -->
+
+
+
+
+
 
 
 
@@ -68,8 +102,7 @@
 		<sec:authorize access="!isAnonymous()">
 			<form:form class="col s12"
 				action="${baseUrl}/deleteRouteFromMap/${formModel.id}"
-				modelAttribute="idHolder" method="get"
-				enctype="multipart/form-data">
+				modelAttribute="idHolder" method="get" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col s2"></div>
 					<div class="col s8">
@@ -142,24 +175,13 @@
 </div>
 
 
-
 <script type="text/javascript">
-
-
 function showSelectedTrack(){
 	
 	var selectedRouteId=$( "select.route-selector" ).val();
-	//alert ('show selected track:'+selectedRoute);
+		var contextUrl = '${contextPath}';
+	var routeId = '${formModel.id}';
 	
-	/* 
-	1)need take routeId 
-	2) init function, take pointsData
-	3) create myGeoObject (route for current routeId)
-	4) add myGeoObject to current map (id="map1" line 33)
-	 */
- var contextUrl = '${contextPath}';
-var routeId = '${formModel.id}';
-
 	$.get(contextUrl + "/route/points?routeId=" + selectedRouteId, function(
 			pointsData) {
 
