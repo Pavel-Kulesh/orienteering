@@ -110,7 +110,7 @@ public class MapController extends AbstractController<MapDTO> {
 		if (result.hasErrors()) {
 			return "map.add";
 		} else {
-			
+
 			final IMap entity = fromDTOConverter.apply(formModel);
 			entity.setImage(fileDoc.getBytes());
 			entity.setFile("random for test");
@@ -128,7 +128,7 @@ public class MapController extends AbstractController<MapDTO> {
 		} else {
 			final IMap entity = fromDTOConverter.apply(formModel);
 			mapService.save(entity);
-			
+
 			return "redirect:/map";
 		}
 	}
@@ -161,22 +161,47 @@ public class MapController extends AbstractController<MapDTO> {
 		return new ModelAndView("map.edit", hashMap);
 	}
 
+	/*
+	 * @RequestMapping(value = "/addRouteToMap/{mapId}", method =
+	 * RequestMethod.POST) public ModelAndView addRouteToMap(@PathVariable(name =
+	 * "mapId", required = true) final Integer mapId,
+	 * 
+	 * @Valid @ModelAttribute("idHolder") final IdHolder idHolder) {
+	 * 
+	 * final IMap dbModel = mapService.get(mapId); final MapDTO dto =
+	 * toDTOConverter.apply(dbModel); final HashMap<String, Object> hashMap = new
+	 * HashMap<>();
+	 * 
+	 * mapService.addRouteToMap(mapId, idHolder.getId());
+	 * 
+	 * hashMap.put("formModel", dto);
+	 * 
+	 * loadComboboxesModels(hashMap, mapId);
+	 * 
+	 * return new ModelAndView("map.info", hashMap);
+	 * 
+	 * }
+	 */
+
 	@RequestMapping(value = "/addRouteToMap/{mapId}", method = RequestMethod.POST)
-	public ModelAndView addRouteToMap(@PathVariable(name = "mapId", required = true) final Integer mapId,
-			@Valid @ModelAttribute("idHolder") final IdHolder idHolder) {
+	public String addRouteToMap(@PathVariable(name = "mapId", required = true) final Integer mapId,
+			@Valid @ModelAttribute("idHolder") final IdHolder idHolder, final BindingResult result) throws IOException {
+		if (result.hasErrors()) {
 
-		final IMap dbModel = mapService.get(mapId);
-		final MapDTO dto = toDTOConverter.apply(dbModel);
-		final HashMap<String, Object> hashMap = new HashMap<>();
+			return "redirect:/map/" + mapId;
+		} else {
+			final IMap dbModel = mapService.get(mapId);
+			final MapDTO dto = toDTOConverter.apply(dbModel);
+			final HashMap<String, Object> hashMap = new HashMap<>();
 
-		mapService.addRouteToMap(mapId, idHolder.getId());
+			mapService.addRouteToMap(mapId, idHolder.getId());
 
-		hashMap.put("formModel", dto);
+			hashMap.put("formModel", dto);
 
-		loadComboboxesModels(hashMap, mapId);
+			loadComboboxesModels(hashMap, mapId);
 
-		return new ModelAndView("map.info", hashMap);
-
+			return "redirect:/map/" + mapId;
+		}
 	}
 
 	@RequestMapping(value = "/deleteRouteFromMap/{id}", method = RequestMethod.GET)

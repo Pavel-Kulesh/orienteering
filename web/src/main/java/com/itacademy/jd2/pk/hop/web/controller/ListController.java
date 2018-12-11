@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,8 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
-import com.itacademy.jd2.pk.hop.web.converter.CustomerToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.CustomersListToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.EventListToDTOConverter;
-import com.itacademy.jd2.pk.hop.web.converter.EventToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.CustomerDTO;
 import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
 
@@ -41,20 +41,24 @@ public class ListController {
 	}
 
 	@RequestMapping(value = "/event/{id}", method = RequestMethod.GET)
-	public ModelAndView showUsers(@PathVariable(name = "id", required = true) final Integer id) {
+	public ModelAndView showUsers(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
 
 		final List<ICustomer> entities = customerService.getCustomersByEvent(id);
 
 		List<CustomerDTO> dtos = entities.stream().map(customerToDTOConverter).collect(Collectors.toList());
 
 		final HashMap<String, Object> models = new HashMap<>();
+	
 		models.put("gridItem", dtos);
+		
+		String url = req.getHeader("referer");
+		models.put("url",url);
 		return new ModelAndView("user2event", models);
 
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ModelAndView showEvents(@PathVariable(name = "id", required = true) final Integer id) {
+	public ModelAndView showEvents(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
 
 		final List<IEvent> entities = eventService.getEventsByCustomer(id);
 
@@ -62,6 +66,9 @@ public class ListController {
 
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
+		
+		String url = req.getHeader("referer");
+		models.put("url",url);
 		return new ModelAndView("event2user", models);
 
 	}

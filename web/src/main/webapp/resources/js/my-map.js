@@ -15,15 +15,14 @@ function initMap(lt, lg) {
 	
 }
 
-/*function initMapWithImage(url, mapId, lt1, lg1, lt2, lg2) {
-	
-	var pathImage="";
-	
-	$.get(url + "/map/image/" + mapId, function(
-			textData) {
-		pathImage="data:jpg;base64,"+textData;
-	});
-	*/
+/*
+ * function initMapWithImage(url, mapId, lt1, lg1, lt2, lg2) {
+ * 
+ * var pathImage="";
+ * 
+ * $.get(url + "/map/image/" + mapId, function( textData) {
+ * pathImage="data:jpg;base64,"+textData; });
+ */
 	
 function initMapWithImage(pathImage, lt1, lg1, lt2, lg2) {
 		
@@ -61,15 +60,39 @@ function initMapWithImage(pathImage, lt1, lg1, lt2, lg2) {
         }, {
             // write option geoObject.
             // background image.
-      //   fillImageHref: "localhost:8081/orienteering/map/image/"+mapId,
+      // fillImageHref: "localhost:8081/orienteering/map/image/"+44,
         	 fillImageHref: pathImage,
-    // fillImageHref:'data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
+    // fillImageHref:'data:image/png;base64,
+	// iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
             fillMethod: 'stretch',
             // delete contour.
             stroke: false
         }
     );
-	    map.geoObjects.add(myPolygon); 
+	    map.geoObjects.add(myPolygon);
+	    myCollectionRoute = new ymaps.GeoObjectCollection();
+	    myCollectionDistance = new ymaps.GeoObjectCollection();
+	    
+	    myCollectionRoute.events
+        .add('mouseenter', function (e) {
+         
+            e.get('target').options.set('strokeWidth', 10);
+        })
+        .add('mouseleave', function (e) {
+            e.get('target').options.set('strokeWidth',4);
+        });
+
+	    map.geoObjects.add(myCollectionRoute);
+	    map.geoObjects.add(myCollectionDistance);
+
 	    window.globalMapReference=map;
 	}
 
+function clearRoutes(){
+	myCollectionRoute.removeAll(); 
+
+}
+function clearDistance(){
+	myCollectionDistance.removeAll(); 
+
+}

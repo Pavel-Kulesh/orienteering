@@ -92,8 +92,8 @@
 				</button>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="${baseUrl}"
-					title="Go back to maps list"><mytaglib:i18n key="back" /><i
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}"
+					title="Go back to maps list"><mytaglib:i18n key="map.back" /><i
 					class="material-icons right"></i> </a>
 			</div>
 		</div>

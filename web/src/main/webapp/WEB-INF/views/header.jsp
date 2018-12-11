@@ -7,8 +7,6 @@
 	<nav>
 		<div class="nav-wrapper container">
 			<ul class="left hide-on-med-and-down">
-				<li><a href="${baseUrl}/" title="Home"><mytaglib:i18n
-							key="menu.home" /></a></li>
 				<li><a href="${baseUrl}/news"><mytaglib:i18n
 							key="menu.news" /></a></li>
 				<li><a href="${baseUrl}/event"><mytaglib:i18n

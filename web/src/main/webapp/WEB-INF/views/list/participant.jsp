@@ -40,4 +40,11 @@
 		</c:forEach>
 	</tbody>
 </table>
-
+<div class="row">
+	<div class="col s5"></div>
+	<div class="col s2">
+		<a class="waves-effect waves-light btn" href="${url}"><mytaglib:i18n
+				key="back" /><i class="material-icons right">undo</i> </a>
+	</div>
+	<div class="col s5"></div>
+</div>

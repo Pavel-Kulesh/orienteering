@@ -40,7 +40,7 @@
 				<button class="btn waves-effect waves-light right" type="submit">Saveƒ</button>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="${baseUrl}">Back<i
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}">Back<i
 					class="material-icons right"></i>
 				</a>
 			</div>

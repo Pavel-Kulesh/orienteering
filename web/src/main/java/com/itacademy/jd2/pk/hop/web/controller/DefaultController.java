@@ -6,11 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itacademy.jd2.pk.hop.web.security.ExtendedUsernamePasswordAuthenticationToken;
 import com.itacademy.jd2.pk.hop.web.tag.I18N;
 
 @Controller
@@ -37,8 +40,26 @@ public class DefaultController {
 			req.getSession().setAttribute(I18N.SESSION_LOCALE_KEY, locale);
 			LOGGER.info("switch to locale:" + locale);
 		}
-		// write code if() redirect (/***)
-		return "index";
+		if ("ADMIN".equals(getLoginRole())) {
+			return "redirect:/event";
+		} else {
+			return "redirect:/news";
+		}
+		
+	}
+	
+	
+	protected String getLoginRole() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context.getAuthentication().getPrincipal().equals("anonymousUser")) {
+			return null;
+
+		}
+		ExtendedUsernamePasswordAuthenticationToken authentication = (ExtendedUsernamePasswordAuthenticationToken) context
+				.getAuthentication();
+
+		String role = authentication.getRole();
+		return role;
 	}
 
 }

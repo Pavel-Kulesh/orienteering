@@ -74,7 +74,7 @@ public class PointServiceImpl implements IPointService {
 	}
 
 	@Override
-	public List<IPoint> selectById(Integer id) {
+	public List<IPoint> selectByRouteId(Integer id) {
 		
 		return dao.selectById(id);
 	}

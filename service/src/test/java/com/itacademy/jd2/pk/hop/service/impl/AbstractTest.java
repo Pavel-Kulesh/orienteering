@@ -32,7 +32,7 @@ import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
-import com.itacademy.jd2.pk.hop.service.IMailSevice;
+import com.itacademy.jd2.pk.hop.service.IMailService;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.service.INewsServise;
 import com.itacademy.jd2.pk.hop.service.IPointService;
@@ -66,7 +66,7 @@ public class AbstractTest {
 	protected IRegisterService registerService;
 
 	@Autowired
-	protected IMailSevice mailService;
+	protected IMailService mailService;
 
 	private static Random RANDOM = new Random();
 
@@ -75,7 +75,7 @@ public class AbstractTest {
 	@BeforeEach
 	public void setUpMethod() {
 
-		final IMailSevice spy = Mockito.spy(mailService);
+		final IMailService spy = Mockito.spy(mailService);
 		Mockito.doAnswer(new Answer<Void>() {
 			@Override
 			public final Void answer(final InvocationOnMock invocation) throws Throwable {
@@ -162,7 +162,7 @@ public class AbstractTest {
 	protected ICustomer saveNewCustomer() {
 		IUserAccount userAccount = saveNewUserAccount();
 		ICity city = saveNewCity();
-		ICustomer customer = userAccount.getCustomer();
+		ICustomer customer = customerService.createEntity();
 		customer.setUserAccount(userAccount);
 		customer.setName("name-" + getRandomPrefix());
 		customer.setSurname("surname-" + getRandomPrefix());
@@ -181,7 +181,7 @@ public class AbstractTest {
 
 		entity.setName("name-" + getRandomPrefix());
 		entity.setCustomer(customer);
-		
+
 		routeService.save(entity);
 
 		return entity;
@@ -234,6 +234,8 @@ public class AbstractTest {
 		entity.setName("name-" + getRandomPrefix());
 		entity.setPath("path-" + getRandomPrefix());
 		entity.setFile("file-" + getRandomPrefix());
+		byte[] bytesArray = getRandomPrefix().getBytes();
+		entity.setImage(bytesArray);
 		entity.setCustomer(customer);
 
 		mapService.save(entity);

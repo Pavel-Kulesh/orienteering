@@ -16,8 +16,10 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script
-	src="https://api-maps.yandex.ru/2.1/?apikey=6e3aca92-4af0-463b-b120-ef3e1eaad3b8&lang=en_US"
+	src="https://api-maps.yandex.ru/2.1.71/?apikey=6e3aca92-4af0-463b-b120-ef3e1eaad3b8&lang=en_US"
 	type="text/javascript"></script>
+
+
 
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>

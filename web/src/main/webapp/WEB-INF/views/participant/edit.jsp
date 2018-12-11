@@ -49,7 +49,7 @@
 				</button>
 			</div>
 			<div class="col s3">
-		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n
+		<a class="waves-effect waves-light btn red" href="${baseUrl}"><mytaglib:i18n
 				key="participant.back" /><i class="material-icons right">undo</i> </a>
 	</div>
 		</div>

@@ -49,7 +49,10 @@ public class CustomerServiceTest extends AbstractTest {
 		entity.setCity(newCity);
 
 		Thread.sleep(1000);
-		customerService.update(entity);
+
+		// customerService.update(entity);
+
+		customerService.save(entity);
 
 		ICustomer entityFromDb = customerService.get(entity.getId());
 
@@ -68,37 +71,48 @@ public class CustomerServiceTest extends AbstractTest {
 		assertEquals(newPhone, entityFromDb.getPhone());
 		// assertEquals(newCity.getId(), entityFromDb.getCity().getId());
 
-		assertEquals(entity.getCreated(), entityFromDb.getCreated());
-		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
+		assertEquals(entityFromDb.getCreated(), entityFromDb.getCreated());
+		assertTrue(entityFromDb.getUpdated().after(entityFromDb.getCreated()));
 	}
 
-	/*
-	 * @Test public void testGetAll() { int initialCount =
-	 * customerService.getAll().size(); int randomObjectsCount =
-	 * getRandomObjectsCount();
-	 * 
-	 * for (int i = 0; i < randomObjectsCount; i++) { saveNewCustomer(); }
-	 * List<ICustomer> allEntities = customerService.getAll();
-	 * 
-	 * for (ICustomer entityFromDb : allEntities) { assertNotNull(entityFromDb);
-	 * assertNotNull(entityFromDb.getId()); assertNotNull(entityFromDb.getName());
-	 * assertNotNull(entityFromDb.getSurname()); //
-	 * assertNotNull(entityFromDb.getPhone()); can be null
-	 * 
-	 * assertNotNull(entityFromDb.getCity());
-	 * 
-	 * assertNotNull(entityFromDb.getCreated());
-	 * assertNotNull(entityFromDb.getUpdated()); } assertEquals(randomObjectsCount +
-	 * initialCount, allEntities.size());
-	 * 
-	 * }
-	 * 
-	 * @Test public void testDeleteById() { ICustomer entity = saveNewCustomer();
-	 * customerService.delete(entity.getId());
-	 * assertNull(customerService.get(entity.getId())); }
-	 * 
-	 * @Test public void testDeleteAll() { saveNewCustomer();
-	 * customerService.deleteAll(); assertEquals(0,
-	 * customerService.getAll().size()); }
-	 */
+	@Test
+	public void testGetAll() {
+		int initialCount = customerService.getAll().size();
+		int randomObjectsCount = getRandomObjectsCount();
+
+		for (int i = 0; i < randomObjectsCount; i++) {
+			saveNewCustomer();
+		}
+		List<ICustomer> allEntities = customerService.getAll();
+
+		for (ICustomer entityFromDb : allEntities) {
+			assertNotNull(entityFromDb);
+			assertNotNull(entityFromDb.getId());
+			assertNotNull(entityFromDb.getName());
+			assertNotNull(entityFromDb.getSurname());
+			assertNotNull(entityFromDb.getPhone()); // can be null
+
+			assertNotNull(entityFromDb.getCity());
+
+			assertNotNull(entityFromDb.getCreated());
+			assertNotNull(entityFromDb.getUpdated());
+		}
+		assertEquals(randomObjectsCount + initialCount, allEntities.size());
+
+	}
+
+	@Test
+	public void testDeleteById() {
+		ICustomer entity = saveNewCustomer();
+		customerService.delete(entity.getId());
+		assertNull(customerService.get(entity.getId()));
+	}
+
+	@Test
+	public void testDeleteAll() {
+		saveNewCustomer();
+		customerService.deleteAll();
+		assertEquals(0, customerService.getAll().size());
+	}
+
 }

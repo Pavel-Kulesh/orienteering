@@ -78,6 +78,7 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 		String currentLoginRole = getLoginRole();
 		Integer currentCustomerId = getCustomerId();
+		
 		for (RouteDTO routeDTO : dtos) {
 			if (routeDTO.getCustomerId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
 				routeDTO.setStatusVisible(true);
@@ -176,7 +177,7 @@ public class RouteController extends AbstractController<RouteDTO> {
 	public ResponseEntity<List<PointDTO>> getRoutePoints(
 			@RequestParam(name = "routeId", required = true) final Integer routeId) {
 		List<PointDTO> points = new ArrayList<>();
-		List<IPoint> pointsFromDB = pointService.selectById(routeId);
+		List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
 		for (IPoint entity : pointsFromDB) {
 			points.add(new PointDTO(entity.getLatitude(), entity.getLongitude()));
 
@@ -187,7 +188,7 @@ public class RouteController extends AbstractController<RouteDTO> {
 	@RequestMapping(value = "/speed", method = RequestMethod.GET)
 	public ResponseEntity<List<SpeedDTO>> getPointsInfo(
 			@RequestParam(name = "routeId", required = true) final Integer routeId) {
-		List<IPoint> pointsFromDB = pointService.selectById(routeId);
+		List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
 
 		List<SpeedDTO> speedInterval = getSpeedInterval(pointsFromDB);
 

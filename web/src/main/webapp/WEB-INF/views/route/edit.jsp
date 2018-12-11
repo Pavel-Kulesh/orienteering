@@ -28,7 +28,7 @@
 				<button class="btn waves-effect waves-light right" type="submit">Save</button>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="${baseUrl}"
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}"
 					title="Go back to maps list">Go back to route listƒ<i
 					class="material-icons right"></i>
 				</a>

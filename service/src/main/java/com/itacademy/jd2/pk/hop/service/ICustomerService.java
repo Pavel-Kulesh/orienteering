@@ -11,12 +11,18 @@ public interface ICustomerService {
 	ICustomer get(Integer id);
 
 	List<ICustomer> getAll();
+
 	@Transactional
+
 	void save(ICustomer entity);
-	@Transactional
-	void update(ICustomer entity);
+
+	/*
+	 * @Transactional void update(ICustomer entity);
+	 */
+
 	@Transactional
 	void delete(Integer id);
+
 	@Transactional
 	void deleteAll();
 

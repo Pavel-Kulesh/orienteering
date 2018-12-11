@@ -108,8 +108,8 @@
 				</c:if>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="${baseUrl}"><mytaglib:i18n
-						key="back" />ƒ<i class="material-icons right"></i> </a>
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n
+						key="map.back" />ƒ<i class="material-icons right"></i> </a>
 			</div>
 		</div>
 	</form:form>

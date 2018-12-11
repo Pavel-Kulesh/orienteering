@@ -9,7 +9,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IRegisterService;
-import com.itacademy.jd2.pk.hop.service.IMailSevice;
+import com.itacademy.jd2.pk.hop.service.IMailService;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 
 @Service
@@ -19,11 +19,11 @@ public class RegisterServiceImpl implements IRegisterService {
 
 	private ICustomerService customerService;
 	private IUserAccountService userAccountService;
-	private IMailSevice mailServise;
+	private IMailService mailServise;
 
 	@Autowired
 	public RegisterServiceImpl(ICustomerService customerService, IUserAccountService userAccountService,
-			IMailSevice sendMailServise) {
+			IMailService sendMailServise) {
 		super();
 		this.customerService = customerService;
 		this.userAccountService = userAccountService;
@@ -40,7 +40,7 @@ public class RegisterServiceImpl implements IRegisterService {
 		LOGGER.info("registration complite");
 	}
 
-	public void setMailServise(IMailSevice mailServise) {
+	public void setMailServise(IMailService mailServise) {
 		this.mailServise = mailServise;
 	}
 

@@ -100,11 +100,15 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 			return "participant.edit";
 		} else {
 			final ICustomer entity = fromDTOConverter.apply(formModel);
-			if (entity.getId() == null) {
+			
+			customerService.save(entity);
+			
+			
+		/*	if (entity.getId() == null) {
 				customerService.save(entity);
 			} else {
 				customerService.update(entity);
-			}
+			}*/
 
 			return "redirect:/participant";
 		}

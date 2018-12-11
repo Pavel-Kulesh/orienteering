@@ -53,7 +53,7 @@
 				</button>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right" href="${baseUrl}"><mytaglib:i18n
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n
 						key="news.back" />ƒ<i class="material-icons right"></i> </a>
 			</div>
 			<div class="col s4"></div>

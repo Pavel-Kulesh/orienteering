@@ -1,5 +1,5 @@
 package com.itacademy.jd2.pk.hop.service;
 
-public interface IMailSevice {
+public interface IMailService {
 	void sendEmail(String email);
 }

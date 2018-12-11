@@ -46,19 +46,30 @@ public class CustomerServiseImpl implements ICustomerService {
 
 		entity.setCreated(modifedOn);
 		entity.setUpdated(modifedOn);
-		dao.insert(entity);
-		LOGGER.info("new customer created: {}", entity);
+
+		/*
+		 * dao.insert(entity); LOGGER.info("new customer created: {}", entity);
+		 */
+
+		if (entity.getId() == null) {
+			entity.setCreated(modifedOn);
+			entity.setId(entity.getUserAccount().getId());
+			dao.insert(entity);
+			LOGGER.info("new customer created: {}", entity);
+			// ===>>>
+		} else {
+			dao.update(entity);
+			LOGGER.debug("customer updated: {}", entity);
+
+		}
 
 	}
 
-	@Override
-	public void update(ICustomer entity) {
-		Date modifedOn = new Date();
-		entity.setUpdated(modifedOn);
-		dao.update(entity);
-		LOGGER.debug("customer updated: {}" + entity);
-	}
-
+	/*
+	 * @Override public void update(ICustomer entity) { Date modifedOn = new Date();
+	 * entity.setUpdated(modifedOn); dao.update(entity);
+	 * LOGGER.debug("customer updated: {}" + entity); }
+	 */
 	@Override
 	public void delete(Integer id) {
 		LOGGER.info("delete customer with id=" + id);

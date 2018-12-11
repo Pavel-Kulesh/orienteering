@@ -1,0 +1,360 @@
+<html>
+
+<head>
+    <title>Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    
+    <style>
+        html, body, #map {
+            width: 80%;
+            height: 80%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+</head><body>
+<table>
+<tr>
+	<td><div><button type="button" onclick="deleteAll()">	delete all route</button></div></td>
+	<td><div><button type="button" onclick="clearDistance()">	clear distance</button></div></td>
+<td><div><button type="button" onclick="addOne()">	add route</button></div></td>
+<td><div><button type="button" onclick="showDistance()">	show distance</button></div></td>
+</tr>
+</table>
+<div id="map">
+			
+<script>
+
+
+
+
+
+ymaps.ready(init);
+
+function init() {
+    var map = new ymaps.Map('map', {
+        center: [53.7, 24],
+        zoom: 2,
+        type: 'yandex#hybrid',
+        controls: ['zoomControl']
+    }, {
+               restrictMapArea: [[53.65, 23.9], [53.8, 24.1]]
+    });
+    map.controls.get('zoomControl').options.set({size: 'small'});
+
+var myPolygon = new ymaps.Polygon([
+            // .
+            [
+                [53.683742, 23.997510], 
+			[53.697090, 23.997510],
+                 [53.697090, 24.028666], 
+			[53.683742, 24.028666],
+              	             
+            ]
+        ],
+        // property.
+        {
+            // balun.
+            balloonContent: "my map"
+        }, {
+            // write option geoObject.
+            // background image.
+          //  fillImageHref: 'D:/java_train/images/vert.png',
+fillImageHref: 'https://yastatic.net/doccenter/images/tech2.yandex.ru/ru/maps/doc/jsapi/freeze/aal1jwdQcLA8gQRzXT0pIvXhK8g.png',
+            // 
+            fillMethod: 'stretch',
+            // delete contour.
+            stroke: false
+        }
+    );
+myCollectionRoute = new ymaps.GeoObjectCollection();
+myCollectionDistance = new ymaps.GeoObjectCollection();
+    // add poligon on map.
+    map.geoObjects.add(myPolygon);
+
+ window.globalMapReference=map;
+
+var data = ymaps.geoXml.load('https://drive.google.com/uc?export=download&id=1OEGk5BpFE5ULSxrcGR7nePA0W4rEsDUg').then(function(res) {
+    var route= res.geoObjects;
+myCollectionRoute.add(route);
+
+
+
+map.geoObjects.add(myCollectionRoute);
+map.geoObjects.add(myCollectionDistance);
+
+
+myCollectionRoute.events
+        .add('mouseenter', function (e) {
+            // Ссылку на объект, вызвавший событие,
+            // можно получить из поля 'target'.
+            e.get('target').options.set('strokeWidth', 10);
+        })
+        .add('mouseleave', function (e) {
+            e.get('target').options.unset('strokeWidth');
+        });
+
+});
+}
+</script>
+
+
+
+<script type="text/javascript">
+function deleteAll(){
+	//alert('look')	
+myCollectionRoute.removeAll(); 
+		
+}
+
+</script>
+
+<script type="text/javascript">
+function clearDistance(){
+	//alert('look')	
+myCollectionDistance .removeAll(); 
+		
+}
+
+</script>
+
+
+
+
+<script type="text/javascript">
+function addOne(){
+	
+var route;
+var data = ymaps.geoXml.load('https://drive.google.com/uc?export=download&id=1OEGk5BpFE5ULSxrcGR7nePA0W4rEsDUg').then(function(res) {
+    route= res.geoObjects;
+myCollectionRoute.add(route);
+
+});
+
+//map.geoObjects.add(myCollectionRoute);
+
+//globalMapReference.geoObjects.add(myCollectionRoute)
+		
+
+}
+	 
+</script>
+
+
+
+<script type="text/javascript">
+
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
+
+
+
+function showDistance(){
+	//alert('try show')
+
+var c1 = new ymaps.Circle([
+        // Координаты центра круга.
+      //  [53.6995, 23.995],
+[53.701, 24.01],
+        // Радиус круга в метрах.
+        40
+    ], {
+        // Описываем свойства круга.
+        // Содержимое балуна.
+        balloonContent: "Радиус круга - 10 км",
+        // Содержимое хинта.
+        hintContent: "Подвинь меня"
+    }, {
+        // Задаем опции круга.
+        // Включаем возможность перетаскивания круга.
+        // Цвет заливки.
+        // Последний байт (77) определяет прозрачность.
+        // Прозрачность заливки также можно задать используя опцию "fillOpacity".
+        fillColor: "#DB709300",
+        // Цвет обводки.
+        strokeColor: getRandomColor(),
+        // Прозрачность обводки.
+        strokeOpacity: 0.8,
+        // Ширина обводки в пикселях.
+        strokeWidth: 4
+    });
+
+myCollectionDistance.add(c1 );
+
+
+
+var c2 = new ymaps.Circle([
+        // Координаты центра круга.
+      //  [53.6995, 23.995],
+[53.699, 23.999],
+        // Радиус круга в метрах.
+        40
+    ], {
+        // Описываем свойства круга.
+        // Содержимое балуна.
+        balloonContent: "Радиус круга - 10 км",
+        // Содержимое хинта.
+        hintContent: "Подвинь меня"
+    }, {
+        // Задаем опции круга.
+        // Включаем возможность перетаскивания круга.
+        // Цвет заливки.
+        // Последний байт (77) определяет прозрачность.
+        // Прозрачность заливки также можно задать используя опцию "fillOpacity".
+        fillColor: "#DB709300",
+        // Цвет обводки.
+        strokeColor: "#990066",
+        // Прозрачность обводки.
+        strokeOpacity: 0.8,
+        // Ширина обводки в пикселях.
+        strokeWidth: 4
+    });
+
+myCollectionDistance.add(c2 );
+
+var c3 = new ymaps.Circle([
+        // Координаты центра круга.
+      //  [53.6995, 23.995],
+[53.705, 24.04],
+        // Радиус круга в метрах.
+        40
+    ], {
+        // Описываем свойства круга.
+        // Содержимое балуна.
+        balloonContent: "Радиус круга - 10 км",
+        // Содержимое хинта.
+        hintContent: "Подвинь меня"
+    }, {
+        // Задаем опции круга.
+        // Включаем возможность перетаскивания круга.
+        // Цвет заливки.
+        // Последний байт (77) определяет прозрачность.
+        // Прозрачность заливки также можно задать используя опцию "fillOpacity".
+        fillColor: "#DB709300",
+        // Цвет обводки.
+        strokeColor: "#990066",
+        // Прозрачность обводки.
+        strokeOpacity: 0.8,
+        // Ширина обводки в пикселях.
+        strokeWidth: 4
+    });
+
+myCollectionDistance.add(c3 );
+
+
+
+var firstPoint = new ymaps.Placemark([53.701, 24.01], null,{
+    iconLayout: 'default#image',
+    iconImageHref: "test.png",
+iconImageSize: [30, 30],
+ 
+});
+    var secondPoint = new ymaps.Placemark([53.699, 23.999], {}, {
+        preset: 'islands#redRapidTransitCircleIcon'
+    });
+    var thirdPoint = new ymaps.Placemark([53.705, 24.04], {}, {
+        preset: 'islands#redRapidTransitCircleIcon'
+    });
+
+var line = new ymaps.GeoObject({
+            // Описываем геометрию геообъекта.
+            geometry: {
+                // Тип геометрии - "Ломаная линия".
+                type: "LineString",
+                // Указываем координаты вершин ломаной.
+                coordinates: [[53.701, 24.01],
+                    [53.699, 23.999],[53.705, 24.04]
+                ],
+            },
+            // Описываем свойства геообъекта.
+            properties:{
+                // Содержимое хинта.
+                hintContent: "Я геообъект",
+                // Содержимое балуна.
+                balloonContent: "Меня можно перетащить"
+            }
+        }, {
+            // Задаем опции геообъекта.
+            // Включаем возможность перетаскивания ломаной.
+        //    draggable: true,
+            // Цвет линии.
+            strokeColor: "#FFFF00",
+            // Ширина линии.
+            strokeWidth: 5
+        });
+
+
+
+
+
+//myCollectionDistance.add(firstPoint );
+//myCollectionDistance.add(secondPoint );
+//myCollectionDistance.add(thirdPoint );
+
+//myCollectionDistance.add(line );
+
+var q=c2.geometry.getCoordinates();
+var x1=c1.geometry.getClosest(q).position;
+
+
+var ex1 = new ymaps.GeoObject({
+            // Описываем геометрию геообъекта.
+            geometry: {
+                // Тип геометрии - "Ломаная линия".
+                type: "LineString",
+                // Указываем координаты вершин ломаной.
+                coordinates: [
+                    c1.geometry.getClosest(c2.geometry.getCoordinates()).position,
+                     c2.geometry.getClosest(c1.geometry.getCoordinates()).position,
+                ]
+            },
+            // Описываем свойства геообъекта.
+            properties:{
+                // Содержимое хинта.
+                hintContent: "Я геообъект",
+                // Содержимое балуна.
+                balloonContent: "Меня можно перетащить"
+            }
+        }, {
+            // Задаем опции геообъекта.
+            // Включаем возможность перетаскивания ломаной.
+            draggable: true,
+            // Цвет линии.
+            strokeColor: "#990066",
+            // Ширина линии.
+            strokeWidth: 5
+        });
+
+myCollectionDistance.add(ex1 );
+
+
+
+
+
+
+
+
+
+		
+}
+
+</script>
+
+
+
+
+
+
+</div>
+</body></html>

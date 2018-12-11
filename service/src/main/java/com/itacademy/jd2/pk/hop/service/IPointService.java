@@ -23,7 +23,7 @@ public interface IPointService {
 	@Transactional
 	void deleteAll();
 
-	List<IPoint> selectById(Integer id);
+	List<IPoint> selectByRouteId(Integer id);
 
 	IPoint createEntity();
 
