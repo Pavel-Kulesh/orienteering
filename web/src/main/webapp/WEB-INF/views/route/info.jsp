@@ -30,13 +30,14 @@
 
 	ymaps.ready(function() {
 		$.get(contextUrl + "/route/points?routeId=" + routeId, function(
-				pointsData) {
+				routeData) {
 
 			var points = [];
 			var count = 0;
 
 			var latSumm = 0;
 			var longSumm = 0;
+			var pointsData=routeData.points;
 			pointsData.forEach(function(p) {
 				count++;
 				var lat = p.latitude;

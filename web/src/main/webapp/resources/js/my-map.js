@@ -26,7 +26,7 @@ function initMap(lt, lg) {
 	
 function initMapWithImage(pathImage, lt1, lg1, lt2, lg2) {
 		
-	var map = new ymaps.Map('map1', {
+	var map = new ymaps.Map('map', {
 	        center: [(lt1+lt2)/2, (lg1+lg2)/2],
 	        zoom: 8,
 	        type: 'yandex#hybrid',
@@ -60,8 +60,8 @@ function initMapWithImage(pathImage, lt1, lg1, lt2, lg2) {
         }, {
             // write option geoObject.
             // background image.
-      // fillImageHref: "localhost:8081/orienteering/map/image/"+44,
-        	 fillImageHref: pathImage,
+       fillImageHref: "http://localhost:8081/orienteering/map/image/"+11,
+        	// fillImageHref: pathImage,
     // fillImageHref:'data:image/png;base64,
 	// iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
             fillMethod: 'stretch',

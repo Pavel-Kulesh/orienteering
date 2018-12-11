@@ -307,13 +307,15 @@ var line = new ymaps.GeoObject({
 var q=c2.geometry.getCoordinates();
 var x1=c1.geometry.getClosest(q).position;
 
-
+debugger;
 var ex1 = new ymaps.GeoObject({
             // Описываем геометрию геообъекта.
+
             geometry: {
                 // Тип геометрии - "Ломаная линия".
                 type: "LineString",
                 // Указываем координаты вершин ломаной.
+
                 coordinates: [
                     c1.geometry.getClosest(c2.geometry.getCoordinates()).position,
                      c2.geometry.getClosest(c1.geometry.getCoordinates()).position,

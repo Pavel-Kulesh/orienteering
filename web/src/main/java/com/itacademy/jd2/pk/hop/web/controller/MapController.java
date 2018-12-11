@@ -1,7 +1,6 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -16,9 +15,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
-import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
@@ -39,8 +35,6 @@ import com.itacademy.jd2.pk.hop.web.converter.MapFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.IdHolder;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
-import com.itacademy.jd2.pk.hop.web.dto.NewsDTO;
-import com.itacademy.jd2.pk.hop.web.dto.PointDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
@@ -255,34 +249,34 @@ public class MapController extends AbstractController<MapDTO> {
 
 	}
 
-	/*
-	 * @RequestMapping(method = RequestMethod.GET, value = "/image/{mapId}") public
-	 * void getImageAsByteArray(HttpServletResponse response,
-	 * 
-	 * @PathVariable(name = "mapId", required = true) final Integer mapId) throws
-	 * IOException { IMap entity = mapService.get(mapId);
-	 * response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-	 * 
-	 * byte[] buf = entity.getImage();
-	 * 
-	 * String encoded = Base64.getEncoder().encodeToString(buf);
-	 * System.out.println(encoded);
-	 * 
-	 * ByteArrayInputStream input = new ByteArrayInputStream(buf);
-	 * IOUtils.copy(input, response.getOutputStream()); }
-	 */
-
 	@RequestMapping(method = RequestMethod.GET, value = "/image/{mapId}")
-	public ResponseEntity<String> getString(@PathVariable(name = "mapId", required = true) final Integer mapId)
-			throws IOException {
+	public void getImageAsByteArray(HttpServletResponse response,
+
+			@PathVariable(name = "mapId", required = true) final Integer mapId) throws IOException {
 		IMap entity = mapService.get(mapId);
+		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 
 		byte[] buf = entity.getImage();
 
 		String encoded = Base64.getEncoder().encodeToString(buf);
 		System.out.println(encoded);
 
-		return new ResponseEntity<String>(encoded, HttpStatus.OK);
+		ByteArrayInputStream input = new ByteArrayInputStream(buf);
+		IOUtils.copy(input, response.getOutputStream());
 	}
+
+	/*
+	 * @RequestMapping(method = RequestMethod.GET, value = "/image/{mapId}") public
+	 * ResponseEntity<String> getString(@PathVariable(name = "mapId", required =
+	 * true) final Integer mapId) throws IOException { IMap entity =
+	 * mapService.get(mapId);
+	 * 
+	 * byte[] buf = entity.getImage();
+	 * 
+	 * String encoded = Base64.getEncoder().encodeToString(buf);
+	 * System.out.println(encoded);
+	 * 
+	 * return new ResponseEntity<String>(encoded, HttpStatus.OK); }
+	 */
 
 }

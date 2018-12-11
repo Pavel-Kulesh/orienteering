@@ -31,9 +31,10 @@ import com.itacademy.jd2.pk.hop.service.IPointService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 import com.itacademy.jd2.pk.hop.web.converter.RouteFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.RouteToDTOConverter;
-import com.itacademy.jd2.pk.hop.web.dto.PointDTO;
 import com.itacademy.jd2.pk.hop.web.dto.RouteDTO;
 import com.itacademy.jd2.pk.hop.web.dto.SpeedDTO;
+import com.itacademy.jd2.pk.hop.web.dto.ajax.PointDTO;
+import com.itacademy.jd2.pk.hop.web.dto.ajax.RouteDataAjaxResponse;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 import com.itacademy.jd2.pk.hop.web.tag.MyGPX;
 
@@ -174,7 +175,7 @@ public class RouteController extends AbstractController<RouteDTO> {
 	}
 
 	@RequestMapping(value = "/points", method = RequestMethod.GET)
-	public ResponseEntity<List<PointDTO>> getRoutePoints(
+	public ResponseEntity<RouteDataAjaxResponse> getRoutePoints(
 			@RequestParam(name = "routeId", required = true) final Integer routeId) {
 		List<PointDTO> points = new ArrayList<>();
 		List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
@@ -182,7 +183,10 @@ public class RouteController extends AbstractController<RouteDTO> {
 			points.add(new PointDTO(entity.getLatitude(), entity.getLongitude()));
 
 		}
-		return new ResponseEntity<List<PointDTO>>(points, HttpStatus.OK);
+		
+		RouteDataAjaxResponse routeDataAjaxResponse = new RouteDataAjaxResponse();
+		routeDataAjaxResponse.setPoints(points);
+		return new ResponseEntity<RouteDataAjaxResponse>(routeDataAjaxResponse, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/speed", method = RequestMethod.GET)
