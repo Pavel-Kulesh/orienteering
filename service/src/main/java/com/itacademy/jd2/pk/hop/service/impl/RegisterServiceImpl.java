@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
-import com.itacademy.jd2.pk.hop.service.IRegisterService;
 import com.itacademy.jd2.pk.hop.service.IMailService;
+import com.itacademy.jd2.pk.hop.service.IRegisterService;
 import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 
 @Service
@@ -21,6 +21,7 @@ public class RegisterServiceImpl implements IRegisterService {
 	private IUserAccountService userAccountService;
 	private IMailService mailServise;
 
+	
 	@Autowired
 	public RegisterServiceImpl(ICustomerService customerService, IUserAccountService userAccountService,
 			IMailService sendMailServise) {
@@ -33,7 +34,6 @@ public class RegisterServiceImpl implements IRegisterService {
 	@Override
 	public void saveRegisterData(ICustomer customer, IUserAccount userAccount) {
 		userAccountService.save(userAccount);
-		customer.setId(userAccount.getId());
 		customer.setUserAccount(userAccount);
 		customerService.save(customer);
 		mailServise.sendEmail(userAccount.getEmail());

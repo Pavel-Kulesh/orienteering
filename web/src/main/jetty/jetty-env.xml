@@ -12,5 +12,24 @@
 			</New>
 		</Arg>
 	</New>
+	
+	
+    <New id="smtpProps" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>smtp</Arg>
+        <Arg>
+            <New class="com.itacademy.jd2.pk.hop.service.jndi.SmtpProperties">
+                <Set name="from">it.academy.test.mail@gmail.com</Set>
+                <Set name="host">smtp.gmail.com</Set>
+                <Set name="port">465</Set>
+                <Set name="user">it.academy.test.mail@gmail.com</Set>
+                <Set name="password">10Hobbit16</Set>
+            </New>
+        </Arg>
+    </New>
+			
+			
+	
+	
 </Configure>
 

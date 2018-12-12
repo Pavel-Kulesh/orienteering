@@ -13,7 +13,7 @@
 
 	<aop:aspectj-autoproxy />
 
-	<bean id="methodExecutionTimeProfiler"
-		class="com.itacademy.jd2.pk.hop.service.aop.MethodExecutionTimeProfiler" />
+	<!-- <bean id="methodExecutionTimeProfiler"
+		class="com.itacademy.jd2.pk.hop.service.aop.MethodExecutionTimeProfiler" /> -->
 
 </beans>
