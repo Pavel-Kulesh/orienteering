@@ -4,29 +4,37 @@
 web/.classpath
 web/.project
 web/.settings/
+web/.gitignore
 
 
 
 dao-jdbc-impl/.classpath
 dao-jdbc-impl/.gitignore
 dao-jdbc-impl/.project
+dao-jdbc-impl/.settings/
 
 
 
 dao-api/.classpath
 dao-api/.gitignore
 dao-api/.project
+dao-api/.settings/
 
 
 
 service/.classpath
 service/.project
 service/.gitignore
+service/.settings/
 
 
 
 /.metadata/
-dao-api/.settings/
-dao-jdbc-impl/.settings/
-service/.settings/
+
+dao-jdbc-orm/.classpath
+dao-jdbc-orm/.project
+dao-jdbc-orm/.gitignore
+dao-jdbc-orm/.settings/
+
+
 dao-api/.checkstyle
