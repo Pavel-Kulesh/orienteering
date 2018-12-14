@@ -1,6 +1,7 @@
 package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.velocity.tools.config.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,8 +85,7 @@ public class EventController extends AbstractController<EventDTO> {
 				eventDTO.setStatusVisible(true);
 			}
 		}
-		
-		
+
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 		return new ModelAndView("event.list", models);
@@ -98,6 +99,7 @@ public class EventController extends AbstractController<EventDTO> {
 		EventDTO dto = new EventDTO();
 		dto.setCustomerId(customerId);
 		hashMap.put("formModel", dto);
+
 		loadComboboxesModels(hashMap);
 		return new ModelAndView("event.add", hashMap);
 	}
@@ -119,7 +121,19 @@ public class EventController extends AbstractController<EventDTO> {
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
-		eventService.delete(id);
+		String loginRole = getLoginRole();
+		if (loginRole.equals("ADMIN")) {
+			eventService.delete(id);
+
+		} else {
+			IEvent entityDB = eventService.get(id);
+			if (entityDB.getCustomer().getId().equals(getCustomerId())) {
+				eventService.delete(id);
+				return "redirect:/event";
+			}
+			throw new IllegalArgumentException("cannot delete");
+		}
+
 		return "redirect:/event";
 	}
 
@@ -129,14 +143,25 @@ public class EventController extends AbstractController<EventDTO> {
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		
+
+		checkDate(id, dto, hashMap);
+
+		return new ModelAndView("event.info", hashMap);
+	}
+
+	private void checkDate(final Integer id, final EventDTO dto, final HashMap<String, Object> hashMap) {
+		Date date = new Date();
+		boolean regPossibility = true;
+		if (date.after(dto.getDate())) {
+			regPossibility = false;
+
+		}
+		hashMap.put("regPossibility", regPossibility);
 		Integer customerId = getCustomerId();
 		if (customerId != null) {
 
 			setStatusRegToEvent(id, hashMap);
 		}
-
-		return new ModelAndView("event.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
@@ -157,9 +182,9 @@ public class EventController extends AbstractController<EventDTO> {
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-		
-		setStatusRegToEvent(id, hashMap);
 
+		setStatusRegToEvent(id, hashMap);
+		checkDate(id, dto, hashMap);
 		return new ModelAndView("event.info", hashMap);
 
 	}
@@ -173,6 +198,7 @@ public class EventController extends AbstractController<EventDTO> {
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		setStatusRegToEvent(id, hashMap);
+		checkDate(id, dto, hashMap);
 		return new ModelAndView("event.info", hashMap);
 	}
 

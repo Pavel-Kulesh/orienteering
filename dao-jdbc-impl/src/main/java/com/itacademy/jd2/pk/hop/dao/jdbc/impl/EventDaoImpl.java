@@ -191,7 +191,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 	}
 
 	@Override
-	public boolean checkExistCustomerToEvent(Integer customerId, Integer eventId) {
+	public boolean checkExistCustomerInEvent(Integer customerId, Integer eventId) {
 		// TODO Auto-generated method stub
 		return false;
 	}

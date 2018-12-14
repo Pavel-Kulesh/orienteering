@@ -81,31 +81,31 @@
 
 	</div>
 </div>
+<c:if test="${ regPossibility}">
+	<div class="row">
+		<div class="col s5"></div>
 
-<div class="row">
-	<div class="col s5"></div>
+		<sec:authorize access="!isAnonymous()">
+			<div class="col s2">
+				<c:if test="${registerToEvent}">
+					<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}"
+						class="btn waves-effect waves-light grey darken-3" type="submit">
+						<mytaglib:i18n key="event.register" /> <i
+						class="large material-icons">rowing</i>
+					</a>
+				</c:if>
+				<c:if test="${deleteFromEvent}">
+					<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
+						class="btn waves-effect waves-light red" type="submit"> <mytaglib:i18n
+							key="event.unregister" /><i class="large material-icons">rowing</i>
+					</a>
+				</c:if>
+			</div>
 
-	<sec:authorize access="!isAnonymous()">
-		<div class="col s2">
-			<c:if test="${registerToEvent}">
-				<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}"
-					class="btn waves-effect waves-light grey darken-3" type="submit">
-					<mytaglib:i18n key="event.register" /> <i
-					class="large material-icons">rowing</i>
-				</a>
-			</c:if>
-			<c:if test="${deleteFromEvent}">
-				<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
-					class="btn waves-effect waves-light red" type="submit"> <mytaglib:i18n
-						key="event.unregister" /><i class="large material-icons">rowing</i>
-				</a>
-			</c:if>
-		</div>
-
-	</sec:authorize>
-	<div class="col s5"></div>
-</div>
-
+		</sec:authorize>
+		<div class="col s5"></div>
+	</div>
+</c:if>
 
 
 

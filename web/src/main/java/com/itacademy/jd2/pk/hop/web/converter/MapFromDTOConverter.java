@@ -28,8 +28,7 @@ public class MapFromDTOConverter implements Function<MapDTO, IMap> {
 		IMap entity = mapService.createEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setFile(dto.getFile());
-		entity.setPath(dto.getPath());
+			
 		ICustomer customer = customerService.get(dto.getCustomerId());
 		entity.setCustomer(customer);
 		entity.setLatitude1(dto.getLatitude1());

@@ -100,7 +100,8 @@ public class MapDaoImpl extends AbstractDaoImpl<IMap, Integer> implements IMapDa
 		cq.where(cb.equal(from.get(Map_.id), id));
 		final TypedQuery<IMap> q = em.createQuery(cq);
 
-		return q.getResultList().get(0);
+		List<IMap> resultList = q.getResultList();
+		return resultList.isEmpty() ? null : resultList.get(0);
 	}
 
 	@Override

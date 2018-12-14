@@ -18,8 +18,8 @@
 		<intercept-url pattern="/map/add**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/participant/add**" access="hasRole('ROLE_ADMIN')" />
 
-		<intercept-url pattern="/maps1**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/news1**" access="!isAnonymous()" />
+		
+		<!-- <intercept-url pattern="/route/**" access="!isAnonymous()" /> -->
 
 		<form-login login-page="/login" default-target-url="/"
 			authentication-failure-url="/login?error" username-parameter="username"

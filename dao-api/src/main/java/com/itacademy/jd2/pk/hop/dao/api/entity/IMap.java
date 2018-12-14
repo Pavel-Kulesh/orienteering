@@ -7,14 +7,6 @@ public interface IMap extends IBaseEntity {
 
 	void setName(String name);
 
-	String getPath();
-
-	void setPath(String path);
-
-	String getFile();
-
-	void setFile(String file);
-
 	BigDecimal getLatitude1();
 
 	void setLatitude1(BigDecimal latitude1);

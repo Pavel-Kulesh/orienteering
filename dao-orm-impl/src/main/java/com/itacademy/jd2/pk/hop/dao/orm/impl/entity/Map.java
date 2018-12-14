@@ -20,10 +20,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 public class Map extends BaseEntity implements IMap {
 	@Column
 	private String name;
-	@Column
-	private String path;
-	@Column
-	private String file;
+
 	@Column
 	private byte[] image;
 
@@ -51,22 +48,6 @@ public class Map extends BaseEntity implements IMap {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
 	}
 
 	public BigDecimal getLatitude1() {
@@ -127,9 +108,9 @@ public class Map extends BaseEntity implements IMap {
 
 	@Override
 	public String toString() {
-		return "Map [name=" + name + ", path=" + path + ", file=" + file + ", customer=" + customer + ", latitude1="
-				+ latitude1 + ", latitude2=" + latitude2 + ", longitude1=" + longitude1 + ", longitude2=" + longitude2
-				+ ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+		return "Map [name=" + name + ", customer=" + customer + ", latitude1=" + latitude1 + ", latitude2=" + latitude2
+				+ ", longitude1=" + longitude1 + ", longitude2=" + longitude2 + ", getId()=" + getId()
+				+ ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
 
 }

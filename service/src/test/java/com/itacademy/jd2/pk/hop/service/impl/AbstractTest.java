@@ -232,8 +232,6 @@ public class AbstractTest {
 		ICustomer customer = saveNewCustomer();
 
 		entity.setName("name-" + getRandomPrefix());
-		entity.setPath("path-" + getRandomPrefix());
-		entity.setFile("file-" + getRandomPrefix());
 		byte[] bytesArray = getRandomPrefix().getBytes();
 		entity.setImage(bytesArray);
 		entity.setCustomer(customer);

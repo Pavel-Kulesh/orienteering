@@ -11,7 +11,7 @@
 		action="${baseUrl}" modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 		<form:input path="customerId" type="hidden" />
-		<form:input path="file" type="hidden" />
+	
 	
 	
 
@@ -35,17 +35,6 @@
 				<label for="name"><mytaglib:i18n key="map.name" /></label>
 			</div>
 		</div>
-
-
-		<div class="row">
-			<i class="material-icons">link</i>
-			<div class="input-field col s12">
-				<form:input path="path" type="text" />
-				<form:errors path="path" cssClass="red-text" />
-				<label for="path">Path</label>
-			</div>
-		</div>
-
 
 		<table>
 			<tr>

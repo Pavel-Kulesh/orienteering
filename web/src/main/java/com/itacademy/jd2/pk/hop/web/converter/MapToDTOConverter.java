@@ -17,9 +17,7 @@ public class MapToDTOConverter implements Function<IMap, MapDTO> {
 
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
-		dto.setPath(entity.getPath());
-		dto.setFile(entity.getFile());
-		/////////////////////
+	
 		dto.setCustomerId(entity.getCustomer().getId());
 		dto.setLatitude1(entity.getLatitude1());
 		dto.setLatitude2(entity.getLatitude2());

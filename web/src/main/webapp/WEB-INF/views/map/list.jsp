@@ -8,7 +8,7 @@
 
 <c:set var="baseUrl" value="${contextPath}/map" />
 <h4 class="header"><mytaglib:i18n key="map.header" /></h4>
-<table class="bordered highlight">
+<table class="striped">
 	<tbody>
 		<tr>
 			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">id</mytaglib:sort-link></th>

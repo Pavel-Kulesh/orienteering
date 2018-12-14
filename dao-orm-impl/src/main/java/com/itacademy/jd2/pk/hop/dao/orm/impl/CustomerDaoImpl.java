@@ -135,11 +135,7 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 		cq.where(cb.equal(from.get(Customer_.id), id));
 		final TypedQuery<ICustomer> q = em.createQuery(cq);
 		List<ICustomer> resultList = q.getResultList();
-		if (resultList.isEmpty()) {
-			return null;
-
-		}
-		return resultList.get(0);
+		return resultList.isEmpty() ? null : resultList.get(0);
 	}
 
 }

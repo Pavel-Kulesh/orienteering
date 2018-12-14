@@ -16,6 +16,6 @@ public interface IEventDao extends IDao<IEvent, Integer> {
 
 	void deleteCustomerFromEvent(Integer customerId, Integer eventId);
 
-	boolean checkExistCustomerToEvent(Integer customerId, Integer eventId);
+	boolean checkExistCustomerInEvent(Integer customerId, Integer eventId);
 
 }
