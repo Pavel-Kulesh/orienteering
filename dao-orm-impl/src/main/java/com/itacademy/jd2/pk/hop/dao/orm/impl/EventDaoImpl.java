@@ -18,7 +18,6 @@ import org.springframework.stereotype.Repository;
 import com.itacademy.jd2.pk.hop.dao.api.IEventDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
-import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer_;
@@ -132,8 +131,9 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 		cq.where(cb.equal(from.get(Event_.id), id));
 		final TypedQuery<IEvent> q = em.createQuery(cq);
-	//	List<IEvent> resultList = q.getResultList();
-		return q.getResultList().get(0);
+
+		List<IEvent> resultList = q.getResultList();
+		return resultList.isEmpty() ? null : resultList.get(0);
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 	}
 
 	@Override
-	public boolean checkExistCustomerToEvent(Integer customerId, Integer eventId) {
+	public boolean checkExistCustomerInEvent(Integer customerId, Integer eventId) {
 		final EntityManager em = getEntityManager();
 
 		@SuppressWarnings("unchecked")

@@ -29,7 +29,6 @@ public class DefaultController {
 	public String index(final HttpServletRequest req,
 			@RequestParam(name = "language", required = false) final String lang) {
 		if (lang != null) {
-
 			Locale locale;
 			if ("ru".equals(lang)) {
 				locale = LOCALE_RU;
@@ -45,10 +44,9 @@ public class DefaultController {
 		} else {
 			return "redirect:/news";
 		}
-		
+
 	}
-	
-	
+
 	protected String getLoginRole() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		if (context.getAuthentication().getPrincipal().equals("anonymousUser")) {
@@ -61,5 +59,4 @@ public class DefaultController {
 		String role = authentication.getRole();
 		return role;
 	}
-
 }

@@ -7,9 +7,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 
 public class Map extends BaseEntity implements IMap {
 	private String name;
-	private String path;
-	private String file;
-
+	
 	private ICustomer customer;
 	private BigDecimal latitude1;
 	private BigDecimal latitude2;
@@ -24,22 +22,7 @@ public class Map extends BaseEntity implements IMap {
 		this.name = name;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
+	
 	public BigDecimal getLatitude1() {
 		return latitude1;
 	}
@@ -82,7 +65,7 @@ public class Map extends BaseEntity implements IMap {
 
 	@Override
 	public String toString() {
-		return "Map [name=" + name + ", path=" + path + ", file=" + file + ", customer=" + customer + ", latitude1="
+		return "Map [name=" + name + ",   customer=" + customer + ", latitude1="
 				+ latitude1 + ", latitude2=" + latitude2 + ", longitude1=" + longitude1 + ", longitude2=" + longitude2
 				+ ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}

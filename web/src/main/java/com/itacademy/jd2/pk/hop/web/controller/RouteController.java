@@ -79,10 +79,10 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 		String currentLoginRole = getLoginRole();
 		Integer currentCustomerId = getCustomerId();
-		
+
 		for (RouteDTO routeDTO : dtos) {
 			if (routeDTO.getCustomerId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
-				routeDTO.setStatusVisible(true);
+				
 			}
 		}
 
@@ -148,8 +148,8 @@ public class RouteController extends AbstractController<RouteDTO> {
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
 		pointService.delete(id);
 		routeService.delete(id);
-		
-		//delete all link manyToMany map_2_route;
+
+		// delete all link manyToMany map_2_route;
 		return "redirect:/route";
 	}
 
@@ -183,8 +183,10 @@ public class RouteController extends AbstractController<RouteDTO> {
 			points.add(new PointDTO(entity.getLatitude(), entity.getLongitude()));
 
 		}
-		
+
 		RouteDataAjaxResponse routeDataAjaxResponse = new RouteDataAjaxResponse();
+		IRoute route = routeService.get(routeId);
+		routeDataAjaxResponse.setName(route.getName());
 		routeDataAjaxResponse.setPoints(points);
 		return new ResponseEntity<RouteDataAjaxResponse>(routeDataAjaxResponse, HttpStatus.OK);
 	}

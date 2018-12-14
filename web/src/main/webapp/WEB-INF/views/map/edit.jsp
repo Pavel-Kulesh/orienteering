@@ -13,8 +13,7 @@
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 		<form:input path="customerId" type="hidden" />
-		<form:input path="file" type="hidden" />
-		<form:input path="path" type="hidden" />
+	
 		
 		
 

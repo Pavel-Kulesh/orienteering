@@ -34,10 +34,11 @@
 
 			var points = [];
 			var count = 0;
-
 			var latSumm = 0;
 			var longSumm = 0;
-			var pointsData=routeData.points;
+			var pointsData = routeData.points;
+			var routeName = routeData.name;
+			
 			pointsData.forEach(function(p) {
 				count++;
 				var lat = p.latitude;
@@ -45,7 +46,8 @@
 				latSumm += lat;
 				longSumm += lon;
 				points.push([ lat, lon ]);
-			})
+			});
+
 			var avgLat = latSumm / count;
 			var avgLong = longSumm / count;
 			// debugger;
@@ -57,23 +59,34 @@
 				searchControlProvider : 'yandex#search'
 			});
 
+			var startPoint = new ymaps.Placemark(points[0], {
+				hintContent : "start route"
+			}, {
+				preset : 'islands#greenIcon'
+			});
+			myMap.geoObjects.add(startPoint);
+			var finishPoint = new ymaps.Placemark(points[points.length - 1], {
+				hintContent : "finish route"
+			}, {
+				preset : 'islands#redIcon'
+			});
+			myMap.geoObjects.add(finishPoint);
+
 			var myGeoObject = new ymaps.GeoObject({
 				geometry : {
 					type : "LineString",
 					coordinates : points
 				},
 				properties : {
-					hintContent : "I route",
-					balloonContent : "Look map"
+					hintContent : routeName,
+				
 				}
 			}, {
 				draggable : false,
 				strokeColor : "#FF0000",
 				strokeWidth : 5
 			});
-
 			myMap.geoObjects.add(myGeoObject);
-
 		});
 	});
 </script>
@@ -103,16 +116,13 @@
 					speed = distance / time;
 					points.push([ summ, speed ])
 				}
-
 			})
 
 			var data = new google.visualization.DataTable();
 			data.addColumn('number', 'x');
 			data.addColumn('number', 'values m/sec');
-
 			data.addRows(points);
 
-			// The intervals data as narrow lines (useful for showing raw source data)
 			var options_lines = {
 				title : 'Line speed intervals, default m/sec',
 				curveType : 'function',

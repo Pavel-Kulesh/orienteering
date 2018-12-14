@@ -10,8 +10,6 @@
 <table class="bordered highlight">
 	<tbody>
 		<tr>
-			<th><i class="material-icons">filter_vintage</i>id</th>
-
 			<th><i class="material-icons">assignment_ind</i>name</th>
 			<th><i class="material-icons">access_time</i>date</th>
 			<th>type</th>
@@ -19,7 +17,6 @@
 		</tr>
 		<c:forEach var="event" items="${gridItem}" varStatus="loopCounter">
 			<tr>
-				<td><c:out value="${event.id}" /></td>
 				<td><c:out value="${event.name}" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.date}" /></td>
 				<td><c:out value="${event.type }" /></td>

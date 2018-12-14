@@ -100,16 +100,8 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 			return "participant.edit";
 		} else {
 			final ICustomer entity = fromDTOConverter.apply(formModel);
-			
-			customerService.save(entity);
-			
-			
-		/*	if (entity.getId() == null) {
-				customerService.save(entity);
-			} else {
-				customerService.update(entity);
-			}*/
 
+			customerService.save(entity);
 			return "redirect:/participant";
 		}
 	}
@@ -137,16 +129,17 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-	//	loadComboboxesModels(hashMap);
+		// loadComboboxesModels(hashMap);
 		return new ModelAndView("participant.edit", hashMap);
 	}
-/*
-	private void loadComboboxesModels(final Map<String, Object> hashMap) {
-		final List<Role> customerRolesList = Arrays.asList(Role.values());
-		final Map<String, String> eventTypesMap = customerRolesList.stream()
-				.collect(Collectors.toMap(Role::name, Role::name));
-
-		hashMap.put("roleChoices", eventTypesMap);
-
-	}*/
+	/*
+	 * private void loadComboboxesModels(final Map<String, Object> hashMap) { final
+	 * List<Role> customerRolesList = Arrays.asList(Role.values()); final
+	 * Map<String, String> eventTypesMap = customerRolesList.stream()
+	 * .collect(Collectors.toMap(Role::name, Role::name));
+	 * 
+	 * hashMap.put("roleChoices", eventTypesMap);
+	 * 
+	 * }
+	 */
 }

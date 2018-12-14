@@ -17,8 +17,6 @@ public class RouteDTO {
 	@NotNull
 	private Integer customerId;
 	
-	private boolean statusVisible;
-
 	public Integer getId() {
 		return id;
 	}
@@ -51,12 +49,6 @@ public class RouteDTO {
 		this.created = created;
 	}
 
-	public boolean getStatusVisible() {
-		return statusVisible;
-	}
-
-	public void setStatusVisible(boolean statusVisible) {
-		this.statusVisible = statusVisible;
-	}
+	
 
 }

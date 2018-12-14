@@ -7,6 +7,65 @@
 	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/route" />
 <h4 class="header">List routes</h4>
+
+<input type="text" id="myInput" onkeyup="myFunction()"
+	placeholder="Search for names..">
+
+<table id="myTable">
+	<tr class="header">
+		<th style="width: 60%;">Name</th>
+		<th style="width: 20%;">Country</th>
+		<th style="width: 20%;"></th>
+	</tr>
+	<c:forEach var="route" items="${gridItem}" varStatus="loopCounter">
+		<tr>
+			<td><c:out value="${route.name}" /></td>
+			<td><c:out value="${route.customerId}" /></td>
+
+			<td class="right"><a class="btn-floating"
+				href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
+
+				<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
+					class="material-icons">edit</i></a> <a class="btn-floating red"
+				href="${baseUrl}/${route.id}/delete"><i class="material-icons">delete</i></a>
+		</tr>
+	</c:forEach>
+
+</table>
+
+<script>
+	function myFunction() {
+		// Declare variables
+		var input, filter, table, tr, td, i, txtValue;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("myTable");
+		tr = table.getElementsByTagName("tr");
+
+		// Loop through all table rows, and hide those who don't match the search query
+		for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[0];
+			if (td) {
+				txtValue = td.textContent || td.innerText;
+				if (txtValue.toUpperCase().indexOf(filter) > -1) {
+					tr[i].style.display = "";
+				} else {
+					tr[i].style.display = "none";
+				}
+			}
+		}
+	}
+</script>
+
+
+
+
+
+
+
+
+
+
 <table class="bordered highlight">
 	<tbody>
 		<tr>
@@ -31,24 +90,23 @@
 		</tr>
 		<c:forEach var="route" items="${gridItem}" varStatus="loopCounter">
 			<tr>
-				<c:if test="${route.statusVisible}">
-					<td><c:out value="${route.id}" /></td>
-					<td><c:out value="${route.name}" /></td>
-					<sec:authorize access="hasRole('ADMIN')">
-						<td><c:out value="${route.customerId}" /></td>
-						<td><c:out value="${route.created}" /></td>
-					</sec:authorize>
-					<td class="right"><a class="btn-floating"
-						href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
+
+				<td><c:out value="${route.id}" /></td>
+				<td><c:out value="${route.name}" /></td>
+				<sec:authorize access="hasRole('ADMIN')">
+					<td><c:out value="${route.customerId}" /></td>
+					<td><c:out value="${route.created}" /></td>
+				</sec:authorize>
+				<td class="right"><a class="btn-floating"
+					href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
 
 
 
 
 
-						<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
-							class="material-icons">edit</i></a> <a class="btn-floating red"
-						href="${baseUrl}/${route.id}/delete"><i class="material-icons">delete</i></a>
-				</c:if>
+					<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
+						class="material-icons">edit</i></a> <a class="btn-floating red"
+					href="${baseUrl}/${route.id}/delete"><i class="material-icons">delete</i></a>
 			</tr>
 		</c:forEach>
 	</tbody>

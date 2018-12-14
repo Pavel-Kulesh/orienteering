@@ -15,10 +15,7 @@ public class MapDTO {
 	private String name;
 	@NotNull
 	private Integer customerId;
-	@Size(min = 1, max = 100)
-	private String path;
-
-	private String file;
+	
 	@DecimalMin(value = "-90")
 	@DecimalMax(value = "90")
 	private BigDecimal latitude1;
@@ -34,6 +31,7 @@ public class MapDTO {
 	private Date created;
 	private Date updated;
 	private boolean statusVisible;
+	
 	private byte[] image;
 
 	public Integer getId() {
@@ -52,22 +50,7 @@ public class MapDTO {
 		this.name = name;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getFile() {
-		return file;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
-	}
-
+	
 	public BigDecimal getLongitude2() {
 		return longitude2;
 	}

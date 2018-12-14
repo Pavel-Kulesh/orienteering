@@ -24,7 +24,7 @@ function initMap(lt, lg) {
  * pathImage="data:jpg;base64,"+textData; });
  */
 	
-function initMapWithImage(pathImage, lt1, lg1, lt2, lg2) {
+function initMapWithImage(mapId, lt1, lg1, lt2, lg2) {
 		
 	var map = new ymaps.Map('map', {
 	        center: [(lt1+lt2)/2, (lg1+lg2)/2],
@@ -54,18 +54,13 @@ function initMapWithImage(pathImage, lt1, lg1, lt2, lg2) {
 	    var myPolygon = new ymaps.Polygon([
             [[lt1, lg1],[lt2, lg1],[lt2, lg2],[lt1, lg2],]
         ],
-        // property.
+      
         {
-            // balun.
+        
         }, {
-            // write option geoObject.
-            // background image.
-       fillImageHref: "http://localhost:8081/orienteering/map/image/"+11,
-        	// fillImageHref: pathImage,
-    // fillImageHref:'data:image/png;base64,
-	// iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==',
+           
+       fillImageHref: "http://localhost:8081/orienteering/map/image/"+mapId,
             fillMethod: 'stretch',
-            // delete contour.
             stroke: false
         }
     );
