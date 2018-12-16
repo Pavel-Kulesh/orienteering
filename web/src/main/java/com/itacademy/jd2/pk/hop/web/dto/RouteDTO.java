@@ -9,59 +9,65 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 
 public class RouteDTO {
-	private Integer id;
+    private Integer id;
 
-	@NotEmpty
-	private String name;
+    @NotEmpty
+    private String name;
 
-	private Track track;
+    private Track track;
 
-	private Date created;
+    private Date created;
+    private boolean canEdit;
 
-	@NotNull
-	private Integer customerId;
+    @NotNull
+    private Integer customerId;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Integer getCustomerId() {
-		return customerId;
-	}
+    public Integer getCustomerId() {
+        return customerId;
+    }
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
-	}
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public Date getCreated() {
+        return created;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-	public Track getTrack() {
-		return track;
-	}
+    public Track getTrack() {
+        return track;
+    }
 
-	public void setTrack(Track track) {
-		this.track = track;
-	}
+    public void setTrack(Track track) {
+        this.track = track;
+    }
 
-	
+    public boolean isCanEdit() {
+        return canEdit;
+    }
 
+    public void setCanEdit(boolean canEdit) {
+        this.canEdit = canEdit;
+    }
 
 }

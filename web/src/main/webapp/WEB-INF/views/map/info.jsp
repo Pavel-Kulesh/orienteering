@@ -1,198 +1,106 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/map" />
 <h4 class="header">
-	<mytaglib:i18n key="map.info" />
-	: ${formModel.name}
+    <mytaglib:i18n key="map.info" />
+    : ${formModel.name}
 </h4>
-<br />
-
+<table class="bordered highlight">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>type</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="route" items="${routes}" varStatus="loopCounter">
+            <tr>
+                <td><c:out value="${route.id}" /></td>
+                <td><c:out value="${route.name}" /></td>
+                <td><c:out value="${route.track}" /></td>
+                <td class="right">
+                        <a class="waves-effect waves-light btn-floating" onclick="handleRouteClick(${route.id},'${route.track}')"
+                            title="<mytaglib:i18n
+                                        key="map.show.distance" />"> <i class="material-icons">unfold_less</i>
+                        </a>
+                        <c:if test="${route.canEdit}">
+                        <a class="btn-floating red" href="${baseUrl}/deleteWayFromMap/${formModel.id}/route/${route.id}"><i class="material-icons">delete</i></a>
+                    </c:if></td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
 <div class="row">
-	<div class="col s12 m6 l3">
-		<sec:authorize access="!isAnonymous()">
-			<div class="card">
-
-				<div class="card-content center-align" style="padding: 10px">
-
-					<div class="row">
-
-
-						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
-								key="map.add.route" /></span>
-
-						<form:form class="col s12"
-							action="${baseUrl}/addWayToMap/${formModel.id}"
-							modelAttribute="idHolder" method="post">
-							<form:select path="id">
-								<option value="" disabled selected><mytaglib:i18n
-										key="map.routes" />
-									<form:options items="${ways}" />
-									<form:errors path="id" cssClass="red-text" />
-							</form:select>
-							<button class="btn waves-effect waves-light" type="submit">
-								<mytaglib:i18n key="map.add.route" />
-							</button>
-						</form:form>
-						<sec:authorize access="hasRole('ADMIN')">
-				<form:form class="col s12"
-							action="${baseUrl}/addWayToMap/${formModel.id}"
-							modelAttribute="idHolder" method="post">
-							<form:select path="id">
-								<option value="" disabled selected><mytaglib:i18n
-										key="map.distances" />
-									<form:options items="${distances}" />
-							</form:select>
-							<button class="btn waves-effect waves-light" type="submit">
-								<mytaglib:i18n key="map.add.distance" />
-							</button>
-						</form:form>
-			</sec:authorize>
-					</div>
-				</div>
-			</div>
-		</sec:authorize>
-
-
-
-	</div>
-	<div class="col s12 m6 l3">
-		<sec:authorize access="!isAnonymous()">
-			<div class="card">
-
-				<div class="card-content center-align" style="padding: 10px">
-
-					<div class="row">
-
-
-						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
-								key="map.delete.route" /></span>
-
-						<form:form class="col s12"
-							action="${baseUrl}/deleteWayFromMap/${formModel.id}"
-							modelAttribute="idHolder" method="post">
-									<form:select path="id">
-										<option value="" disabled selected><mytaglib:i18n
-												key="map.routes" />
-											<form:options items="${myWaysOnMap}" />
-									</form:select>
-									<button class="btn waves-effect waves-light red" type="submit">
-										<mytaglib:i18n key="map.delete.route" />
-									</button>
-						</form:form>
-						<sec:authorize access="hasRole('ADMIN')">
-				<form:form class="col s12"
-							action="${baseUrl}/deleteWayFromMap/${formModel.id}"
-							modelAttribute="idHolder" method="post">
-									<form:select path="id">
-										<option value="" disabled selected><mytaglib:i18n
-												key="map.distances" />
-											<form:options items="${distancesOnMap}" />
-									</form:select>
-									<button class="btn waves-effect waves-light red" type="submit">
-										<mytaglib:i18n key="map.delete.distance" />
-									</button>
-						</form:form>
-			</sec:authorize>
-					</div>
-				</div>
-			</div>
-		</sec:authorize>
-		
-		
-	</div>
-	<div class="col s12 m6 l3">
-		<div class="card">
-
-				<div class="card-content center-align" style="padding: 10px">
-
-					<div class="row">
-
-						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
-								key="map.show.distance" /></span>
-
-						<form:form class="col s12" action="#" modelAttribute="idHolder"
-						method="get">
-								<form:select path="id" cssClass="dist-selector">
-									<option value="" disabled selected><mytaglib:i18n
-											key="map.distance" />
-										<form:options items="${distancesOnMap}" />
-								</form:select>
-								<a class="waves-effect waves-light btn"
-									onclick="showSelectedDistance()"> <mytaglib:i18n
-										key="map.show.distance" />
-								</a>
-					</form:form>
-						<a class="waves-effect waves-light btn red"
-						onclick="clearDistance()"> <mytaglib:i18n
-							key="map.clear.distance" />
-					</a>
-					</div>
-				</div>
-			</div>
-	</div>
-	<div class="col s12 m6 l3">
-		<div class="card">
-				<div class="card-content center-align" style="padding: 10px">
-					<div class="row">
-						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
-								key="map.show.route" /></span>
-						<form:form class="col s12" action="#" modelAttribute="idHolder"
-						method="get">
-								<form:select path="id" cssClass="route-selector">
-									<option value="" disabled selected><mytaglib:i18n
-											key="map.route" />
-										<form:options items="${waysOnMap}" />
-								</form:select>
-								<a class="waves-effect waves-light btn"
-									onclick="showSelectedTrack()"> <mytaglib:i18n
-										key="map.show.route" />
-								</a>
-					</form:form>
-					<a class="waves-effect waves-light btn red" onclick="clearRoutes()">
-						<mytaglib:i18n key="map.clear.routes" />
-					</a>
-					</div>
-				</div>
-			</div>
-	</div>
+    <div class="col s3">
+        <sec:authorize access="!isAnonymous()">
+            <div class="card">
+                <div class="card-content center-align" style="padding: 10px">
+                    <div class="row">
+                        <span class="card-title" style="font-size: 14pt"><mytaglib:i18n key="map.add.route" /></span>
+                        <form:form class="col s12" action="${baseUrl}/addWayToMap/${formModel.id}" modelAttribute="idHolder" method="post">
+                            <form:select path="id">
+                                <option value="" disabled selected><mytaglib:i18n key="map.routes" />
+                                    <form:options items="${ways}" />
+                                    <form:errors path="id" cssClass="red-text" />
+                            </form:select>
+                            <button class="btn waves-effect waves-light" type="submit">
+                                <mytaglib:i18n key="map.add.route" />
+                            </button>
+                        </form:form>
+                        <sec:authorize access="hasRole('ADMIN')">
+                            <form:form class="col s12" action="${baseUrl}/addWayToMap/${formModel.id}" modelAttribute="idHolder" method="post">
+                                <form:select path="id">
+                                    <option value="" disabled selected><mytaglib:i18n key="map.distances" />
+                                        <form:options items="${distances}" />
+                                </form:select>
+                                <button class="btn waves-effect waves-light" type="submit">
+                                    <mytaglib:i18n key="map.add.distance" />
+                                </button>
+                            </form:form>
+                        </sec:authorize>
+                    </div>
+                </div>
+            </div>
+        </sec:authorize>
+    </div>
+    <div class="col s9">
+        <div class="card">
+            <script>
+            var mapId=${formModel.id};
+        
+             ymaps.ready(initMapWithImage.bind(null,
+                     mapId,
+                    ${formModel.latitude1},
+                    ${formModel.longitude1},
+                    ${formModel.latitude2},
+                    ${formModel.longitude2}));
+                        </script>
+            <div id="map" style="width: 100%; height: 500px"></div>
+        </div>
+    </div>
 </div>
-
-
-<div class="card">
-	<div class="col s12">
-		<div>
-			<script>
-			var mapId=${formModel.id};
-		
-			 ymaps.ready(initMapWithImage.bind(null,
-					 mapId,
-					${formModel.latitude1},
-					${formModel.longitude1},
-					${formModel.latitude2},
-					${formModel.longitude2}));
-						</script>
-			<div id="map" style="width: 100%; height: 700px"></div>
-		</div>
-	</div>
-</div>
-
-
 <div class="row">
-	<div class="col s5"></div>
-	<div class="col s2">
-		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n
-				key="map.back" /><i class="material-icons right">undo</i> </a>
-	</div>
-	<div class="col s5"></div>
+    <div class="col s5"></div>
+    <div class="col s2">
+        <a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="map.back" /><i class="material-icons right">undo</i> </a>
+    </div>
+    <div class="col s5"></div>
 </div>
-
-
 <script type="text/javascript">
-function showSelectedDistance(){
-	var selectedRouteId=$( "select.dist-selector" ).val();
+
+function handleRouteClick(routeId, type){
+	if (type==='WAY') return showSelectedTrack(routeId);
+	if (type==='DISTANCE') return showSelectedDistance(routeId);
+	
+}
+
+function showSelectedDistance(routeId){
+	
+	var selectedRouteId=routeId;
 	var contextUrl = '${contextPath}';
 	var pointStart=[];
 	var pointFinish=[];
@@ -309,7 +217,7 @@ var finish = new ymaps.Circle([
 
 
 
-function showSelectedTrack(){
+function showSelectedTrack(routeId){
 	
 	function getRandomColor() {
 		  var letters = '0123456789ABCDEF';
@@ -320,7 +228,7 @@ function showSelectedTrack(){
 		  return color;
 		}
 	
-	var selectedRouteId=$( "select.route-selector" ).val();
+	var selectedRouteId=routeId;
 		var contextUrl = '${contextPath}';
 		
 	$.get(contextUrl + "/route/points?routeId=" + selectedRouteId, function(
@@ -356,10 +264,3 @@ function showSelectedTrack(){
 }
 	 
 </script>
-
-
-
-
-
-
-

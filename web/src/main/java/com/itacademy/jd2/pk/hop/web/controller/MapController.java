@@ -30,14 +30,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 import com.itacademy.jd2.pk.hop.web.converter.MapFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.MapToDTOConverter;
+import com.itacademy.jd2.pk.hop.web.converter.RouteToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.IdHolder;
 import com.itacademy.jd2.pk.hop.web.dto.MapDTO;
+import com.itacademy.jd2.pk.hop.web.dto.RouteDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 
 @Controller
@@ -48,17 +51,18 @@ public class MapController extends AbstractController<MapDTO> {
     private IMapService mapService;
     private MapToDTOConverter toDTOConverter;
     private MapFromDTOConverter fromDTOConverter;
+    private RouteToDTOConverter routeToDTOConverter;
     private IRouteService routeService;
 
     @Autowired
     public MapController(IMapService mapService, MapToDTOConverter toDTOConverter, MapFromDTOConverter fromDTOConverter,
-            IRouteService routeService) {
+            RouteToDTOConverter routeToDTOConverter, IRouteService routeService) {
         super();
         this.mapService = mapService;
         this.toDTOConverter = toDTOConverter;
         this.fromDTOConverter = fromDTOConverter;
+        this.routeToDTOConverter = routeToDTOConverter;
         this.routeService = routeService;
-
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -135,13 +139,27 @@ public class MapController extends AbstractController<MapDTO> {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-        final IMap dbModel = mapService.get(id);
+        final IMap dbModel = mapService.getFullInfo(id);
         final MapDTO dto = toDTOConverter.apply(dbModel);
         final HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("formModel", dto);
         hashMap.put("idHolder", new IdHolder());
 
         loadComboboxesModels(hashMap, id);
+
+        List<RouteDTO> dtos = new ArrayList<>();
+
+        for (IRoute route : dbModel.getRoutes()) {
+            IRoute routeDB = routeService.get(route.getId());
+
+            RouteDTO routeDto = routeToDTOConverter.apply(routeDB);
+
+            routeDto.setCanEdit(
+                    Role.ADMIN.name().equals(getLoginRole()) || routeDB.getCustomer().getId().equals(getCustomerId()));
+            dtos.add(routeDto);
+        }
+
+        hashMap.put("routes", dtos);
         return new ModelAndView("map.info", hashMap);
     }
 
@@ -174,25 +192,18 @@ public class MapController extends AbstractController<MapDTO> {
         }
     }
 
-    @RequestMapping(value = "/deleteWayFromMap/{id}", method = RequestMethod.POST)
-    public ModelAndView deleteRouteFromMap(@PathVariable(name = "id", required = true) final Integer mapId,
-            @Valid @ModelAttribute("idHolder") final IdHolder idHolder) {
+    @RequestMapping(value = "/deleteWayFromMap/{id}/route/{routeId}", method = RequestMethod.GET)
+    public String deleteRouteFromMap(@PathVariable(name = "id", required = true) final Integer mapId,
+            @PathVariable(name = "routeId", required = true) final Integer routeId) {
 
         final IMap dbModel = mapService.getFullInfo(mapId);
-        IRoute iRoute = routeService.get(idHolder.getId());
+        IRoute iRoute = routeService.get(routeId);
         LOGGER.info("routes on map before removing one=" + dbModel.getRoutes().size());
         dbModel.getRoutes().remove(iRoute);
         LOGGER.info("routes on map after removing one=" + dbModel.getRoutes().size());
         mapService.save(dbModel);
 
-        final MapDTO dto = toDTOConverter.apply(dbModel);
-        final HashMap<String, Object> hashMap = new HashMap<>();
-
-        hashMap.put("formModel", dto);
-
-        loadComboboxesModels(hashMap, mapId);
-
-        return new ModelAndView("map.info", hashMap);
+        return "redirect:/map/" + mapId;
 
     }
 
