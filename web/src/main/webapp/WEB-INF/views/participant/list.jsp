@@ -47,7 +47,7 @@
 
 
 
-					<c:if test="${participant.statusVisible}">
+					<c:if test="${isAdmin}">
 						<a class="btn-floating orange" href="${baseUrl}/${participant.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red"

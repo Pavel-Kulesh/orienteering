@@ -23,121 +23,137 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 @Entity
 public class Event extends BaseEntity implements IEvent {
 
-	@Column
-	private String name;
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Customer.class)
-	private ICustomer customer;
-	@Column
-	private Date date;
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Country.class)
-	private ICountry country;
-	@Column
-	@Enumerated(EnumType.STRING)
-	private Type type;
-	@Column
-	private String info;
-	@Column
-	private Double latitude;
-	@Column
-	private Double longitude;
+    @Column
+    private String name;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Customer.class)
+    private ICustomer customer;
+    @Column
+    private Date date;
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Country.class)
+    private ICountry country;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Type type;
+    @Column
+    private String info;
+    @Column
+    private Double latitude;
+    @Column
+    private Double longitude;
 
-	@Column
-	@Version
-	private Integer version = 0;
+    @Column
+    @Version
+    private Integer version = 0;
 
-	@JoinTable(name = "customer_2_event", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "customer_id") })
-	@ManyToMany(targetEntity = Customer.class, fetch = FetchType.LAZY)
-	private Set<ICustomer> customersList = new HashSet<>();
+    @JoinTable(name = "customer_2_event", joinColumns = { @JoinColumn(name = "event_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "customer_id") })
+    @ManyToMany(targetEntity = Customer.class, fetch = FetchType.LAZY)
+    private Set<ICustomer> customersList = new HashSet<>();
 
-	public Double getLatitude() {
-		return latitude;
-	}
+    @Override
+    public Double getLatitude() {
+        return latitude;
+    }
 
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
+    @Override
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
 
-	public Double getLongitude() {
-		return longitude;
-	}
+    @Override
+    public Double getLongitude() {
+        return longitude;
+    }
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
+    @Override
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    @Override
+    public Date getDate() {
+        return date;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    @Override
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public Type getType() {
-		return type;
-	}
+    @Override
+    public Type getType() {
+        return type;
+    }
 
-	public void setType(Type type) {
-		this.type = type;
-	}
+    @Override
+    public void setType(Type type) {
+        this.type = type;
+    }
 
-	public String getInfo() {
-		return info;
-	}
+    @Override
+    public String getInfo() {
+        return info;
+    }
 
-	public void setInfo(String info) {
-		this.info = info;
-	}
+    @Override
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
-	public ICountry getCountry() {
-		return country;
-	}
+    @Override
+    public ICountry getCountry() {
+        return country;
+    }
 
-	public void setCountry(ICountry country) {
-		this.country = country;
-	}
+    @Override
+    public void setCountry(ICountry country) {
+        this.country = country;
+    }
 
-	public ICustomer getCustomer() {
-		return customer;
-	}
+    @Override
+    public ICustomer getCustomer() {
+        return customer;
+    }
 
-	public void setCustomer(ICustomer customer) {
-		this.customer = customer;
-	}
+    @Override
+    public void setCustomer(ICustomer customer) {
+        this.customer = customer;
+    }
 
-	public Set<ICustomer> getCustomersList() {
-		return customersList;
-	}
+    @Override
+    public Set<ICustomer> getCustomersList() {
+        return customersList;
+    }
 
-	public void setCustomersList(Set<ICustomer> customersList) {
-		this.customersList = customersList;
-	}
+    @Override
+    public void setCustomersList(Set<ICustomer> customersList) {
+        this.customersList = customersList;
+    }
 
-	@Override
-	public String toString() {
-		return "Event [name=" + name + ", customer=" + customer + ", date=" + date + ", country=" + country + ", type="
-				+ type + ", info=" + info + ", latitude=" + latitude + ", longitude=" + longitude + ", getId()="
-				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
-	}
+    @Override
+    public Integer getVersion() {
+        return version;
+    }
 
-	@Override
-	public Integer getVersion() {
-		return version;
-	}
+    @Override
+    public void setVersion(Integer version) {
+        this.version = version;
 
-	@Override
-	public void setVersion(Integer version) {
-		this.version = version;
+    }
 
-	}
+    @Override
+    public String toString() {
+        return "Event [getId()=" + getId() + "]";
+    }
 
 }

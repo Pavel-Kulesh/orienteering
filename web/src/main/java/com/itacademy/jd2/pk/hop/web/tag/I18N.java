@@ -1,4 +1,5 @@
 package com.itacademy.jd2.pk.hop.web.tag;
+
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -10,7 +11,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 public class I18N extends SimpleTagSupport {
     public static final String SESSION_LOCALE_KEY = "current-locale";
 
-    private final Locale DEFAULT_LOCALE = new Locale("en");
+    private final Locale DEFAULT_LOCALE = new Locale("ru");
     private String key;
 
     @Override
@@ -27,15 +28,18 @@ public class I18N extends SimpleTagSupport {
     }
 
     private String getLocalized(String key, Locale locale) {
-    	if (locale.getLanguage().equals("en")) {
-    		ResourceBundle bundle = ResourceBundle.getBundle("messages_en",locale);
-    		return bundle.getString(key);
-		} else {ResourceBundle bundle = ResourceBundle.getBundle("messages_ru",locale);
-		return bundle.getString(key);
+        if (locale.getLanguage().equals("en")) {
+            ResourceBundle bundle = ResourceBundle.getBundle("messages_en", locale);
+            return bundle.getString(key);
+        } else {
+            ResourceBundle bundle = ResourceBundle.getBundle("messages_ru", locale);
+            return bundle.getString(key);
 
-		}
-    	/*ResourceBundle bundle = ResourceBundle.getBundle(key,locale);
-        return key;*/
+        }
+        /*
+         * ResourceBundle bundle = ResourceBundle.getBundle(key,locale); return
+         * key;
+         */
     }
 
     public void setKey(final String key) {

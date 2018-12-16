@@ -129,15 +129,11 @@ $(document).ready(function(){
 <div class="row">
 	<div class="col s3"></div>
 	<div class="col s3">
-		<a href="${contextPath}/list/event/${formModel.id}"
-			class="btn waves-effect waves-light" type="submit"> <mytaglib:i18n
-				key="event.list.participant" /> <i class="large material-icons">public</i>
-		</a>
+		<a class="btn waves-effect waves-light" href="${contextPath}/list/event/${formModel.id}"><mytaglib:i18n key="event.list.participant" /><i class="material-icons right">public</i></a>
 	</div>
 
 	<div class="col s3">
-		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n
-				key="event.back" /><i class="material-icons right">undo</i> </a>
+		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="event.back" /><i class="material-icons right">undo</i></a>
 	</div>
 	<div class="col s3"></div>
 </div>

@@ -10,35 +10,30 @@ import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 
 public interface IRouteService {
 
-	IRoute get(Integer id);
+    IRoute get(Integer id);
 
-	List<IRoute> getAll();
+    List<IRoute> getAll();
 
-	@Transactional
-	void save(IRoute entity);
+    @Transactional
+    void save(IRoute entity);
 
-	@Transactional
-	void delete(Integer id);
+    @Transactional
+    void delete(Integer id);
 
-	@Transactional
-	void deleteAll();
+    @Transactional
+    void deleteAll();
 
-	IRoute createEntity();
+    IRoute createEntity();
 
-	List<IRoute> find(RouteFilter filter);
+    List<IRoute> find(RouteFilter filter);
 
-	long getCount(RouteFilter filter);
+    long getCount(RouteFilter filter);
 
-	List<IRoute> getCustomerRoutes(Integer id);
+    List<IRoute> getCustomerRoutes(Integer id);
 
-	@Transactional
-	void addRouteToMap(Integer mapId, Integer routeId);
+    @Transactional
+    void deleteRouteFromMapsList(Integer routeId);
 
-	@Transactional
-	void deleteRouteFromMap(Integer mapId, Integer routeId);
-	@Transactional
-	void deleteRouteFromMapsList(Integer routeId);
-	
-	List<IRoute> getRoutesByTrack(Track track);
+    List<IRoute> getRoutesByTrack(Track track);
 
 }

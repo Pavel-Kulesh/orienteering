@@ -20,7 +20,7 @@
 	</definition>
 
 	<definition name="news.add" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/news/add.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/news/edit.jsp" />
 	</definition>
 
 	<definition name="news.info" extends="DefaultTemplate">

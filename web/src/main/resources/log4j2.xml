@@ -24,10 +24,10 @@
 			<AppenderRef ref="RollingFile" />
 		</Root>
 
-		<Logger name="com.itacademy.jd2.pk.hop.service" level="debug"
+	<!-- 	<Logger name="com.itacademy.jd2.pk.hop.service" level="debug"
 			additivity="false">
 			<AppenderRef ref="Console" />
 		</Logger>
-
+ -->
 	</Loggers>
 </Configuration>

@@ -11,7 +11,7 @@
 <div class="row">
 	<div class="col s12">
 		<div class="card-panel grey lighten-5">
-			<span class="white-text">${formModel.info} </span>
+             <textarea style="height: 100%" disabled="disabled" >${formModel.info} </textarea>
 		</div>
 	</div>
 </div>

@@ -7,18 +7,14 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 
 public interface IRouteDao extends IDao<IRoute, Integer> {
-	List<IRoute> find(RouteFilter filter);
+    List<IRoute> find(RouteFilter filter);
 
-	long getCount(RouteFilter filter);
+    long getCount(RouteFilter filter);
 
-	List<IRoute> getCustomerRoutes(Integer id);
+    List<IRoute> getCustomerRoutes(Integer id);
 
-	void addRouteToMap(Integer mapId, Integer routeId);
+    void deleteRouteFromMapsList(Integer routeId);
 
-	void deleteRouteFromMap(Integer mapId, Integer routeId);
-
-	void deleteRouteFromMapsList(Integer routeId);
-
-	List<IRoute> getRoutesByTrack(Track track);
+    List<IRoute> getRoutesByTrack(Track track);
 
 }

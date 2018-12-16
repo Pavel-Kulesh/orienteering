@@ -24,146 +24,127 @@ import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Route_;
 @Repository
 public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IRouteDao {
 
-	protected RouteDaoImpl() {
-		super(Route.class);
-	}
+    protected RouteDaoImpl() {
+        super(Route.class);
+    }
 
-	@Override
-	public IRoute createEntity() {
-		Route route = new Route();
-		return route;
-	}
+    @Override
+    public IRoute createEntity() {
+        Route route = new Route();
+        return route;
+    }
 
-	@Override
-	public List<IRoute> find(RouteFilter filter) {
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
-		final Root<Route> from = cq.from(Route.class);
-		cq.select(from);
-		from.fetch(Route_.customer, JoinType.LEFT);
+    @Override
+    public List<IRoute> find(RouteFilter filter) {
+        final EntityManager em = getEntityManager();
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
+        final Root<Route> from = cq.from(Route.class);
+        cq.select(from);
+        from.fetch(Route_.customer, JoinType.LEFT);
 
-		final String sortColumn = filter.getSortColumn();
-		if (sortColumn != null) {
-			final Path<?> expression = getSortPath(from, sortColumn);
-			cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
-		}
+        final String sortColumn = filter.getSortColumn();
+        if (sortColumn != null) {
+            final Path<?> expression = getSortPath(from, sortColumn);
+            cq.orderBy(new OrderImpl(expression, filter.getSortOrder()));
+        }
 
-		if (!filter.getUserRole().equals("ADMIN")) {
-			cq.where(cb.equal(from.get(Route_.customer).get(Customer_.id), filter.getCustomerId()));
-		}
-		final TypedQuery<IRoute> q = em.createQuery(cq);
+        if (!filter.getUserRole().equals("ADMIN")) {
+            cq.where(cb.equal(from.get(Route_.customer).get(Customer_.id), filter.getCustomerId()));
+        }
+        final TypedQuery<IRoute> q = em.createQuery(cq);
 
-		setPaging(filter, q);
-		return q.getResultList();
-	}
+        setPaging(filter, q);
+        return q.getResultList();
+    }
 
-	private Path<?> getSortPath(final Root<Route> from, final String sortColumn) {
-		switch (sortColumn) {
-		case "name":
-			return from.get(Route_.name);
-		case "created":
-			return from.get(Route_.created);
-		case "updated":
-			return from.get(Route_.updated);
-		case "id":
-			return from.get(Route_.id);
-		case "customer_id":
-			return from.get(Route_.customer);
-		case "way":
-			return from.get(Route_.track);
+    private Path<?> getSortPath(final Root<Route> from, final String sortColumn) {
+        switch (sortColumn) {
+        case "name":
+            return from.get(Route_.name);
+        case "created":
+            return from.get(Route_.created);
+        case "updated":
+            return from.get(Route_.updated);
+        case "id":
+            return from.get(Route_.id);
+        case "customer_id":
+            return from.get(Route_.customer);
+        case "way":
+            return from.get(Route_.track);
 
-		default:
-			throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
-		}
-	}
+        default:
+            throw new UnsupportedOperationException("sorting is not supported by column:" + sortColumn);
+        }
+    }
 
-	@Override
-	public long getCount(RouteFilter filter) {
+    @Override
+    public long getCount(RouteFilter filter) {
 
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-		final Root<Route> from = cq.from(Route.class);
-		cq.select(cb.count(from));
+        final EntityManager em = getEntityManager();
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        final Root<Route> from = cq.from(Route.class);
+        cq.select(cb.count(from));
 
-		if (!filter.getUserRole().equals("ADMIN")) {
-			cq.where(cb.equal(from.get(Route_.customer).get(Customer_.id), filter.getCustomerId()));
-		}
-		final TypedQuery<Long> q = em.createQuery(cq);
+        if (!filter.getUserRole().equals("ADMIN")) {
+            cq.where(cb.equal(from.get(Route_.customer).get(Customer_.id), filter.getCustomerId()));
+        }
+        final TypedQuery<Long> q = em.createQuery(cq);
 
-		return q.getSingleResult();
-	}
+        return q.getSingleResult();
+    }
 
-	@Override
-	public IRoute get(Integer id) {
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
-		final Root<Route> from = cq.from(Route.class);
-		cq.select(from);
-		from.fetch(Route_.customer, JoinType.LEFT);
+    @Override
+    public IRoute get(Integer id) {
+        final EntityManager em = getEntityManager();
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
+        final Root<Route> from = cq.from(Route.class);
+        cq.select(from);
+        from.fetch(Route_.customer, JoinType.LEFT);
 
-		cq.where(cb.equal(from.get(Route_.id), id));
-		final TypedQuery<IRoute> q = em.createQuery(cq);
+        cq.where(cb.equal(from.get(Route_.id), id));
+        final TypedQuery<IRoute> q = em.createQuery(cq);
 
-		List<IRoute> resultList = q.getResultList();
-		return resultList.isEmpty() ? null : resultList.get(0);
+        List<IRoute> resultList = q.getResultList();
+        return resultList.isEmpty() ? null : resultList.get(0);
 
-	}
+    }
 
-	@Override
-	public List<IRoute> getCustomerRoutes(Integer id) {
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
-		final Root<Route> from = cq.from(Route.class);
-		cq.select(from);
-		from.fetch(Route_.customer, JoinType.LEFT);
+    @Override
+    public List<IRoute> getCustomerRoutes(Integer id) {
+        final EntityManager em = getEntityManager();
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
+        final Root<Route> from = cq.from(Route.class);
+        cq.select(from);
+        from.fetch(Route_.customer, JoinType.LEFT);
 
-		cq.where(cb.equal(from.get(Route_.customer).get(Customer_.id), id));
-		final TypedQuery<IRoute> q = em.createQuery(cq);
-		return q.getResultList();
-	}
+        cq.where(cb.equal(from.get(Route_.customer).get(Customer_.id), id));
+        final TypedQuery<IRoute> q = em.createQuery(cq);
+        return q.getResultList();
+    }
 
-	@Override
-	public void addRouteToMap(Integer mapId, Integer routeId) {
-		final EntityManager em = getEntityManager();
-		em.createNativeQuery(String.format("insert into map_2_route (map_id, route_id) values(%s, %s)", mapId, routeId))
-				.executeUpdate();
+    @Override
+    public List<IRoute> getRoutesByTrack(Track track) {
+        final EntityManager em = getEntityManager();
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
+        final Root<Route> from = cq.from(Route.class);
+        cq.select(from);
+        from.fetch(Route_.customer, JoinType.LEFT);
 
-	}
+        cq.where(cb.equal(from.get(Route_.track), track));
+        final TypedQuery<IRoute> q = em.createQuery(cq);
+        return q.getResultList();
+    }
 
-	@Override
-	public void deleteRouteFromMap(Integer mapId, Integer routeId) {
-		final EntityManager em = getEntityManager();
-		em.createNativeQuery(
-				(String.format("delete from map_2_route e where e.map_id = %s and e.route_id=%s", mapId, routeId)))
-				.executeUpdate();
+    @Override
+    public void deleteRouteFromMapsList(Integer routeId) {
+        final EntityManager em = getEntityManager();
+        em.createNativeQuery((String.format("delete from map_2_route e where e.route_id=%s", routeId))).executeUpdate();
 
-	}
-
-	@Override
-	public List<IRoute> getRoutesByTrack(Track track) {
-		final EntityManager em = getEntityManager();
-		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);
-		final Root<Route> from = cq.from(Route.class);
-		cq.select(from);
-		from.fetch(Route_.customer, JoinType.LEFT);
-
-		cq.where(cb.equal(from.get(Route_.track), track));
-		final TypedQuery<IRoute> q = em.createQuery(cq);
-		return q.getResultList();
-	}
-
-	@Override
-	public void deleteRouteFromMapsList(Integer routeId) {
-		final EntityManager em = getEntityManager();
-		em.createNativeQuery(
-				(String.format("delete from map_2_route e where e.route_id=%s", routeId)))
-				.executeUpdate();
-		
-	}
+    }
 
 }
