@@ -18,25 +18,19 @@
 					<li><a href="${baseUrl}/route"><mytaglib:i18n
 								key="menu.route"></mytaglib:i18n></a></li>
 				</sec:authorize>
-				<li><a href="${baseUrl}/link"><mytaglib:i18n
-							key="menu.link"></mytaglib:i18n></a></li>
-
-
-
-
+				
 				<sec:authorize access="isAuthenticated()">
 
-					<li><a class='dropdown-trigger btn' data-target='dropdown1'>Info</a>
-
+					<li><a class='dropdown-trigger btn' data-target='dropdown1'><mytaglib:i18n key="menu.info"></mytaglib:i18n></a>
 
 						<ul id='dropdown1' class='dropdown-content'>
-							<li>Name: <sec:authentication property="name" /></li>
-							<li>Surname: <sec:authentication property="surname" /></li>
+							<li><mytaglib:i18n key="menu.info.name"></mytaglib:i18n>: <sec:authentication property="name" /></li>
+							<li><mytaglib:i18n key="menu.info.surname"></mytaglib:i18n>: <sec:authentication property="surname" /></li>
 							<li class="divider" tabindex="-1"></li>
-							<li>Role: <sec:authentication property="role" /></li>
-							<li>Email: <sec:authentication property="email" /></li>
+							<li><mytaglib:i18n key="menu.info.role"></mytaglib:i18n>: <sec:authentication property="role" /></li>
+							<li><mytaglib:i18n key="menu.info.email"></mytaglib:i18n>: <sec:authentication property="email" /></li>
 							<li><a href="${baseUrl}/execute_logout" title="logout"><i
-									class="material-icons">arrow_forward</i>logout</a></li>
+									class="material-icons">arrow_forward</i><mytaglib:i18n key="menu.info.logout"></mytaglib:i18n></a></li>
 						</ul></li>
 
 
@@ -47,22 +41,21 @@
 				<sec:authorize access="isAnonymous()">
 
 
-					<li><a class='dropdown-trigger btn' data-target='dropdown1'>Login</a>
+					<li><a class='dropdown-trigger btn' data-target='dropdown1'><mytaglib:i18n key="menu.login"></mytaglib:i18n></a>
 
 
 						<ul id='dropdown1' class='dropdown-content'>
 							<li><a href="${baseUrl}/login" title="login"><i
-									class="large material-icons">account_circle</i>Login</a></li>
+									class="large material-icons">account_circle</i><mytaglib:i18n key="menu.login"></mytaglib:i18n></a></li>
 							<li><a href="${baseUrl}/registration" title="registration"><i
-									class="large material-icons">person_add</i>Registration</a></li>
+									class="large material-icons">person_add</i><mytaglib:i18n key="menu.login.registration"></mytaglib:i18n></a></li>
 
 						</ul></li>
 
 				</sec:authorize>
 
-				<li><a href="${baseUrl}?language=ru">RU</a></li>
-				<li><a href="${baseUrl}?language=en">EN</a></li>
-
+				<li><a  href="${baseUrl}?language=ru"><mytaglib:i18n key="menu.ru"></mytaglib:i18n></a></li>
+				<li><a href="${baseUrl}?language=en"><mytaglib:i18n key="menu.en"></mytaglib:i18n></a></li>
 			</ul>
 		</div>
 	</nav>

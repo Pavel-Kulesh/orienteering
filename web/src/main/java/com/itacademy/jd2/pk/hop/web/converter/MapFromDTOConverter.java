@@ -25,7 +25,32 @@ public class MapFromDTOConverter implements Function<MapDTO, IMap> {
 
 	@Override
 	public IMap apply(MapDTO dto) {
-		IMap entity = mapService.createEntity();
+		IMap entity = mapService.get(dto.getId());
+		if (entity==null) {
+			entity = mapService.createEntity();
+			entity.setId(dto.getId());
+			entity.setName(dto.getName());
+				
+			ICustomer customer = customerService.get(dto.getCustomerId());
+			entity.setCustomer(customer);
+			entity.setLatitude1(dto.getLatitude1());
+			entity.setLatitude2(dto.getLatitude2());
+			entity.setLongitude1(dto.getLongitude1());
+			entity.setLongitude2(dto.getLongitude2());
+		} else {
+			entity.setId(dto.getId());
+			entity.setName(dto.getName());
+				
+			ICustomer customer = customerService.get(dto.getCustomerId());
+			entity.setCustomer(customer);
+			entity.setLatitude1(dto.getLatitude1());
+			entity.setLatitude2(dto.getLatitude2());
+			entity.setLongitude1(dto.getLongitude1());
+			entity.setLongitude2(dto.getLongitude2());
+
+		}
+		
+		/*IMap entity = mapService.createEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
 			
@@ -35,6 +60,7 @@ public class MapFromDTOConverter implements Function<MapDTO, IMap> {
 		entity.setLatitude2(dto.getLatitude2());
 		entity.setLongitude1(dto.getLongitude1());
 		entity.setLongitude2(dto.getLongitude2());
+		*/
 		
 
 		return entity;

@@ -2,6 +2,7 @@ package com.itacademy.jd2.pk.hop.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,17 +27,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.service.IPointService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 import com.itacademy.jd2.pk.hop.web.converter.RouteFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.RouteToDTOConverter;
+import com.itacademy.jd2.pk.hop.web.dto.PointDTO;
 import com.itacademy.jd2.pk.hop.web.dto.RouteDTO;
+import com.itacademy.jd2.pk.hop.web.dto.RouteDataResponse;
 import com.itacademy.jd2.pk.hop.web.dto.SpeedDTO;
-import com.itacademy.jd2.pk.hop.web.dto.ajax.PointDTO;
-import com.itacademy.jd2.pk.hop.web.dto.ajax.RouteDataAjaxResponse;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
-import com.itacademy.jd2.pk.hop.web.tag.MyGPX;
+import com.itacademy.jd2.pk.hop.web.gpx.MyGPX;
 
 @Controller
 @RequestMapping(value = "/route")
@@ -68,7 +70,8 @@ public class RouteController extends AbstractController<RouteDTO> {
 		gridState.setSort(sortColumn, "id");
 
 		RouteFilter filter = new RouteFilter();
-
+		filter.setCustomerId(getCustomerId());
+		filter.setUserRole(getLoginRole());
 		prepareFilter(gridState, filter);
 
 		final List<IRoute> entities = routeService.find(filter);
@@ -76,15 +79,6 @@ public class RouteController extends AbstractController<RouteDTO> {
 		gridState.setTotalCount(routeService.getCount(filter));
 
 		final HashMap<String, Object> models = new HashMap<>();
-
-		String currentLoginRole = getLoginRole();
-		Integer currentCustomerId = getCustomerId();
-
-		for (RouteDTO routeDTO : dtos) {
-			if (routeDTO.getCustomerId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
-				
-			}
-		}
 
 		models.put("gridItem", dtos);
 		return new ModelAndView("route.list", models);
@@ -99,6 +93,7 @@ public class RouteController extends AbstractController<RouteDTO> {
 		dto.setCustomerId(getCustomerId());
 		hashMap.put("formModel", dto);
 
+		loadComboboxesModels(hashMap);
 		return new ModelAndView("route.add", hashMap);
 	}
 
@@ -139,14 +134,12 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 			final IRoute entity = fromDTOConverter.apply(formModel);
 			routeService.save(entity);
-
 			return "redirect:/route";
 		}
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
-		pointService.delete(id);
 		routeService.delete(id);
 
 		// delete all link manyToMany map_2_route;
@@ -170,12 +163,12 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
-
+		loadComboboxesModels(hashMap);
 		return new ModelAndView("route.edit", hashMap);
 	}
 
 	@RequestMapping(value = "/points", method = RequestMethod.GET)
-	public ResponseEntity<RouteDataAjaxResponse> getRoutePoints(
+	public ResponseEntity<RouteDataResponse> getRoutePoints(
 			@RequestParam(name = "routeId", required = true) final Integer routeId) {
 		List<PointDTO> points = new ArrayList<>();
 		List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
@@ -184,11 +177,11 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 		}
 
-		RouteDataAjaxResponse routeDataAjaxResponse = new RouteDataAjaxResponse();
+		RouteDataResponse routeDataResponse = new RouteDataResponse();
 		IRoute route = routeService.get(routeId);
-		routeDataAjaxResponse.setName(route.getName());
-		routeDataAjaxResponse.setPoints(points);
-		return new ResponseEntity<RouteDataAjaxResponse>(routeDataAjaxResponse, HttpStatus.OK);
+		routeDataResponse.setName(route.getName());
+		routeDataResponse.setPoints(points);
+		return new ResponseEntity<RouteDataResponse>(routeDataResponse, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/speed", method = RequestMethod.GET)
@@ -213,6 +206,15 @@ public class RouteController extends AbstractController<RouteDTO> {
 
 		return intervals;
 
+	}
+
+	private void loadComboboxesModels(final Map<String, Object> hashMap) {
+
+		final List<Track> eventTypesList = Arrays.asList(Track.values());
+		final Map<String, String> eventTypesMap = eventTypesList.stream()
+				.collect(Collectors.toMap(Track::name, Track::name));
+
+		hashMap.put("wayChoices", eventTypesMap);
 	}
 
 	public double getDistanceBetween(double lat1, double lon1, double lat2, double lon2) {

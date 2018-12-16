@@ -8,188 +8,160 @@
 	<mytaglib:i18n key="map.info" />
 	: ${formModel.name}
 </h4>
+<br />
 
 <div class="row">
-	<div class="col s6">
-		block1
-		<div class="row">
-			<div class="col s6">
-				<sec:authorize access="!isAnonymous()">
+	<div class="col s12 m6 l3">
+		<sec:authorize access="!isAnonymous()">
+			<div class="card">
+
+				<div class="card-content center-align" style="padding: 10px">
+
 					<div class="row">
-						1
-						<mytaglib:i18n key="map.add.route" />
-					</div>
-					<div class="row">
+
+
+						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
+								key="map.add.route" /></span>
+
 						<form:form class="col s12"
-							action="${baseUrl}/addRouteToMap/${formModel.id}"
+							action="${baseUrl}/addWayToMap/${formModel.id}"
 							modelAttribute="idHolder" method="post">
-							<div class="row">
-								<div class="col s1"></div>
-
-								<div class="col s10">
-									<form:select path="id">
-										<option value="" disabled selected><mytaglib:i18n
-												key="map.routes" />
-											<form:options items="${myRoutes}" />
-									</form:select>
-								</div>
-								<div class="col s1"></div>
-							</div>
-							<div class="row">
-								<div class="col s1"></div>
-								<div class="col s10">
-									<button class="btn waves-effect waves-light" type="submit">
-										<mytaglib:i18n key="map.add.route" />
-									</button>
-								</div>
-								<div class="col s1"></div>
-
-							</div>
+							<form:select path="id">
+								<option value="" disabled selected><mytaglib:i18n
+										key="map.routes" />
+									<form:options items="${ways}" />
+									<form:errors path="id" cssClass="red-text" />
+							</form:select>
+							<button class="btn waves-effect waves-light" type="submit">
+								<mytaglib:i18n key="map.add.route" />
+							</button>
 						</form:form>
-					</div>
-					<sec:authorize access="hasRole('ADMIN')">
-						<div class="row">3</div>
-					</sec:authorize>
-				</sec:authorize>
-			</div>
-			<div class="col s6">
-				<sec:authorize access="!isAnonymous()">
-					<div class="row">
-						4
-						<mytaglib:i18n key="map.delete.route" />
-					</div>
-					<div class="row">
-						<form:form class="col s12"
-							action="${baseUrl}/deleteRouteFromMap/${formModel.id}"
+						<sec:authorize access="hasRole('ADMIN')">
+				<form:form class="col s12"
+							action="${baseUrl}/addWayToMap/${formModel.id}"
 							modelAttribute="idHolder" method="post">
-							<div class="row">
-
-								<div class="col s12">
-									<form:select path="id">
-										<option value="" disabled selected><mytaglib:i18n
-												key="map.routes" />
-											<form:options items="${myRoutesOnMap}" />
-									</form:select>
-								</div>
-
-							</div>
-							<div class="row">
-								<div class="col s12">
-									<button class="btn waves-effect waves-light red" type="submit">
-										<mytaglib:i18n key="map.delete.route" />
-									</button>
-
-								</div>
-
-
-							</div>
+							<form:select path="id">
+								<option value="" disabled selected><mytaglib:i18n
+										key="map.distances" />
+									<form:options items="${distances}" />
+							</form:select>
+							<button class="btn waves-effect waves-light" type="submit">
+								<mytaglib:i18n key="map.add.distance" />
+							</button>
 						</form:form>
+			</sec:authorize>
 					</div>
-					<sec:authorize access="hasRole('ADMIN')">
-						<div class="row">6</div>
-					</sec:authorize>
-				</sec:authorize>
+				</div>
 			</div>
-		</div>
-
-
+		</sec:authorize>
 
 
 
 	</div>
-	<div class="col s6">
-		block2
-		<div class="row">
-			<div class="col s6">
-				<div class="row">
-					1
-					<mytaglib:i18n key="map.show.distance" />
-				</div>
-				<div class="row">
-					2
-					<form:form class="col s12" action="#" modelAttribute="idHolder"
-						method="get">
-						<div class="row">
+	<div class="col s12 m6 l3">
+		<sec:authorize access="!isAnonymous()">
+			<div class="card">
 
-							<div class="col s12">
+				<div class="card-content center-align" style="padding: 10px">
+
+					<div class="row">
+
+
+						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
+								key="map.delete.route" /></span>
+
+						<form:form class="col s12"
+							action="${baseUrl}/deleteWayFromMap/${formModel.id}"
+							modelAttribute="idHolder" method="post">
+									<form:select path="id">
+										<option value="" disabled selected><mytaglib:i18n
+												key="map.routes" />
+											<form:options items="${myWaysOnMap}" />
+									</form:select>
+									<button class="btn waves-effect waves-light red" type="submit">
+										<mytaglib:i18n key="map.delete.route" />
+									</button>
+						</form:form>
+						<sec:authorize access="hasRole('ADMIN')">
+				<form:form class="col s12"
+							action="${baseUrl}/deleteWayFromMap/${formModel.id}"
+							modelAttribute="idHolder" method="post">
+									<form:select path="id">
+										<option value="" disabled selected><mytaglib:i18n
+												key="map.distances" />
+											<form:options items="${distancesOnMap}" />
+									</form:select>
+									<button class="btn waves-effect waves-light red" type="submit">
+										<mytaglib:i18n key="map.delete.distance" />
+									</button>
+						</form:form>
+			</sec:authorize>
+					</div>
+				</div>
+			</div>
+		</sec:authorize>
+		
+		
+	</div>
+	<div class="col s12 m6 l3">
+		<div class="card">
+
+				<div class="card-content center-align" style="padding: 10px">
+
+					<div class="row">
+
+						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
+								key="map.show.distance" /></span>
+
+						<form:form class="col s12" action="#" modelAttribute="idHolder"
+						method="get">
 								<form:select path="id" cssClass="dist-selector">
 									<option value="" disabled selected><mytaglib:i18n
-											key="map.routes" />
-										<form:options items="${mapRoutes}" />
+											key="map.distance" />
+										<form:options items="${distancesOnMap}" />
 								</form:select>
-								<label for="id"><mytaglib:i18n key="map.routes" /></label>
-							</div>
-
-						</div>
-						<div class="row">
-
-							<div class="col s12">
 								<a class="waves-effect waves-light btn"
 									onclick="showSelectedDistance()"> <mytaglib:i18n
 										key="map.show.distance" />
 								</a>
-
-							</div>
-
-						</div>
 					</form:form>
-				</div>
-				3
-				<div class="row">
-					<a class="waves-effect waves-light btn red"
+						<a class="waves-effect waves-light btn red"
 						onclick="clearDistance()"> <mytaglib:i18n
 							key="map.clear.distance" />
 					</a>
+					</div>
 				</div>
 			</div>
-			<div class="col s6">
-				<div class="row">
-					4
-					<mytaglib:i18n key="map.show.route" />
-				</div>
-				<div class="row">
-					5
-					<form:form class="col s12" action="#" modelAttribute="idHolder"
+	</div>
+	<div class="col s12 m6 l3">
+		<div class="card">
+				<div class="card-content center-align" style="padding: 10px">
+					<div class="row">
+						<span class="card-title" style="font-size: 14pt"><mytaglib:i18n
+								key="map.show.route" /></span>
+						<form:form class="col s12" action="#" modelAttribute="idHolder"
 						method="get">
-						<div class="row">
-
-							<div class="col s12">
-
 								<form:select path="id" cssClass="route-selector">
 									<option value="" disabled selected><mytaglib:i18n
-											key="map.routes" />
-										<form:options items="${mapRoutes}" />
+											key="map.route" />
+										<form:options items="${waysOnMap}" />
 								</form:select>
-								<label for="id"><mytaglib:i18n key="map.routes" /></label>
-							</div>
-
-						</div>
-						<div class="row">
-
-							<div class="col s12">
 								<a class="waves-effect waves-light btn"
 									onclick="showSelectedTrack()"> <mytaglib:i18n
 										key="map.show.route" />
 								</a>
-
-							</div>
-
-						</div>
 					</form:form>
-				</div>
-				6
-				<div class="row">
 					<a class="waves-effect waves-light btn red" onclick="clearRoutes()">
 						<mytaglib:i18n key="map.clear.routes" />
 					</a>
+					</div>
 				</div>
 			</div>
-		</div>
-
 	</div>
 </div>
 
-<div class="row">
+
+<div class="card">
 	<div class="col s12">
 		<div>
 			<script>

@@ -13,10 +13,7 @@
 		modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 		<form:input path="customerId" type="hidden" />
-	
 		
-		
-
 		<div class="row">
 			<i class="material-icons">note</i>
 			<div class="input-field col s12">

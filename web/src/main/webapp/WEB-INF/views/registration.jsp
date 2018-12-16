@@ -100,8 +100,7 @@
 				<button class="btn waves-effect waves-light right" type="submit">register</button>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right red" href="${baseUrl}">ÉGo
-					back<i class="material-icons right"></i>
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}">Back
 				</a>
 			</div>
 		</div>

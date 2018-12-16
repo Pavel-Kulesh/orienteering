@@ -9,29 +9,65 @@
 <h4 class="header">List routes</h4>
 
 <input type="text" id="myInput" onkeyup="myFunction()"
-	placeholder="Search for names..">
+	placeholder="Search for names (current page)..">
 
-<table id="myTable">
-	<tr class="header">
-		<th style="width: 60%;">Name</th>
-		<th style="width: 20%;">Country</th>
-		<th style="width: 20%;"></th>
-	</tr>
-	<c:forEach var="route" items="${gridItem}" varStatus="loopCounter">
+
+<table id="myTable" class="bordered highlight">
+	<tbody>
 		<tr>
-			<td><c:out value="${route.name}" /></td>
-			<td><c:out value="${route.customerId}" /></td>
+			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
+					<i class="material-icons">assignment_ind</i>
+					Name
+				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}">
+					<i class="material-icons">access_time</i> created
+					</mytaglib:sort-link></th>
 
-			<td class="right"><a class="btn-floating"
-				href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
+			<sec:authorize access="hasAnyRole('ADMIN')">
+				<th><mytaglib:sort-link column="customer_id"
+						pageUrl="${baseUrl}">
+						<i class="material-icons">description</i>
+						customer
+					</mytaglib:sort-link></th>
+				<th><mytaglib:sort-link column="track" pageUrl="${baseUrl}">
+						<i class="material-icons">description</i>
+						way
+					</mytaglib:sort-link></th>
 
-				<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
-					class="material-icons">edit</i></a> <a class="btn-floating red"
-				href="${baseUrl}/${route.id}/delete"><i class="material-icons">delete</i></a>
+			</sec:authorize>
+			<th></th>
 		</tr>
-	</c:forEach>
+		<c:forEach var="route" items="${gridItem}" varStatus="loopCounter">
+			<tr>
 
+				<td><c:out value="${route.name}" /></td>
+				<td><c:out value="${route.created}" /></td>
+				<sec:authorize access="hasRole('ADMIN')">
+					<td><c:out value="${route.customerId}" /></td>
+					<td><c:out value="${route.track}" /></td>
+
+				</sec:authorize>
+				<td class="right"><a class="btn-floating"
+					href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
+					<a class="btn-floating orange" href="${baseUrl}/${route.id}/edit"><i
+						class="material-icons">edit</i></a> <a class="btn-floating red"
+					href="${baseUrl}/${route.id}/delete"><i class="material-icons">delete</i></a>
+			</tr>
+		</c:forEach>
+	</tbody>
 </table>
+<jspFragments:paging />
+
+<sec:authorize access="!isAnonymous()">
+
+	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
+		class="material-icons">add</i></a>
+</sec:authorize>
+
+
+
+
+
 
 <script>
 	function myFunction() {
@@ -56,65 +92,3 @@
 		}
 	}
 </script>
-
-
-
-
-
-
-
-
-
-
-<table class="bordered highlight">
-	<tbody>
-		<tr>
-			<th><mytaglib:sort-link column="id" pageUrl="${baseUrl}">
-					<i class="material-icons">filter_vintage</i>id</mytaglib:sort-link></th>
-			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
-					<i class="material-icons">assignment_ind</i>
-					Name
-				</mytaglib:sort-link></th>
-			<sec:authorize access="hasAnyRole('ADMIN')">
-				<th><mytaglib:sort-link column="customer_id"
-						pageUrl="${baseUrl}">
-						<i class="material-icons">description</i>
-						customer
-					</mytaglib:sort-link></th>
-
-				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}">
-						<i class="material-icons">access_time</i> created
-					</mytaglib:sort-link></th>
-			</sec:authorize>
-			<th></th>
-		</tr>
-		<c:forEach var="route" items="${gridItem}" varStatus="loopCounter">
-			<tr>
-
-				<td><c:out value="${route.id}" /></td>
-				<td><c:out value="${route.name}" /></td>
-				<sec:authorize access="hasRole('ADMIN')">
-					<td><c:out value="${route.customerId}" /></td>
-					<td><c:out value="${route.created}" /></td>
-				</sec:authorize>
-				<td class="right"><a class="btn-floating"
-					href="${baseUrl}/${route.id}"><i class="material-icons">info</i></a>
-
-
-
-
-
-					<a class="btn-floating" href="${baseUrl}/${route.id}/edit"><i
-						class="material-icons">edit</i></a> <a class="btn-floating red"
-					href="${baseUrl}/${route.id}/delete"><i class="material-icons">delete</i></a>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
-<jspFragments:paging />
-
-<sec:authorize access="!isAnonymous()">
-
-	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
-		class="material-icons">add</i></a>
-</sec:authorize>

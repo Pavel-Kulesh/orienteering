@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Route;
@@ -116,6 +117,18 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
 
 	@Override
 	public void deleteRouteFromMap(Integer mapId, Integer routeId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<IRoute> getRoutesByTrack(Track track) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteRouteFromMapsList(Integer routeId) {
 		// TODO Auto-generated method stub
 		
 	}

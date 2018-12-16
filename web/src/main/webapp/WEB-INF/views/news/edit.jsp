@@ -30,7 +30,7 @@
 		<div class="row">
 
 			<div class="input-field col s9">
-				<form:input path="info" type="text" />
+				<form:textarea path="info" type="text" />
 				<form:errors path="info" cssClass="red-text" />
 				<label for="info"><mytaglib:i18n key="news.info" /></label>
 			</div>

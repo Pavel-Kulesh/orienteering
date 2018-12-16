@@ -1,6 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/route" />
 <h4 class="header">Route</h4>
 <div class="row">
@@ -21,6 +23,18 @@
 			</div>
 		</div>
 
+		<sec:authorize access="hasRole('ADMIN')">
+			<div class="row">
+				<i class="material-icons">filter</i>
+				<form:select path="track">
+					<option value="" disabled selected><mytaglib:i18n
+							key="route.way" /></option>
+					<form:options items="${wayChoices}" />
+				</form:select>
+				<label for="track"><mytaglib:i18n key="route.way" /></label>
+			</div>
+		</sec:authorize>
+
 		<table>
 			<tr>
 				<td>File to upload:</td>
@@ -31,13 +45,13 @@
 				<td></td>
 			</tr>
 		</table>
-			
+
 
 
 		<div class="row">
 			<div class="col s2"></div>
 			<div class="col s3">
-				<button class="btn waves-effect waves-light right" type="submit">Saveƒ</button>
+				<button class="btn waves-effect waves-light right" type="submit">Save</button>
 			</div>
 			<div class="col s3">
 				<a class="btn waves-effect waves-light right red" href="${baseUrl}">Back<i

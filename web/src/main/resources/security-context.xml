@@ -19,7 +19,8 @@
 		<intercept-url pattern="/participant/add**" access="hasRole('ROLE_ADMIN')" />
 
 		
-		<!-- <intercept-url pattern="/route/**" access="!isAnonymous()" /> -->
+		<intercept-url pattern="/route/add**" access="!isAnonymous()" /> 
+		<intercept-url pattern="/route/delete**" access="!isAnonymous()" /> 
 
 		<form-login login-page="/login" default-target-url="/"
 			authentication-failure-url="/login?error" username-parameter="username"

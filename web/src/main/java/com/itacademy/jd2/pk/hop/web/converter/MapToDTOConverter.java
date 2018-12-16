@@ -23,6 +23,7 @@ public class MapToDTOConverter implements Function<IMap, MapDTO> {
 		dto.setLatitude2(entity.getLatitude2());
 		dto.setLongitude1(entity.getLongitude1());
 		dto.setLongitude2(entity.getLongitude2());
+		dto.setImage(entity.getImage());
 		dto.setCreated(entity.getCreated());
 		dto.setUpdated(entity.getUpdated());
 

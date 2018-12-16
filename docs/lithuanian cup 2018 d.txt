@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><gpx creator="trackcourse.com" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/WaypointExtension/v1 http://www8.garmin.com/xmlschemas/WaypointExtensionv1.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/ActivityExtension/v1 http://www8.garmin.com/xmlschemas/ActivityExtensionv1.xsd http://www.garmin.com/xmlschemas/AdventuresExtensions/v1 http://www8.garmin.com/xmlschemas/AdventuresExtensionv1.xsd http://www.garmin.com/xmlschemas/PressureExtension/v1 http://www.garmin.com/xmlschemas/PressureExtensionv1.xsd http://www.garmin.com/xmlschemas/TripExtensions/v1 http://www.garmin.com/xmlschemas/TripExtensionsv1.xsd http://www.garmin.com/xmlschemas/TripMetaDataExtensions/v1 http://www.garmin.com/xmlschemas/TripMetaDataExtensionsv1.xsd http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensions/v1 http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensionsv1.xsd http://www.garmin.com/xmlschemas/CreationTimeExtensions/v1 http://www.garmin.com/xmlschemas/CreationTimeExtensionsv1.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxtrx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:trp="http://www.garmin.com/xmlschemas/TripExtensions/v1" xmlns:adv="http://www.garmin.com/xmlschemas/AdventuresExtensions/v1" xmlns:prs="http://www.garmin.com/xmlschemas/PressureExtension/v1" xmlns:tmd="http://www.garmin.com/xmlschemas/TripMetaDataExtensions/v1" xmlns:vptm="http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensions/v1" xmlns:ctx="http://www.garmin.com/xmlschemas/CreationTimeExtension/v1">
+        <metadata>
+            <link href="http://www.garmin.com">
+                <text>Garmin International</text>
+            </link>
+            <time>2018-10-13T11:06:02+02:00</time>
+            <bounds maxlat="53.95044900" maxlon="24.03856400" minlat="53.93408700" minlon="23.99776500" />
+        </metadata>
+
+        <trk>
+            <name>Mantas Martinkus</name>
+            <extensions>
+                <gpxx:TrackExtension>
+                    <gpxx:DisplayColor>#0000FF</gpxx:DisplayColor>
+                </gpxx:TrackExtension>
+            </extensions>
+            <trkseg>
+                
+<trkpt lon="23.99777" lat="53.93442"><ele>123.30</ele><time>2018-10-13T11:06:02+02:00</time></trkpt>
+
+<trkpt lon="24.00491" lat="53.93861"><ele>123.30</ele><time>2018-10-13T11:06:07+02:00</time></trkpt>
+
+<trkpt lon="24.0042" lat="53.94423"><ele>122.90</ele><time>2018-10-13T11:06:12+02:00</time></trkpt>
+
+<trkpt lon="24.00725" lat="53.95034"><ele>122.60</ele><time>2018-10-13T11:06:17+02:00</time></trkpt>
+
+<trkpt lon="24.0138" lat="53.94548"><ele>122.60</ele><time>2018-10-13T11:06:22+02:00</time></trkpt>
+
+<trkpt lon="24.0042" lat="53.94423"><ele>123.20</ele><time>2018-10-13T11:06:27+02:00</time></trkpt>
+
+<trkpt lon="24.02959" lat="53.93484"><ele>123.20</ele><time>2018-10-13T11:06:32+02:00</time></trkpt>
+
+<trkpt lon="24.03676" lat="53.94545"><ele>122.80</ele><time>2018-10-13T11:06:37+02:00</time></trkpt>
+
+<trkpt lon="24.02272" lat="53.94371"><ele>121.00</ele><time>2018-10-13T11:06:42+02:00</time></trkpt>
+
+<trkpt lon="24.03229" lat="53.94164"><ele>119.10</ele><time>2018-10-13T11:06:43+02:00</time></trkpt>
+
+<trkpt lon="24.01929" lat="53.94626"><ele>119.10</ele><time>2018-10-13T11:06:44+02:00</time></trkpt>
+
+<trkpt lon="24.02272" lat="53.94371"><ele>119.10</ele><time>2018-10-13T11:06:45+02:00</time></trkpt>
+
+
+<trkpt lon="24.00581" lat="53.93558"><ele>118.30</ele><time>2018-10-13T11:06:52+02:00</time></trkpt>
+            </trkseg>
+        </trk>
+
+</gpx>

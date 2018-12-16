@@ -20,13 +20,12 @@
 					<i class="material-icons">assignment_ind</i>
 					<mytaglib:i18n key="news.name" />
 				</mytaglib:sort-link></th>
+			<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}">
+					<i class="material-icons">access_time</i>
+					<mytaglib:i18n key="news.created" />
+				</mytaglib:sort-link></th>
 			<sec:authorize access="hasRole('ADMIN')">
-				<th><mytaglib:sort-link column="info" pageUrl="${baseUrl}">
-						<i class="material-icons">description</i>
-						<mytaglib:i18n key="news.info" />
-					</mytaglib:sort-link></th>
-				<th><i class="material-icons">access_time</i> <mytaglib:i18n
-						key="news.created" /></th>
+
 				<th><i class="material-icons">access_time</i> <mytaglib:i18n
 						key="news.updated" /></th>
 				<th></th>
@@ -40,10 +39,9 @@
 					<td><c:out value="${news.id}" /></td>
 				</sec:authorize>
 				<td><c:out value="${news.name}" /></td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd"
+						value="${news.created}" /></td>
 				<sec:authorize access="hasRole('ADMIN')">
-					<td><c:out value="${news.info}" /></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd"
-							value="${news.created}" /></td>
 					<td><fmt:formatDate pattern="yyyy-MM-dd"
 							value="${news.updated}" /></td>
 				</sec:authorize>
@@ -51,7 +49,7 @@
 					href="${baseUrl}/${news.id}"><i class="material-icons">info</i></a>
 
 					<sec:authorize access="hasRole('ADMIN')">
-						<a class="btn-floating" href="${baseUrl}/${news.id}/edit"><i
+						<a class="btn-floating orange" href="${baseUrl}/${news.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red" href="${baseUrl}/${news.id}/delete"><i
 							class="material-icons">delete</i></a>

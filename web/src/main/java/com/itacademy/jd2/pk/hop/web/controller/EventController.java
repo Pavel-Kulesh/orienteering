@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.velocity.tools.config.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
-import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
-import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
 import com.itacademy.jd2.pk.hop.web.converter.EventFromDTOConverter;
 import com.itacademy.jd2.pk.hop.web.converter.EventToDTOConverter;
 import com.itacademy.jd2.pk.hop.web.dto.EventDTO;
 import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
-import com.itacademy.jd2.pk.hop.web.security.AuthHelper;
 
 @Controller
 @RequestMapping(value = "/event")
@@ -49,17 +45,17 @@ public class EventController extends AbstractController<EventDTO> {
 	private EventToDTOConverter toDTOConverter;
 
 	private EventFromDTOConverter fromDTOConverter;
-	private ICustomerService customerService;
+	
 
 	@Autowired
 	public EventController(IEventService eventService, EventToDTOConverter toDTOConverter,
-			EventFromDTOConverter fromDTOConverter, ICountryService countryService, ICustomerService customerService) {
+			EventFromDTOConverter fromDTOConverter, ICountryService countryService) {
 		super();
 		this.eventService = eventService;
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
 		this.countryService = countryService;
-		this.customerService = customerService;
+	
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -78,17 +74,20 @@ public class EventController extends AbstractController<EventDTO> {
 		List<EventDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
 		gridState.setTotalCount(eventService.getCount(filter));
 
-		String currentLoginRole = getLoginRole();
-		Integer currentCustomerId = getCustomerId();
 		for (EventDTO eventDTO : dtos) {
-			if (eventDTO.getCustomerId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
-				eventDTO.setStatusVisible(true);
-			}
+			setStatusVisible(eventDTO);
 		}
 
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 		return new ModelAndView("event.list", models);
+	}
+
+	private void setStatusVisible(EventDTO eventDTO) {
+		if (eventDTO.getCustomerId().equals(getCustomerId()) || ("ADMIN".equals(getLoginRole()))) {
+			eventDTO.setStatusVisible(true);
+		}
+
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -110,11 +109,7 @@ public class EventController extends AbstractController<EventDTO> {
 			return "event.edit";
 		} else {
 			final IEvent entity = fromDTOConverter.apply(formModel);
-
-			ICustomer customer = customerService.get(AuthHelper.getLoggedUserId());
-			entity.setCustomer(customer);
 			eventService.save(entity);
-
 			return "redirect:/event";
 		}
 	}
@@ -123,6 +118,7 @@ public class EventController extends AbstractController<EventDTO> {
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
 		String loginRole = getLoginRole();
 		if (loginRole.equals("ADMIN")) {
+			// delete all participants at event list
 			eventService.delete(id);
 
 		} else {
@@ -142,8 +138,9 @@ public class EventController extends AbstractController<EventDTO> {
 		final IEvent dbModel = eventService.get(id);
 		final EventDTO dto = toDTOConverter.apply(dbModel);
 		final HashMap<String, Object> hashMap = new HashMap<>();
+		
+		setStatusVisible(dto);
 		hashMap.put("formModel", dto);
-
 		checkDate(id, dto, hashMap);
 
 		return new ModelAndView("event.info", hashMap);

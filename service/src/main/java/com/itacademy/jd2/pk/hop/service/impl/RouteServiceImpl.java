@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.itacademy.jd2.pk.hop.dao.api.IPointDao;
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 
@@ -64,6 +65,8 @@ public class RouteServiceImpl implements IRouteService {
 	@Override
 	public void delete(Integer id) {
 		pointDao.delete(id);
+		
+		dao.deleteRouteFromMapsList(id);
 		dao.delete(id);
 		LOGGER.info("delete route with id=" + id + " +delete all point where route_id=id");
 
@@ -71,7 +74,6 @@ public class RouteServiceImpl implements IRouteService {
 
 	@Override
 	public void deleteAll() {
-		// need delete all point
 		pointDao.deleteAll();
 		dao.deleteAll();
 		LOGGER.info("delete all routes and point");
@@ -111,6 +113,17 @@ public class RouteServiceImpl implements IRouteService {
 	public void deleteRouteFromMap(Integer mapId, Integer routeId) {
 		dao.deleteRouteFromMap(mapId, routeId);
 
+	}
+
+	@Override
+	public List<IRoute> getRoutesByTrack(Track track) {
+		return dao.getRoutesByTrack(track);
+	}
+
+	@Override
+	public void deleteRouteFromMapsList(Integer routeId) {
+		dao.deleteRouteFromMapsList(routeId);
+		
 	}
 
 }

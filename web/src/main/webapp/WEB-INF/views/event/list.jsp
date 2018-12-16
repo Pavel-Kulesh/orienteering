@@ -10,6 +10,26 @@
 <h4 class="header">
 	<mytaglib:i18n key="event.header" />
 </h4>
+
+<sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large right"
+			href="${baseUrl}/add"> <i
+			class="large material-icons">add</i>
+		</a>
+	</div>
+</sec:authorize>
+
+<script>
+	$(document).ready(function() {
+		$('.fixed-action-btn').floatingActionButton();
+	});
+</script>
+
+
+
+
+
 <table class="bordered highlight">
 	<tbody>
 		<tr>
@@ -65,7 +85,7 @@
 					href="${baseUrl}/${event.id}"><i class="material-icons">info</i></a>
 
 					<c:if test="${event.statusVisible}">
-						<a class="btn-floating" href="${baseUrl}/${event.id}/edit"><i
+						<a class="btn-floating orange" href="${baseUrl}/${event.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red" href="${baseUrl}/${event.id}/delete"><i
 							class="material-icons">delete</i></a>
@@ -79,6 +99,5 @@
 <sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">
 
 	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
-		class="material-icons">add</i>
-	<mytaglib:i18n key="event.add" /></a>
+		class="material-icons">add</i> <mytaglib:i18n key="event.add" /></a>
 </sec:authorize>

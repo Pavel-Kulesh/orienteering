@@ -28,7 +28,7 @@
 		<div class="row">
 			<i class="material-icons">description</i>
 			<div class="input-field col s12">
-				<form:input path="info" type="text" />
+				<form:textarea path="info" />
 				<form:errors path="info" cssClass="red-text" />
 				<label for="info"><mytaglib:i18n key="event.info" /></label>
 			</div>
@@ -99,8 +99,9 @@
 
 			</div>
 			<div class="col s3">
+
 				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n
-						key="event.back" />ƒ<i class="material-icons right"></i> </a>
+						key="event.back" />ƒ<i class="material-icons right"></i></a>
 			</div>
 		</div>
 	</form:form>

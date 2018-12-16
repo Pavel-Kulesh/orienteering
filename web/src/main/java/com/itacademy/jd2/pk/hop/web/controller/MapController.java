@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
@@ -74,16 +75,19 @@ public class MapController extends AbstractController<MapDTO> {
 		List<MapDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
 		gridState.setTotalCount(mapService.getCount(filter));
 
-		String currentLoginRole = getLoginRole();
-		Integer currentCustomerId = getCustomerId();
 		for (MapDTO mapDTO : dtos) {
-			if (mapDTO.getCustomerId().equals(currentCustomerId) || ("ADMIN".equals(currentLoginRole))) {
-				mapDTO.setStatusVisible(true);
-			}
+
+			setStatusVisible(mapDTO);
 		}
 		final HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 		return new ModelAndView("map.list", models);
+	}
+
+	private void setStatusVisible(MapDTO mapDTO) {
+		if (mapDTO.getCustomerId().equals(getCustomerId()) || ("ADMIN".equals(getLoginRole()))) {
+			mapDTO.setStatusVisible(true);
+		}
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -148,29 +152,24 @@ public class MapController extends AbstractController<MapDTO> {
 		return new ModelAndView("map.edit", hashMap);
 	}
 
-	@RequestMapping(value = "/addRouteToMap/{mapId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/addWayToMap/{mapId}", method = RequestMethod.POST)
 	public String addRouteToMap(@PathVariable(name = "mapId", required = true) final Integer mapId,
 
 			@Valid @ModelAttribute("idHolder") final IdHolder idHolder, final BindingResult result) throws IOException {
 		if (result.hasErrors()) {
-
 			return "redirect:/map/" + mapId;
 		} else {
 			final IMap dbModel = mapService.get(mapId);
 			final MapDTO dto = toDTOConverter.apply(dbModel);
 			final HashMap<String, Object> hashMap = new HashMap<>();
-
 			mapService.addRouteToMap(mapId, idHolder.getId());
-
 			hashMap.put("formModel", dto);
-
 			loadComboboxesModels(hashMap, mapId);
-
 			return "redirect:/map/" + mapId;
 		}
 	}
 
-	@RequestMapping(value = "/deleteRouteFromMap/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteWayFromMap/{id}", method = RequestMethod.POST)
 	public ModelAndView deleteRouteFromMap(@PathVariable(name = "id", required = true) final Integer mapId,
 			@Valid @ModelAttribute("idHolder") final IdHolder idHolder) {
 
@@ -189,36 +188,70 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	private void loadComboboxesModels(final Map<String, Object> hashMap, Integer mapId) {
-		List<IRoute> customerRoutes1 = new ArrayList<>();
-		List<IRoute> routesOnMapByCustomer1 = new ArrayList<>();
 
-		List<IRoute> routesOnMap1 = mapService.getRoutesOnMap(mapId);
-		Map<Integer, String> routesOnMap = routesOnMap1.stream()
+		addWaysOnMapToHashMap(hashMap, mapId);
+
+		addDistsOnMapToHashMap(hashMap, mapId);
+
+		addWaysToHashMap(hashMap);
+
+		addDistToHashMap(hashMap);
+
+	}
+
+	private void addDistToHashMap(final Map<String, Object> hashMap) {
+		List<IRoute> distancesList = routeService.getRoutesByTrack(Track.valueOf("DISTANCE"));
+
+		Map<Integer, String> distances = distancesList.stream()
 				.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
-		hashMap.put("mapRoutes", routesOnMap);
+		hashMap.put("distances", distances);
+	}
+
+	private void addWaysToHashMap(final Map<String, Object> hashMap) {
+		if (getCustomerId() != null) {
+			if (getLoginRole().equals("ADMIN")) {
+				List<IRoute> waysList = routeService.getRoutesByTrack(Track.valueOf("WAY"));
+				Map<Integer, String> ways = waysList.stream().collect(Collectors.toMap(IRoute::getId, IRoute::getName));
+				hashMap.put("ways", ways);
+			} else {
+
+				List<IRoute> waysList = routeService.getCustomerRoutes(getCustomerId());
+				Map<Integer, String> routesOnMapByCustomer = waysList.stream()
+						.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
+				hashMap.put("ways", routesOnMapByCustomer);
+			}
+		}
+	}
+
+	private void addDistsOnMapToHashMap(final Map<String, Object> hashMap, Integer mapId) {
+		List<IRoute> distancesOnMapList = mapService.getRoutesOnMap(mapId, Track.valueOf("DISTANCE"));
+		Map<Integer, String> distancesOnMap = distancesOnMapList.stream()
+				.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
+		hashMap.put("distancesOnMap", distancesOnMap);
+	}
+
+	private void addWaysOnMapToHashMap(final Map<String, Object> hashMap, Integer mapId) {
+		List<IRoute> waysOnMapList = mapService.getRoutesOnMap(mapId, Track.valueOf("WAY"));
+		Map<Integer, String> waysOnMap = waysOnMapList.stream()
+				.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
+		hashMap.put("waysOnMap", waysOnMap);
 
 		if (getCustomerId() != null) {
 			if (getLoginRole().equals("ADMIN")) {
-				hashMap.put("myRoutesOnMap", routesOnMap);
+				hashMap.put("myWaysOnMap", waysOnMap);
 			} else {
-				routesOnMapByCustomer1 = mapService.getRoutesOnMapByCustomer(mapId, getCustomerId());
-				Map<Integer, String> routesOnMapByCustomer = routesOnMapByCustomer1.stream()
+				List<IRoute> myWaysList = new ArrayList<>();
+				for (IRoute route : waysOnMapList) {
+					IRoute routeDB = routeService.get(route.getId());
+					if (routeDB.getCustomer().getId().equals(getCustomerId())) {
+						myWaysList.add(routeDB);
+					}
+				}
+				Map<Integer, String> myWaysOnMap = myWaysList.stream()
 						.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
-				hashMap.put("myRoutesOnMap", routesOnMapByCustomer);
+				hashMap.put("myWaysOnMap", myWaysOnMap);
 			}
 		}
-
-		if ("ADMIN".equals(getLoginRole())) {
-			customerRoutes1 = routeService.getAll();
-		} else {
-			customerRoutes1 = routeService.getCustomerRoutes(getCustomerId());
-		}
-
-		Map<Integer, String> customerRoutes = customerRoutes1.stream()
-				.collect(Collectors.toMap(IRoute::getId, IRoute::getName));
-
-		hashMap.put("myRoutes", customerRoutes);
-
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/image/{mapId}")
@@ -236,19 +269,5 @@ public class MapController extends AbstractController<MapDTO> {
 		ByteArrayInputStream input = new ByteArrayInputStream(buf);
 		IOUtils.copy(input, response.getOutputStream());
 	}
-
-	/*
-	 * @RequestMapping(method = RequestMethod.GET, value = "/image/{mapId}") public
-	 * ResponseEntity<String> getString(@PathVariable(name = "mapId", required =
-	 * true) final Integer mapId) throws IOException { IMap entity =
-	 * mapService.get(mapId);
-	 * 
-	 * byte[] buf = entity.getImage();
-	 * 
-	 * String encoded = Base64.getEncoder().encodeToString(buf);
-	 * System.out.println(encoded);
-	 * 
-	 * return new ResponseEntity<String>(encoded, HttpStatus.OK); }
-	 */
 
 }

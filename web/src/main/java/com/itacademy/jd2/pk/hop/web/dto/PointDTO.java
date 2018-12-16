@@ -1,4 +1,4 @@
-package com.itacademy.jd2.pk.hop.web.dto.ajax;
+package com.itacademy.jd2.pk.hop.web.dto;
 
 public class PointDTO {
 

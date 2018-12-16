@@ -3,6 +3,7 @@ package com.itacademy.jd2.pk.hop.dao.api;
 import java.util.List;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 
 public interface IRouteDao extends IDao<IRoute, Integer> {
@@ -15,4 +16,9 @@ public interface IRouteDao extends IDao<IRoute, Integer> {
 	void addRouteToMap(Integer mapId, Integer routeId);
 
 	void deleteRouteFromMap(Integer mapId, Integer routeId);
+
+	void deleteRouteFromMapsList(Integer routeId);
+
+	List<IRoute> getRoutesByTrack(Track track);
+
 }

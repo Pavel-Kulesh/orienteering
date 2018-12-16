@@ -16,6 +16,24 @@
 	<div class="col s3"></div>
 </div>
 
+<c:if test="${formModel.statusVisible}">
+<div class="fixed-action-btn">
+	<a class="btn-floating btn-large red" href="${baseUrl}/${formModel.id}/edit"> <i
+		class="large material-icons">mode_edit</i>
+	</a>
+	</div></c:if>
+
+<script>
+$(document).ready(function(){
+    $('.fixed-action-btn').floatingActionButton();
+  });
+</script>
+
+
+
+
+
+
 
 <div class="row">
 
@@ -106,13 +124,6 @@
 		<div class="col s5"></div>
 	</div>
 </c:if>
-
-
-
-
-
-
-
 
 
 <div class="row">

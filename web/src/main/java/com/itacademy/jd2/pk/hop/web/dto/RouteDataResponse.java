@@ -1,8 +1,8 @@
-package com.itacademy.jd2.pk.hop.web.dto.ajax;
+package com.itacademy.jd2.pk.hop.web.dto;
 
 import java.util.List;
 
-public class RouteDataAjaxResponse {
+public class RouteDataResponse {
 	
 	private List<PointDTO> points;
 	

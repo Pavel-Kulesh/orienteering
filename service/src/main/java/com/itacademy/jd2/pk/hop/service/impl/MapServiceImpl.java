@@ -13,6 +13,7 @@ import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 
@@ -96,25 +97,31 @@ public class MapServiceImpl implements IMapService {
 	}
 
 	@Override
-	public List<IRoute> getRoutesOnMap(Integer mapId) {
+	public List<IRoute> getRoutesOnMap(Integer mapId, Track track) {
 
-		return dao.getRoutesOnMap(mapId);
+		List<IRoute> routeOnMap = dao.getRoutesOnMap(mapId);
+		List<IRoute> result = new ArrayList<>();
+		for (IRoute route : routeOnMap) {
+
+			if (track.equals(route.getTrack())) {
+				result.add(route);
+			}
+		}
+		return result;
+
 	}
 
 	@Override
 	public List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId) {
 
-		List<IRoute> routesOnMapByCustomer = dao.getRoutesOnMap(mapId);
-
+		List<IRoute> waysOnMapByCustomer = dao.getRoutesOnMap(mapId);
 		List<IRoute> result = new ArrayList<>();
-		for (IRoute route : routesOnMapByCustomer) {
+		for (IRoute route : waysOnMapByCustomer) {
 			IRoute res = routeDao.get(route.getId());
 			if (res.getCustomer().getId().equals(customerId)) {
-
 				result.add(res);
 			}
 		}
-
 		return result;
 	}
 

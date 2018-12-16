@@ -14,6 +14,8 @@
 
 				<form:input path="id" type="hidden" />
 				<form:input path="version" type="hidden" />
+				<form:input path="customerId" type="hidden" />
+								
 				
 				<div class="row">
 					<i class="material-icons">assignment_ind</i>
@@ -27,7 +29,7 @@
 				<div class="row">
 					<i class="material-icons">description</i>
 					<div class="input-field col s12">
-						<form:input path="info" type="text" />
+						<form:textarea path="info" type="text" />
 						<form:errors path="info" cssClass="red-text" />
 						<label for="info"><mytaglib:i18n key="event.info" /></label>
 					</div>

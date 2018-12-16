@@ -108,9 +108,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 
 	@Override
 	public void delete(Integer id) {
-		// this method delete all point where route_id=id;
-
-		executeStatement(
+				executeStatement(
 				new PreparedStatementAction<Integer>(String.format("delete from %s where route_id=?", getTableName())) {
 					@Override
 					public Integer doWithPreparedStatement(final PreparedStatement prepareStatement)

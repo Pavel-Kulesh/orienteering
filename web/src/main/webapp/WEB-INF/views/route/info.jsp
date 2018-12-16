@@ -111,20 +111,20 @@
 				dist += distance;
 				summ += time;
 				if (time == 0) {
-					points.push([ summ, 0 ]);
+					points.push([ dist, 0 ]);
 				} else {
 					speed = distance / time;
-					points.push([ summ, speed ])
+					points.push([ dist, speed ])
 				}
 			})
 
 			var data = new google.visualization.DataTable();
-			data.addColumn('number', 'x');
+			data.addColumn('number', 'distance');
 			data.addColumn('number', 'values m/sec');
 			data.addRows(points);
 
 			var options_lines = {
-				title : 'Line speed intervals, default m/sec',
+				title : 'distance(m)/speed m/sec',
 				curveType : 'function',
 				lineWidth : 4,
 				intervals : {

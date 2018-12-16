@@ -1,5 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/route" />
 <h4 class="header">Edit Route</h4>
 
@@ -19,6 +22,18 @@
 				<label for="name">Name</label>
 			</div>
 		</div>
+
+		<sec:authorize access="hasRole('ADMIN')">
+			<div class="row">
+				<i class="material-icons">filter</i>
+				<form:select path="track">
+					<option value="" disabled selected><mytaglib:i18n
+							key="route.way" /></option>
+					<form:options items="${wayChoices}" />
+				</form:select>
+				<label for="track"><mytaglib:i18n key="route.way" /></label>
+			</div>
+		</sec:authorize>
 
 
 

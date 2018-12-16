@@ -30,7 +30,7 @@
 				<td class="right"><a class="btn-floating"
 					href="${baseUrl}/${map.id}"><i class="material-icons">info</i></a>
 					<sec:authorize access="hasRole('ADMIN')">
-						<a class="btn-floating" href="${baseUrl}/${map.id}/edit"><i
+						<a class="btn-floating orange" href="${baseUrl}/${map.id}/edit"><i
 							class="material-icons">edit</i></a>
 						<a class="btn-floating red" href="${baseUrl}/${map.id}/delete"><i
 							class="material-icons">delete</i></a>
@@ -41,7 +41,7 @@
 	</tbody>
 </table>
 <jspFragments:paging />
-<sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">
+<sec:authorize access="hasRole('ADMIN')">
 
 	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
 		class="material-icons">add</i></a>

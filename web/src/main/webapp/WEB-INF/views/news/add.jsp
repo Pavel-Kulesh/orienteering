@@ -28,7 +28,7 @@
 		<div class="row">
 
 			<div class="input-field col s9">
-				<form:input path="info" type="text" />
+				<form:textarea path="info" rows="50" cols="6"/>
 				<form:errors path="info" cssClass="red-text" />
 				<label for="info"><mytaglib:i18n key="news.info" /></label>
 			</div>
@@ -40,11 +40,13 @@
 		<div class="row">
 			<div class="col s2"></div>
 			<div class="col s3">
-				<button class="btn waves-effect waves-light right" type="submit"><mytaglib:i18n key="save"/>ƒ</button>
+				<button class="btn waves-effect waves-light right" type="submit">
+					<mytaglib:i18n key="save" />
+				</button>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n key="news.back" />ƒ<i class="material-icons right"></i>
-				</a>
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n
+						key="news.back" />ƒ<i class="material-icons right"></i> </a>
 			</div>
 			<div class="col s4"></div>
 		</div>

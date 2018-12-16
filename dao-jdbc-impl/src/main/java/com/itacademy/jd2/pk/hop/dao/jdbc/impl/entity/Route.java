@@ -2,13 +2,14 @@ package com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 
 public class Route extends BaseEntity implements IRoute {
 	private String name;
-	
+
 	private ICustomer customer;
 
-	
+	private Track track;
 
 	public String getName() {
 		return name;
@@ -18,8 +19,6 @@ public class Route extends BaseEntity implements IRoute {
 		this.name = name;
 	}
 
-	
-
 	public ICustomer getCustomer() {
 		return customer;
 	}
@@ -28,10 +27,24 @@ public class Route extends BaseEntity implements IRoute {
 		this.customer = customer;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "Route [name=" + name + ",customer=" + customer + ", getId()="
-				+ getId() + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
+		return "Route [name=" + name + ",customer=" + customer + ", getId()=" + getId() + ", getCreated()="
+				+ getCreated() + ", getUpdated()=" + getUpdated() + "]";
 	}
+
+	public Track getTrack() {
+		return track;
+	}
+
+	public void setTrack(Track track) {
+		this.track = track;
+	}
+
+	
+	
+	
 
 }

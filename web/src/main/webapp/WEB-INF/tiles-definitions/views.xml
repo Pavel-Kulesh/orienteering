@@ -46,15 +46,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/event/add.jsp" />
 	</definition>
 
-
-
-
-	<definition name="link" extends="DefaultTemplate">
-		<put-attribute name="body" value="/WEB-INF/views/links.jsp" />
-	</definition>
-
-
-
 	<definition name="route.list" extends="DefaultTemplate">
 		<put-attribute name="body" value="/WEB-INF/views/route/list.jsp" />
 	</definition>
@@ -84,8 +75,6 @@
 		<put-attribute name="body" value="/WEB-INF/views/map/add.jsp" />
 	</definition>
 
-
-
 	<definition name="participant.list" extends="DefaultTemplate">
 		<put-attribute name="body"
 			value="/WEB-INF/views/participant/list.jsp" />
@@ -98,7 +87,6 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/participant/edit.jsp" />
 	</definition>
-
 
 	<definition name="login" extends="DefaultTemplate">
 		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />

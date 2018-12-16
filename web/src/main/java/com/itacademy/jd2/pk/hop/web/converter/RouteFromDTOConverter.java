@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
+import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 import com.itacademy.jd2.pk.hop.web.dto.RouteDTO;
@@ -29,6 +30,11 @@ public class RouteFromDTOConverter implements Function<RouteDTO, IRoute> {
 		IRoute entity = routeSerise.createEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
+		if (dto.getTrack() == null) {
+			entity.setTrack(Track.valueOf("WAY"));
+		} else {
+			entity.setTrack(dto.getTrack());
+		}
 		ICustomer customer = customerService.get(dto.getCustomerId());
 		entity.setCustomer(customer);
 		return entity;
