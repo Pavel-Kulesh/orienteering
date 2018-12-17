@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeEvent;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.IEventService;
@@ -209,9 +209,9 @@ public class EventController extends AbstractController<EventDTO> {
 
 	private void loadComboboxesModels(final Map<String, Object> hashMap) {
 
-		final List<Type> eventTypesList = Arrays.asList(Type.values());
+		final List<TypeEvent> eventTypesList = Arrays.asList(TypeEvent.values());
 		final Map<String, String> eventTypesMap = eventTypesList.stream()
-				.collect(Collectors.toMap(Type::name, Type::name));
+				.collect(Collectors.toMap(TypeEvent::name, TypeEvent::name));
 
 		hashMap.put("typeChoices", eventTypesMap);
 

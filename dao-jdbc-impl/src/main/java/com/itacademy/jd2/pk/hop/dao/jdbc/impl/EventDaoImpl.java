@@ -11,12 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IEventDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeEvent;
 import com.itacademy.jd2.pk.hop.dao.api.filter.EventFilter;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Country;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Customer;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.Event;
-import com.itacademy.jd2.pk.hop.dao.jdbc.impl.entity.UserAccount;
 import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
 @Repository
@@ -24,7 +23,6 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	public IEvent createEntity() {
-
 		return new Event();
 	}
 
@@ -82,7 +80,6 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 				return entity;
 			}
 		});
-
 	}
 
 	@Override
@@ -97,24 +94,20 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 		entity.setId((Integer) resultSet.getObject("id"));
 		entity.setCreated(resultSet.getTimestamp("created"));
 		entity.setUpdated(resultSet.getTimestamp("updated"));
-
 		entity.setName(resultSet.getString("name"));
 
 		Customer customer = new Customer();
 		Integer creatorId = (Integer) resultSet.getObject("customer_id");
 		customer.setId(creatorId);
 		entity.setCustomer(customer);
-
 		entity.setDate(resultSet.getTimestamp("date"));
 
 		Country country = new Country();
 		Integer countryId = (Integer) resultSet.getObject("country_id");
 		country.setId(countryId);
 		entity.setCountry(country);
-		;
 
-		entity.setType(Type.valueOf(resultSet.getString("type")));
-
+		entity.setType(TypeEvent.valueOf(resultSet.getString("type")));
 		entity.setInfo(resultSet.getString("info"));
 
 		Double latitude = resultSet.getDouble("latitude");
@@ -127,14 +120,11 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	protected IEvent parseRow(ResultSet resultSet, Set<String> columns) throws SQLException {
-		// need this method?
 		return super.parseRow(resultSet, columns);
 	}
 
 	@Override
 	public void delete(Integer id) {
-
-		// need delete another object:item_event;
 		executeStatement(
 				new PreparedStatementAction<Integer>(String.format("delete from %s where id=?", getTableName())) {
 					@Override
@@ -148,7 +138,6 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	public void deleteAll() {
-		// need delete all item_event;
 		executeStatement(new PreparedStatementAction<Integer>("delete from " + getTableName()) {
 			@Override
 			public Integer doWithPreparedStatement(final PreparedStatement prepareStatement) throws SQLException {
@@ -180,20 +169,18 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	public void addCustomerToEvent(Integer customerId, Integer eventId) {
-		// TODO Auto-generated method stub
-		
+		throw new RuntimeException("not implemented");
+
 	}
 
 	@Override
 	public void deleteCustomerFromEvent(Integer customerId, Integer eventId) {
-		// TODO Auto-generated method stub
-		
+		throw new RuntimeException("not implemented");
 	}
 
 	@Override
 	public boolean checkExistCustomerInEvent(Integer customerId, Integer eventId) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new RuntimeException("not implemented");
 	}
 
 }

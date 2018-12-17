@@ -63,13 +63,12 @@ public class Customer extends BaseEntity implements ICustomer {
 
 	@Override
 	public Set<IEvent> getEventsList() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 	@Override
 	public void setEventsList(Set<IEvent> eventsList) {
-		// TODO Auto-generated method stub
+		throw new RuntimeException("not implemented");
 
 	}
 

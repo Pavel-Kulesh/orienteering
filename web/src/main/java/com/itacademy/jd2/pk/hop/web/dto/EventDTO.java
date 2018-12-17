@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeEvent;
 
 public class EventDTO {
 
@@ -28,7 +28,7 @@ public class EventDTO {
 	@NotNull
 	private Integer countryId;
 	@NotNull
-	private Type type;
+	private TypeEvent type;
 	@NotNull
 	private String info;
 	@DecimalMin(value = "-90")
@@ -76,11 +76,11 @@ public class EventDTO {
 		this.countryId = countryId;
 	}
 
-	public Type getType() {
+	public TypeEvent getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(TypeEvent type) {
 		this.type = type;
 	}
 

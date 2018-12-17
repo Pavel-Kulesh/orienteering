@@ -107,8 +107,7 @@ public class CityDaoImpl extends AbstractDaoImpl<ICity, Integer> implements ICit
 
 	@Override
 	public List<ICity> getByCountry(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		 throw new RuntimeException("not implemented");
 	}
 
 }

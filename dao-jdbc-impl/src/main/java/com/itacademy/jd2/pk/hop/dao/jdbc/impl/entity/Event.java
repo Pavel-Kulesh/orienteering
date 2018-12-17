@@ -6,14 +6,14 @@ import java.util.Set;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeEvent;
 
 public class Event extends BaseEntity implements IEvent {
 	private String name;
 	private ICustomer customer;
 	private Date date;
 	private ICountry country;
-	private Type type;
+	private TypeEvent type;
 	private String info;
 	private Double latitude;
 	private Double longitude;
@@ -51,11 +51,11 @@ public class Event extends BaseEntity implements IEvent {
 		this.date = date;
 	}
 
-	public Type getType() {
+	public TypeEvent getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(TypeEvent type) {
 		this.type = type;
 	}
 
@@ -92,14 +92,12 @@ public class Event extends BaseEntity implements IEvent {
 
 	@Override
 	public Set<ICustomer> getCustomersList() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 	@Override
 	public void setCustomersList(Set<ICustomer> customersList) {
-		// TODO Auto-generated method stub
-
+		throw new RuntimeException("not implemented");
 	}
 
 	@Override

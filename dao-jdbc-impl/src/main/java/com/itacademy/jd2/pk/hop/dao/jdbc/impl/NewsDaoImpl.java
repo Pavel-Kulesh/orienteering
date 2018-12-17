@@ -19,7 +19,6 @@ public class NewsDaoImpl extends AbstractDaoImpl<INews, Integer> implements INew
 
 	@Override
 	public INews createEntity() {
-
 		return new News();
 	}
 

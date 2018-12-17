@@ -18,7 +18,7 @@ import javax.persistence.Version;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeEvent;
 
 @Entity
 public class Event extends BaseEntity implements IEvent {
@@ -33,7 +33,7 @@ public class Event extends BaseEntity implements IEvent {
     private ICountry country;
     @Column
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private TypeEvent type;
     @Column
     private String info;
     @Column
@@ -91,12 +91,12 @@ public class Event extends BaseEntity implements IEvent {
     }
 
     @Override
-    public Type getType() {
+    public TypeEvent getType() {
         return type;
     }
 
     @Override
-    public void setType(Type type) {
+    public void setType(TypeEvent type) {
         this.type = type;
     }
 

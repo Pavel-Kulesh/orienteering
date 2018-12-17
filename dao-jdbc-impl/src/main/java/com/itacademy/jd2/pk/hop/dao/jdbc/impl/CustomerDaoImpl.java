@@ -18,9 +18,6 @@ import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 @Repository
 public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> implements ICustomerDao {
 
-	// need override method delete( BY id)
-	// need override method deleteAll
-
 	@Override
 	public ICustomer createEntity() {
 		return new Customer();
@@ -61,15 +58,6 @@ public class CustomerDaoImpl extends AbstractDaoImpl<ICustomer, Integer> impleme
 				pStmt.setObject(7, entity.getUpdated(), Types.TIMESTAMP);
 
 				pStmt.executeUpdate();
-				/*
-				 * final ResultSet rs = pStmt.getGeneratedKeys(); rs.next(); final int id =
-				 * rs.getInt("id");
-				 * 
-				 * rs.close();
-				 * 
-				 * 
-				 * entity.setId(id);
-				 */
 				return entity;
 			}
 		});

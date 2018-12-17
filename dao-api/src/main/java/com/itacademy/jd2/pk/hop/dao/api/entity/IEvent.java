@@ -12,9 +12,9 @@ public interface IEvent extends IBaseEntity {
 
 	void setDate(Date date);
 
-	Type getType();
+	TypeEvent getType();
 
-	void setType(Type type);
+	void setType(TypeEvent type);
 
 	String getInfo();
 

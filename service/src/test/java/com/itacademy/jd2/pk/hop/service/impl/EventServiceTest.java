@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICountry;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IEvent;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeEvent;
 
 public class EventServiceTest extends AbstractTest {
 	@Test
@@ -56,9 +56,9 @@ public class EventServiceTest extends AbstractTest {
 		String newName = entity.getName() + "_updated";
 		String newInfo = entity.getInfo() + "_updated";
 
-		Type[] allTypes = Type.values();
+		TypeEvent[] allTypes = TypeEvent.values();
 		int randomIndex = Math.max(0, getRANDOM().nextInt(allTypes.length));
-		Type newType = allTypes[randomIndex];
+		TypeEvent newType = allTypes[randomIndex];
 		Double newLat = getDoubleNumber();
 		Double newLong = getDoubleNumber();
 

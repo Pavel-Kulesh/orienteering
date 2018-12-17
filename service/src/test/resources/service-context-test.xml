@@ -20,8 +20,7 @@
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-	
-	  	    <!-- empty smtp props. tests don't need it -->
+		  	 
     <bean id="smtpProperties" class="com.itacademy.jd2.pk.hop.service.jndi.SmtpProperties" />
     <import resource="service-context.xml" />
 	  	

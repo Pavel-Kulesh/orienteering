@@ -27,7 +27,7 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Type;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeEvent;
 import com.itacademy.jd2.pk.hop.service.ICityService;
 import com.itacademy.jd2.pk.hop.service.ICountryService;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
@@ -214,7 +214,7 @@ public class AbstractTest {
 		entity.setDate(new Date());
 		entity.setCountry(country);
 
-		Type[] allTypes = Type.values();
+		TypeEvent[] allTypes = TypeEvent.values();
 		int randomIndex = Math.max(0, getRANDOM().nextInt(allTypes.length));
 		entity.setType(allTypes[randomIndex]);
 

@@ -47,10 +47,6 @@
 						<label for="type"><mytaglib:i18n key="participant.role" /></label>
 					</div>
 				</div>
-		
-		
-		
-		
 		</sec:authorize>
 
 		

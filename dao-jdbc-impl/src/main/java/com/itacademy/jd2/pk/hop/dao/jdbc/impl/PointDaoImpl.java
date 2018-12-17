@@ -27,22 +27,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 
 	@Override
 	public void update(IPoint entity) {
-		// not support
-
-		// can update anything?
-
-		/*
-		 * executeStatement(new PreparedStatementAction<IPoint>(
-		 * String.format("update %s set updated=? where id=?", getTableName())) {
-		 * 
-		 * @Override public IPoint doWithPreparedStatement(final PreparedStatement
-		 * pStmt) throws SQLException {
-		 * 
-		 * pStmt.setObject(1, entity.getUpdated(), Types.TIMESTAMP); pStmt.setInt(2,
-		 * entity.getId());
-		 * 
-		 * pStmt.executeUpdate(); return entity; } });
-		 */
+		throw new RuntimeException("not supported");
 	}
 
 	@Override
@@ -89,15 +74,13 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 		Route route = new Route();
 		Integer routeId = (Integer) resultSet.getObject("route_id");
 		route.setId(routeId);
-		entity.setRoute(route);;
+		entity.setRoute(route);
+		;
 
-		// exception BigDecimal to double
 		Double latitude = resultSet.getDouble("latitude");
-		// Double latitude = (Double) resultSet.getObject("latitude");
 		entity.setLatitude(latitude);
 
 		Double longitude = resultSet.getDouble("longitude");
-		// Double longitude = (Double) resultSet.getObject("longitude");
 		entity.setLongitude(longitude);
 
 		Integer diffTime = (Integer) resultSet.getObject("diff_time");
@@ -108,7 +91,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 
 	@Override
 	public void delete(Integer id) {
-				executeStatement(
+		executeStatement(
 				new PreparedStatementAction<Integer>(String.format("delete from %s where route_id=?", getTableName())) {
 					@Override
 					public Integer doWithPreparedStatement(final PreparedStatement prepareStatement)
@@ -164,8 +147,7 @@ public class PointDaoImpl extends AbstractDaoImpl<IPoint, Integer> implements IP
 
 	@Override
 	public List<IPoint> selectById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new RuntimeException("not implemented");
 	}
 
 }

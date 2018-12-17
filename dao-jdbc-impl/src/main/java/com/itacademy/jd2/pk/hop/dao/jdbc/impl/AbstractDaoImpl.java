@@ -126,8 +126,8 @@ public abstract class AbstractDaoImpl<ENTITY, ID> implements IDao<ENTITY, ID> {
 			return action.doWithStatement(stmt);
 
 		} catch (final SQLException e) {
-			throw new SQLExecutionException(e); // wrap catchable exception with
-			// runtime
+			throw new SQLExecutionException(e); 
+		
 		}
 	}
 
@@ -217,9 +217,6 @@ public abstract class AbstractDaoImpl<ENTITY, ID> implements IDao<ENTITY, ID> {
 	};
 
 	protected ENTITY parseRow(final ResultSet resultSet, final Set<String> columns) throws SQLException {
-		// this method allows to specify in particular DAO the parser which
-		// accepts list of columns. but by default it will fall back to
-		// com.itacademy.jd2.dz.cardealer.dao.jdbc.AbstractDaoImpl.parseRow(ResultSet)
 		return parseRow(resultSet);
 	};
 

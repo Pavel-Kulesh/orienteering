@@ -27,20 +27,17 @@ public class Route extends BaseEntity implements IRoute {
 		this.customer = customer;
 	}
 
-	
-
-	@Override
-	public String toString() {
-		return "Route [name=" + name + ",customer=" + customer + ", getId()=" + getId() + ", getCreated()="
-				+ getCreated() + ", getUpdated()=" + getUpdated() + "]";
-	}
-
-	public TypeTrack getTrack() {
+		public TypeTrack getTrack() {
 		return track;
 	}
 
 	public void setTrack(TypeTrack track) {
 		this.track = track;
+	}
+
+	@Override
+	public String toString() {
+		return "Route [name=" + name + ", customer=" + customer + ", getId()=" + getId() + "]";
 	}
 
 	

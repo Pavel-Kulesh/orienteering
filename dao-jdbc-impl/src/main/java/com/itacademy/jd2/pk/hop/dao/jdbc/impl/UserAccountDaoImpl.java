@@ -16,8 +16,6 @@ import com.itacademy.jd2.pk.hop.dao.jdbc.impl.util.PreparedStatementAction;
 
 @Repository
 public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> implements IUserAccountDao {
-	// need override method delete( BY id)
-	// need override method deleteAll
 
 	@Override
 	public IUserAccount createEntity() {
@@ -27,7 +25,6 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 	@Override
 	public void update(IUserAccount entity) {
 		executeStatement(new PreparedStatementAction<IUserAccount>(
-				// email=?, can update?
 				String.format("update %s set password=?, updated=?, role=? where id=?", getTableName())) {
 			@Override
 			public IUserAccount doWithPreparedStatement(final PreparedStatement pStmt) throws SQLException {
@@ -83,7 +80,6 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 
 		entity.setEmail(resultSet.getString("email"));
 
-		// check password only or entity.setPassword;
 		entity.setPassword(resultSet.getString("password"));
 
 		entity.setRole(Role.valueOf(resultSet.getString("role")));
@@ -93,17 +89,13 @@ public class UserAccountDaoImpl extends AbstractDaoImpl<IUserAccount, Integer> i
 
 	@Override
 	public IUserAccount getByEmail(String email) {
-
 		IUserAccount entity;
 		String sqlFragment = "where user_account.email=" + "'" + email + "'";
-
 		List<IUserAccount> list = executeFindQuery(sqlFragment);
 		if (list.isEmpty()) {
 			return null;
-
 		}
 		entity = list.get(0);
-
 		return entity;
 	}
 
