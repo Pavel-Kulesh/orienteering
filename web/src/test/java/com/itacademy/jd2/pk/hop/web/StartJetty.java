@@ -65,8 +65,6 @@ public final class StartJetty {
 
 		server.setHandler(bb);
 
-		// setup JNDI
-
 		final EnvConfiguration envConfiguration = new EnvConfiguration();
 		final URL url = new File("src/main/jetty/jetty-env.xml").toURI().toURL();
 		envConfiguration.setJettyEnvXml(url);

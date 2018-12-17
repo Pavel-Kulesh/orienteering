@@ -17,11 +17,13 @@
 </div>
 
 <c:if test="${formModel.statusVisible}">
-<div class="fixed-action-btn">
-	<a class="btn-floating btn-large red" href="${baseUrl}/${formModel.id}/edit"> <i
-		class="large material-icons">mode_edit</i>
-	</a>
-	</div></c:if>
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large red"
+			href="${baseUrl}/${formModel.id}/edit"> <i
+			class="large material-icons">mode_edit</i>
+		</a>
+	</div>
+</c:if>
 
 <script>
 $(document).ready(function(){
@@ -30,49 +32,32 @@ $(document).ready(function(){
 </script>
 
 
-
-
-
-
-
 <div class="row">
 
 	<div class="col s12">
-		<ul class="collapsible">
+		<ul class="collapsible" style="border-radius: 5px; font-size: 16pt; color: black">
 			<li>
-				<div class="collapsible-header">
-					<mytaglib:i18n key="event.date" />
-					<span class="badge"><i class="material-icons">query_builder</i></span>
+				<div class="collapsible-header" style="background-color: #e3f2fd">
+					<mytaglib:i18n key="event.general" />
 				</div>
 				<div class="collapsible-body">
 					<p>
+						<mytaglib:i18n key="event.date" />
+						:
 						<fmt:formatDate pattern="dd-MM-yyyy" value="${formModel.date}" />
+						<br />
+						<mytaglib:i18n key="event.type" />
+						: ${formModel.type} <br />
+						<mytaglib:i18n key="event.country" />
+						: ${formModel.countryName}
 					</p>
 				</div>
 			</li>
+
 			<li>
-				<div class="collapsible-header">
-					<mytaglib:i18n key="event.type" />
-					<span class="badge"><i class="material-icons">directions_run</i></span>
-				</div>
-				<div class="collapsible-body">
-					<p>${formModel.type}</p>
-				</div>
-			</li>
-			<li>
-				<div class="collapsible-header">
-					<mytaglib:i18n key="event.country" />
-					<span class="badge"><i class="material-icons">public</i></span>
-				</div>
-				<div class="collapsible-body">
-					<p>${formModel.countryName}</p>
-				</div>
-			</li>
-			<li>
-				<div class="collapsible-header">
+				<div class="collapsible-header" style="background-color: #cfd8dc">
 					<mytaglib:i18n key="event.info" />
-					<span class="badge"><i class="material-icons">description</i>
-					</span>
+					
 				</div>
 				<div class="collapsible-body">
 					<p>${formModel.info}</p>
@@ -80,16 +65,16 @@ $(document).ready(function(){
 			</li>
 
 			<li>
-				<div class="collapsible-header">
+				<div class="collapsible-header" style="background-color: #ffff8d">
 					<mytaglib:i18n key="event.map" />
-					<span class="badge "><i class="material-icons">public</i> </span>
 				</div>
 				<div class="collapsible-body">
-
 					<script>
 						ymaps.ready(initMap.bind(null, ${formModel.latitude},
 								${formModel.longitude}));
 					</script>
+					coordinates: ${formModel.latitude}-${formModel.longitude}
+					
 					<div id="map" style="width: 100%; height: 400px"></div>
 
 
@@ -100,40 +85,33 @@ $(document).ready(function(){
 	</div>
 </div>
 <c:if test="${ regPossibility}">
-	<div class="row">
-		<div class="col s5"></div>
+	<div class="row right">
 
-		<sec:authorize access="!isAnonymous()">
-			<div class="col s2">
-				<c:if test="${registerToEvent}">
-					<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}"
-						class="btn waves-effect waves-light grey darken-3" type="submit">
-						<mytaglib:i18n key="event.register" /> <i
-						class="large material-icons">rowing</i>
-					</a>
-				</c:if>
-				<c:if test="${deleteFromEvent}">
-					<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
-						class="btn waves-effect waves-light red" type="submit"> <mytaglib:i18n
-							key="event.unregister" /><i class="large material-icons">rowing</i>
-					</a>
-				</c:if>
-			</div>
+		<a class="btn waves-effect waves-light"
+			href="${contextPath}/list/event/${formModel.id}"><mytaglib:i18n
+				key="event.list.participant" /></a>
 
-		</sec:authorize>
-		<div class="col s5"></div>
+
+		<c:if test="${registerToEvent}">
+			<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}"
+				class="btn waves-effect waves-light grey darken-3" type="submit">
+				<mytaglib:i18n key="event.register" />
+			</a>
+		</c:if>
+		<c:if test="${deleteFromEvent}">
+			<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
+				class="btn waves-effect waves-light red" type="submit"> <mytaglib:i18n
+					key="event.unregister" />
+			</a>
+		</c:if>
+
+
+		<a class="waves-effect waves-light btn red" href="${baseUrl}"><mytaglib:i18n
+				key="event.back" /><i class="material-icons right">undo</i></a>
+
+
 	</div>
+
 </c:if>
 
 
-<div class="row">
-	<div class="col s3"></div>
-	<div class="col s3">
-		<a class="btn waves-effect waves-light" href="${contextPath}/list/event/${formModel.id}"><mytaglib:i18n key="event.list.participant" /><i class="material-icons right">public</i></a>
-	</div>
-
-	<div class="col s3">
-		<a class="waves-effect waves-light btn" href="${baseUrl}"><mytaglib:i18n key="event.back" /><i class="material-icons right">undo</i></a>
-	</div>
-	<div class="col s3"></div>
-</div>

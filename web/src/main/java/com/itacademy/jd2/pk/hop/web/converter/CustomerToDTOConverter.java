@@ -21,7 +21,7 @@ public class CustomerToDTOConverter implements Function<ICustomer, CustomerDTO> 
 		dto.setPhone(entity.getPhone());
 		dto.setCreated(entity.getCreated());
 		dto.setUpdated(entity.getUpdated());
-
+		dto.setRole(entity.getUserAccount().getRole());
 		dto.setCityName(entity.getCity().getName());
 		return dto;
 	}

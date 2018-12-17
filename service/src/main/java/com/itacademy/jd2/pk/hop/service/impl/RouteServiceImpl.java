@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.itacademy.jd2.pk.hop.dao.api.IPointDao;
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
 
@@ -104,7 +104,7 @@ public class RouteServiceImpl implements IRouteService {
     }
 
     @Override
-    public List<IRoute> getRoutesByTrack(Track track) {
+    public List<IRoute> getRoutesByTrack(TypeTrack track) {
         return dao.getRoutesByTrack(track);
     }
 

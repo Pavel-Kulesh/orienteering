@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -66,10 +67,12 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView showForm() {
+	public ModelAndView showForm(HttpServletRequest req) {
 		final Map<String, Object> hashMap = new HashMap<>();
 
 		hashMap.put("formModel", new RegFormDTO());
+		String url = req.getHeader("referer");
+		hashMap.put("url", url);
 		loadComboboxesModels(hashMap);
 		return new ModelAndView("registration", hashMap);
 	}
@@ -85,7 +88,7 @@ public class RegistrationController {
 			registerService.saveRegisterData(customer, userAccount);
 
 			LOGGER.info("create userAccont + customer sucsess");
-			return "redirect:/login";
+			return "login";
 		}
 	}
 

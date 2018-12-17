@@ -6,10 +6,10 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/route" />
-<h4 class="header">List routes</h4>
+<h4 class="header"><mytaglib:i18n key="route.list" /></h4>
 
 <input type="text" id="myInput" onkeyup="myFunction()"
-	placeholder="Search for names (current page)..">
+	placeholder="<mytaglib:i18n key="route.search" />">
 
 
 <table id="myTable" class="bordered highlight">
@@ -17,21 +17,21 @@
 		<tr>
 			<th><mytaglib:sort-link column="name" pageUrl="${baseUrl}">
 					<i class="material-icons">assignment_ind</i>
-					Name
+					<mytaglib:i18n key="route.name" />
 				</mytaglib:sort-link></th>
 			<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}">
-					<i class="material-icons">access_time</i> created
+					<i class="material-icons">access_time</i> <mytaglib:i18n key="route.created" />
 					</mytaglib:sort-link></th>
 
 			<sec:authorize access="hasAnyRole('ADMIN')">
 				<th><mytaglib:sort-link column="customer_id"
 						pageUrl="${baseUrl}">
 						<i class="material-icons">description</i>
-						customer
+						<mytaglib:i18n key="route.customer" />
 					</mytaglib:sort-link></th>
 				<th><mytaglib:sort-link column="track" pageUrl="${baseUrl}">
 						<i class="material-icons">description</i>
-						way
+						<mytaglib:i18n key="route.type" />
 					</mytaglib:sort-link></th>
 
 			</sec:authorize>
@@ -41,7 +41,7 @@
 			<tr>
 
 				<td><c:out value="${route.name}" /></td>
-				<td><c:out value="${route.created}" /></td>
+				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${route.created}" /></td>
 				<sec:authorize access="hasRole('ADMIN')">
 					<td><c:out value="${route.customerId}" /></td>
 					<td><c:out value="${route.track}" /></td>

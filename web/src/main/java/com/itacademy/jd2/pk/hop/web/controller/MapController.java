@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
@@ -220,7 +220,7 @@ public class MapController extends AbstractController<MapDTO> {
     }
 
     private void addDistToHashMap(final Map<String, Object> hashMap) {
-        List<IRoute> distancesList = routeService.getRoutesByTrack(Track.valueOf("DISTANCE"));
+        List<IRoute> distancesList = routeService.getRoutesByTrack(TypeTrack.valueOf("DISTANCE"));
 
         Map<Integer, String> distances = distancesList.stream()
                 .collect(Collectors.toMap(IRoute::getId, IRoute::getName));
@@ -230,7 +230,7 @@ public class MapController extends AbstractController<MapDTO> {
     private void addWaysToHashMap(final Map<String, Object> hashMap) {
         if (getCustomerId() != null) {
             if (getLoginRole().equals("ADMIN")) {
-                List<IRoute> waysList = routeService.getRoutesByTrack(Track.valueOf("WAY"));
+                List<IRoute> waysList = routeService.getRoutesByTrack(TypeTrack.valueOf("WAY"));
                 Map<Integer, String> ways = waysList.stream().collect(Collectors.toMap(IRoute::getId, IRoute::getName));
                 hashMap.put("ways", ways);
             } else {
@@ -244,14 +244,14 @@ public class MapController extends AbstractController<MapDTO> {
     }
 
     private void addDistsOnMapToHashMap(final Map<String, Object> hashMap, Integer mapId) {
-        List<IRoute> distancesOnMapList = mapService.getRoutesOnMap(mapId, Track.valueOf("DISTANCE"));
+        List<IRoute> distancesOnMapList = mapService.getRoutesOnMap(mapId, TypeTrack.valueOf("DISTANCE"));
         Map<Integer, String> distancesOnMap = distancesOnMapList.stream()
                 .collect(Collectors.toMap(IRoute::getId, IRoute::getName));
         hashMap.put("distancesOnMap", distancesOnMap);
     }
 
     private void addWaysOnMapToHashMap(final Map<String, Object> hashMap, Integer mapId) {
-        List<IRoute> waysOnMapList = mapService.getRoutesOnMap(mapId, Track.valueOf("WAY"));
+        List<IRoute> waysOnMapList = mapService.getRoutesOnMap(mapId, TypeTrack.valueOf("WAY"));
         Map<Integer, String> waysOnMap = waysOnMapList.stream()
                 .collect(Collectors.toMap(IRoute::getId, IRoute::getName));
         hashMap.put("waysOnMap", waysOnMap);

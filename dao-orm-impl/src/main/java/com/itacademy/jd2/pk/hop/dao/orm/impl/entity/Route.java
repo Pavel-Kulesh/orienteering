@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 
 @Entity
 public class Route extends BaseEntity implements IRoute {
@@ -21,7 +21,7 @@ public class Route extends BaseEntity implements IRoute {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private Track track;
+	private TypeTrack track;
 
 	public String getName() {
 		return name;
@@ -39,17 +39,18 @@ public class Route extends BaseEntity implements IRoute {
 		this.customer = customer;
 	}
 
+	
+
 	@Override
 	public String toString() {
-		return "Route [name=" + name + ", customer=" + customer + ", getId()=" + getId() + ", getCreated()="
-				+ getCreated() + ", getUpdated()=" + getUpdated() + "]";
+		return "Route [name=" + name + ", customer=" + customer + ", getId()=" + getId() + "]";
 	}
 
-	public Track getTrack() {
+	public TypeTrack getTrack() {
 		return track;
 	}
 
-	public void setTrack(Track track) {
+	public void setTrack(TypeTrack track) {
 		this.track = track;
 	}
 

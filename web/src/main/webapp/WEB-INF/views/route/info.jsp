@@ -2,7 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/route" />
-<h4 class="header">ROUTE INFO</h4>
+<h4 class="header">
+	<mytaglib:i18n key="route.info" />
+</h4>
 
 <div class="row">
 
@@ -16,9 +18,7 @@
 	<div class="col s5"></div>
 
 	<div class="col s3">
-		<a class="waves-effect waves-light btn" href="${baseUrl}">Back<i
-			class="material-icons right">undo</i>
-		</a>
+		<a class="waves-effect waves-light btn red" href="${baseUrl}"><mytaglib:i18n key="route.back" /><i class="material-icons right">undo</i> </a>
 	</div>
 
 	<div class="col s5"></div>
@@ -38,7 +38,7 @@
 			var longSumm = 0;
 			var pointsData = routeData.points;
 			var routeName = routeData.name;
-			
+
 			pointsData.forEach(function(p) {
 				count++;
 				var lat = p.latitude;
@@ -50,11 +50,10 @@
 
 			var avgLat = latSumm / count;
 			var avgLong = longSumm / count;
-			// debugger;
 
 			var myMap = new ymaps.Map("map", {
 				center : [ avgLat, avgLong ],
-				zoom : 14
+				zoom : 12
 			}, {
 				searchControlProvider : 'yandex#search'
 			});
@@ -79,7 +78,7 @@
 				},
 				properties : {
 					hintContent : routeName,
-				
+
 				}
 			}, {
 				draggable : false,
@@ -88,9 +87,8 @@
 			});
 			myMap.geoObjects.add(myGeoObject);
 		});
-	});
-</script>
-<script type="text/javascript">
+	})
+
 	google.charts.load('current', {
 		'packages' : [ 'corechart' ]
 	});

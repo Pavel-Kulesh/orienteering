@@ -162,12 +162,14 @@ public class EventController extends AbstractController<EventDTO> {
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
+	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
 		final EventDTO dto = toDTOConverter.apply(eventService.get(id));
 
 		final HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		loadComboboxesModels(hashMap);
+		String url = req.getHeader("referer");
+		hashMap.put("url",url);
 		return new ModelAndView("event.edit", hashMap);
 	}
 

@@ -120,11 +120,10 @@ public class Map extends BaseEntity implements IMap {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "Map [name=" + name + ", customer=" + customer + ", latitude1=" + latitude1 + ", latitude2=" + latitude2
-                + ", longitude1=" + longitude1 + ", longitude2=" + longitude2 + ", getId()=" + getId()
-                + ", getCreated()=" + getCreated() + ", getUpdated()=" + getUpdated() + "]";
-    }
+	@Override
+	public String toString() {
+		return "Map [name=" + name + ", getId()=" + getId() + "]";
+	}
 
+   
 }

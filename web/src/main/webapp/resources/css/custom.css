@@ -54,7 +54,7 @@ nav ul a, .page-footer ul a {
 
 #myInput {
 	background-color: #f0f0f0;
-	width: 100%;
+	width: 95%;
 	font-size: 16px;
 	padding: 12px 20px 12px 40px;
 	border: 1px solid #ddd;
@@ -66,10 +66,10 @@ nav ul a, .page-footer ul a {
   color: red;
 }
 :-ms-input-placeholder { 
-  color: red;
+  color: #ffffff;
 }
 ::-moz-placeholder { 
-  color: red;
+  color: #408080;
   opacity: 1;
 }
 :-moz-placeholder { 

@@ -20,8 +20,9 @@ public class Country extends BaseEntity implements ICountry {
 
 	@Override
 	public String toString() {
-		return "Country [name=" + name + ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()="
-				+ getUpdated() + "]";
+		return "Country [name=" + name + ", getId()=" + getId() + "]";
 	}
+
+	
 
 }

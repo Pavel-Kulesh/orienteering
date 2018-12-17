@@ -64,6 +64,6 @@
 
 <sec:authorize access="hasRole('ADMIN')">
 
-	<a class="waves-effect waves-light btn right" href="${baseUrl}/add"><i
+	<a class="waves-effect waves-light btn right" href="${contextPath}/registration"><i
 		class="material-icons">add</i></a>
 </sec:authorize>

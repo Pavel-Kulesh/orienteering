@@ -40,9 +40,9 @@ public class DefaultController {
 			LOGGER.info("switch to locale:" + locale);
 		}
 		if ("ADMIN".equals(getLoginRole())) {
-			return "redirect:/event";
+			return "redirect:/participant";
 		} else {
-			return "redirect:/news";
+			return "redirect:/event";
 		}
 
 	}

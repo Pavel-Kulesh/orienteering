@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 
 public class RouteDTO {
     private Integer id;
@@ -14,7 +14,7 @@ public class RouteDTO {
     @NotEmpty
     private String name;
 
-    private Track track;
+    private TypeTrack track;
 
     private Date created;
     private boolean canEdit;
@@ -54,11 +54,11 @@ public class RouteDTO {
         this.created = created;
     }
 
-    public Track getTrack() {
+    public TypeTrack getTrack() {
         return track;
     }
 
-    public void setTrack(Track track) {
+    public void setTrack(TypeTrack track) {
         this.track = track;
     }
 

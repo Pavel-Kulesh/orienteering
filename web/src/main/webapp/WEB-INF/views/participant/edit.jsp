@@ -1,6 +1,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="baseUrl" value="${contextPath}/participant" />
 <h4 class="header">
 	<mytaglib:i18n key="participant.edit" />
@@ -30,6 +32,30 @@
 						key="participant.surname" /></label>
 			</div>
 		</div>
+		<sec:authorize access="hasRole('ADMIN')">
+		<div class="row">
+					<div class="input-field col s12">
+
+
+
+						<form:select path="role">
+							<option value="" disabled selected><mytaglib:i18n
+									key="participant.select.role" />
+								<form:options items="${roleChoices}" />
+						</form:select>
+						<form:errors path="role" cssClass="red-text" />
+						<label for="type"><mytaglib:i18n key="participant.role" /></label>
+					</div>
+				</div>
+		
+		
+		
+		
+		</sec:authorize>
+
+		
+		
+		
 
 		<div class="row">
 			<div class="input-field col s12">
@@ -49,7 +75,7 @@
 				</button>
 			</div>
 			<div class="col s3">
-		<a class="waves-effect waves-light btn red" href="${baseUrl}"><mytaglib:i18n
+		<a class="waves-effect waves-light btn red" href="${url}"><mytaglib:i18n
 				key="participant.back" /><i class="material-icons right">undo</i> </a>
 	</div>
 		</div>

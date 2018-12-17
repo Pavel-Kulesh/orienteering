@@ -9,8 +9,8 @@ public interface IRoute extends IBaseEntity {
 
 	void setCustomer(ICustomer customer);
 
-	Track getTrack();
+	TypeTrack getTrack();
 
-	void setTrack(Track track);
+	void setTrack(TypeTrack track);
 
 }

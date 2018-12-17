@@ -8,21 +8,12 @@ function initMap(lt, lg) {
 	}), myPlacemark = new ymaps.Placemark([ lt, lg ], {
 		balloonContentHeader : "Main place",
 		balloonContentBody : "Event center",
-		balloonContentFooter : "see tutorial",
+		balloonContentFooter : ""+lt+"-"+lg,
 
 	});
 	myMap.geoObjects.add(myPlacemark);
 	
 }
-
-/*
- * function initMapWithImage(url, mapId, lt1, lg1, lt2, lg2) {
- * 
- * var pathImage="";
- * 
- * $.get(url + "/map/image/" + mapId, function( textData) {
- * pathImage="data:jpg;base64,"+textData; });
- */
 	
 function initMapWithImage(mapId, lt1, lg1, lt2, lg2) {
 		
@@ -83,7 +74,7 @@ function initMapWithImage(mapId, lt1, lg1, lt2, lg2) {
 	    window.globalMapReference=map;
 	}
 
-function clearRoutes(){
+function clearWay(){
 	myCollectionRoute.removeAll(); 
 
 }

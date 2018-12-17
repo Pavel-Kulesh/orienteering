@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Customer_;
 import com.itacademy.jd2.pk.hop.dao.orm.impl.entity.Route;
@@ -127,7 +127,7 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
     }
 
     @Override
-    public List<IRoute> getRoutesByTrack(Track track) {
+    public List<IRoute> getRoutesByTrack(TypeTrack track) {
         final EntityManager em = getEntityManager();
         final CriteriaBuilder cb = em.getCriteriaBuilder();
         final CriteriaQuery<IRoute> cq = cb.createQuery(IRoute.class);

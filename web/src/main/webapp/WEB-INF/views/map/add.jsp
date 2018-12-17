@@ -2,33 +2,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/map" />
-<h4 class="header">
-	<mytaglib:i18n key="map.add" />
-</h4>
-<div class="row">
+
+<div class="row center-align">
+	<h4 class="header">
+		<mytaglib:i18n key="map.add" />
+	</h4>
 	<div class="col s3"></div>
-	<form:form class="col s6" method="POST" enctype="multipart/form-data"
-		action="${baseUrl}" modelAttribute="formModel">
+	<form:form class="col s6" method="POST" enctype="multipart/form-data" action="${baseUrl}" modelAttribute="formModel">
 		<form:input path="id" type="hidden" />
 		<form:input path="customerId" type="hidden" />
-	
-	
-	
 
 		<table>
 			<tr>
-				<td>File to upload:</td>
+				<td><mytaglib:i18n key="map.file" /></td>
 				<td><input type="file" name="fileDoc" /></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
 			</tr>
 		</table>
 
-
 		<div class="row">
-			<i class="material-icons">note</i>
 			<div class="input-field col s12">
 				<form:input path="name" type="text" />
 				<form:errors path="name" cssClass="red-text" />
@@ -58,7 +49,6 @@
 				</td>
 			</tr>
 
-
 			<tr>
 				<td><div class="row">
 						<i class="material-icons">search</i>
@@ -79,13 +69,7 @@
 					</div>
 				</td>
 			</tr>
-
-
 		</table>
-
-
-
-
 
 		<div class="row">
 			<div class="col s6"></div>
@@ -97,8 +81,7 @@
 				</c:if>
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n
-						key="map.back" />ƒ<i class="material-icons right"></i> </a>
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n key="map.back" />ƒ<i class="material-icons right"></i> </a>
 			</div>
 		</div>
 	</form:form>

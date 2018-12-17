@@ -1,10 +1,10 @@
 function initSelectElement(htmlElementId, jsonArray) {
-	$('#' + htmlElementId).find('option').remove().end(); // удалить все
+	$('#' + htmlElementId).find('option').remove().end(); 
 	$('#' + htmlElementId).append($("<option></option>").attr({
 		"disabled" : '',
 		"selected" : '',
 		"value" : ''
-	}).text(' -- select an option -- '));
+	}).text(' -- select -- '));
 
 	$.each(jsonArray, function(key, value) {
 		$('#' + htmlElementId)

@@ -14,7 +14,7 @@ import com.itacademy.jd2.pk.hop.dao.api.IMapDao;
 import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 import com.itacademy.jd2.pk.hop.service.IMapService;
 
@@ -86,7 +86,7 @@ public class MapServiceImpl implements IMapService {
     }
 
     @Override
-    public List<IRoute> getRoutesOnMap(Integer mapId, Track track) {
+    public List<IRoute> getRoutesOnMap(Integer mapId, TypeTrack track) {
 
         Set<IRoute> routeOnMap = dao.getFullInfo(mapId).getRoutes();
         List<IRoute> result = new ArrayList<>();

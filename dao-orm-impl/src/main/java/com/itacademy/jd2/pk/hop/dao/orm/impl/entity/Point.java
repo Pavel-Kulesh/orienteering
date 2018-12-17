@@ -55,9 +55,9 @@ public class Point extends BaseEntity implements IPoint {
 
 	@Override
 	public String toString() {
-		return "Point [route=" + route + ", latitude=" + latitude + ", longitude=" + longitude + ", diffTime="
-				+ diffTime + ", getId()=" + getId() + ", getCreated()=" + getCreated() + ", getUpdated()="
-				+ getUpdated() + "]";
+		return "Point [route=" + route + ", getId()=" + getId() + "]";
 	}
+
+
 
 }

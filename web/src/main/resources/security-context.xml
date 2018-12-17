@@ -12,11 +12,16 @@
 	<context:component-scan base-package="com.itacademy.jd2.pk.hop.web.security" />
 
 	<http>
-		<intercept-url pattern="/news/add**"
-			access="hasAnyRole('ROLE_ADMIN','ROLE_ORGANIZER')" />
-		<intercept-url pattern="/event/add**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/news/add**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/news/edit**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/news/*/delete" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/event/add**" access="hasAnyRole('ROLE_ADMIN','ROLE_ORGANIZER')" />
+		<intercept-url pattern="/event/*/edit" access="hasAnyRole('ROLE_ADMIN','ROLE_ORGANIZER')" />
+		<intercept-url pattern="/event/*/delete" access="hasAnyRole('ROLE_ADMIN','ROLE_ORGANIZER')" />
 		<intercept-url pattern="/map/add**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/participant/add**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/map/edit**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/map/delete**" access="hasRole('ROLE_ADMIN')" />
+	
 
 		
 		<intercept-url pattern="/route/add**" access="!isAnonymous()" /> 

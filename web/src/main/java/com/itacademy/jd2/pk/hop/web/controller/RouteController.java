@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IPoint;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 import com.itacademy.jd2.pk.hop.dao.api.filter.RouteFilter;
 import com.itacademy.jd2.pk.hop.service.IPointService;
 import com.itacademy.jd2.pk.hop.service.IRouteService;
@@ -210,9 +210,9 @@ public class RouteController extends AbstractController<RouteDTO> {
 
     private void loadComboboxesModels(final Map<String, Object> hashMap) {
 
-        final List<Track> eventTypesList = Arrays.asList(Track.values());
+        final List<TypeTrack> eventTypesList = Arrays.asList(TypeTrack.values());
         final Map<String, String> eventTypesMap = eventTypesList.stream()
-                .collect(Collectors.toMap(Track::name, Track::name));
+                .collect(Collectors.toMap(TypeTrack::name, TypeTrack::name));
 
         hashMap.put("wayChoices", eventTypesMap);
     }

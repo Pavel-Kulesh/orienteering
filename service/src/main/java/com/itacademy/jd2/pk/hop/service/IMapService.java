@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IMap;
 import com.itacademy.jd2.pk.hop.dao.api.entity.IRoute;
-import com.itacademy.jd2.pk.hop.dao.api.entity.Track;
+import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 
 public interface IMapService {
@@ -29,7 +29,7 @@ public interface IMapService {
 
     long getCount(MapFilter filter);
 
-    List<IRoute> getRoutesOnMap(Integer mapId, Track track);
+    List<IRoute> getRoutesOnMap(Integer mapId, TypeTrack track);
 
     List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId);
 
