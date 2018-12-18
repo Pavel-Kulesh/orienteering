@@ -10,22 +10,6 @@
 	<mytaglib:i18n key="event.header" />
 </h4>
 
-<sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">
-	<div class="fixed-action-btn">
-		<a class="btn-floating btn-large right" href="${baseUrl}/add"> <i class="large material-icons">add</i>
-		</a>
-	</div>
-</sec:authorize>
-
-<script>
-	$(document).ready(function() {
-		$('.fixed-action-btn').floatingActionButton();
-	});
-</script>
-
-
-
-
 
 <table class="bordered highlight">
 	<tbody>
@@ -77,13 +61,28 @@
 					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.created}" /></td>
 				</sec:authorize>
 				<td class="right"><a class="btn-floating" href="${baseUrl}/${event.id}"><i class="material-icons">info</i></a> <c:if test="${event.statusVisible}">
-						<a class="btn-floating orange" href="${baseUrl}/${event.id}/edit"><i class="material-icons">edit</i></a>
-						<a class="btn-floating red" href="${baseUrl}/${event.id}/delete"><i class="material-icons">delete</i></a>
+						<a class="btn-floating orange" href="${baseUrl}/edit/${event.id}"><i class="material-icons">edit</i></a>
+						<a class="btn-floating red" href="${baseUrl}/delete/${event.id}"><i class="material-icons">delete</i></a>
 					</c:if></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
+
+<sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large right" href="${baseUrl}/add"> <i class="large material-icons">add</i>
+		</a>
+	</div>
+</sec:authorize>
+
+<script>
+	$(document).ready(function() {
+		$('.fixed-action-btn').floatingActionButton();
+	});
+</script>
+
+
 
 <jspFragments:paging />
 <sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">

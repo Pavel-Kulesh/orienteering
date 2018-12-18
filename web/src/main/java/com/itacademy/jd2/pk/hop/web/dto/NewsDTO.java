@@ -8,7 +8,7 @@ public class NewsDTO {
 
 	private Integer id;
 
-	@Size(min = 1, max = 50)
+	@Size(min = 1, max = 150)
 	private String name;
 
 	@Size(min = 1)

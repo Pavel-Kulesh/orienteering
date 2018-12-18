@@ -84,17 +84,17 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col s6"></div>
-			<div class="col s3">
+		<div class="row center">
+			
+			<div class="col s6">
 				<button class="btn waves-effect waves-light right" type="submit"><mytaglib:i18n key="registration" /></button>
 			</div>
-			<div class="col s3">
+			<div class="col s6">
 				<a class="btn waves-effect waves-light right red" href="${url}"><mytaglib:i18n key="back" /> </a>
 			</div>
 		</div>
 	</form:form>
-	<div class="col s3"></div>
+	
 </div>
 
 

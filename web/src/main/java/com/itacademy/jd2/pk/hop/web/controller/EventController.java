@@ -94,7 +94,6 @@ public class EventController extends AbstractController<EventDTO> {
 	public ModelAndView showForm() {
 		final Map<String, Object> hashMap = new HashMap<>();
 		Integer customerId = getCustomerId();
-		LOGGER.info("user id" + customerId);
 		EventDTO dto = new EventDTO();
 		dto.setCustomerId(customerId);
 		hashMap.put("formModel", dto);
@@ -114,7 +113,7 @@ public class EventController extends AbstractController<EventDTO> {
 		}
 	}
 
-	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
 		String loginRole = getLoginRole();
 		if (loginRole.equals("ADMIN")) {
@@ -161,7 +160,7 @@ public class EventController extends AbstractController<EventDTO> {
 		}
 	}
 
-	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
 		final EventDTO dto = toDTOConverter.apply(eventService.get(id));
 

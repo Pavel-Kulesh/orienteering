@@ -2,14 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/event" />
-<h4 class="header">
-	<mytaglib:i18n key="event.add.event" />
-</h4>
+<div class="row center">
+	<h4 class="header">
+		<mytaglib:i18n key="event.add.event" />
+	</h4>
+</div>
 <div class="row">
 
 	<div class="col s3"></div>
-	<form:form class="col s6" method="POST" action="${baseUrl}"
-		modelAttribute="formModel">
+	<form:form class="col s6" method="POST" action="${baseUrl}" modelAttribute="formModel">
 
 		<form:input path="id" type="hidden" />
 		<form:input path="version" type="hidden" />
@@ -28,7 +29,7 @@
 		<div class="row">
 			<i class="material-icons">description</i>
 			<div class="input-field col s12">
-				<form:textarea path="info" />
+				<form:textarea style="height: 10%" path="info" />
 				<form:errors path="info" cssClass="red-text" />
 				<label for="info"><mytaglib:i18n key="event.info" /></label>
 			</div>
@@ -70,8 +71,7 @@
 
 		<table>
 			<tr>
-				<th colspan="2" align="center"><mytaglib:i18n
-						key="event.center" /></th>
+				<th colspan="2" align="center"><mytaglib:i18n key="event.center" /></th>
 			</tr>
 			<tr>
 				<td><i class="material-icons">search</i>
@@ -100,8 +100,7 @@
 			</div>
 			<div class="col s3">
 
-				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n
-						key="event.back" /></a>
+				<a class="btn waves-effect waves-light right red" href="${baseUrl}"><mytaglib:i18n key="event.back" /></a>
 			</div>
 		</div>
 	</form:form>

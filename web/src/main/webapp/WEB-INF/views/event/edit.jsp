@@ -7,8 +7,7 @@
 </h4>
 
 <div class="row">
-	<form:form class="col s12" method="POST" action="${baseUrl}"
-		modelAttribute="formModel">
+	<form:form class="col s12" method="POST" action="${baseUrl}" modelAttribute="formModel">
 
 		<form:input path="id" type="hidden" />
 		<form:input path="version" type="hidden" />
@@ -27,14 +26,25 @@
 		<div class="row">
 			<div class="input-field col s12">
 				<form:select path="type">
-					<option value="" disabled selected><mytaglib:i18n
-							key="event.select.type" />
+					<option value="" disabled selected><mytaglib:i18n key="event.select.type" />
 						<form:options items="${typeChoices}" />
 				</form:select>
 				<form:errors path="type" cssClass="red-text" />
 				<label for="type"><mytaglib:i18n key="event.type" /></label>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="input-field col s12">
+				<form:select path="countryId">
+					<option value="" disabled selected><mytaglib:i18n key="country" /></option>
+					<form:options items="${countryChoices}" />
+				</form:select>
+				<form:errors path="countryId" cssClass="red-text" />
+				<label for="countryId"><mytaglib:i18n key="event.country" /></label>
+			</div>
+		</div>
+
 
 		<div class="row">
 			<i class="material-icons">query_builder</i>
@@ -89,7 +99,7 @@
 
 			</div>
 			<div class="col s3">
-				<a class="btn waves-effect waves-light right red" href="${url}"><mytaglib:i18n key="event.back"/></a>
+				<a class="btn waves-effect waves-light right red" href="${url}"><mytaglib:i18n key="event.back" /></a>
 			</div>
 		</div>
 	</form:form>

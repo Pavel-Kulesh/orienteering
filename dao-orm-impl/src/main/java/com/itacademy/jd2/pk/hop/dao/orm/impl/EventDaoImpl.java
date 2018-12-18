@@ -62,7 +62,6 @@ public class EventDaoImpl extends AbstractDaoImpl<IEvent, Integer> implements IE
 
 	@Override
 	public long getCount(EventFilter filter) {
-		// throw new RuntimeException("not implemented");
 
 		final EntityManager em = getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();

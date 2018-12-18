@@ -1,3 +1,4 @@
-admin
-organizer
-user
+admin - Ivanov@mail.com
+organizer - Cole@mail.com
+user - Watts@mail.ru 
+password 1

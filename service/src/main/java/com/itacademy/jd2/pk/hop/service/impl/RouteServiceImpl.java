@@ -65,7 +65,6 @@ public class RouteServiceImpl implements IRouteService {
     @Override
     public void delete(Integer id) {
         pointDao.delete(id);
-
         dao.deleteRouteFromMapsList(id);
         dao.delete(id);
         LOGGER.info("delete route with id=" + id + " +delete all point where route_id=id");

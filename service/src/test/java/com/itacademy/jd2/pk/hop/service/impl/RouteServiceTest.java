@@ -3,7 +3,6 @@ package com.itacademy.jd2.pk.hop.service.impl;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
@@ -25,8 +24,6 @@ public class RouteServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getId(), entityFromDb.getId());
-		// assertEquals(entity.getCustomer().getId(),
-		// entityFromDb.getCustomer().getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
 	}
@@ -74,15 +71,6 @@ public class RouteServiceTest extends AbstractTest {
 		}
 		assertEquals(randomObjectsCount + initialCount, allEntities.size());
 
-	}
-
-	@Test
-	public void testDeleteById() {
-		IRoute entity = saveNewRoute();
-		
-		routeService.delete(entity.getId());
-		assertNull(routeService.get(entity.getId()));
-	
 	}
 
 	@Test

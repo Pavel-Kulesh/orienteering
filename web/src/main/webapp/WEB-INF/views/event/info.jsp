@@ -1,8 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/event" />
 <div class="row">
@@ -16,20 +15,6 @@
 	<div class="col s3"></div>
 </div>
 
-<c:if test="${formModel.statusVisible}">
-	<div class="fixed-action-btn">
-		<a class="btn-floating btn-large red"
-			href="${baseUrl}/${formModel.id}/edit"> <i
-			class="large material-icons">mode_edit</i>
-		</a>
-	</div>
-</c:if>
-
-<script>
-$(document).ready(function(){
-    $('.fixed-action-btn').floatingActionButton();
-  });
-</script>
 
 
 <div class="row">
@@ -57,10 +42,10 @@ $(document).ready(function(){
 			<li>
 				<div class="collapsible-header" style="background-color: #cfd8dc">
 					<mytaglib:i18n key="event.info" />
-					
+
 				</div>
 				<div class="collapsible-body">
-					<p>${formModel.info}</p>
+					<textarea style="height: 50%; border-radius: 5px; font-size: 16pt; color: black" disabled="disabled">${formModel.info} </textarea>
 				</div>
 			</li>
 
@@ -74,7 +59,7 @@ $(document).ready(function(){
 								${formModel.longitude}));
 					</script>
 					coordinates: ${formModel.latitude}-${formModel.longitude}
-					
+
 					<div id="map" style="width: 100%; height: 400px"></div>
 
 
@@ -84,34 +69,39 @@ $(document).ready(function(){
 
 	</div>
 </div>
-<c:if test="${ regPossibility}">
-	<div class="row right">
 
-		<a class="btn waves-effect waves-light"
-			href="${contextPath}/list/event/${formModel.id}"><mytaglib:i18n
-				key="event.list.participant" /></a>
+<div class="row center">
 
+	<a class="btn waves-effect waves-light" href="${contextPath}/list/event/${formModel.id}"><mytaglib:i18n key="event.list.participant" /></a>
 
+	<c:if test="${ regPossibility}">
 		<c:if test="${registerToEvent}">
-			<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}"
-				class="btn waves-effect waves-light grey darken-3" type="submit">
-				<mytaglib:i18n key="event.register" />
+			<a href="${baseUrl}/registrationCustomerToEvent/${formModel.id}" class="btn waves-effect waves-light grey darken-3" type="submit"> <mytaglib:i18n key="event.register" />
 			</a>
 		</c:if>
 		<c:if test="${deleteFromEvent}">
-			<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}"
-				class="btn waves-effect waves-light red" type="submit"> <mytaglib:i18n
-					key="event.unregister" />
+			<a href="${baseUrl}/deleteCustomerFromEvent/${formModel.id}" class="btn waves-effect waves-light red" type="submit"> <mytaglib:i18n key="event.unregister" />
 			</a>
 		</c:if>
+	</c:if>
+
+	<a class="waves-effect waves-light btn red" href="${baseUrl}"><mytaglib:i18n key="event.back" /><i class="material-icons right">undo</i></a>
 
 
-		<a class="waves-effect waves-light btn red" href="${baseUrl}"><mytaglib:i18n
-				key="event.back" /><i class="material-icons right">undo</i></a>
-
-
+</div>
+<c:if test="${formModel.statusVisible}">
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large red" href="${baseUrl}/${formModel.id}/edit"> <i class="large material-icons">mode_edit</i>
+		</a>
 	</div>
-
 </c:if>
+
+<script>
+$(document).ready(function(){
+    $('.fixed-action-btn').floatingActionButton();
+  });
+</script>
+
+
 
 
