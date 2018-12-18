@@ -30,7 +30,7 @@
 					<span><fmt:formatDate pattern="yyyy-MM-dd" value="${news.created}" /></span>
 					<p style="margin-top: 16px">${newsInfo}...</p>
 				</div>
-				<div class="card-action center-align">
+				<div class="card-action center-align" style="border-radius: 0 0 25px 25px">
 					<a class="btn-floating btn-small" href="${baseUrl}/${news.id}"><i class="material-icons">info</i></a>
 					<sec:authorize access="hasRole('ADMIN')">
 						<a class="btn-floating btn-small orange" href="${baseUrl}/${news.id}/edit"><i class="material-icons">edit</i></a>

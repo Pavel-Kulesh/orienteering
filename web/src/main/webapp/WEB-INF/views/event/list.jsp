@@ -22,11 +22,9 @@
 					<i class="material-icons">assignment_ind</i>
 					<mytaglib:i18n key="event.name" />
 				</mytaglib:sort-link></th>
-
 			<th><mytaglib:sort-link column="type" pageUrl="${baseUrl}">
 					<mytaglib:i18n key="event.type" />
 				</mytaglib:sort-link></th>
-
 			<th><mytaglib:sort-link column="date" pageUrl="${baseUrl}">
 					<i class="material-icons">access_time</i>
 					<mytaglib:i18n key="event.date" />
@@ -34,14 +32,6 @@
 			<sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">
 				<th><mytaglib:sort-link column="customer_id" pageUrl="${baseUrl}">
 						<mytaglib:i18n key="event.customerId" />
-					</mytaglib:sort-link></th>
-				<th><mytaglib:sort-link column="country" pageUrl="${baseUrl}">
-						<i class="material-icons">public</i>
-						<mytaglib:i18n key="event.country" />
-					</mytaglib:sort-link></th>
-				<th><mytaglib:sort-link column="created" pageUrl="${baseUrl}">
-						<i class="material-icons">query_builder</i>
-						<mytaglib:i18n key="event.created" />
 					</mytaglib:sort-link></th>
 			</sec:authorize>
 			<th></th>
@@ -52,13 +42,10 @@
 					<td><c:out value="${event.id}" /></td>
 				</sec:authorize>
 				<td><c:out value="${event.name}" /></td>
-
 				<td><c:out value="${event.type }" /></td>
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.date}" /></td>
 				<sec:authorize access="hasAnyRole('ADMIN','ORGANIZER')">
 					<td><c:out value="${event.customerId}" /></td>
-					<td><c:out value="${event.countryName}" /></td>
-					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${event.created}" /></td>
 				</sec:authorize>
 				<td class="right"><a class="btn-floating" href="${baseUrl}/${event.id}"><i class="material-icons">info</i></a> <c:if test="${event.statusVisible}">
 						<a class="btn-floating orange" href="${baseUrl}/edit/${event.id}"><i class="material-icons">edit</i></a>

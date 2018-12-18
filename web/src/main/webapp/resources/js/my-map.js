@@ -28,11 +28,10 @@ function initMapWithImage(mapId, lt1, lg1, lt2, lg2) {
 		);
 	    map.controls.get('zoomControl').options.set({size: 'small'});
 
-
 	    var myPolygon1 = new ymaps.Polygon([
 	        [[lt1-0.05, lg1-0.05],[lt2+0.05, lg1-0.05],[lt2+0.05, lg2+0.05],[lt1-0.05, lg2+0.05],]
 	    ],
-	    // property.
+	
 	    {},
 	     {
 	    	fillColor: "#FFFFFF",

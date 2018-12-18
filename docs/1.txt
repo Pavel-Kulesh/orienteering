@@ -1,6 +1,0 @@
-name tables to lowerCase
-id - pk +another information
-
-
-
-add parametrs 1) created 2) updated   type date

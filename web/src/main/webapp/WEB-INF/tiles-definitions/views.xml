@@ -5,7 +5,7 @@
 <tiles-definitions>
 
 	<definition name="DefaultTemplate" template="/WEB-INF/views/main-template.jsp">
-		<put-attribute name="title" value="ППоплаВА" />
+		<put-attribute name="title" value="Orienteering" />
 		<put-attribute name="header" value="/WEB-INF/views/header.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />

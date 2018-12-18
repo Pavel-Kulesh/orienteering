@@ -7,7 +7,6 @@
 					<mytaglib:i18n key="link" />
 				</h5>
 				<a class="grey-text text-lighten-3" style="margin-right: 20px" target="_blank" href="#!">MindMup</a> <a class="grey-text text-lighten-3" style="margin-right: 20px" target="_blank"
-					href="https://github.com/dzhivushko/G-JD2-09-11_pavelkulesh/blob/master/docs/modelDB.png">ModelDB</a> <a class="grey-text text-lighten-3" style="margin-right: 20px" target="_blank"
 					href="https://raw.githubusercontent.com/dzhivushko/G-JD2-09-11_pavelkulesh/master/docs/modelDB.png?token=AkVOYRbNC1XZmSbgvKQjF0XgROteYx_Aks5cIVMswA%3D%3D">ModelDB</a> <a
 					class="grey-text text-lighten-3" target="_blank"
 					href="https://raw.githubusercontent.com/dzhivushko/G-JD2-09-11_pavelkulesh/master/docs/login%20data.txt?token=AkVOYaeoxfOI50mUAYK34zU4snkD1GxPks5cIVTRwA%3D%3D">LoginData</a>
