@@ -70,7 +70,7 @@ public class RouteDaoImpl extends AbstractDaoImpl<IRoute, Integer> implements IR
             return from.get(Route_.id);
         case "customer_id":
             return from.get(Route_.customer);
-        case "way":
+        case "track":
             return from.get(Route_.track);
 
         default:
