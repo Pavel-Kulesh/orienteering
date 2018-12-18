@@ -25,7 +25,6 @@ public class RouteServiceTest extends AbstractTest {
 		assertEquals(entity.getName(), entityFromDb.getName());
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
-
 	}
 
 	@Test
@@ -39,7 +38,6 @@ public class RouteServiceTest extends AbstractTest {
 		routeService.save(entity);
 
 		IRoute entityFromDb = routeService.get(entity.getId());
-
 		assertNotNull(entityFromDb);
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCreated());
@@ -47,15 +45,12 @@ public class RouteServiceTest extends AbstractTest {
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertEquals(newName, entityFromDb.getName());
 		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
-
 	}
 
 	@Test
 	public void testGetAll() {
 		int initialCount = routeService.getAll().size();
-
 		int randomObjectsCount = getRandomObjectsCount();
-
 		for (int i = 0; i < randomObjectsCount; i++) {
 			saveNewRoute();
 		}
@@ -67,10 +62,8 @@ public class RouteServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb.getCustomer());
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
-
 		}
 		assertEquals(randomObjectsCount + initialCount, allEntities.size());
-
 	}
 
 	@Test

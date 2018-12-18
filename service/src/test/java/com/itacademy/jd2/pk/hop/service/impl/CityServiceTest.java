@@ -31,7 +31,6 @@ public class CityServiceTest extends AbstractTest {
 
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
-		// assertEquals(entity.getCountry().getId(), entityFromDb.getCountry().getId());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 
@@ -45,7 +44,6 @@ public class CityServiceTest extends AbstractTest {
 		entity.setName(newName);
 		ICountry country = saveNewCountry();
 		entity.setCountry(country);
-		;
 
 		Thread.sleep(1000);
 		cityService.save(entity);
@@ -56,7 +54,6 @@ public class CityServiceTest extends AbstractTest {
 		assertEquals(newName, entityFromDb.getName());
 		assertNotNull(entityFromDb.getId());
 		assertNotNull(entityFromDb.getCountry());
-		// assertEquals(entityFromDb.getCountry().getId(), country.getId());
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());

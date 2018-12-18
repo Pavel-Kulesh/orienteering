@@ -16,10 +16,6 @@ public interface ICustomerService {
 
 	void save(ICustomer entity);
 
-	/*
-	 * @Transactional void update(ICustomer entity);
-	 */
-
 	@Transactional
 	void delete(Integer id);
 

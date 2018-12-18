@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itacademy.jd2.pk.hop.dao.api.ICustomerDao;
-import com.itacademy.jd2.pk.hop.dao.api.IRouteDao;
 import com.itacademy.jd2.pk.hop.dao.api.IUserAccountDao;
 import com.itacademy.jd2.pk.hop.dao.api.entity.ICustomer;
 import com.itacademy.jd2.pk.hop.dao.api.filter.CustomerFilter;
 import com.itacademy.jd2.pk.hop.service.ICustomerService;
-import com.itacademy.jd2.pk.hop.service.IRouteService;
 
 @Service
 public class CustomerServiseImpl implements ICustomerService {
@@ -22,14 +20,12 @@ public class CustomerServiseImpl implements ICustomerService {
 
 	private ICustomerDao dao;
 	private IUserAccountDao userAccDao;
-	private IRouteDao routeDao;
 
 	@Autowired
-	public CustomerServiseImpl(ICustomerDao dao, IUserAccountDao userAccDao, IRouteDao routeDao) {
+	public CustomerServiseImpl(ICustomerDao dao, IUserAccountDao userAccDao) {
 		super();
 		this.dao = dao;
 		this.userAccDao = userAccDao;
-		this.routeDao = routeDao;
 	}
 
 	@Override
@@ -60,7 +56,6 @@ public class CustomerServiseImpl implements ICustomerService {
 			dao.update(entity);
 			userAccDao.update(entity.getUserAccount());
 			LOGGER.debug("customer updated: {}", entity);
-
 		}
 
 	}
@@ -68,7 +63,6 @@ public class CustomerServiseImpl implements ICustomerService {
 	@Override
 	public void delete(Integer id) {
 		dao.delete(id);
-
 	}
 
 	@Override

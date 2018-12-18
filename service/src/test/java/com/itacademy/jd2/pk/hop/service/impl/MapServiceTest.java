@@ -12,7 +12,6 @@ public class MapServiceTest extends AbstractTest {
 	@Test
 	public void testCreated() {
 		IMap entity = saveNewMap();
-
 		IMap entityFromDb = mapService.get(entity.getId());
 
 		assertNotNull(entityFromDb);
@@ -22,12 +21,8 @@ public class MapServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertNotNull(entityFromDb.getImage());
-
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
-		// assertEquals(entity.getImage(), entityFromDb.getImage());
-
-	
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
 

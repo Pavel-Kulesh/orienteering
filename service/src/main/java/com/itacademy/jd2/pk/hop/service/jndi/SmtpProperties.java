@@ -2,10 +2,6 @@ package com.itacademy.jd2.pk.hop.service.jndi;
 
 import java.io.Serializable;
 
-
-
-
-
 public class SmtpProperties implements Serializable {
 
 	private String from;
@@ -59,9 +55,5 @@ public class SmtpProperties implements Serializable {
 		return "SmtpProperties [from=" + from + ", host=" + host + ", port=" + port + ", user=" + user + ", password="
 				+ password + "]";
 	}
-
-	
-
-	
 
 }

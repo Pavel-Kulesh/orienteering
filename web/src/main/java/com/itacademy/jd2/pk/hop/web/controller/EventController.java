@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -37,15 +35,11 @@ import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 @RequestMapping(value = "/event")
 
 public class EventController extends AbstractController<EventDTO> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EventController.class);
 
 	private IEventService eventService;
 	private ICountryService countryService;
-
 	private EventToDTOConverter toDTOConverter;
-
 	private EventFromDTOConverter fromDTOConverter;
-	
 
 	@Autowired
 	public EventController(IEventService eventService, EventToDTOConverter toDTOConverter,
@@ -55,22 +49,21 @@ public class EventController extends AbstractController<EventDTO> {
 		this.toDTOConverter = toDTOConverter;
 		this.fromDTOConverter = fromDTOConverter;
 		this.countryService = countryService;
-	
+
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView index(final HttpServletRequest req,
-			@RequestParam(name = "page", required = false) final Integer pageNumber,
-			@RequestParam(name = "sort", required = false) final String sortColumn) {
+	public ModelAndView index(HttpServletRequest req, @RequestParam(name = "page", required = false) Integer pageNumber,
+			@RequestParam(name = "sort", required = false) String sortColumn) {
 
-		final GridStateDTO gridState = getListDTO(req);
+		GridStateDTO gridState = getListDTO(req);
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		final EventFilter filter = new EventFilter();
+		EventFilter filter = new EventFilter();
 		prepareFilter(gridState, filter);
 
-		final List<IEvent> entities = eventService.find(filter);
+		List<IEvent> entities = eventService.find(filter);
 		List<EventDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
 		gridState.setTotalCount(eventService.getCount(filter));
 
@@ -78,7 +71,7 @@ public class EventController extends AbstractController<EventDTO> {
 			setStatusVisible(eventDTO);
 		}
 
-		final HashMap<String, Object> models = new HashMap<>();
+		HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 		return new ModelAndView("event.list", models);
 	}
@@ -92,7 +85,7 @@ public class EventController extends AbstractController<EventDTO> {
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
-		final Map<String, Object> hashMap = new HashMap<>();
+		Map<String, Object> hashMap = new HashMap<>();
 		Integer customerId = getCustomerId();
 		EventDTO dto = new EventDTO();
 		dto.setCustomerId(customerId);
@@ -103,23 +96,21 @@ public class EventController extends AbstractController<EventDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final EventDTO formModel, final BindingResult result) {
+	public String save(@Valid @ModelAttribute("formModel") EventDTO formModel, BindingResult result) {
 		if (result.hasErrors()) {
 			return "event.edit";
 		} else {
-			final IEvent entity = fromDTOConverter.apply(formModel);
+			IEvent entity = fromDTOConverter.apply(formModel);
 			eventService.save(entity);
 			return "redirect:/event";
 		}
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
+	public String delete(@PathVariable(name = "id", required = true) Integer id) {
 		String loginRole = getLoginRole();
 		if (loginRole.equals("ADMIN")) {
-			// delete all participants at event list
 			eventService.delete(id);
-
 		} else {
 			IEvent entityDB = eventService.get(id);
 			if (entityDB.getCustomer().getId().equals(getCustomerId())) {
@@ -133,11 +124,11 @@ public class EventController extends AbstractController<EventDTO> {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final IEvent dbModel = eventService.get(id);
-		final EventDTO dto = toDTOConverter.apply(dbModel);
-		final HashMap<String, Object> hashMap = new HashMap<>();
-		
+	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) Integer id) {
+		IEvent dbModel = eventService.get(id);
+		EventDTO dto = toDTOConverter.apply(dbModel);
+		HashMap<String, Object> hashMap = new HashMap<>();
+
 		setStatusVisible(dto);
 		hashMap.put("formModel", dto);
 		checkDate(id, dto, hashMap);
@@ -145,40 +136,38 @@ public class EventController extends AbstractController<EventDTO> {
 		return new ModelAndView("event.info", hashMap);
 	}
 
-	private void checkDate(final Integer id, final EventDTO dto, final HashMap<String, Object> hashMap) {
+	private void checkDate(Integer id, EventDTO dto, HashMap<String, Object> hashMap) {
 		Date date = new Date();
 		boolean regPossibility = true;
 		if (date.after(dto.getDate())) {
 			regPossibility = false;
-
 		}
 		hashMap.put("regPossibility", regPossibility);
 		Integer customerId = getCustomerId();
 		if (customerId != null) {
-
 			setStatusRegToEvent(id, hashMap);
 		}
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
-		final EventDTO dto = toDTOConverter.apply(eventService.get(id));
+	public ModelAndView edit(@PathVariable(name = "id", required = true) Integer id, HttpServletRequest req) {
+		EventDTO dto = toDTOConverter.apply(eventService.get(id));
 
-		final HashMap<String, Object> hashMap = new HashMap<>();
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		loadComboboxesModels(hashMap);
 		String url = req.getHeader("referer");
-		hashMap.put("url",url);
+		hashMap.put("url", url);
 		return new ModelAndView("event.edit", hashMap);
 	}
 
 	@RequestMapping(value = "/registrationCustomerToEvent/{id}", method = RequestMethod.GET)
-	public ModelAndView addCustomerToEvent(@PathVariable(name = "id", required = true) final Integer id) {
+	public ModelAndView addCustomerToEvent(@PathVariable(name = "id", required = true) Integer id) {
 
 		eventService.addCustomerToEvent(getCustomerId(), id);
-		final IEvent dbModel = eventService.get(id);
-		final EventDTO dto = toDTOConverter.apply(dbModel);
-		final HashMap<String, Object> hashMap = new HashMap<>();
+		IEvent dbModel = eventService.get(id);
+		EventDTO dto = toDTOConverter.apply(dbModel);
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 
 		setStatusRegToEvent(id, hashMap);
@@ -188,35 +177,33 @@ public class EventController extends AbstractController<EventDTO> {
 	}
 
 	@RequestMapping(value = "/deleteCustomerFromEvent/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteCustomerFromEvent(@PathVariable(name = "id", required = true) final Integer id) {
+	public ModelAndView deleteCustomerFromEvent(@PathVariable(name = "id", required = true) Integer id) {
 
 		eventService.deleteCustomerFromEvent(getCustomerId(), id);
-		final IEvent dbModel = eventService.get(id);
-		final EventDTO dto = toDTOConverter.apply(dbModel);
-		final HashMap<String, Object> hashMap = new HashMap<>();
+		IEvent dbModel = eventService.get(id);
+		EventDTO dto = toDTOConverter.apply(dbModel);
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		setStatusRegToEvent(id, hashMap);
 		checkDate(id, dto, hashMap);
 		return new ModelAndView("event.info", hashMap);
 	}
 
-	private void setStatusRegToEvent(final Integer id, final HashMap<String, Object> hashMap) {
+	private void setStatusRegToEvent(Integer id, HashMap<String, Object> hashMap) {
 		boolean statusRegOnEvent = eventService.checkExistCustomerInEvent(getCustomerId(), id);
 		hashMap.put("registerToEvent", !statusRegOnEvent);
 		hashMap.put("deleteFromEvent", statusRegOnEvent);
 	}
 
-	private void loadComboboxesModels(final Map<String, Object> hashMap) {
+	private void loadComboboxesModels(Map<String, Object> hashMap) {
 
-		final List<TypeEvent> eventTypesList = Arrays.asList(TypeEvent.values());
-		final Map<String, String> eventTypesMap = eventTypesList.stream()
+		List<TypeEvent> eventTypesList = Arrays.asList(TypeEvent.values());
+		Map<String, String> eventTypesMap = eventTypesList.stream()
 				.collect(Collectors.toMap(TypeEvent::name, TypeEvent::name));
 
 		hashMap.put("typeChoices", eventTypesMap);
-
-		final List<ICountry> countries = countryService.getAll();
-
-		final Map<Integer, String> countriesMap = countries.stream()
+		List<ICountry> countries = countryService.getAll();
+		Map<Integer, String> countriesMap = countries.stream()
 				.collect(Collectors.toMap(ICountry::getId, ICountry::getName));
 
 		hashMap.put("countryChoices", countriesMap);

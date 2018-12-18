@@ -8,5 +8,6 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 public interface IRegisterService {
 	@Transactional
 	void saveRegisterData(ICustomer customer, IUserAccount userAccount);
+
 	void setMailServise(IMailService mailServise);
 }

@@ -17,7 +17,6 @@ public class EventServiceTest extends AbstractTest {
 	@Test
 	public void testCreated() {
 		IEvent entity = saveNewEvent();
-
 		IEvent entityFromDb = eventService.get(entity.getId());
 
 		assertNotNull(entityFromDb);
@@ -33,10 +32,7 @@ public class EventServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getId(), entityFromDb.getId());
-		// assertEquals(entity.getCountry().getId(), entityFromDb.getCountry().getId());
 		assertEquals(entity.getName(), entityFromDb.getName());
-		// assertEquals(entity.getCustomer().getId(),
-		// entityFromDb.getCustomer().getId());
 		assertEquals(entity.getInfo(), entityFromDb.getInfo());
 		assertEquals(entity.getDate(), entityFromDb.getDate());
 		assertEquals(entity.getLatitude(), entityFromDb.getLatitude());
@@ -66,7 +62,6 @@ public class EventServiceTest extends AbstractTest {
 		entity.setCountry(newCountry);
 		entity.setType(newType);
 		entity.setInfo(newInfo);
-
 		entity.setLatitude(newLat);
 		entity.setLongitude(newLong);
 
@@ -92,13 +87,10 @@ public class EventServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getUpdated());
 
 		assertEquals(entity.getId(), entityFromDb.getId());
-		// assertEquals(entity.getCustomer().getId(),
-		// entityFromDb.getCustomer().getId());
 		assertEquals(newName, entityFromDb.getName());
 		assertEquals(newInfo, entityFromDb.getInfo());
 		assertEquals(newType, entityFromDb.getType());
 		assertEquals(newDate, entityFromDb.getDate());
-		// assertEquals(newCountry.getId(), entityFromDb.getCountry().getId());
 		assertEquals(newLat, entityFromDb.getLatitude());
 		assertEquals(newLong, entityFromDb.getLongitude());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
@@ -135,21 +127,14 @@ public class EventServiceTest extends AbstractTest {
 
 	@Test
 	public void testDeleteById() {
-		/*
-		 * IEvent entity = saveNewEvent(); eventService.delete(entity.getId());
-		 * assertNull(eventService.get(entity.getId()));
-		 */
-
 		int initialCount = eventService.getAll().size();
 
 		IEvent entity = saveNewEvent();
 		int sizeAfterSave = eventService.getAll().size();
 		eventService.delete(entity.getId());
 		int sizeAfterDel = eventService.getAll().size();
-
 		assertEquals(initialCount, sizeAfterDel);
 		assertEquals(initialCount, sizeAfterSave - 1);
-
 	}
 
 	@Test

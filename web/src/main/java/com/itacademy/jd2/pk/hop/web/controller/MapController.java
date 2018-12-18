@@ -62,19 +62,19 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView handleRequest(final HttpServletRequest req,
+	public ModelAndView handleRequest(HttpServletRequest req,
 
-			@RequestParam(name = "page", required = false) final Integer pageNumber,
-			@RequestParam(name = "sort", required = false) final String sortColumn) {
+			@RequestParam(name = "page", required = false) Integer pageNumber,
+			@RequestParam(name = "sort", required = false) String sortColumn) {
 
-		final GridStateDTO gridState = getListDTO(req);
+		GridStateDTO gridState = getListDTO(req);
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		final MapFilter filter = new MapFilter();
+		MapFilter filter = new MapFilter();
 		prepareFilter(gridState, filter);
 
-		final List<IMap> entities = mapService.find(filter);
+		List<IMap> entities = mapService.find(filter);
 		List<MapDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
 		gridState.setTotalCount(mapService.getCount(filter));
 
@@ -82,7 +82,7 @@ public class MapController extends AbstractController<MapDTO> {
 
 			setStatusVisible(mapDTO);
 		}
-		final HashMap<String, Object> models = new HashMap<>();
+		HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 		return new ModelAndView("map.list", models);
 	}
@@ -95,7 +95,7 @@ public class MapController extends AbstractController<MapDTO> {
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
-		final Map<String, Object> hashMap = new HashMap<>();
+		Map<String, Object> hashMap = new HashMap<>();
 		MapDTO dto = new MapDTO();
 		dto.setCustomerId(getCustomerId());
 		hashMap.put("formModel", dto);
@@ -103,12 +103,12 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@RequestParam("fileDoc") final MultipartFile fileDoc,
-			@Valid @ModelAttribute("formModel") final MapDTO formModel, final BindingResult result) throws IOException {
+	public String save(@RequestParam("fileDoc") MultipartFile fileDoc,
+			@Valid @ModelAttribute("formModel") MapDTO formModel, BindingResult result) throws IOException {
 		if ((fileDoc.isEmpty()) || (result.hasErrors())) {
 			return "map.add";
 		} else {
-			final IMap entity = fromDTOConverter.apply(formModel);
+			IMap entity = fromDTOConverter.apply(formModel);
 			entity.setImage(fileDoc.getBytes());
 			mapService.save(entity);
 			return "redirect:/map";
@@ -116,28 +116,27 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String edit(@Valid @ModelAttribute("formModel") final MapDTO formModel, final BindingResult result)
-			throws IOException {
+	public String edit(@Valid @ModelAttribute("formModel") MapDTO formModel, BindingResult result) throws IOException {
 		if (result.hasErrors()) {
 			return "map.edit";
 		} else {
-			final IMap entity = fromDTOConverter.apply(formModel);
+			IMap entity = fromDTOConverter.apply(formModel);
 			mapService.save(entity);
 			return "redirect:/map";
 		}
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
+	public String delete(@PathVariable(name = "id", required = true) Integer id) {
 		mapService.delete(id);
 		return "redirect:/map";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final IMap dbModel = mapService.getFullInfo(id);
-		final MapDTO dto = toDTOConverter.apply(dbModel);
-		final HashMap<String, Object> hashMap = new HashMap<>();
+	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) Integer id) {
+		IMap dbModel = mapService.getFullInfo(id);
+		MapDTO dto = toDTOConverter.apply(dbModel);
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		hashMap.put("idHolder", new IdHolder());
 
@@ -160,23 +159,23 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
-		final MapDTO dto = toDTOConverter.apply(mapService.get(id));
+	public ModelAndView edit(@PathVariable(name = "id", required = true) Integer id) {
+		MapDTO dto = toDTOConverter.apply(mapService.get(id));
 
-		final HashMap<String, Object> hashMap = new HashMap<>();
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 
 		return new ModelAndView("map.edit", hashMap);
 	}
 
 	@RequestMapping(value = "/addWayToMap/{mapId}", method = RequestMethod.POST)
-	public String addRouteToMap(@PathVariable(name = "mapId", required = true) final Integer mapId,
+	public String addRouteToMap(@PathVariable(name = "mapId", required = true) Integer mapId,
 
-			@Valid @ModelAttribute("idHolder") final IdHolder idHolder, final BindingResult result) throws IOException {
+			@Valid @ModelAttribute("idHolder") IdHolder idHolder, BindingResult result) throws IOException {
 		if (result.hasErrors()) {
 			return "redirect:/map/" + mapId;
 		} else {
-			final IMap dbModel = mapService.getFullInfo(mapId);
+			IMap dbModel = mapService.getFullInfo(mapId);
 
 			Integer routeId = idHolder.getId();
 			IRoute route = routeService.get(routeId);
@@ -187,10 +186,10 @@ public class MapController extends AbstractController<MapDTO> {
 	}
 
 	@RequestMapping(value = "/deleteWayFromMap/{id}/route/{routeId}", method = RequestMethod.GET)
-	public String deleteRouteFromMap(@PathVariable(name = "id", required = true) final Integer mapId,
-			@PathVariable(name = "routeId", required = true) final Integer routeId) {
+	public String deleteRouteFromMap(@PathVariable(name = "id", required = true) Integer mapId,
+			@PathVariable(name = "routeId", required = true) Integer routeId) {
 
-		final IMap dbModel = mapService.getFullInfo(mapId);
+		IMap dbModel = mapService.getFullInfo(mapId);
 		IRoute iRoute = routeService.get(routeId);
 		dbModel.getRoutes().remove(iRoute);
 		mapService.save(dbModel);
@@ -199,14 +198,13 @@ public class MapController extends AbstractController<MapDTO> {
 
 	}
 
-	private void loadComboboxesModels(final Map<String, Object> hashMap, Integer mapId) {
+	private void loadComboboxesModels(Map<String, Object> hashMap, Integer mapId) {
 		addWaysToHashMap(hashMap);
-
 		addDistToHashMap(hashMap);
 
 	}
 
-	private void addDistToHashMap(final Map<String, Object> hashMap) {
+	private void addDistToHashMap(Map<String, Object> hashMap) {
 		List<IRoute> distancesList = routeService.getRoutesByTrack(TypeTrack.valueOf("DISTANCE"));
 
 		Map<Integer, String> distances = distancesList.stream()
@@ -214,7 +212,7 @@ public class MapController extends AbstractController<MapDTO> {
 		hashMap.put("distances", distances);
 	}
 
-	private void addWaysToHashMap(final Map<String, Object> hashMap) {
+	private void addWaysToHashMap(Map<String, Object> hashMap) {
 		if (getCustomerId() != null) {
 			if (getLoginRole().equals("ADMIN")) {
 				List<IRoute> waysList = routeService.getRoutesByTrack(TypeTrack.valueOf("WAY"));
@@ -233,7 +231,7 @@ public class MapController extends AbstractController<MapDTO> {
 	@RequestMapping(method = RequestMethod.GET, value = "/image/{mapId}")
 	public void getImageAsByteArray(HttpServletResponse response,
 
-			@PathVariable(name = "mapId", required = true) final Integer mapId) throws IOException {
+			@PathVariable(name = "mapId", required = true) Integer mapId) throws IOException {
 		IMap entity = mapService.get(mapId);
 		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
 

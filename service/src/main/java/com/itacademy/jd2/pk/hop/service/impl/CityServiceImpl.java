@@ -60,10 +60,7 @@ public class CityServiceImpl implements ICityService {
 
 	@Override
 	public void deleteAll() {
-		// not realize this method
 		dao.deleteAll();
-		LOGGER.info("delete all cities");
-
 	}
 
 	@Override

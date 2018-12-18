@@ -28,7 +28,6 @@ public class UserAccountServiceTest extends AbstractTest {
 		assertEquals(entity.getEmail(), entityFromDb.getEmail());
 		assertEquals(entity.getPassword(), entityFromDb.getPassword());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
-
 	}
 
 	@Test
@@ -59,7 +58,6 @@ public class UserAccountServiceTest extends AbstractTest {
 		assertEquals(newRole, entityFromDb.getRole());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getUpdated().after(entity.getCreated()));
-
 	}
 
 	@Test
@@ -70,7 +68,6 @@ public class UserAccountServiceTest extends AbstractTest {
 		for (int i = 0; i < randomObjectsCount; i++) {
 			saveNewUserAccount();
 		}
-
 		List<IUserAccount> allEntities = userAccountService.getAll();
 
 		for (IUserAccount entityFromDb : allEntities) {
@@ -83,7 +80,6 @@ public class UserAccountServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb.getUpdated());
 		}
 		assertEquals(randomObjectsCount + initialCount, allEntities.size());
-
 	}
 
 	@Test
@@ -99,5 +95,4 @@ public class UserAccountServiceTest extends AbstractTest {
 		userAccountService.deleteAll();
 		assertEquals(0, userAccountService.getAll().size());
 	}
-
 }

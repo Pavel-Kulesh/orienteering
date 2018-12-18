@@ -16,7 +16,6 @@ import com.itacademy.jd2.pk.hop.service.ICountryService;
 public class CountryServiceImpl implements ICountryService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CountryServiceImpl.class);
-
 	private ICountryDao dao;
 
 	@Autowired
@@ -43,21 +42,18 @@ public class CountryServiceImpl implements ICountryService {
 		entity.setUpdated(modifedOn);
 		if (entity.getId() == null) {
 			entity.setCreated(modifedOn);
-
 			dao.insert(entity);
 			LOGGER.info("new country created: {}", entity);
 		} else {
 			LOGGER.debug("country updated: {}", entity);
 			dao.update(entity);
 		}
-
 	}
 
 	@Override
 	public void delete(Integer id) {
 		LOGGER.info("delete country with id=" + id);
 		dao.delete(id);
-
 	}
 
 	@Override
@@ -70,5 +66,4 @@ public class CountryServiceImpl implements ICountryService {
 	public ICountry createEntity() {
 		return dao.createEntity();
 	}
-
 }

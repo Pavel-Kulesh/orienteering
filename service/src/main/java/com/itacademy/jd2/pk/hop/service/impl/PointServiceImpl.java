@@ -14,7 +14,6 @@ import com.itacademy.jd2.pk.hop.service.IPointService;
 @Service
 public class PointServiceImpl implements IPointService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PointServiceImpl.class);
-
 	private IPointDao dao;
 
 	@Autowired
@@ -35,11 +34,8 @@ public class PointServiceImpl implements IPointService {
 		return all;
 	}
 
-	
-	
 	@Override
 	public void save(IPoint entity) {
-
 		dao.insert(entity);
 		LOGGER.info("new point created: {}", entity);
 
@@ -47,17 +43,14 @@ public class PointServiceImpl implements IPointService {
 
 	@Override
 	public void saveList(List<IPoint> entities) {
-
 		dao.insertList(entities);
 		LOGGER.info("new points created---------------");
-
 	}
 
 	@Override
 	public void delete(Integer id) {
 		dao.delete(id);
 		LOGGER.info("delete all points with route_id=" + id);
-
 	}
 
 	@Override
@@ -65,7 +58,6 @@ public class PointServiceImpl implements IPointService {
 		// not support?
 		dao.deleteAll();
 		LOGGER.info("delete all points");
-
 	}
 
 	@Override
@@ -75,10 +67,8 @@ public class PointServiceImpl implements IPointService {
 
 	@Override
 	public List<IPoint> selectByRouteId(Integer id) {
-		
+
 		return dao.selectById(id);
 	}
-
-	
 
 }

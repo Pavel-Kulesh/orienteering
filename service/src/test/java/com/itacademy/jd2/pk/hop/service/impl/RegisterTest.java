@@ -19,19 +19,16 @@ public class RegisterTest extends AbstractTest {
 
 		assertNotNull(customerDB);
 		assertNotNull(userAccountDB);
-
 		assertNotNull(customerDB.getId());
 		assertNotNull(customerDB.getName());
 		assertNotNull(customerDB.getSurname());
 		assertNotNull(customerDB.getCity());
-		// assertNotNull(entityFromDb.getPhone()); can be null
 		assertNotNull(customerDB.getCreated());
 		assertNotNull(customerDB.getUpdated());
 		assertEquals(customer.getId(), customerDB.getId());
 		assertEquals(customer.getName(), customerDB.getName());
 		assertEquals(customer.getSurname(), customerDB.getSurname());
 		assertEquals(customer.getCity().getId(), customerDB.getCity().getId());
-
 		assertNotNull(userAccountDB.getId());
 		assertNotNull(userAccountDB.getEmail());
 		assertNotNull(userAccountDB.getPassword());
@@ -41,7 +38,6 @@ public class RegisterTest extends AbstractTest {
 		assertEquals(userAccount.getEmail(), userAccountDB.getEmail());
 		assertEquals(userAccount.getPassword(), userAccountDB.getPassword());
 		assertTrue(userAccount.getCreated().equals(userAccountDB.getUpdated()));
-
 	}
 
 }

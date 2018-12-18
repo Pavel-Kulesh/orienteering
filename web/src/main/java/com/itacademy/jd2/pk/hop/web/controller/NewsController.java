@@ -31,9 +31,7 @@ import com.itacademy.jd2.pk.hop.web.dto.list.GridStateDTO;
 public class NewsController extends AbstractController<NewsDTO> {
 
 	private INewsServise newsService;
-
 	private NewsToDTOConverter toDTOConverter;
-
 	private NewsFromDTOConverter fromDTOConverter;
 
 	@Autowired
@@ -46,30 +44,29 @@ public class NewsController extends AbstractController<NewsDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView index(final HttpServletRequest req,
-			@RequestParam(name = "page", required = false) final Integer pageNumber,
-			@RequestParam(name = "sort", required = false) final String sortColumn) {
+	public ModelAndView index(HttpServletRequest req, @RequestParam(name = "page", required = false) Integer pageNumber,
+			@RequestParam(name = "sort", required = false) String sortColumn) {
 
-		final GridStateDTO gridState = getListDTO(req);
+		GridStateDTO gridState = getListDTO(req);
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		final NewsFilter filter = new NewsFilter();
+		NewsFilter filter = new NewsFilter();
 		prepareFilter(gridState, filter);
 
-		final List<INews> entities = newsService.find(filter);
+		List<INews> entities = newsService.find(filter);
 		List<NewsDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
 		gridState.setTotalCount(newsService.getCount(filter));
 
-		final HashMap<String, Object> models = new HashMap<>();
+		HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 		return new ModelAndView("news.list", models);
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView showForm() {
-		final Map<String, Object> hashMap = new HashMap<>();
-		final INews newEntity = newsService.createEntity();
+		Map<String, Object> hashMap = new HashMap<>();
+		INews newEntity = newsService.createEntity();
 		NewsDTO dto = toDTOConverter.apply(newEntity);
 		hashMap.put("formModel", dto);
 
@@ -77,35 +74,35 @@ public class NewsController extends AbstractController<NewsDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final NewsDTO formModel, final BindingResult result) {
+	public String save(@Valid @ModelAttribute("formModel") NewsDTO formModel, BindingResult result) {
 		if (result.hasErrors()) {
 			return "news.edit";
 		} else {
-			final INews entity = fromDTOConverter.apply(formModel);
+			INews entity = fromDTOConverter.apply(formModel);
 			newsService.save(entity);
 			return "redirect:/news";
 		}
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
+	public String delete(@PathVariable(name = "id", required = true) Integer id) {
 		newsService.delete(id);
 		return "redirect:/news";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-		final INews dbModel = newsService.get(id);
-		final NewsDTO dto = toDTOConverter.apply(dbModel);
-		final HashMap<String, Object> hashMap = new HashMap<>();
+	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) Integer id) {
+		INews dbModel = newsService.get(id);
+		NewsDTO dto = toDTOConverter.apply(dbModel);
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		return new ModelAndView("news.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
-		final NewsDTO dto = toDTOConverter.apply(newsService.get(id));
-		final HashMap<String, Object> hashMap = new HashMap<>();
+	public ModelAndView edit(@PathVariable(name = "id", required = true) Integer id) {
+		NewsDTO dto = toDTOConverter.apply(newsService.get(id));
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 
 		return new ModelAndView("news.edit", hashMap);

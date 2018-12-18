@@ -44,194 +44,184 @@ import com.itacademy.jd2.pk.hop.web.gpx.MyGPX;
 @RequestMapping(value = "/route")
 public class RouteController extends AbstractController<RouteDTO> {
 
-    private IRouteService routeService;
-    private RouteToDTOConverter toDTOConverter;
-    private RouteFromDTOConverter fromDTOConverter;
-    private IPointService pointService;
+	private IRouteService routeService;
+	private RouteToDTOConverter toDTOConverter;
+	private RouteFromDTOConverter fromDTOConverter;
+	private IPointService pointService;
 
-    @Autowired
-    public RouteController(IRouteService routeService, RouteToDTOConverter toDTOConverter,
-            RouteFromDTOConverter fromDTOConverter, IPointService pointService) {
-        super();
-        this.routeService = routeService;
-        this.toDTOConverter = toDTOConverter;
-        this.fromDTOConverter = fromDTOConverter;
-        this.pointService = pointService;
-    }
+	@Autowired
+	public RouteController(IRouteService routeService, RouteToDTOConverter toDTOConverter,
+			RouteFromDTOConverter fromDTOConverter, IPointService pointService) {
+		super();
+		this.routeService = routeService;
+		this.toDTOConverter = toDTOConverter;
+		this.fromDTOConverter = fromDTOConverter;
+		this.pointService = pointService;
+	}
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView handleRequest(final HttpServletRequest req,
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView handleRequest(HttpServletRequest req,
 
-            @RequestParam(name = "page", required = false) final Integer pageNumber,
-            @RequestParam(name = "sort", required = false) final String sortColumn) {
+			@RequestParam(name = "page", required = false) Integer pageNumber,
+			@RequestParam(name = "sort", required = false) String sortColumn) {
 
-        final GridStateDTO gridState = getListDTO(req);
-        gridState.setPage(pageNumber);
-        gridState.setSort(sortColumn, "id");
+		GridStateDTO gridState = getListDTO(req);
+		gridState.setPage(pageNumber);
+		gridState.setSort(sortColumn, "id");
 
-        RouteFilter filter = new RouteFilter();
-        filter.setCustomerId(getCustomerId());
-        filter.setUserRole(getLoginRole());
-        prepareFilter(gridState, filter);
+		RouteFilter filter = new RouteFilter();
+		filter.setCustomerId(getCustomerId());
+		filter.setUserRole(getLoginRole());
+		prepareFilter(gridState, filter);
 
-        final List<IRoute> entities = routeService.find(filter);
-        List<RouteDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
-        gridState.setTotalCount(routeService.getCount(filter));
+		List<IRoute> entities = routeService.find(filter);
+		List<RouteDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
+		gridState.setTotalCount(routeService.getCount(filter));
 
-        final HashMap<String, Object> models = new HashMap<>();
+		HashMap<String, Object> models = new HashMap<>();
 
-        models.put("gridItem", dtos);
-        return new ModelAndView("route.list", models);
-    }
+		models.put("gridItem", dtos);
+		return new ModelAndView("route.list", models);
+	}
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView showForm() {
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView showForm() {
 
-        final Map<String, Object> hashMap = new HashMap<>();
+		Map<String, Object> hashMap = new HashMap<>();
 
-        RouteDTO dto = new RouteDTO();
-        dto.setCustomerId(getCustomerId());
-        hashMap.put("formModel", dto);
+		RouteDTO dto = new RouteDTO();
+		dto.setCustomerId(getCustomerId());
+		hashMap.put("formModel", dto);
 
-        loadComboboxesModels(hashMap);
-        return new ModelAndView("route.add", hashMap);
-    }
+		loadComboboxesModels(hashMap);
+		return new ModelAndView("route.add", hashMap);
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String save(@RequestParam("fileDoc") final MultipartFile fileDoc,
-            @Valid @ModelAttribute("formModel") final RouteDTO formModel, final BindingResult result)
-            throws IOException {
+	@RequestMapping(method = RequestMethod.POST)
+	public String save(@RequestParam("fileDoc") MultipartFile fileDoc,
+			@Valid @ModelAttribute("formModel") RouteDTO formModel, BindingResult result) throws IOException {
 
-        if (fileDoc == null) {
-            throw new BadCredentialsException("1000");
-        }
+		if (fileDoc == null) {
+			throw new BadCredentialsException("1000");
+		}
+		if (result.hasErrors()) {
+			return "route.add";
+		} else {
 
-        if (result.hasErrors()) {
-            return "route.add";
-        } else {
+			List<IPoint> poits = MyGPX.seeTrack(fileDoc.getInputStream());
+			IRoute entity = fromDTOConverter.apply(formModel);
+			routeService.save(entity);
 
-            List<IPoint> poits = MyGPX.seeTrack(fileDoc.getInputStream());
-            final IRoute entity = fromDTOConverter.apply(formModel);
-            routeService.save(entity);
+			for (IPoint p : poits) {
+				p.setRoute(entity);
+			}
+			pointService.saveList(poits);
+			return "redirect:/route";
+		}
+	}
 
-            for (IPoint p : poits) {
-                p.setRoute(entity);
-            }
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String edit(@Valid @ModelAttribute("formModel") RouteDTO formModel, BindingResult result)
+			throws IOException {
 
-            pointService.saveList(poits);
+		if (result.hasErrors()) {
+			return "route.edit";
+		} else {
+			IRoute entity = fromDTOConverter.apply(formModel);
+			routeService.save(entity);
+			return "redirect:/route";
+		}
+	}
 
-            return "redirect:/route";
-        }
-    }
+	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
+	public String delete(@PathVariable(name = "id", required = true) Integer id) {
+		routeService.delete(id);
+		return "redirect:/route";
+	}
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String edit(@Valid @ModelAttribute("formModel") final RouteDTO formModel, final BindingResult result)
-            throws IOException {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) Integer id) {
+		IRoute dbModel = routeService.get(id);
+		RouteDTO dto = toDTOConverter.apply(dbModel);
+		HashMap<String, Object> hashMap = new HashMap<>();
+		hashMap.put("formModel", dto);
 
-        if (result.hasErrors()) {
-            return "route.edit";
-        } else {
+		return new ModelAndView("route.info", hashMap);
+	}
 
-            final IRoute entity = fromDTOConverter.apply(formModel);
-            routeService.save(entity);
-            return "redirect:/route";
-        }
-    }
+	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@PathVariable(name = "id", required = true) Integer id) {
 
-    @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String delete(@PathVariable(name = "id", required = true) final Integer id) {
-        routeService.delete(id);
+		RouteDTO dto = toDTOConverter.apply(routeService.get(id));
 
-        // delete all link manyToMany map_2_route;
-        return "redirect:/route";
-    }
+		HashMap<String, Object> hashMap = new HashMap<>();
+		hashMap.put("formModel", dto);
+		loadComboboxesModels(hashMap);
+		return new ModelAndView("route.edit", hashMap);
+	}
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id) {
-        final IRoute dbModel = routeService.get(id);
-        final RouteDTO dto = toDTOConverter.apply(dbModel);
-        final HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("formModel", dto);
+	@RequestMapping(value = "/points", method = RequestMethod.GET)
+	public ResponseEntity<RouteDataResponse> getRoutePoints(
+			@RequestParam(name = "routeId", required = true) Integer routeId) {
+		List<PointDTO> points = new ArrayList<>();
+		List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
+		for (IPoint entity : pointsFromDB) {
+			points.add(new PointDTO(entity.getLatitude(), entity.getLongitude()));
 
-        return new ModelAndView("route.info", hashMap);
-    }
+		}
 
-    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id) {
+		RouteDataResponse routeDataResponse = new RouteDataResponse();
+		IRoute route = routeService.get(routeId);
+		routeDataResponse.setName(route.getName());
+		routeDataResponse.setPoints(points);
+		return new ResponseEntity<RouteDataResponse>(routeDataResponse, HttpStatus.OK);
+	}
 
-        final RouteDTO dto = toDTOConverter.apply(routeService.get(id));
+	@RequestMapping(value = "/speed", method = RequestMethod.GET)
+	public ResponseEntity<List<SpeedDTO>> getPointsInfo(
+			@RequestParam(name = "routeId", required = true) Integer routeId) {
+		List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
 
-        final HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("formModel", dto);
-        loadComboboxesModels(hashMap);
-        return new ModelAndView("route.edit", hashMap);
-    }
+		List<SpeedDTO> speedInterval = getSpeedInterval(pointsFromDB);
 
-    @RequestMapping(value = "/points", method = RequestMethod.GET)
-    public ResponseEntity<RouteDataResponse> getRoutePoints(
-            @RequestParam(name = "routeId", required = true) final Integer routeId) {
-        List<PointDTO> points = new ArrayList<>();
-        List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
-        for (IPoint entity : pointsFromDB) {
-            points.add(new PointDTO(entity.getLatitude(), entity.getLongitude()));
+		return new ResponseEntity<List<SpeedDTO>>(speedInterval, HttpStatus.OK);
+	}
 
-        }
+	private List<SpeedDTO> getSpeedInterval(List<IPoint> points) {
+		List<SpeedDTO> intervals = new ArrayList<>();
+		IPoint startPoint = points.get(0);
+		for (IPoint point : points) {
+			double distance = getDistanceBetween(startPoint.getLatitude(), startPoint.getLongitude(),
+					point.getLatitude(), point.getLongitude());
+			intervals.add(new SpeedDTO(distance, point.getDiffTime()));
+			startPoint = point;
+		}
+		return intervals;
+	}
 
-        RouteDataResponse routeDataResponse = new RouteDataResponse();
-        IRoute route = routeService.get(routeId);
-        routeDataResponse.setName(route.getName());
-        routeDataResponse.setPoints(points);
-        return new ResponseEntity<RouteDataResponse>(routeDataResponse, HttpStatus.OK);
-    }
+	private void loadComboboxesModels(Map<String, Object> hashMap) {
 
-    @RequestMapping(value = "/speed", method = RequestMethod.GET)
-    public ResponseEntity<List<SpeedDTO>> getPointsInfo(
-            @RequestParam(name = "routeId", required = true) final Integer routeId) {
-        List<IPoint> pointsFromDB = pointService.selectByRouteId(routeId);
+		List<TypeTrack> eventTypesList = Arrays.asList(TypeTrack.values());
+		Map<String, String> eventTypesMap = eventTypesList.stream()
+				.collect(Collectors.toMap(TypeTrack::name, TypeTrack::name));
 
-        List<SpeedDTO> speedInterval = getSpeedInterval(pointsFromDB);
+		hashMap.put("wayChoices", eventTypesMap);
+	}
 
-        return new ResponseEntity<List<SpeedDTO>>(speedInterval, HttpStatus.OK);
-    }
+	public double getDistanceBetween(double lat1, double lon1, double lat2, double lon2) {
+		double dLat = toRadians(lat2 - lat1);
+		double dLon = toRadians(lon2 - lon1);
 
-    private List<SpeedDTO> getSpeedInterval(List<IPoint> points) {
-        List<SpeedDTO> intervals = new ArrayList<>();
-        IPoint startPoint = points.get(0);
-        for (IPoint point : points) {
-            double distance = getDistanceBetween(startPoint.getLatitude(), startPoint.getLongitude(),
-                    point.getLatitude(), point.getLongitude());
-            intervals.add(new SpeedDTO(distance, point.getDiffTime()));
-            startPoint = point;
-        }
+		double a = (Math.sin(dLat / 2) * Math.sin(dLat / 2))
+				+ (Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2));
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		// double d = EARTH_RADIUS * c;
+		double d = 6371 * c;
+		return d;
+	}
 
-        return intervals;
-
-    }
-
-    private void loadComboboxesModels(final Map<String, Object> hashMap) {
-
-        final List<TypeTrack> eventTypesList = Arrays.asList(TypeTrack.values());
-        final Map<String, String> eventTypesMap = eventTypesList.stream()
-                .collect(Collectors.toMap(TypeTrack::name, TypeTrack::name));
-
-        hashMap.put("wayChoices", eventTypesMap);
-    }
-
-    public double getDistanceBetween(double lat1, double lon1, double lat2, double lon2) {
-        double dLat = toRadians(lat2 - lat1);
-        double dLon = toRadians(lon2 - lon1);
-
-        double a = (Math.sin(dLat / 2) * Math.sin(dLat / 2))
-                + (Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2));
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        // double d = EARTH_RADIUS * c;
-        double d = 6371 * c;
-
-        return d;
-    }
-
-    public double toRadians(double degrees) {
-        return degrees * (Math.PI / 180);
-    }
+	public double toRadians(double degrees) {
+		return degrees * (Math.PI / 180);
+	}
 
 }

@@ -15,7 +15,6 @@ import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 @Service
 public class UserAccountServiceImpl implements IUserAccountService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserAccountServiceImpl.class);
-
 	private IUserAccountDao dao;
 
 	@Autowired
@@ -26,7 +25,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
 	@Override
 	public IUserAccount get(Integer id) {
-
 		IUserAccount entity = dao.get(id);
 		return entity;
 	}
@@ -34,7 +32,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
 	@Override
 	public List<IUserAccount> getAll() {
 		List<IUserAccount> all = dao.selectAll();
-
 		return all;
 	}
 
@@ -44,25 +41,21 @@ public class UserAccountServiceImpl implements IUserAccountService {
 		entity.setUpdated(modifedOn);
 		if (entity.getId() == null) {
 			entity.setCreated(modifedOn);
-
 			dao.insert(entity);
 			LOGGER.info("new user account created: {}", entity);
 		} else {
 			LOGGER.debug("user account updated: {}", entity);
 			dao.update(entity);
 		}
-
 	}
 
 	@Override
 	public void delete(Integer id) {
-		LOGGER.info("delete user account with id=" + id + "-------------------");
 		dao.delete(id);
 	}
 
 	@Override
 	public void deleteAll() {
-		LOGGER.info("delete all user accounts--------------------");
 		dao.deleteAll();
 	}
 
@@ -73,7 +66,6 @@ public class UserAccountServiceImpl implements IUserAccountService {
 
 	@Override
 	public IUserAccount getByEmail(String email) {
-
 		IUserAccount entity = dao.getByEmail(email);
 		return entity;
 	}

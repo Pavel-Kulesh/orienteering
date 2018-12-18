@@ -12,8 +12,8 @@ import com.itacademy.jd2.pk.hop.web.security.AuthHelper;
 import com.itacademy.jd2.pk.hop.web.security.ExtendedUsernamePasswordAuthenticationToken;
 
 public abstract class AbstractController<DTO> {
-	protected GridStateDTO getListDTO(final HttpServletRequest req) {
-		final String sessionModelName = getClass().getSimpleName() + "_GRID_STATE";
+	protected GridStateDTO getListDTO(HttpServletRequest req) {
+		String sessionModelName = getClass().getSimpleName() + "_GRID_STATE";
 
 		GridStateDTO gridState = (GridStateDTO) req.getSession().getAttribute(sessionModelName);
 		if (gridState == null) {
@@ -29,7 +29,7 @@ public abstract class AbstractController<DTO> {
 		int offset = gridState.getItemsPerPage() * (gridState.getPage() - 1);
 		filter.setOffset(gridState.getTotalCount() < offset ? 0 : offset);
 
-		final SortDTO sortModel = gridState.getSort();
+		SortDTO sortModel = gridState.getSort();
 		if (sortModel != null) {
 			filter.setSortColumn(sortModel.getColumn());
 			filter.setSortOrder(sortModel.isAscending());

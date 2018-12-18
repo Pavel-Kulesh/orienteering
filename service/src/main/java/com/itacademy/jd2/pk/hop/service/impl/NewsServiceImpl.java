@@ -1,6 +1,5 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,11 +44,9 @@ public class NewsServiceImpl implements INewsServise {
 			entity.setCreated(modifedOn);
 			dao.insert(entity);
 			LOGGER.info("new news created: {}", entity);
-
 		} else {
 			dao.update(entity);
 			LOGGER.debug("news updated: {}", entity);
-
 		}
 	}
 
@@ -63,7 +60,6 @@ public class NewsServiceImpl implements INewsServise {
 	public void deleteAll() {
 		dao.deleteAll();
 		LOGGER.info("delete all news");
-
 	}
 
 	@Override
@@ -73,7 +69,6 @@ public class NewsServiceImpl implements INewsServise {
 
 	@Override
 	public List<INews> find(NewsFilter filter) {
-
 		return dao.find(filter);
 	}
 

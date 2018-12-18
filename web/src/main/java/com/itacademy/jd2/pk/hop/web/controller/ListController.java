@@ -41,34 +41,34 @@ public class ListController {
 	}
 
 	@RequestMapping(value = "/event/{id}", method = RequestMethod.GET)
-	public ModelAndView showUsers(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
+	public ModelAndView showUsers(@PathVariable(name = "id", required = true) Integer id, HttpServletRequest req) {
 
-		final List<ICustomer> entities = customerService.getCustomersByEvent(id);
+		List<ICustomer> entities = customerService.getCustomersByEvent(id);
 
 		List<CustomerDTO> dtos = entities.stream().map(customerToDTOConverter).collect(Collectors.toList());
 
-		final HashMap<String, Object> models = new HashMap<>();
-	
+		HashMap<String, Object> models = new HashMap<>();
+
 		models.put("gridItem", dtos);
-		
+
 		String url = req.getHeader("referer");
-		models.put("url",url);
+		models.put("url", url);
 		return new ModelAndView("user2event", models);
 
 	}
 
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ModelAndView showEvents(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
+	public ModelAndView showEvents(@PathVariable(name = "id", required = true) Integer id, HttpServletRequest req) {
 
-		final List<IEvent> entities = eventService.getEventsByCustomer(id);
+		List<IEvent> entities = eventService.getEventsByCustomer(id);
 
 		List<EventDTO> dtos = entities.stream().map(eventToDTOConverter).collect(Collectors.toList());
 
-		final HashMap<String, Object> models = new HashMap<>();
+		HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
-		
+
 		String url = req.getHeader("referer");
-		models.put("url",url);
+		models.put("url", url);
 		return new ModelAndView("event2user", models);
 
 	}

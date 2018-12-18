@@ -18,7 +18,7 @@ public class ExtendedUsernamePasswordAuthenticationToken extends UsernamePasswor
 			final Object credentials, final Collection<? extends GrantedAuthority> authorities, final String name,
 			final String surname, final String role) {
 		super(principal, credentials, authorities);
-		
+
 		this.id = id;
 		this.name = name;
 		this.surname = surname;

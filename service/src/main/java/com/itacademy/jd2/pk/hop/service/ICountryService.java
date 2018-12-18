@@ -10,10 +10,13 @@ public interface ICountryService {
 	ICountry get(Integer id);
 
 	List<ICountry> getAll();
+
 	@Transactional
 	void save(ICountry entity);
+
 	@Transactional
 	void delete(Integer id);
+
 	@Transactional
 	void deleteAll();
 

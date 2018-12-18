@@ -1,7 +1,6 @@
 package com.itacademy.jd2.pk.hop.service.impl;
 
 import java.util.Date;
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,7 +17,6 @@ import com.itacademy.jd2.pk.hop.service.IEventService;
 public class EventServiceImpl implements IEventService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EventServiceImpl.class);
-
 	private IEventDao dao;
 
 	@Autowired
@@ -50,7 +48,6 @@ public class EventServiceImpl implements IEventService {
 		} else {
 			dao.update(entity);
 			LOGGER.debug("event updated: {}", entity);
-
 		}
 	}
 
@@ -89,13 +86,11 @@ public class EventServiceImpl implements IEventService {
 	@Override
 	public void addCustomerToEvent(Integer customerId, Integer eventId) {
 		dao.addCustomerToEvent(customerId, eventId);
-
 	}
 
 	@Override
 	public void deleteCustomerFromEvent(Integer customerId, Integer eventId) {
 		dao.deleteCustomerFromEvent(customerId, eventId);
-
 	}
 
 	@Override

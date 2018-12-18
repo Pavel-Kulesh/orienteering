@@ -23,7 +23,6 @@ public class CustomerServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getSurname());
 		assertNotNull(entityFromDb.getCity());
-		// assertNotNull(entityFromDb.getPhone()); can be null
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getId(), entityFromDb.getId());
@@ -31,7 +30,6 @@ public class CustomerServiceTest extends AbstractTest {
 		assertEquals(entity.getSurname(), entityFromDb.getSurname());
 		assertEquals(entity.getCity().getId(), entityFromDb.getCity().getId());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
-
 	}
 
 	@Test
@@ -50,8 +48,6 @@ public class CustomerServiceTest extends AbstractTest {
 
 		Thread.sleep(1000);
 
-		// customerService.update(entity);
-
 		customerService.save(entity);
 
 		ICustomer entityFromDb = customerService.get(entity.getId());
@@ -61,16 +57,12 @@ public class CustomerServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getName());
 		assertNotNull(entityFromDb.getSurname());
 		assertNotNull(entityFromDb.getCity());
-		// assertNotNull(entityFromDb.getPhone()); can be null
-
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(newName, entityFromDb.getName());
 		assertEquals(newSurname, entityFromDb.getSurname());
 		assertEquals(newPhone, entityFromDb.getPhone());
-		// assertEquals(newCity.getId(), entityFromDb.getCity().getId());
-
 		assertEquals(entityFromDb.getCreated(), entityFromDb.getCreated());
 		assertTrue(entityFromDb.getUpdated().after(entityFromDb.getCreated()));
 	}
@@ -91,9 +83,7 @@ public class CustomerServiceTest extends AbstractTest {
 			assertNotNull(entityFromDb.getName());
 			assertNotNull(entityFromDb.getSurname());
 			assertNotNull(entityFromDb.getPhone()); // can be null
-
 			assertNotNull(entityFromDb.getCity());
-
 			assertNotNull(entityFromDb.getCreated());
 			assertNotNull(entityFromDb.getUpdated());
 		}

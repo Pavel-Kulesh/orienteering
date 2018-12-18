@@ -2,9 +2,9 @@ package com.itacademy.jd2.pk.hop.web.converter;
 
 import java.util.function.Function;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import com.itacademy.jd2.pk.hop.dao.api.entity.IUserAccount;
 import com.itacademy.jd2.pk.hop.dao.api.entity.Role;
@@ -25,7 +25,6 @@ public class AccountConverterFormFromDTO implements Function<RegFormDTO, IUserAc
 	public IUserAccount apply(RegFormDTO dto) {
 		IUserAccount entity = userAccountService.createEntity();
 		entity.setEmail(dto.getEmail());
-
 		entity.setPassword(DigestUtils.md5Hex(dto.getPassword()));
 		entity.setRole(Role.USER);
 		return entity;

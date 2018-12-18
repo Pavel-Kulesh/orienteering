@@ -10,29 +10,29 @@ import com.itacademy.jd2.pk.hop.dao.api.entity.TypeTrack;
 import com.itacademy.jd2.pk.hop.dao.api.filter.MapFilter;
 
 public interface IMapService {
-    IMap get(Integer id);
+	IMap get(Integer id);
 
-    List<IMap> getAll();
+	List<IMap> getAll();
 
-    @Transactional
-    void save(IMap entity);
+	@Transactional
+	void save(IMap entity);
 
-    @Transactional
-    void delete(Integer id);
+	@Transactional
+	void delete(Integer id);
 
-    @Transactional
-    void deleteAll();
+	@Transactional
+	void deleteAll();
 
-    IMap createEntity();
+	IMap createEntity();
 
-    List<IMap> find(MapFilter filter);
+	List<IMap> find(MapFilter filter);
 
-    long getCount(MapFilter filter);
+	long getCount(MapFilter filter);
 
-    List<IRoute> getRoutesOnMap(Integer mapId, TypeTrack track);
+	List<IRoute> getRoutesOnMap(Integer mapId, TypeTrack track);
 
-    List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId);
+	List<IRoute> getRoutesOnMapByCustomer(Integer mapId, Integer customerId);
 
-    IMap getFullInfo(Integer mapId);
+	IMap getFullInfo(Integer mapId);
 
 }

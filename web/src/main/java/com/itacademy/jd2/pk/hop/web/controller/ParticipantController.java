@@ -35,7 +35,6 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 
 	private ICustomerService customerService;
 	private IUserAccountService userAccountService;
-
 	private CustomerToDTOConverter toDTOConverter;
 	private CustomerFromDTOConverter fromDTOConverter;
 
@@ -50,25 +49,24 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView index(final HttpServletRequest req,
-			@RequestParam(name = "page", required = false) final Integer pageNumber,
-			@RequestParam(name = "sort", required = false) final String sortColumn) {
+	public ModelAndView index(HttpServletRequest req, @RequestParam(name = "page", required = false) Integer pageNumber,
+			@RequestParam(name = "sort", required = false) String sortColumn) {
 
-		final GridStateDTO gridState = getListDTO(req);
+		GridStateDTO gridState = getListDTO(req);
 		gridState.setPage(pageNumber);
 		gridState.setSort(sortColumn, "id");
 
-		final CustomerFilter filter = new CustomerFilter();
+		CustomerFilter filter = new CustomerFilter();
 		prepareFilter(gridState, filter);
 
-		final List<ICustomer> entities = customerService.find(filter);
+		List<ICustomer> entities = customerService.find(filter);
 		List<CustomerDTO> dtos = entities.stream().map(toDTOConverter).collect(Collectors.toList());
 		String currentLoginRole = getLoginRole();
 		Integer currentCustomerId = getCustomerId();
 
 		gridState.setTotalCount(customerService.getCount(filter));
 
-		final HashMap<String, Object> models = new HashMap<>();
+		HashMap<String, Object> models = new HashMap<>();
 		models.put("gridItem", dtos);
 
 		Integer currentCustomer = currentCustomerId;
@@ -79,11 +77,11 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final CustomerDTO formModel, final BindingResult result) {
+	public String save(@Valid @ModelAttribute("formModel") CustomerDTO formModel, BindingResult result) {
 		if (result.hasErrors()) {
 			return "participant.edit";
 		} else {
-			final ICustomer entity = fromDTOConverter.apply(formModel);
+			ICustomer entity = fromDTOConverter.apply(formModel);
 
 			customerService.save(entity);
 			return "redirect:/participant";
@@ -91,29 +89,28 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 	}
 
 	@RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-	public String delete(@PathVariable(name = "id", required = true) final Integer id) {
+	public String delete(@PathVariable(name = "id", required = true) Integer id) {
 		customerService.delete(id);
 		userAccountService.delete(id);
 		return "redirect:/participant";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) final Integer id,
-			HttpServletRequest req) {
-		final ICustomer dbModel = customerService.get(id);
-		final CustomerDTO dto = toDTOConverter.apply(dbModel);
-		final HashMap<String, Object> hashMap = new HashMap<>();
+	public ModelAndView viewDetails(@PathVariable(name = "id", required = true) Integer id, HttpServletRequest req) {
+		ICustomer dbModel = customerService.get(id);
+		CustomerDTO dto = toDTOConverter.apply(dbModel);
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		req.getAttribute("referer");
 		return new ModelAndView("participant.info", hashMap);
 	}
 
 	@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@PathVariable(name = "id", required = true) final Integer id, HttpServletRequest req) {
+	public ModelAndView edit(@PathVariable(name = "id", required = true) Integer id, HttpServletRequest req) {
 
-		final CustomerDTO dto = toDTOConverter.apply(customerService.get(id));
+		CustomerDTO dto = toDTOConverter.apply(customerService.get(id));
 
-		final HashMap<String, Object> hashMap = new HashMap<>();
+		HashMap<String, Object> hashMap = new HashMap<>();
 		hashMap.put("formModel", dto);
 		loadComboboxesModels(hashMap);
 		String url = req.getHeader("referer");
@@ -121,9 +118,9 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 		return new ModelAndView("participant.edit", hashMap);
 	}
 
-	private void loadComboboxesModels(final Map<String, Object> hashMap) {
-		final List<Role> customerRolesList = Arrays.asList(Role.values());
-		final Map<String, String> eventTypesMap = customerRolesList.stream()
+	private void loadComboboxesModels(Map<String, Object> hashMap) {
+		List<Role> customerRolesList = Arrays.asList(Role.values());
+		Map<String, String> eventTypesMap = customerRolesList.stream()
 				.collect(Collectors.toMap(Role::name, Role::name));
 
 		hashMap.put("roleChoices", eventTypesMap);

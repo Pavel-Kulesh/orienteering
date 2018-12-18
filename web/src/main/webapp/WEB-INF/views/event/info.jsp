@@ -4,15 +4,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="mytaglib" uri="my-custom-tags-uri"%>
 <c:set var="baseUrl" value="${contextPath}/event" />
-<div class="row">
-	<div class="col s3"></div>
-	<div class="col s6">
-		<h4 class="header">
-			<mytaglib:i18n key="event.name" />
-			: ${formModel.name}
-		</h4>
-	</div>
-	<div class="col s3"></div>
+<div class="row center">
+	<h4 class="header">
+		<mytaglib:i18n key="event.name" />
+		: ${formModel.name}
+	</h4>
 </div>
 
 

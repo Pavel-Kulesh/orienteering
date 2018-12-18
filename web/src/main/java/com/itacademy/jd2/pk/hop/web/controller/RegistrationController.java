@@ -48,7 +48,7 @@ public class RegistrationController {
 	private CountryToDTOConverter countryToDTO;
 	private CityToDTOConverter cityToDTO;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
 
 	@Autowired
 	public RegistrationController(AccountConverterFormFromDTO accountConverterFormDTO,
@@ -68,7 +68,7 @@ public class RegistrationController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm(HttpServletRequest req) {
-		final Map<String, Object> hashMap = new HashMap<>();
+		Map<String, Object> hashMap = new HashMap<>();
 
 		hashMap.put("formModel", new RegFormDTO());
 		String url = req.getHeader("referer");
@@ -78,13 +78,13 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("formModel") final RegFormDTO formModel, final BindingResult result) {
+	public String save(@Valid @ModelAttribute("formModel") RegFormDTO formModel, BindingResult result) {
 		if (result.hasErrors()) {
 			return "registration";
 		} else {
 
-			final IUserAccount userAccount = accountConverterFormDTO.apply(formModel);
-			final ICustomer customer = customerConverterFormDTO.apply(formModel);
+			IUserAccount userAccount = accountConverterFormDTO.apply(formModel);
+			ICustomer customer = customerConverterFormDTO.apply(formModel);
 			registerService.saveRegisterData(customer, userAccount);
 
 			LOGGER.info("create userAccont + customer sucsess");
@@ -92,11 +92,11 @@ public class RegistrationController {
 		}
 	}
 
-	private void loadComboboxesModels(final Map<String, Object> hashMap) {
+	private void loadComboboxesModels(Map<String, Object> hashMap) {
 
-		final List<ICity> cities = cityService.getAll();
+		List<ICity> cities = cityService.getAll();
 
-		final Map<Integer, String> citiesMap = cities.stream().collect(Collectors.toMap(ICity::getId, ICity::getName));
+		Map<Integer, String> citiesMap = cities.stream().collect(Collectors.toMap(ICity::getId, ICity::getName));
 
 		hashMap.put("cityChoices", citiesMap);
 
@@ -112,10 +112,10 @@ public class RegistrationController {
 
 	@RequestMapping(value = "/cities", method = RequestMethod.GET)
 	public ResponseEntity<List<CityDTO>> getCities(
-			@RequestParam(name = "countryId", required = true) final Integer countryId) {
+			@RequestParam(name = "countryId", required = true) Integer countryId) {
 
 		List<ICity> citiesByCountry = cityService.getByCountry(countryId);
-		final List<CityDTO> cities = citiesByCountry.stream().map(cityToDTO).collect(Collectors.toList());
+		List<CityDTO> cities = citiesByCountry.stream().map(cityToDTO).collect(Collectors.toList());
 
 		return new ResponseEntity<List<CityDTO>>(cities, HttpStatus.OK);
 	}

@@ -18,10 +18,6 @@ public class PointServiceTest extends AbstractTest {
 	@Test
 	public void testCreated() {
 		IPoint entity = saveNewPoint();
-		// entity.setDiffTime(null);
-		// check code => created + updated some times can be null
-		// System.out.println(entity.getId());
-
 		IPoint entityFromDb = pointService.get(entity.getId());
 
 		assertNotNull(entityFromDb);
@@ -32,7 +28,6 @@ public class PointServiceTest extends AbstractTest {
 		assertNotNull(entityFromDb.getCreated());
 		assertNotNull(entityFromDb.getUpdated());
 		assertEquals(entity.getId(), entityFromDb.getId());
-	//	assertEquals(entity.getRoute().getId(), entityFromDb.getRoute().getId());
 		assertEquals(entityFromDb.getLatitude(), entityFromDb.getLatitude());
 		assertEquals(entity.getLongitude(), entityFromDb.getLongitude());
 		assertEquals(entity.getCreated(), entityFromDb.getCreated());
@@ -111,18 +106,15 @@ public class PointServiceTest extends AbstractTest {
 	public void testDeleteById() {
 
 		IPoint point = saveNewPoint();
-		System.out.println(point.getRoute().getId() + "--------------route_id");
 		pointService.delete(point.getRoute().getId());
 		List<IPoint> allEntities = pointService.getAll();
 
 		boolean idExist = false;
-
 		for (IPoint entity : allEntities) {
 			if (entity.getRoute().getId().equals(point.getRoute().getId())) {
 				idExist = true;
 			}
 		}
-
 		assertFalse(idExist);
 
 	}

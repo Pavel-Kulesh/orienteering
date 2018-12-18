@@ -38,20 +38,16 @@ public class MailServiceImpl implements IMailService {
 				return new PasswordAuthentication(smtpPropertiesHolder.getUser(), smtpPropertiesHolder.getPassword());
 			}
 		});
-
 		try {
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(smtpPropertiesHolder.getFrom()));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("kuper55@list.ru"));
 			// message.setRecipients(Message.RecipientType.TO,
-			// InternetAddress.parse(email));
-
+			// InternetAddress.parse("kuper55@list.ru"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject("Testing  Subject");
 			message.setText("Dear Friend," + "\n\n u reg on Training Orienteering service!");
-
 			Transport.send(message);
-
 			LOGGER.info("send mail-ok");
 
 		} catch (MessagingException e) {

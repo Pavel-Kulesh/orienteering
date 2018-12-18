@@ -26,7 +26,6 @@ public class NewsServiceTest extends AbstractTest {
 		assertEquals(entity.getId(), entityFromDb.getId());
 		assertEquals(entity.getInfo(), entityFromDb.getInfo());
 		assertTrue(entityFromDb.getCreated().equals(entityFromDb.getUpdated()));
-
 	}
 
 	@Test
@@ -84,7 +83,6 @@ public class NewsServiceTest extends AbstractTest {
 	public void testDeleteAll() {
 		saveNewNews();
 		newsService.deleteAll();
-
 		assertEquals(0, newsService.getAll().size());
 	}
 

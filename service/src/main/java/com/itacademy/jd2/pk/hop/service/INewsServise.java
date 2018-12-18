@@ -11,10 +11,13 @@ public interface INewsServise {
 	INews get(Integer id);
 
 	List<INews> getAll();
+
 	@Transactional
 	void save(INews entity);
+
 	@Transactional
 	void delete(Integer id);
+
 	@Transactional
 	void deleteAll();
 

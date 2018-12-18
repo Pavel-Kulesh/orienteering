@@ -16,12 +16,10 @@ import com.itacademy.jd2.pk.hop.service.IUserAccountService;
 public class RegisterServiceImpl implements IRegisterService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RegisterServiceImpl.class);
-
 	private ICustomerService customerService;
 	private IUserAccountService userAccountService;
 	private IMailService mailServise;
 
-	
 	@Autowired
 	public RegisterServiceImpl(ICustomerService customerService, IUserAccountService userAccountService,
 			IMailService sendMailServise) {
@@ -43,5 +41,4 @@ public class RegisterServiceImpl implements IRegisterService {
 	public void setMailServise(IMailService mailServise) {
 		this.mailServise = mailServise;
 	}
-
 }
