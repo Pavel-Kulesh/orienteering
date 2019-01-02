@@ -82,7 +82,6 @@ public class ParticipantController extends AbstractController<CustomerDTO> {
 			return "participant.edit";
 		} else {
 			ICustomer entity = fromDTOConverter.apply(formModel);
-
 			customerService.save(entity);
 			return "redirect:/participant";
 		}

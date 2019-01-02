@@ -54,7 +54,9 @@ public class CustomerServiseImpl implements ICustomerService {
 			LOGGER.info("new customer created: {}", entity);
 		} else {
 			dao.update(entity);
-			userAccDao.update(entity.getUserAccount());
+			if (entity.getUserAccount() != null) {
+				userAccDao.update(entity.getUserAccount());
+			}
 			LOGGER.debug("customer updated: {}", entity);
 		}
 

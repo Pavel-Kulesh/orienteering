@@ -38,10 +38,15 @@ public class CustomerFromDTOConverter implements Function<CustomerDTO, ICustomer
 		entity.setSurname(dto.getSurname());
 		entity.setPhone(dto.getPhone());
 		ICity city = cityService.get(dto.getCityId());
-		IUserAccount userAccount = userAccountService.get(dto.getId());
-		userAccount.setRole(dto.getRole());
-		entity.setUserAccount(userAccount);
 		entity.setCity(city);
+
+		if (dto.getRole() != null) {
+			IUserAccount userAccount = userAccountService.get(dto.getId());
+			userAccount.setRole(dto.getRole());
+			userAccount.setCustomer(entity);
+			entity.setUserAccount(userAccount);
+		}
+
 		return entity;
 	}
 
