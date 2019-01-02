@@ -10,7 +10,6 @@
         </c:otherwise>
     </c:choose>
 </h4>
-
 <form:form method="POST" action="${baseUrl}" modelAttribute="formModel">
     <div class="col s3"></div>
     <form:input path="id" type="hidden" />
